@@ -30,9 +30,35 @@
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="tipo" id="tipo">
-									<option value="1" selected="">Tipo 1</option>
-									<option value="2">Tipo 2</option>
+									<option value="1" selected="">Ingreso</option>
+									<option value="2">Egreso</option>
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" >Cuenta *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="cuenta_id" id="cuenta_id">
+									<option value="0">Seleccione</option>
+									<?php foreach($cuentas as $cuenta){?>
+									<option value="<?php echo $cuenta->id; ?>"><?php echo $cuenta->cuenta." - ".$cuenta->numero; ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-2 control-label" >Fecha</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="fecha" maxlength="10" id="fecha" style="width:30%"/>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-2 control-label" >Descripción</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="descripcion" maxlength="250" id="descripcion"/>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-2 control-label" >Referencia</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="referencia" maxlength="100" id="referencia"/>
 							</div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Observaciones</label>
@@ -44,15 +70,6 @@
 							<label class="col-sm-2 control-label">Monto *</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" maxlength="11" name="monto" id="monto">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" >Estatus *</label>
-							<div class="col-sm-10">
-								<select class="form-control m-b" name="status" id="status">
-									<option value="1" selected="">Activo</option>
-									<option value="0">Inactivo</option>
-								</select>
 							</div>
 						</div>
 						<div class="form-group">
@@ -80,6 +97,13 @@ $(document).ready(function(){
         url = '<?php echo base_url() ?>fondo_personal/';
         window.location = url;
     });
+	
+	$('#fecha').datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        autoclose: true,
+        endDate: 'today'
+    })
     
     $("#monto").numeric(); // Sólo permite valores numéricos
 
@@ -87,11 +111,25 @@ $(document).ready(function(){
 
         e.preventDefault();  // Para evitar que se envíe por defecto
 
-        if ($('#monto').val().trim() === "") {
+        if ($('#cuenta_id').val() == "0") {
+			
+			swal("Disculpe,", "para continuar debe seleccionar la cuenta");
+			$('#cuenta_id').focus();
+			$('#cuenta_id').parent('div').addClass('has-error');
+			
+        } else if ($('#fecha').val().trim() === ""){
+			
+			swal("Disculpe,", "para continuar debe ingresar la fecha");
+			$('#fecha').focus();
+			$('#fecha').parent('div').addClass('has-error');
+			
+		} else if ($('#monto').val().trim() === ""){
+			
 			swal("Disculpe,", "para continuar debe ingresar el monto");
+			$('#monto').focus();
 			$('#monto').parent('div').addClass('has-error');
 			
-        } else {
+		} else {
 
             $.post('<?php echo base_url(); ?>CFondoPersonal/add', $('#form_fondo_personal').serialize(), function (response) {
 				if (response['response'] == 'error') {

@@ -46,13 +46,29 @@
                                             <?php echo $fondo->usuario; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->tipo; ?>
+                                            <?php
+                                            if($fondo->tipo == 1){
+												echo "<span style='color:#16987E;'>Ingreso</span>";
+											}else if($fondo->tipo == 2){
+												echo "<span style='color:#D33333;'>Egreso</span>";
+											}else{
+												echo "";
+											}
+                                            ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->monto; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->status; ?>
+                                            <?php
+                                            if($fondo->status == 1){
+												echo "<span style='color:#16987E;'>Validado</span>";
+											}else if($fondo->status == 0){
+												echo "<span style='color:#D33333;'>Pendiente</span>";
+											}else{
+												echo "";
+											}
+                                            ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->observaciones; ?>
