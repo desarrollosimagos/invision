@@ -15,7 +15,17 @@ class Migration_create_table_fondo_personal extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
+				"fecha" => array(
+					"type" => "VARCHAR",
+					"constraint" => 20,
+					"null" => TRUE
+				),
 				"user_id" => array(
+					"type" => "INT",
+					"constraint" => 11,
+					"null" => TRUE
+				),
+				"cuenta_id" => array(
 					"type" => "INT",
 					"constraint" => 11,
 					"null" => TRUE
@@ -23,6 +33,16 @@ class Migration_create_table_fondo_personal extends CI_Migration
 				"tipo" => array(
 					"type" => "INT",
 					"constraint" => 11,
+					"null" => TRUE
+				),
+				"descripcion" => array(
+					"type" => "VARCHAR",
+					"constraint" => 250,
+					"null" => TRUE
+				),
+				"referencia" => array(
+					"type" => "VARCHAR",
+					"constraint" => 100,
 					"null" => TRUE
 				),
 				"observaciones" => array(
@@ -53,6 +73,8 @@ class Migration_create_table_fondo_personal extends CI_Migration
 		$this->dbforge->add_key('id', TRUE);  // Establecemos el id como primary_key
 		
 		$this->dbforge->add_key('user_id');  // Establecemos el user_id como key
+		
+		$this->dbforge->add_key('cuenta_id');  // Establecemos la cuenta_id como key
 		
 		$this->dbforge->create_table('fondo_personal', TRUE);
 		

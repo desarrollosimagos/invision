@@ -29,9 +29,40 @@
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="tipo" id="tipo">
-									<option value="1">Tipo 1</option>
-									<option value="2">Tipo 2</option>
+									<option value="1">Ingreso</option>
+									<option value="2">Egreso</option>
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" >Cuenta *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="cuenta_id" id="cuenta_id">
+									<option value="0">Seleccione</option>
+									<?php foreach($cuentas as $cuenta){?>
+									<option value="<?php echo $cuenta->id; ?>"><?php echo $cuenta->cuenta." - ".$cuenta->numero; ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-2 control-label" >Fecha</label>
+							<div class="col-sm-10">
+								<?php 
+								$fecha = $editar[0]->fecha;
+								$fecha = explode("-", $fecha);
+								$fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+								?>
+								<input type="text" class="form-control" name="fecha" maxlength="10" id="fecha" value="<?php echo $fecha; ?>"/>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-2 control-label" >Descripción</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="descripcion" maxlength="250" id="descripcion" value="<?php echo $editar[0]->descripcion; ?>"/>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-2 control-label" >Referencia</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="referencia" maxlength="100" id="referencia" value="<?php echo $editar[0]->referencia; ?>"/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -47,17 +78,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" >Estatus *</label>
-							<div class="col-sm-10">
-								<select class="form-control m-b" name="status" id="status">
-									<option value="1">Activo</option>
-									<option value="0">Inactivo</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-2">
 								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->tipo ?>"/>
+								 <input id="id_cuenta" type="hidden" value="<?php echo $editar[0]->cuenta_id ?>"/>
 								 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
 								 <input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
 								<button class="btn btn-white" id="volver" type="button">Volver</button>
@@ -84,8 +107,16 @@ $(document).ready(function(){
         window.location = url;
     });
     
+    $('#fecha').datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        autoclose: true,
+        endDate: 'today'
+    })
+    
     $("#monto").numeric(); // Sólo permite valores numéricos
 	
+	$("#cuenta_id").select2('val', $("#id_cuenta").val());
 	$("#tipo").select2('val', $("#id_tipo").val());
 	$("#status").select2('val', $("#id_status").val());
 
@@ -93,11 +124,25 @@ $(document).ready(function(){
 
         e.preventDefault();  // Para evitar que se envíe por defecto
 
-        if ($('#monto').val().trim() === "") {
+        if ($('#cuenta_id').val() == "0") {
+			
+			swal("Disculpe,", "para continuar debe seleccionar la cuenta");
+			$('#cuenta_id').focus();
+			$('#cuenta_id').parent('div').addClass('has-error');
+			
+        } else if ($('#fecha').val().trim() === ""){
+			
+			swal("Disculpe,", "para continuar debe ingresar la fecha");
+			$('#fecha').focus();
+			$('#fecha').parent('div').addClass('has-error');
+			
+		} else if ($('#monto').val().trim() === ""){
+			
 			swal("Disculpe,", "para continuar debe ingresar el monto");
+			$('#monto').focus();
 			$('#monto').parent('div').addClass('has-error');
 			
-        } else {
+		} else {
 
             $.post('<?php echo base_url(); ?>CFondoPersonal/update', $('#form_fondo_personal').serialize(), function (response) {
 				if (response['response'] == 'error') {

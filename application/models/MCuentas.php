@@ -39,7 +39,7 @@ class MCuentas extends CI_Model {
     }
 
     // Public method to obtain the cuentas by id
-    public function obtenerFondoPersonal($id) {
+    public function obtenerCuenta($id) {
 		
         $this->db->where('id', $id);
         $query = $this->db->get('cuentas');
