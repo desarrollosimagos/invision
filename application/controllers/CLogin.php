@@ -170,7 +170,7 @@ Class CLogin extends CI_Controller {
 			if($exists_profile){
 			
 				$perfil = $this->MPerfil->obtener();
-				// Importamos los perfiles básicos si éstos no existe
+				// Importamos los perfiles básicos si éstos no existen
 				if(count($perfil) == 0){
 				
 					$this->import_profiles();
@@ -191,16 +191,22 @@ Class CLogin extends CI_Controller {
 					// Importamos las acciones básicas
 					$this->import_actions();
 					
-					// Asociamos la acción 1 (HOME) al perfil ADMINISTRADOR
-					$data_assoc = array(
-						'profile_id' => 1,
-						'action_id' => 1,
-						'parameter_permit' => '777',
-						'd_create' => date('Y-m-d H:i:s'),
-						'd_update' => date('Y-m-d H:i:s')
-					);
+					// Buscamos los perfiles existentes y los asociamos a la acción 1 (HOME)
+					$perfiles = $this->MPerfil->obtener();
 					
-					$insert_assoc = $this->MPerfil->insert_action($data_assoc);
+					foreach($perfiles as $perfil){
+						
+						$data_assoc = array(
+							'profile_id' => $perfil->id,
+							'action_id' => 1,
+							'parameter_permit' => '7777',
+							'd_create' => date('Y-m-d H:i:s'),
+							'd_update' => date('Y-m-d H:i:s')
+						);
+						
+						$insert_assoc = $this->MPerfil->insert_action($data_assoc);
+						
+					}
 					
 					// Asociamos las acciones diferentes a 1 (HOME) al usuario 1 (admin@gmail.com).
 					// Primero verificamos si existe la tabla 'permissions'
@@ -220,7 +226,7 @@ Class CLogin extends CI_Controller {
 									$data_assoc2 = array(
 										'user_id' => 1,
 										'action_id' => $accion->id,
-										'parameter_permit' => '777',
+										'parameter_permit' => '7777',
 										'd_create' => date('Y-m-d H:i:s'),
 										'd_update' => date('Y-m-d H:i:s')
 									);

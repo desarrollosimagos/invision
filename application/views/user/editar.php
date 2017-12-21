@@ -131,6 +131,7 @@
 															<th>Crear</th>
 															<th>Editar</th>
 															<th>Eliminar</th>
+															<th>Validar</th>
 														</tr>
 														</thead>
 														<tbody>
@@ -142,6 +143,7 @@
 																		$parameter1 = $permission->parameter_permit[0];
 																		$parameter2 = $permission->parameter_permit[1];
 																		$parameter3 = $permission->parameter_permit[2];
+																		$parameter4 = $permission->parameter_permit[3];
 																		?>
 																		<tr id="<?php echo $id;?>">
 																			<td><?php echo $accion->id; ?></td>
@@ -157,6 +159,11 @@
 																				<td><input type="checkbox" id="" checked="checked"></td>
 																			<?php } ?>
 																			<?php if($parameter3 == '0'){?>
+																				<td><input type="checkbox" id=""></td>
+																			<?php }else{ ?>
+																				<td><input type="checkbox" id="" checked="checked"></td>
+																			<?php } ?>
+																			<?php if($parameter4 == '0'){?>
 																				<td><input type="checkbox" id=""></td>
 																			<?php }else{ ?>
 																				<td><input type="checkbox" id="" checked="checked"></td>

@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class MFondoPersonal extends CI_Model {
+class MResumen extends CI_Model {
 
 
     public function __construct() {
@@ -31,15 +31,6 @@ class MFondoPersonal extends CI_Model {
         else
             return $query->result();
             
-    }
-
-    // Public method to insert the data
-    public function insert($datos) {
-		
-		$result = $this->db->insert("fondo_personal", $datos);
-		$id = $this->db->insert_id();
-		return $id;
-        
     }
 
     // Public method to obtain the fondo_personal by id

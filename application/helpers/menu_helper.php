@@ -131,6 +131,7 @@ if (!function_exists('validar_acciones')) {
 								$crear = $permisos[0];
 								$editar = $permisos[1];
 								$borrar = $permisos[2];
+								$validar = $permisos[3];
 								
 								// Bloqueamos los elementos que correspondan
 								if($crear == '0'){
@@ -153,6 +154,14 @@ if (!function_exists('validar_acciones')) {
 									 $(document).ready(function () {
 										$('.fa-trash-o').hide();
 										$('.quitar').hide();
+									 });
+									</script>";
+								}
+								if($validar == '0'){
+									echo "<script>
+									 $(document).ready(function () {
+										$('.fa-check').hide();
+										$('.validar').hide();
 									 });
 									</script>";
 								}
@@ -171,6 +180,7 @@ if (!function_exists('validar_acciones')) {
 								$crear = $permisos[0];
 								$editar = $permisos[1];
 								$borrar = $permisos[2];
+								$validar = $permisos[3];
 								
 								// Bloqueamos los elementos que correspondan
 								if($crear == '0'){
@@ -193,6 +203,14 @@ if (!function_exists('validar_acciones')) {
 									 $(document).ready(function () {
 										$('.fa-trash-o').hide();
 										$('.quitar').hide();
+									 });
+									</script>";
+								}
+								if($validar == '0'){
+									echo "<script>
+									 $(document).ready(function () {
+										$('.fa-check').hide();
+										$('.validar').hide();
 									 });
 									</script>";
 								}

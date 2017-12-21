@@ -50,7 +50,7 @@ class CPerfil extends CI_Controller {
 			$data_action = array(
 				'profile_id'=>$result, 
 				'action_id'=>$action_class[0]->id, 
-				'parameter_permit'=>'777',
+				'parameter_permit'=>'7777',
 				'd_create' => date('Y-m-d H:i:s'),
 				'd_update' => date('Y-m-d H:i:s')
 			);
@@ -60,7 +60,7 @@ class CPerfil extends CI_Controller {
 				$data_action = array(
 					'profile_id'=>$result, 
 					'action_id'=>$action_id, 
-					'parameter_permit'=>'777',
+					'parameter_permit'=>'7777',
 					'd_create' => date('Y-m-d H:i:s'),
 					'd_update' => date('Y-m-d H:i:s')
 				);
@@ -118,7 +118,7 @@ class CPerfil extends CI_Controller {
 					$data_action = array(
 						'profile_id'=>$data['id'], 
 						'action_id'=>$action_id, 
-						'parameter_permit'=>'777',
+						'parameter_permit'=>'7777',
 						'd_create' => date('Y-m-d H:i:s'),
 						'd_update' => date('Y-m-d H:i:s')
 					);
@@ -150,7 +150,7 @@ class CPerfil extends CI_Controller {
 			
 			foreach ($data_permisos as $campo){
 				// Concatenamos los permisos como una cadena
-				$parameter = $campo['crear'].$campo['editar'].$campo['eliminar'];
+				$parameter = $campo['crear'].$campo['editar'].$campo['eliminar'].$campo['validar'];
 				
 				// Nuevos datos de la acción asociada
 				$data_ps = array(

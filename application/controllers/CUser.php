@@ -69,7 +69,11 @@ class CUser extends CI_Controller {
 			if($this->input->post('actions_ids') != ""){
 				// Inserción de las relaciones usuario-tienda				
 				foreach($this->input->post('actions_ids') as $action_id){
-					$data = array('user_id'=>$result, 'action_id'=>$action_id, 'parameter_permit'=>'777');
+					if($this->input->post('profile_id') == 1){
+						$data = array('user_id'=>$result, 'action_id'=>$action_id, 'parameter_permit'=>'7777');
+					}else{
+						$data = array('user_id'=>$result, 'action_id'=>$action_id, 'parameter_permit'=>'7700');
+					}
 					$this->MUser->insert_action($data);
 				}
 			}
@@ -182,7 +186,11 @@ class CUser extends CI_Controller {
 					$check_associated = $this->MUser->obtener_permiso_ids($data['id'], $action_id);
 					//~ echo count($check_associated);
 					if(count($check_associated) == 0){
-						$data_action = array('user_id'=>$data['id'], 'action_id'=>$action_id, 'parameter_permit'=>'777');
+						if($this->input->post('profile_id') == 1){
+							$data_action = array('user_id'=>$data['id'], 'action_id'=>$action_id, 'parameter_permit'=>'7777');
+						}else{
+							$data_action = array('user_id'=>$data['id'], 'action_id'=>$action_id, 'parameter_permit'=>'7700');
+						}
 						$this->MUser->insert_action($data_action);
 					}
 					// Vamos colectando los ids recorridos
@@ -211,7 +219,7 @@ class CUser extends CI_Controller {
 				
 				foreach ($data_permisos as $campo){
 					// Concatenamos los permisos como una cadena
-					$parameter = $campo['crear'].$campo['editar'].$campo['eliminar'];
+					$parameter = $campo['crear'].$campo['editar'].$campo['eliminar'].$campo['validar'];
 					
 					// Nuevos datos de la acción asociada
 					$data_ps = array(

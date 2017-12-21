@@ -92,6 +92,11 @@ $route['cuentas'] = 'CCuentas';
 $route['cuentas/register'] = 'CCuentas/register';
 $route['cuentas/edit/(:num)'] = 'CCuentas/edit/$1';
 $route['cuentas/delete/(:num)'] = 'CCuentas/delete/$1';
+/*   Resumen */
+$route['resumen'] = 'CResumen';
+$route['resumen/register'] = 'CResumen/register';
+$route['resumen/edit/(:num)'] = 'CResumen/edit/$1';
+$route['resumen/delete/(:num)'] = 'CResumen/delete/$1';
 
 
 /*   Migraciones */

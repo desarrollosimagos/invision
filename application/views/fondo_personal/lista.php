@@ -30,9 +30,12 @@
                                     <th>Tipo</th>
                                     <th>Monto</th>
                                     <th>Estatus</th>
+                                    <th>Descripción</th>
+                                    <th>Referencia</th>
                                     <th>Observaciones</th>
                                     <th>Editar</th>
                                     <th>Eliminar</th>
+                                    <th>Validar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,14 +74,22 @@
                                             ?>
                                         </td>
                                         <td>
+                                            <?php echo $fondo->descripcion; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $fondo->referencia; ?>
+                                        </td>
+                                        <td>
                                             <?php echo $fondo->observaciones; ?>
                                         </td>
                                         <td style='text-align: center'>
                                             <a href="<?php echo base_url() ?>fondo_personal/edit/<?= $fondo->id; ?>" title="Editar" style='color: #1ab394'><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
-                                            
                                             <a class='borrar' id='<?php echo $fondo->id; ?>' style='color: #1ab394' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
+                                        </td>
+                                        <td style='text-align: center'>
+                                            <a class='validar' id='<?php echo $fondo->id; ?>' style='color: #1ab394' title='Validar'><i class="fa fa-check-circle fa-2x"></i></a>
                                         </td>
                                     </tr>
                                     <?php $i++ ?>
@@ -133,6 +144,9 @@ $(document).ready(function(){
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "none", "sWidth": "30%"},
+            {"sClass": "none", "sWidth": "30%"},
+            {"sClass": "none", "sWidth": "30%"},
+            {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
             {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
             {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false}
         ]

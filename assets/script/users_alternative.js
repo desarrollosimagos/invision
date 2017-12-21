@@ -18,6 +18,7 @@ $(document).ready(function() {
            {"sClass": "registro center", "sWidth": "20%"},
            {"sClass": "registro center", "sWidth": "10%"},
            {"sClass": "registro center", "sWidth": "10%"},
+           {"sClass": "registro center", "sWidth": "10%"},
            {"sClass": "registro center", "sWidth": "10%"}
        ]       
     });   
@@ -297,7 +298,7 @@ $(document).ready(function() {
 			var campos= "";
 			var data = [];
 			$("#tab_acciones tbody tr").each(function () {
-				var campo0, campo1, campo2, campo3, campo4, campo5;
+				var campo0, campo1, campo2, campo3, campo4, campo5, campo6;
 				//~ campo0 = $(this).attr('id');  // Id del usuario
 				campo1 = $(this).find('td').eq(0).text();
 				campo2 = $(this).find('td').eq(1).text();
@@ -316,8 +317,13 @@ $(document).ready(function() {
 				}else{
 					campo5 = '0';
 				}
+				if($(this).find('input').eq(3).is(':checked')){
+					campo6 = '7';
+				}else{
+					campo6 = '0';
+				}
 				
-				campos = { "id" : campo1, "accion" : campo2, "crear" : campo3, "editar" : campo4, "eliminar" : campo5 },
+				campos = { "id" : campo1, "accion" : campo2, "crear" : campo3, "editar" : campo4, "eliminar" : campo5, "validar" : campo6 },
 				data.push(campos);
 			});
 

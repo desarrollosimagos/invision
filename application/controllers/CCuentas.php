@@ -60,7 +60,7 @@ class CCuentas extends CI_Controller {
 		
 		$this->load->view('base');
         $data['id'] = $this->uri->segment(3);
-        $data['editar'] = $this->MCuentas->obtenerFondoPersonal($data['id']);
+        $data['editar'] = $this->MCuentas->obtenerCuenta($data['id']);
         $this->load->view('cuentas/editar', $data);
 		$this->load->view('footer');
     }
