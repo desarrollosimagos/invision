@@ -92,6 +92,7 @@
 								<th data-hide="phone" >Tipo</th>
 								<th data-hide="phone" >Monto</th>
 								<th data-hide="phone" >Estatus</th>
+								<th data-hide="all" >Cuenta</th>
 								<th data-hide="all" >Descripción</th>
 								<th data-hide="all" >Referencia</th>
 								<th data-hide="all" >Observaciones</th>
@@ -134,6 +135,9 @@
 										?>
 									</td>
 									<td>
+										<?php echo $fondo->cuenta." - ".$fondo->numero; ?>
+									</td>
+									<td>
 										<?php echo $fondo->descripcion; ?>
 									</td>
 									<td>
@@ -143,7 +147,24 @@
 										<?php echo $fondo->observaciones; ?>
 									</td>
 									<td style='text-align: center'>
-										<a class='validar' id='<?php echo $fondo->id; ?>' style='color: #1ab394' title='Validar'><i class="fa fa-check-circle fa-2x"></i></a>
+										<?php
+										$class = "";
+										$class_icon_validar = "";
+										$disabled = "";
+										$cursor_style = "";
+										if($fondo->status == 1){
+											$class_icon_validar = "fa-check-circle";
+											$disabled = "disabled='true'";
+											$cursor_style = "cursor:default";
+										}else{
+											$class = "validar";
+											$class_icon_validar = "fa-check-circle-o";
+											$cursor_style = "cursor:pointer";
+										}
+										?>
+										<a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='color: #1ab394;<?php echo $cursor_style; ?>' title='Validar'>
+											<i class="fa <?php echo $class_icon_validar; ?> fa-2x"></i>
+										</a>
 									</td>
 								</tr>
 								<?php $i++ ?>
