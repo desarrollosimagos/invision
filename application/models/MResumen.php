@@ -35,6 +35,43 @@ class MResumen extends CI_Model {
     }
 
     // Public method to obtain the fondo_personal by id
+    public function capitalPendiente() {
+		if($this->session->userdata('logged_in')['profile_id'] != 1){
+			$this->db->select_sum('monto');
+			$this->db->where('status', 0);
+			$this->db->where('user_id', $this->session->userdata('logged_in')['id']);
+		}else{
+			$this->db->select_sum('monto');
+			$this->db->where('status', 0);			
+		}
+        $query = $this->db->get('fondo_personal');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+            
+    }
+
+    // Public method to obtain the fondo_personal by id
+    public function capitalAprobado() {
+		
+		if($this->session->userdata('logged_in')['profile_id'] != 1){
+			$this->db->select_sum('monto');
+			$this->db->where('status', 1);
+			$this->db->where('user_id', $this->session->userdata('logged_in')['id']);
+		}else{
+			$this->db->select_sum('monto');
+			$this->db->where('status', 1);
+		}
+        $query = $this->db->get('fondo_personal');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+            
+    }
+
+    // Public method to obtain the fondo_personal by id
     public function obtenerFondoPersonal($id) {
 		
         $this->db->where('id', $id);
