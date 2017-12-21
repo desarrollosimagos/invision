@@ -74,6 +74,7 @@
 															<th>Crear</th>
 															<th>Editar</th>
 															<th>Eliminar</th>
+															<th>Validar</th>
 														</tr>
 														</thead>
 														<tbody>
@@ -85,6 +86,7 @@
 																		$parameter1 = $profile_accion->parameter_permit[0];
 																		$parameter2 = $profile_accion->parameter_permit[1];
 																		$parameter3 = $profile_accion->parameter_permit[2];
+																		$parameter4 = $profile_accion->parameter_permit[3];
 																		?>
 																		<tr id="<?php echo $id;?>">
 																			<td><?php echo $accion->id; ?></td>
@@ -98,7 +100,13 @@
 																				<td><input type="checkbox" id=""></td>
 																			<?php }else{ ?>
 																				<td><input type="checkbox" id="" checked="checked"></td>
-																			<?php } ?><?php if($parameter3 == '0'){?>
+																			<?php } ?>
+																			<?php if($parameter3 == '0'){?>
+																				<td><input type="checkbox" id=""></td>
+																			<?php }else{ ?>
+																				<td><input type="checkbox" id="" checked="checked"></td>
+																			<?php } ?>
+																			<?php if($parameter4 == '0'){?>
 																				<td><input type="checkbox" id=""></td>
 																			<?php }else{ ?>
 																				<td><input type="checkbox" id="" checked="checked"></td>
@@ -157,6 +165,7 @@ $(document).ready(function(){
 		  "aoColumns": [
 			  {"sWidth": "1%"},
 			  {"sWidth": "10%"},
+			  {"sWidth": "4%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
 			  {"sWidth": "4%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
 			  {"sWidth": "4%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
 			  {"sWidth": "4%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false}
@@ -240,7 +249,7 @@ $(document).ready(function(){
 			var campos= "";
 			var data = [];
 			$("#tab_acciones tbody tr").each(function () {
-				var campo0, campo1, campo2, campo3, campo4, campo5;
+				var campo0, campo1, campo2, campo3, campo4, campo5, campo6;
 				//~ campo0 = $(this).attr('id');  // Id del perfil
 				campo1 = $(this).find('td').eq(0).text();
 				campo2 = $(this).find('td').eq(1).text();
@@ -259,8 +268,13 @@ $(document).ready(function(){
 				}else{
 					campo5 = '0';
 				}
+				if($(this).find('input').eq(3).is(':checked')){
+					campo6 = '7';
+				}else{
+					campo6 = '0';
+				}
 				
-				campos = { "id" : campo1, "accion" : campo2, "crear" : campo3, "editar" : campo4, "eliminar" : campo5 },
+				campos = { "id" : campo1, "accion" : campo2, "crear" : campo3, "editar" : campo4, "eliminar" : campo5, "validar" : campo6 },
 				data.push(campos);
 			});
 			
