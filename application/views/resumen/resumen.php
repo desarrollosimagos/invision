@@ -28,7 +28,7 @@
 					<div>
 						<div class="col-md-3 forum-info">
 							<span class="views-number">
-								<?php echo "0.0 $"; ?>
+								<?php echo (float)$capital_pendiente[0]->monto." $"; ?>
 							</span>
 							<div>
 								<small>Capital pendiente</small>
@@ -36,10 +36,10 @@
 						</div>
 						<div class="col-md-3 forum-info">
 							<span class="views-number">
-								<?php echo "0.0 $"; ?>
+								<?php echo (float)$capital_aprobado[0]->monto." $"; ?>
 							</span>
 							<div>
-								<small>CApital aprobado</small>
+								<small>Capital aprobado</small>
 							</div>
 						</div>
 						<div class="col-md-3 forum-info">
