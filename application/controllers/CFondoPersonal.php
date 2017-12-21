@@ -54,25 +54,25 @@ class CFondoPersonal extends CI_Controller {
         
         if ($result) {
 			
-			// Obtenemos los datos de la cuenta a actualizar
-			$data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
-			
-			// Sumamos o restamos el monto de la transacción
-			if($this->input->post('tipo') == 1){
-				$monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-			}else if($this->input->post('tipo') == 2){
-				$monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
-			}
-			
-			// Armamos los nuevos datos de la cuenta
-			$data_cuenta = array(
-				'id' => $this->input->post('cuenta_id'),
-				'monto' => $monto_cuenta,
-				'd_update' => date('Y-m-d H:i:s')
-			);
-			
-			// Actualizamos la cuenta
-			$update_cuenta = $this->MCuentas->update($data_cuenta);
+			//~ // Obtenemos los datos de la cuenta a actualizar
+			//~ $data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
+			//~ 
+			//~ // Sumamos o restamos el monto de la transacción
+			//~ if($this->input->post('tipo') == 1){
+				//~ $monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
+			//~ }else if($this->input->post('tipo') == 2){
+				//~ $monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
+			//~ }
+			//~ 
+			//~ // Armamos los nuevos datos de la cuenta
+			//~ $data_cuenta = array(
+				//~ 'id' => $this->input->post('cuenta_id'),
+				//~ 'monto' => $monto_cuenta,
+				//~ 'd_update' => date('Y-m-d H:i:s')
+			//~ );
+			//~ 
+			//~ // Actualizamos la cuenta
+			//~ $update_cuenta = $this->MCuentas->update($data_cuenta);
 
 			echo '{"response":"ok"}';
        
@@ -118,25 +118,25 @@ class CFondoPersonal extends CI_Controller {
         
         if ($result) {
 			
-			// Obtenemos los datos de la cuenta a actualizar
-			$data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
-			
-			// Sumamos o restamos el monto de la transacción
-			if($this->input->post('tipo') == 1){
-				$monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-			}else if($this->input->post('tipo') == 2){
-				$monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
-			}
-			
-			// Armamos los nuevos datos de la cuenta
-			$data_cuenta = array(
-				'id' => $this->input->post('cuenta_id'),
-				'monto' => $monto_cuenta,
-				'd_update' => date('Y-m-d H:i:s')
-			);
-			
-			// Actualizamos la cuenta
-			$update_cuenta = $this->MCuentas->update($data_cuenta);
+			//~ // Obtenemos los datos de la cuenta a actualizar
+			//~ $data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
+			//~ 
+			//~ // Sumamos o restamos el monto de la transacción
+			//~ if($this->input->post('tipo') == 1){
+				//~ $monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
+			//~ }else if($this->input->post('tipo') == 2){
+				//~ $monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
+			//~ }
+			//~ 
+			//~ // Armamos los nuevos datos de la cuenta
+			//~ $data_cuenta = array(
+				//~ 'id' => $this->input->post('cuenta_id'),
+				//~ 'monto' => $monto_cuenta,
+				//~ 'd_update' => date('Y-m-d H:i:s')
+			//~ );
+			//~ 
+			//~ // Actualizamos la cuenta
+			//~ $update_cuenta = $this->MCuentas->update($data_cuenta);
 			
 			echo '{"response":"ok"}';
 			
@@ -157,6 +157,47 @@ class CFondoPersonal extends CI_Controller {
         }
         
     }
+    
+    // Método para validar las transacciones de fondos personales
+    public function validar_transaccion(){
+		
+		// Armamos los nuevos datos de la transacción
+		$data_transaccion = array(
+			'id' => $this->input->post('id'),
+			'status' => 1,
+			'd_update' => date('Y-m-d H:i:s')
+		);
+		
+		// Actualizamos la cuenta
+		$update_transaccion = $this->MFondoPersonal->update($data_transaccion);
+		
+		// Obtenemos los datos de la cuenta a actualizar
+		$data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
+		
+		// Sumamos o restamos el monto de la transacción
+		if($this->input->post('tipo') == 1){
+			$monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
+		}else if($this->input->post('tipo') == 2){
+			$monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
+		}
+		
+		// Armamos los nuevos datos de la cuenta
+		$data_cuenta = array(
+			'id' => $this->input->post('cuenta_id'),
+			'monto' => $monto_cuenta,
+			'd_update' => date('Y-m-d H:i:s')
+		);
+		
+		// Actualizamos la cuenta
+		$update_cuenta = $this->MCuentas->update($data_cuenta);
+		
+		if($data_transaccion && $update_cuenta){
+			echo '{"response":"ok"}';
+		}else{
+			echo '{"response":"error"}';
+		}
+		
+	}
 	
 	public function ajax_fondo_personal()
     {                                          #Campo         #Tabla                #ID

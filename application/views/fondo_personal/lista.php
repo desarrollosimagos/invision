@@ -30,6 +30,7 @@
                                     <th>Tipo</th>
                                     <th>Monto</th>
                                     <th>Estatus</th>
+                                    <th>Cuenta</th>
                                     <th>Descripción</th>
                                     <th>Referencia</th>
                                     <th>Observaciones</th>
@@ -74,6 +75,9 @@
                                             ?>
                                         </td>
                                         <td>
+                                            <?php echo $fondo->cuenta." - ".$fondo->numero; ?>
+                                        </td>
+                                        <td>
                                             <?php echo $fondo->descripcion; ?>
                                         </td>
                                         <td>
@@ -89,7 +93,24 @@
                                             <a class='borrar' id='<?php echo $fondo->id; ?>' style='color: #1ab394' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a class='validar' id='<?php echo $fondo->id; ?>' style='color: #1ab394' title='Validar'><i class="fa fa-check-circle fa-2x"></i></a>
+											<?php
+											$class = "";
+											$class_icon_validar = "";
+											$disabled = "";
+											$cursor_style = "";
+											if($fondo->status == 1){
+												$class_icon_validar = "fa-check-circle";
+												$disabled = "disabled='true'";
+												$cursor_style = "cursor:default";
+											}else{
+												$class = "validar";
+												$class_icon_validar = "fa-check-circle-o";
+												$cursor_style = "cursor:pointer";
+											}
+											?>
+                                            <a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='color: #1ab394;<?php echo $cursor_style; ?>' title='Validar'>
+												<i class="fa <?php echo $class_icon_validar; ?> fa-2x"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     <?php $i++ ?>
@@ -146,13 +167,14 @@ $(document).ready(function(){
             {"sClass": "none", "sWidth": "30%"},
             {"sClass": "none", "sWidth": "30%"},
             {"sClass": "none", "sWidth": "30%"},
+            {"sClass": "none", "sWidth": "30%"},
             {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
             {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
             {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false}
         ]
     });
              
-         // Validacion para borrar
+    // Validacion para borrar
     $("table#tab_fondo_personal").on('click', 'a.borrar', function (e) {
         e.preventDefault();
         var id = this.getAttribute('id');
@@ -194,6 +216,65 @@ $(document).ready(function(){
                          });
                     }
                 });
+            } 
+        });
+    });
+    
+    
+    // Función para validar transacción
+    $("table#tab_fondo_personal").on('click', 'a.validar', function (e) {
+        e.preventDefault();
+        var id = this.getAttribute('id');
+        
+        var cuenta_id = id.split(';');
+        cuenta_id = cuenta_id[1];
+
+        var monto = id.split(';');
+        monto = monto[2];
+
+        var tipo = id.split(';');
+        tipo = tipo[3];
+
+        var id = id.split(';');
+        id = id[0];
+
+        swal({
+            title: "Validar transacción",
+            text: "¿Está seguro de valdiar la transacción?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Validar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: true
+          },
+        function(isConfirm){
+            if (isConfirm) {
+             
+                $.post('<?php echo base_url(); ?>fondo_personal/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo}, function (response) {
+
+                    if (response['response'] == 'error') {
+                       
+                         swal({ 
+                           title: "Disculpe,",
+                            text: "No se pudo validar la transacción, por favor consulte con su administrador",
+                             type: "warning" 
+                           },
+                           function(){
+                             
+                         });
+                    }else{
+                         swal({ 
+                           title: "Validado",
+                            text: "Transacción validada con exito",
+                             type: "success" 
+                           },
+                           function(){
+                             window.location.href = '<?php echo base_url(); ?>fondo_personal';
+                         });
+                    }
+                }, 'json');
             } 
         });
     });       

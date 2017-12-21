@@ -87,6 +87,7 @@ $route['fondo_personal'] = 'CFondoPersonal';
 $route['fondo_personal/register'] = 'CFondoPersonal/register';
 $route['fondo_personal/edit/(:num)'] = 'CFondoPersonal/edit/$1';
 $route['fondo_personal/delete/(:num)'] = 'CFondoPersonal/delete/$1';
+$route['fondo_personal/validar'] = 'CFondoPersonal/validar_transaccion';
 /*   Cuentas */
 $route['cuentas'] = 'CCuentas';
 $route['cuentas/register'] = 'CCuentas/register';
