@@ -19,6 +19,7 @@ class CResumen extends CI_Controller {
 	{
 		$this->load->view('base');
 		$data['listar'] = $this->MResumen->obtener();
+		$data['cuentas'] = $this->MCuentas->obtener();
 		$data['capital_pendiente'] = $this->MResumen->capitalPendiente();
 		$data['capital_aprobado'] = $this->MResumen->capitalAprobado();
 		$this->load->view('resumen/resumen', $data);

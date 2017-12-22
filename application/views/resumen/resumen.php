@@ -18,8 +18,9 @@
 <!-- Campo oculto que almacena el url base del proyecto -->
 <input type="hidden" id="base_url" value="<?php echo base_url(); ?>">
 
-<!-- Cuerpo de la sección de cuenta de twitter -->
 <div class="wrapper wrapper-content animated fadeInUp">
+	
+	<!-- Cuerpo de la sección de cuenta de twitter -->
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="contact-box">
@@ -64,12 +65,9 @@
 			</div>
 		</div>
 	</div>
-</div>
-<!-- Cierre del cuerpo de la sección de cuenta de twitter -->
-
-<!-- Cuerpo de la sección de perfiles asociados -->
-<div class="wrapper wrapper-content animated fadeInUp">
-
+	<!-- Cierre del cuerpo de la sección de cuenta de twitter -->
+	
+	<!-- Cuerpo de la sección de perfiles asociados -->
 	<div class="ibox">
 		<div class="ibox-title">
 			<h5>Transacciones</h5>
@@ -176,8 +174,86 @@
 			</div>
 		</div>
 	</div>
+	<!-- Cierre del cuerpo de la sección de perfiles asociados -->
+	
+	<?php if($this->session->userdata('logged_in')['profile_id'] == 1){?>
+	<!-- Cuerpo de la sección de cuentas -->
+	<div class="ibox">
+		<div class="ibox-title">
+			<h5>Cuentas</h5>
+		</div>
+		<div class="ibox-content">
+
+			<div class="project-list">
+				
+				<div class="table-responsive">
+					<table id="tab_fondo_personal" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny" >
+						<thead>
+							<tr>
+								<th>#</th>
+								<th data-hide="phone" >Cuenta</th>
+								<th data-hide="phone" >Número</th>
+								<th data-hide="phone" >Tipo</th>
+								<th data-hide="phone" >Monto</th>
+								<th data-hide="phone" >Estatus</th>
+								<th data-hide="all" >Descripción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $i = 1; ?>
+							<?php foreach ($cuentas as $cuenta) { ?>
+								<tr style="text-align: center">
+									<td>
+										<?php echo $i; ?>
+									</td>
+									<td>
+										<?php echo $cuenta->cuenta; ?>
+									</td>
+									<td>
+										<?php echo $cuenta->numero; ?>
+									</td>
+									<td>
+										<?php
+										if($cuenta->tipo == 1){
+											echo "Tipo 1";
+										}else if($cuenta->tipo == 2){
+											echo "Tipo 2";
+										}else{
+											echo "";
+										}
+										?>
+									</td>
+									<td>
+										<?php echo $cuenta->monto; ?>
+									</td>
+									<td>
+										<?php
+										if($cuenta->status == 1){
+											echo "<span style='color:#16987E;'>Activa</span>";
+										}else if($cuenta->status == 0){
+											echo "<span style='color:#D33333;'>Inactiva</span>";
+										}else{
+											echo "";
+										}
+										?>
+									</td>
+									<td>
+										<?php echo $cuenta->descripcion; ?>
+									</td>
+								</tr>
+								<?php $i++ ?>
+							<?php } ?>
+						</tbody>
+					</table>					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- Cierre del cuerpo de la sección de cuentas -->
+	<?php } ?>
+	
 </div>
-<!-- Cierre del cuerpo de la sección de perfiles asociados -->
 
 <!-- FooTable -->
 <script src="<?php echo assets_url('js/plugins/footable/footable.all.min.js');?>"></script>
