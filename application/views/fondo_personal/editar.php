@@ -34,6 +34,21 @@
 								</select>
 							</div>
 						</div>
+						<!-- Si el usuario es administrador, entonces puede elegir el usuario -->
+						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" >Usuario *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="user_id" id="user_id">
+									<option value="0">Seleccione</option>
+									<?php foreach($usuarios as $usuario){?>
+									<option value="<?php echo $usuario->id; ?>"><?php echo $usuario->username; ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<?php } ?>
+						<!-- Fin validación -->
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Cuenta *</label>
 							<div class="col-sm-10">
@@ -80,6 +95,7 @@
 						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-2">
 								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->tipo ?>"/>
+								 <input id="id_user" type="hidden" value="<?php echo $editar[0]->user_id ?>"/>
 								 <input id="id_cuenta" type="hidden" value="<?php echo $editar[0]->cuenta_id ?>"/>
 								 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
 								 <input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
@@ -117,14 +133,22 @@ $(document).ready(function(){
     $("#monto").numeric(); // Sólo permite valores numéricos
 	
 	$("#cuenta_id").select2('val', $("#id_cuenta").val());
+	if($("#user_id").val() !== undefined){
+		$("#user_id").select2('val', $("#id_user").val());
+	}
 	$("#tipo").select2('val', $("#id_tipo").val());
-	$("#status").select2('val', $("#id_status").val());
 
     $("#edit").click(function (e) {
 
         e.preventDefault();  // Para evitar que se envíe por defecto
 
-        if ($('#cuenta_id').val() == "0") {
+        if ($('#user_id').val() == "0") {
+			
+			swal("Disculpe,", "para continuar debe seleccionar el usuario");
+			$('#user_id').focus();
+			$('#user_id').parent('div').addClass('has-error');
+			
+        } else if ($('#cuenta_id').val() == "0") {
 			
 			swal("Disculpe,", "para continuar debe seleccionar la cuenta");
 			$('#cuenta_id').focus();

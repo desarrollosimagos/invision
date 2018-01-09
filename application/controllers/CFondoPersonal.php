@@ -11,6 +11,7 @@ class CFondoPersonal extends CI_Controller {
 		// Load database
         $this->load->model('MFondoPersonal');
         $this->load->model('MCuentas');
+        $this->load->model('MUser');
 		
     }
 	
@@ -26,6 +27,7 @@ class CFondoPersonal extends CI_Controller {
 	{
 		$this->load->view('base');
 		$data['cuentas'] = $this->MCuentas->obtener();
+		$data['usuarios'] = $this->MUser->obtener();
 		$this->load->view('fondo_personal/registrar', $data);
 		$this->load->view('footer');
 	}
@@ -37,8 +39,14 @@ class CFondoPersonal extends CI_Controller {
 		$fecha = explode("/", $fecha);
 		$fecha = $fecha[2]."-".$fecha[1]."-".$fecha[0];
 		
+		if($this->session->userdata('logged_in')['id'] == 1){
+			$user_id = $this->input->post('user_id');
+		}else{
+			$user_id = $this->session->userdata('logged_in')['id'];
+		}
+		
 		$datos = array(
-            'user_id' => $this->session->userdata('logged_in')['id'],
+            'user_id' => $user_id,
             'tipo' => $this->input->post('tipo'),
             'cuenta_id' => $this->input->post('cuenta_id'),
             'fecha' => $fecha,
@@ -90,6 +98,7 @@ class CFondoPersonal extends CI_Controller {
         $data['id'] = $this->uri->segment(3);
         $data['editar'] = $this->MFondoPersonal->obtenerFondoPersonal($data['id']);
         $data['cuentas'] = $this->MCuentas->obtener();
+        $data['usuarios'] = $this->MUser->obtener();
         $this->load->view('fondo_personal/editar', $data);
 		$this->load->view('footer');
     }
@@ -101,9 +110,15 @@ class CFondoPersonal extends CI_Controller {
 		$fecha = explode("/", $fecha);
 		$fecha = $fecha[2]."-".$fecha[1]."-".$fecha[0];
 		
+		if($this->session->userdata('logged_in')['id'] == 1){
+			$user_id = $this->input->post('user_id');
+		}else{
+			$user_id = $this->session->userdata('logged_in')['id'];
+		}
+		
 		$datos = array(
 			'id' => $this->input->post('id'),
-			'user_id' => $this->session->userdata('logged_in')['id'],
+			'user_id' => $user_id,
             'tipo' => $this->input->post('tipo'),
             'cuenta_id' => $this->input->post('cuenta_id'),
             'fecha' => $fecha,
