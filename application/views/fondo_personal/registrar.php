@@ -35,6 +35,21 @@
 								</select>
 							</div>
 						</div>
+						<!-- Si el usuario es administrador, entonces puede elegir el usuario -->
+						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" >Usuario *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="user_id" id="user_id">
+									<option value="0">Seleccione</option>
+									<?php foreach($usuarios as $usuario){?>
+									<option value="<?php echo $usuario->id; ?>"><?php echo $usuario->username; ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
+						<?php } ?>
+						<!-- Fin validación -->
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Cuenta *</label>
 							<div class="col-sm-10">
@@ -111,7 +126,13 @@ $(document).ready(function(){
 
         e.preventDefault();  // Para evitar que se envíe por defecto
 
-        if ($('#cuenta_id').val() == "0") {
+        if ($('#user_id').val() == "0") {
+			
+			swal("Disculpe,", "para continuar debe seleccionar el usuario");
+			$('#user_id').focus();
+			$('#user_id').parent('div').addClass('has-error');
+			
+        } else if ($('#cuenta_id').val() == "0") {
 			
 			swal("Disculpe,", "para continuar debe seleccionar la cuenta");
 			$('#cuenta_id').focus();
