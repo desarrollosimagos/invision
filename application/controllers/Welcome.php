@@ -27,7 +27,7 @@ class Welcome extends CI_Controller {
         $this->load->model('MAcciones');
         $this->load->model('MMenus');
         $this->load->model('MSubMenus');
-        //~ $this->load->model('MFranchises');
+        $this->load->model('MCoins');
     }
 	 
 	public function index()
@@ -241,6 +241,22 @@ class Welcome extends CI_Controller {
 				}
 			
 			}
+			
+			// Verificamos si existe la tabla de monedas 'coins'
+			$exists_coins = $this->db->table_exists('coins');
+			
+			if($exists_coins){
+			
+				$moneda = $this->MCoins->obtener();
+				// Creamos las monedas básicas si éstas no existen
+				if(count($moneda) == 0){
+					
+					// Importamos las monedas básicas
+					$this->import_coins();
+				
+				}
+			
+			}
 		
 		}
 		
@@ -368,6 +384,31 @@ class Welcome extends CI_Controller {
 			);
 			
 			$insert_perfil = $this->MPerfil->insert($data_perfil);
+			
+		}
+		
+		fclose ($fp);
+        
+    }
+    
+    // Método que importa las monedas básicas desde un csv
+    public function import_coins() {
+        
+        $ruta = getcwd();  // Obtiene el directorio actual en donde se está trabajando
+        
+        $fp = fopen ($ruta."/application/migrations/coins.csv","r");
+        
+        while ($data = fgetcsv ($fp, 1000, ",")) {
+			
+			$data_coin = array(
+				'description' => $data[1],
+				'abbreviation' => $data[2],
+				'status' => $data[3],
+				'd_create' => date('Y-m-d H:i:s'),
+				'd_update' => date('Y-m-d H:i:s')
+			);
+			
+			$insert_coin = $this->MCoins->insert($data_coin);
 			
 		}
 		
