@@ -98,6 +98,11 @@ $route['resumen'] = 'CResumen';
 $route['resumen/register'] = 'CResumen/register';
 $route['resumen/edit/(:num)'] = 'CResumen/edit/$1';
 $route['resumen/delete/(:num)'] = 'CResumen/delete/$1';
+/*   Monedas */
+$route['coins'] = 'CCoins';
+$route['coins/register'] = 'CCoins/register';
+$route['coins/edit/(:num)'] = 'CCoins/edit/$1';
+$route['coins/delete/(:num)'] = 'CCoins/delete/$1';
 
 
 /*   Migraciones */
