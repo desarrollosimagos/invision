@@ -37,7 +37,7 @@
 						</div>
 						<div class="col-md-3 forum-info">
 							<span class="views-number">
-								<?php echo (float)$capital_aprobado[0]->monto." $"; ?>
+								<?php echo (float)$capital_aprobado." $"; ?>
 							</span>
 							<div>
 								<small>Capital aprobado</small>
