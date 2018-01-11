@@ -38,6 +38,12 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label">Símbolo </label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="symbol" maxlength="5" id="symbol" value="<?php echo $editar[0]->symbol ?>">
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" >Estatus *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="status" id="status">

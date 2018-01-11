@@ -25,6 +25,11 @@ class Migration_create_table_coins extends CI_Migration
 					"constraint" => 5,
 					"null" => TRUE
 				),
+				"symbol" => array(
+					"type" => "VARCHAR",
+					"constraint" => 5,
+					"null" => TRUE
+				),
 				"status" => array(
 					"type" => "INT",
 					"constraint" => 11,

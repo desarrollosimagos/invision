@@ -15,10 +15,11 @@ class MFondoPersonal extends CI_Model {
     //Public method to obtain the fondo_personal
     public function obtener() {
 		
-		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.monto, f_p.status, u.username as usuario, c.cuenta, c.numero');
+		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.monto, f_p.status, u.username as usuario, c.cuenta, c.numero, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('fondo_personal f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		// Si el usuario corresponde al de un administrador quitamos el filtro de perfil
         if($this->session->userdata('logged_in')['profile_id'] != 1){
 			$this->db->where('f_p.user_id =', $this->session->userdata('logged_in')['id']);
