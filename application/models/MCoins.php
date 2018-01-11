@@ -58,10 +58,10 @@ class MCoins extends CI_Model {
 
     // Public method to delete a record
     public function delete($id) {
-		$query = $this->db->where('cuenta_id =', $id);
+		$query = $this->db->where('coin_id =', $id);
         $query = $this->db->get('users');
         
-		$query2 = $this->db->where('cuenta_id =', $id);
+		$query2 = $this->db->where('coin_id =', $id);
         $query2 = $this->db->get('cuentas');
         
         if ($query->num_rows() > 0 || $query2->num_rows() > 0) {

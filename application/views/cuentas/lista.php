@@ -31,6 +31,7 @@
                                     <th>Usuario</th>
                                     <th>Tipo</th>
                                     <th>Monto</th>
+                                    <th>Moneda</th>
                                     <th>Estatus</th>
                                     <th>Observaciones</th>
                                     <th>Editar</th>
@@ -58,6 +59,9 @@
                                         </td>
                                         <td>
                                             <?php echo $fondo->monto; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $fondo->coin_avr." (".$fondo->coin.")"; ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->status; ?>
@@ -120,6 +124,7 @@ $(document).ready(function(){
         "oLanguage": {"sUrl": "<?= assets_url() ?>js/es.txt"},
         "aoColumns": [
             {"sClass": "registro center", "sWidth": "5%"},
+            {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},

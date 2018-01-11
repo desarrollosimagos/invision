@@ -64,6 +64,17 @@
 								</select>
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" >Moneda *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="coin_id" id="coin_id">
+									<option value="0" selected="">Seleccione</option>
+									<?php foreach($monedas as $moneda){?>
+									<option value="<?php echo $moneda->id; ?>"><?php echo $moneda->abbreviation." (".$moneda->description.")"; ?></option>
+									<?php }?>
+								</select>
+							</div>
+						</div>
 						<div class="form-group" id="div_tiendas">
 							<label class="col-sm-2 control-label" >Tienda</label>
 							<div class="col-sm-10">
@@ -186,6 +197,7 @@
 							<div class="col-sm-4 col-sm-offset-2">
 								<input id="base_url" type="hidden" value="<?php echo base_url(); ?>"/>
 								<input id="id_profile" type="hidden" value="<?php echo $editar[0]->profile_id ?>"/>
+								<input id="id_coin" type="hidden" value="<?php echo $editar[0]->coin_id ?>"/>
                                 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
                                 <input id="ids_actions" type="hidden" value="<?php echo $ids_actions; ?>"/>
 								<input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>

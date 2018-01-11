@@ -59,6 +59,17 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" >Moneda *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="coin_id" id="coin_id">
+									<option value="0" selected="">Seleccione</option>
+									<?php foreach($monedas as $moneda){?>
+									<option value="<?php echo $moneda->id; ?>"><?php echo $moneda->abbreviation." (".$moneda->description.")"; ?></option>
+									<?php }?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" >Estatus *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="status" id="status">
@@ -100,10 +111,16 @@ $(document).ready(function(){
         e.preventDefault();  // Para evitar que se envíe por defecto
 
         if ($('#cuenta').val().trim() === "") {
-			swal("Disculpe,", "para continuar debe ingresar el nombre de la cuenta");
-			$('#monto').parent('div').addClass('has-error');
 			
-        } else {
+			swal("Disculpe,", "para continuar debe ingresar el nombre de la cuenta");
+			$('#cuenta').parent('div').addClass('has-error');
+			
+        } else if($('#coin_id').val() == "0"){
+			
+			swal("Disculpe,", "para continuar debe ingresar el tipo de moneda");
+			$('#coin_id').parent('div').addClass('has-error');
+			
+		} else {
 
             $.post('<?php echo base_url(); ?>CCuentas/add', $('#form_cuentas').serialize(), function (response) {
 				if (response['response'] == 'error') {

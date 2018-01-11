@@ -93,6 +93,7 @@ $(document).ready(function() {
     });
 
 	$("#profile").select2('val', $("#id_profile").val());
+	$("#coin_id").select2('val', $("#id_coin").val());
     $("#status").select2('val', $("#id_status").val());
 
 	

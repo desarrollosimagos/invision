@@ -59,6 +59,17 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" >Moneda *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="coin_id" id="coin_id">
+									<option value="0" selected="">Seleccione</option>
+									<?php foreach($monedas as $moneda){?>
+									<option value="<?php echo $moneda->id; ?>"><?php echo $moneda->abbreviation." (".$moneda->description.")"; ?></option>
+									<?php }?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" >Estatus *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="status" id="status">
@@ -70,6 +81,7 @@
 						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-2">
 								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->tipo ?>"/>
+								 <input id="id_coin" type="hidden" value="<?php echo $editar[0]->coin_id ?>"/>
 								 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
 								 <input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
 								<button class="btn btn-white" id="volver" type="button">Volver</button>
@@ -99,6 +111,7 @@ $(document).ready(function(){
     $("#numero").numeric(); // Sólo permite valores numéricos
 	
 	$("#tipo").select2('val', $("#id_tipo").val());
+	$("#coin_id").select2('val', $("#id_coin").val());
 	$("#status").select2('val', $("#id_status").val());
 
     $("#edit").click(function (e) {
@@ -107,9 +120,14 @@ $(document).ready(function(){
 
         if ($('#cuenta').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar el nombre de la cuenta");
-			$('#monto').parent('div').addClass('has-error');
+			$('#cuenta').parent('div').addClass('has-error');
 			
-        } else {
+        } else if($('#coin_id').val() == "0"){
+			
+			swal("Disculpe,", "para continuar debe ingresar el tipo de moneda");
+			$('#coin_id').parent('div').addClass('has-error');
+			
+		} else {
 
             $.post('<?php echo base_url(); ?>CCuentas/update', $('#form_cuentas').serialize(), function (response) {
 				if (response['response'] == 'error') {

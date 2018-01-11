@@ -31,6 +31,7 @@
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Usuario</th>
+                                    <th>Moneda</th>
                                     <th>Tiendas</th>
                                     <th>Permisos</th>
                                     <th>Editar</th>
@@ -52,6 +53,9 @@
                                         </td>
                                         <td>
                                             <?php echo $usuario->username; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $usuario->coin_avr." (".$usuario->coin.")"; ?>
                                         </td>
                                         <td>
                                             <?php

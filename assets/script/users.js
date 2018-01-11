@@ -38,6 +38,7 @@ $(document).ready(function() {
            {"sClass": "registro center", "sWidth": "10%"},
            {"sClass": "registro center", "sWidth": "10%"},
            {"sClass": "registro center", "sWidth": "10%"},
+           {"sClass": "registro center", "sWidth": "10%"},
            {"sClass": "none", "sWidth": "8%"},
            {"sClass": "none", "sWidth": "8%"},
            {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
@@ -113,9 +114,13 @@ $(document).ready(function() {
         url = base_url+'users/';
         window.location = url;
     });
-
-	$("#profile").select2('val', $("#id_profile").val());
-    $("#status").select2('val', $("#id_status").val());
+    
+	if($("#profile").val() != undefined){
+		$("#profile").select2('val', $("#id_profile").val());
+	}
+	if($("#status").val() != undefined){
+		$("#status").select2('val', $("#id_status").val());
+	}
 
 	
 	$('#status').change(function (){

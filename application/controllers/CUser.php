@@ -11,6 +11,7 @@ class CUser extends CI_Controller {
 		$this->load->model('MPerfil');
         $this->load->model('MAcciones');
         $this->load->model('MTiendas');
+        $this->load->model('MCoins');
 		
     }
 	
@@ -32,6 +33,7 @@ class CUser extends CI_Controller {
 		$data['list_perfil'] = $this->MPerfil->obtener();
 		$data['tiendas'] = $this->MTiendas->obtener();
 		$data['acciones'] = $this->MAcciones->obtener_without_home();
+		$data['monedas'] = $this->MCoins->obtener();
 		//~ $data['user_tiendas'] = $this->MUser->obtenerUsersTiendas();
 		$this->load->view('user/registrar',$data);
 		$this->load->view('footer');
@@ -45,6 +47,7 @@ class CUser extends CI_Controller {
 			'name' => $this->input->post('name'),
 			'lastname' => $this->input->post('lastname'),
 			'profile_id' => $this->input->post('profile_id'),
+			'coin_id' => $this->input->post('coin_id'),
 			'admin' => $this->input->post('admin'),
 			'password' => 'pbkdf2_sha256$12000$' . hash("sha256", $this->input->post('password')),
 			'status' => $this->input->post('status'),
@@ -101,6 +104,7 @@ class CUser extends CI_Controller {
 		$data['ids_tiendas'] = $ids_tiendas;
 		$data['permissions'] = $this->MUser->obtener_permisos_id($data['id']);
 		$data['acciones'] = $this->MAcciones->obtener_without_home();
+		$data['monedas'] = $this->MCoins->obtener();
 		// Lista de ids de acciones asociadas al usuario
         $ids_actions = "";
         $query_actions = $this->MUser->obtener_permisos_id($data['id']);
@@ -124,6 +128,7 @@ class CUser extends CI_Controller {
 			'name' => $this->input->post('name'),
 			'lastname' => $this->input->post('lastname'),
 			'profile_id' => $this->input->post('profile_id'),
+			'coin_id' => $this->input->post('coin_id'),
 			'admin' => $this->input->post('admin'),
 			'status' => $this->input->post('status'),
 			'd_update' => date('Y-m-d H:i:s'),
