@@ -14,12 +14,19 @@ class MUser extends CI_Model {
 
     // Public method to obtain the users
     public function obtener() {
-        $query = $this->db->get('users');
+		
+		$this->db->select('u.id, u.username, u.name, u.lastname, u.profile_id, u.admin, u.status, c.description as coin, c.abbreviation as coin_avr');
+		$this->db->from('users u');
+		$this->db->join('coins c', 'c.id = u.coin_id');
+		$this->db->order_by("u.id", "desc");
+        $query = $this->db->get();
+        //~ $query = $this->db->get('users');
 
         if ($query->num_rows() > 0)
             return $query->result();
         else
             return $query->result();
+            
     }
     
     // Public method to obtain the permissions asociated

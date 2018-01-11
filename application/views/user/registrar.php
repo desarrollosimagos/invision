@@ -64,6 +64,17 @@
 								</select>
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" >Moneda *</label>
+							<div class="col-sm-10">
+								<select class="form-control m-b" name="coin_id" id="coin_id">
+									<option value="0" selected="">Seleccione</option>
+									<?php foreach($monedas as $moneda){?>
+									<option value="<?php echo $moneda->id; ?>"><?php echo $moneda->abbreviation." (".$moneda->description.")"; ?></option>
+									<?php }?>
+								</select>
+							</div>
+						</div>
 						<div class="form-group" id="div_tiendas">
 							<label class="col-sm-2 control-label" >Tienda</label>
 							<div class="col-sm-10">

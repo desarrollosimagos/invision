@@ -10,6 +10,7 @@ class CCuentas extends CI_Controller {
        
 		// Load database
         $this->load->model('MCuentas');
+        $this->load->model('MCoins');
 		
     }
 	
@@ -24,7 +25,8 @@ class CCuentas extends CI_Controller {
 	public function register()
 	{
 		$this->load->view('base');
-		$this->load->view('cuentas/registrar');
+		$data['monedas'] = $this->MCoins->obtener();
+		$this->load->view('cuentas/registrar', $data);
 		$this->load->view('footer');
 	}
 	
@@ -38,6 +40,7 @@ class CCuentas extends CI_Controller {
             'tipo' => $this->input->post('tipo'),
             'descripcion' => $this->input->post('descripcion'),
             'monto' => $this->input->post('monto'),
+            'coin_id' => $this->input->post('coin_id'),
             'status' => $this->input->post('status'),
             'd_create' => date('Y-m-d H:i:s')
         );
@@ -61,6 +64,7 @@ class CCuentas extends CI_Controller {
 		$this->load->view('base');
         $data['id'] = $this->uri->segment(3);
         $data['editar'] = $this->MCuentas->obtenerCuenta($data['id']);
+        $data['monedas'] = $this->MCoins->obtener();
         $this->load->view('cuentas/editar', $data);
 		$this->load->view('footer');
     }
@@ -76,6 +80,7 @@ class CCuentas extends CI_Controller {
             'tipo' => $this->input->post('tipo'),
             'descripcion' => $this->input->post('descripcion'),
             'monto' => $this->input->post('monto'),
+            'coin_id' => $this->input->post('coin_id'),
             'status' => $this->input->post('status'),
             'd_update' => date('Y-m-d H:i:s')
 		);
