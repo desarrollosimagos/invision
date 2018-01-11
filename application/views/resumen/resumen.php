@@ -119,7 +119,7 @@
 										?>
 									</td>
 									<td>
-										<?php echo $fondo->monto; ?>
+										<?php echo $fondo->monto."  ".$fondo->coin_symbol."  (".$fondo->coin_avr.")"; ?>
 									</td>
 									<td>
 										<?php
@@ -224,7 +224,7 @@
 										?>
 									</td>
 									<td>
-										<?php echo $cuenta->monto; ?>
+										<?php echo $cuenta->monto."  ".$cuenta->coin_symbol."  (".$cuenta->coin_avr.")"; ?>
 									</td>
 									<td>
 										<?php
