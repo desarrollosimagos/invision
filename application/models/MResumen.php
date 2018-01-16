@@ -56,15 +56,22 @@ class MResumen extends CI_Model {
     // Public method to obtain the fondo_personal by id
     public function capitalAprobado() {
 		
+		// Datos de moneda del usuario
+		$iso_moneda_usu = $this->session->userdata('logged_in')['coin_iso'];
+		
 		$capitalAprobado = 0;
 		
+		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
+		$this->db->from('fondo_personal f_p');
+		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		if($this->session->userdata('logged_in')['profile_id'] != 1){
-			$this->db->where('status', 1);
-			$this->db->where('user_id', $this->session->userdata('logged_in')['id']);
+			$this->db->where('f_p.status', 1);
+			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
 		}else{
-			$this->db->where('status', 1);
+			$this->db->where('f_p.status', 1);
 		}
-        $query = $this->db->get('fondo_personal');
+        $query = $this->db->get();
         
         foreach($query->result() as $result){
 			if($result->tipo == 1){
@@ -75,6 +82,27 @@ class MResumen extends CI_Model {
 		}
 		
         return $capitalAprobado;
+            
+    }
+
+    // Public method to obtain the fondo_personal by id
+    public function fondos_json() {
+		
+		$capitalAprobado = 0;
+		
+		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
+		$this->db->from('fondo_personal f_p');
+		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('coins cn', 'cn.id = c.coin_id');
+		if($this->session->userdata('logged_in')['profile_id'] != 1){
+			$this->db->where('f_p.status', 1);
+			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
+		}else{
+			$this->db->where('f_p.status', 1);
+		}
+        $query = $this->db->get();
+        
+        return $query->result();
             
     }
 

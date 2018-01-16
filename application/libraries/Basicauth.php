@@ -89,6 +89,11 @@ Class Basicauth
 					}
 				}
 				
+				// Consultamos los datos de moneda del usuario
+				$query_coin = $this->CI->db->get_where('coins', array('id'=>$query->row()->coin_id));
+				$coin_iso = $query_coin->row()->abbreviation;
+				$coin_symbol = $query_coin->row()->symbol;
+				
 				// Creamos la sesión y le cargamos los datos de usuario
 				$session_data = array(
 					'id' => $query->row()->id,
@@ -101,7 +106,9 @@ Class Basicauth
 					'tiendas' => $tiendas,
 					//~ 'servicios' => $servicios,
 					'submenus' => $submenus,
-					'menus' => $menus
+					'menus' => $menus,
+					'coin_iso' => $coin_iso,
+					'coin_symbol' => $coin_symbol
 				);
 				$this->CI->session->set_userdata('logged_in',$session_data);
 				
