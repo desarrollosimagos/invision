@@ -17,6 +17,9 @@
 
 <!-- Campo oculto que almacena el url base del proyecto -->
 <input type="hidden" id="base_url" value="<?php echo base_url(); ?>">
+<!-- Campos ocultos que almacenan el tipo de moneda de la cuenta del usuario logueado -->
+<input type="hidden" id="iso_currency_user" value="<?php echo $this->session->userdata('logged_in')['coin_iso']; ?>">
+<input type="hidden" id="symbol_currency_user" value="<?php echo $this->session->userdata('logged_in')['coin_symbol']; ?>">
 
 <div class="wrapper wrapper-content animated fadeInUp">
 	
@@ -36,8 +39,8 @@
 							</div>
 						</div>
 						<div class="col-md-3 forum-info">
-							<span class="views-number">
-								<?php echo (float)$capital_aprobado." $"; ?>
+							<span class="views-number" id="span_aprobado">
+								<?php //echo (float)$capital_aprobado." $"; ?>
 							</span>
 							<div>
 								<small>Capital aprobado</small>
