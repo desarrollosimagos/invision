@@ -53,7 +53,7 @@
                                         <td>
                                             <?php 
                                             if($moneda->status == 1){
-												echo "<span style='color:#16987E;'>Activo</span>";
+												echo "<span style='color:#337AB7;'>Activo</span>";
 											}else if($moneda->status == 0){
 												echo "<span style='color:#D33333;'>Inactivo</span>";
 											}else{
@@ -62,11 +62,11 @@
                                             ?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>coins/edit/<?= $moneda->id; ?>" title="Editar" style='color: #1ab394'><i class="fa fa-edit fa-2x"></i></a>
+                                            <a href="<?php echo base_url() ?>coins/edit/<?= $moneda->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
                                             
-                                            <a class='borrar' id='<?php echo $moneda->id; ?>' style='color: #1ab394' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
+                                            <a class='borrar' id='<?php echo $moneda->id; ?>' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
                                         </td>
                                     </tr>
                                     <?php $i++ ?>

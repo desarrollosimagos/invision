@@ -113,7 +113,7 @@
 									<td>
 										<?php
 										if($fondo->tipo == 1){
-											echo "<span style='color:#16987E;'>Ingreso</span>";
+											echo "<span style='color:#337AB7;'>Ingreso</span>";
 										}else if($fondo->tipo == 2){
 											echo "<span style='color:#D33333;'>Egreso</span>";
 										}else{
@@ -127,7 +127,7 @@
 									<td>
 										<?php
 										if($fondo->status == 1){
-											echo "<span style='color:#16987E;'>Validado</span>";
+											echo "<span style='color:#337AB7;'>Validado</span>";
 										}else if($fondo->status == 0){
 											echo "<span style='color:#D33333;'>Pendiente</span>";
 										}else{
@@ -163,7 +163,7 @@
 											$cursor_style = "cursor:pointer";
 										}
 										?>
-										<a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='color: #1ab394;<?php echo $cursor_style; ?>' title='Validar'>
+										<a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='<?php echo $cursor_style; ?>' title='Validar'>
 											<i class="fa <?php echo $class_icon_validar; ?> fa-2x"></i>
 										</a>
 									</td>
@@ -232,7 +232,7 @@
 									<td>
 										<?php
 										if($cuenta->status == 1){
-											echo "<span style='color:#16987E;'>Activa</span>";
+											echo "<span style='color:#337AB7;'>Activa</span>";
 										}else if($cuenta->status == 0){
 											echo "<span style='color:#D33333;'>Inactiva</span>";
 										}else{
