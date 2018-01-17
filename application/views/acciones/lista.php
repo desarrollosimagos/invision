@@ -54,11 +54,11 @@
                                     <?php echo $accion->route; ?>
                                 </td>
                                 <td style='text-align: center'>
-                                    <a href="<?php echo base_url() ?>acciones/edit/<?= $accion->id; ?>" title="Editar" style='color: #1ab394'><i class="fa fa-edit fa-2x"></i></a>
+                                    <a href="<?php echo base_url() ?>acciones/edit/<?= $accion->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                 </td>
                                 <td style='text-align: center'>
                                     
-                                    <a class='borrar' id='<?php echo $accion->id; ?>' style='color: #1ab394' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
+                                    <a class='borrar' id='<?php echo $accion->id; ?>' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
                                 </td>
                             </tr>
                             <?php $i++ ?>

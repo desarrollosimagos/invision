@@ -52,7 +52,7 @@
                                         <td>
                                             <?php
                                             if($fondo->tipo == 1){
-												echo "<span style='color:#16987E;'>Ingreso</span>";
+												echo "<span style='color:#337AB7;'>Ingreso</span>";
 											}else if($fondo->tipo == 2){
 												echo "<span style='color:#D33333;'>Egreso</span>";
 											}else{
@@ -66,7 +66,7 @@
                                         <td>
                                             <?php
                                             if($fondo->status == 1){
-												echo "<span style='color:#16987E;'>Validado</span>";
+												echo "<span style='color:#337AB7;'>Validado</span>";
 											}else if($fondo->status == 0){
 												echo "<span style='color:#D33333;'>Pendiente</span>";
 											}else{
@@ -87,10 +87,10 @@
                                             <?php echo $fondo->observaciones; ?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>fondo_personal/edit/<?= $fondo->id; ?>" title="Editar" style='color: #1ab394'><i class="fa fa-edit fa-2x"></i></a>
+                                            <a href="<?php echo base_url() ?>fondo_personal/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a class='borrar' id='<?php echo $fondo->id; ?>' style='color: #1ab394' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
+                                            <a class='borrar' id='<?php echo $fondo->id; ?>' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
 											<?php
@@ -108,7 +108,7 @@
 												$cursor_style = "cursor:pointer";
 											}
 											?>
-                                            <a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='color: #1ab394;<?php echo $cursor_style; ?>' title='Validar'>
+                                            <a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='<?php echo $cursor_style; ?>' title='Validar'>
 												<i class="fa <?php echo $class_icon_validar; ?> fa-2x"></i>
                                             </a>
                                         </td>

@@ -92,7 +92,7 @@
 											?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>users_edit/<?= $usuario->id; ?>"  title="Editar" style='color: #1ab394'><i class="fa fa-edit fa-2x"></i></a>
+                                            <a href="<?php echo base_url() ?>users_edit/<?= $usuario->id; ?>"  title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
 											<?php if ($usuario->status == 1) {?>
