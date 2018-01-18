@@ -32,7 +32,7 @@
                                     <th>Apellido</th>
                                     <th>Usuario</th>
                                     <th>Moneda</th>
-                                    <th>Tiendas</th>
+                                    <!--<th>Tiendas</th>-->
                                     <th>Permisos</th>
                                     <th>Editar</th>
                                     <th>Activar/Desactivar</th>
@@ -57,23 +57,23 @@
                                         <td>
                                             <?php echo $usuario->coin_avr." (".$usuario->coin.")"; ?>
                                         </td>
-                                        <td>
+                                        <!--<td>
                                             <?php
-                                            echo "<br>";
-                                            // Validamos qué tiendas están asociadas a cada usuario
-                                            foreach($users_tiendas as $user_tienda){
-												if($usuario->id == $user_tienda->user_id){
-													foreach ($tiendas as $tienda){
-														if($user_tienda->tienda_id == $tienda->id){
-															echo $tienda->name."<br>";
-														}else{
-															echo "";
-														}
-													}
-												}
-											}
+                                            //~ echo "<br>";
+                                            //~ // Validamos qué tiendas están asociadas a cada usuario
+                                            //~ foreach($users_tiendas as $user_tienda){
+												//~ if($usuario->id == $user_tienda->user_id){
+													//~ foreach ($tiendas as $tienda){
+														//~ if($user_tienda->tienda_id == $tienda->id){
+															//~ echo $tienda->name."<br>";
+														//~ }else{
+															//~ echo "";
+														//~ }
+													//~ }
+												//~ }
+											//~ }
 											?>
-                                        </td>
+                                        </td>-->
                                         <td>
                                             <?php
                                             echo "<br>";

@@ -75,7 +75,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="form-group" id="div_tiendas">
+						<!--<div class="form-group" id="div_tiendas">
 							<label class="col-sm-2 control-label" >Tienda</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" id="tiendas" multiple="multiple">
@@ -92,7 +92,7 @@
 									<?php } ?>
 								</select>
 							</div>
-						</div>
+						</div>-->
 						<div class="form-group"><label class="col-sm-2 control-label" >Acciones</label>
 							<div class="col-sm-10">
 								<select id="actions_ids" class="form-control" multiple="multiple">

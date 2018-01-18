@@ -60,14 +60,14 @@ class CUser extends CI_Controller {
         echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método insert()
         
         if ($result != 'existe'){
-			// Si hay tiendas asociadas al usuario, registramos la relación en la tabla 'users_tiendas'
-			if($this->input->post('tiendas_ids') != ""){
-				// Inserción de las relaciones usuario-tienda				
-				foreach($this->input->post('tiendas_ids') as $tienda_id){
-					$data = array('user_id'=>$result, 'tienda_id'=>$tienda_id, 'tipo'=>1, 'status'=>1);
-					$this->MUser->insert_tienda($data);
-				}
-			}
+			//~ // Si hay tiendas asociadas al usuario, registramos la relación en la tabla 'users_tiendas'
+			//~ if($this->input->post('tiendas_ids') != ""){
+				//~ // Inserción de las relaciones usuario-tienda				
+				//~ foreach($this->input->post('tiendas_ids') as $tienda_id){
+					//~ $data = array('user_id'=>$result, 'tienda_id'=>$tienda_id, 'tipo'=>1, 'status'=>1);
+					//~ $this->MUser->insert_tienda($data);
+				//~ }
+			//~ }
 			// Si hay acciones asociadas al usuario, registramos la relación en la tabla 'permissions'
 			if($this->input->post('actions_ids') != ""){
 				// Inserción de las relaciones usuario-tienda				
@@ -140,46 +140,46 @@ class CUser extends CI_Controller {
         echo $result;
         
         if ($result) {
-			// Si hay nuevas tiendas asociadas al usuario, los registramos en la tabla 'users_tiendas'
-			if($this->input->post('tiendas_ids') != ""){
-				// Proceso de registro de tiendas asociados al usuario
-				$ids_tiendas = array(); // Aquí almacenaremos los ids de las tiendas a asociar
-				// Asociamos las nuevas tiendas seleccionadas del combo select
-				foreach($this->input->post('tiendas_ids') as $tienda_id){
-					// Primero verificamos si ya está asociada cada tienda, si no lo está, la insertamos
-					$check_associated = $this->MUser->obtenerUserTiendaId($this->input->post('id'), $tienda_id);
-					//~ echo count($check_associated);
-					if(count($check_associated) == 0){
-						$data_tienda = array('user_id'=>$this->input->post('id'), 'tienda_id'=>$tienda_id, 'tipo'=>1, 'status'=>1);
-						$this->MUser->insert_tienda($data_tienda);
-					}
-					// Vamos colectando los ids recorridos
-					$ids_tiendas[] = $tienda_id;
-				}
-				
-				// Validamos qué tiendas han sido quitadas del combo select para proceder a borrar las relaciones
-				// Primero buscamos todas las tiendas asociadas al usuario
-				$query_associated = $this->MUser->obtenerTiendasUserId($this->input->post('id'));
-				if(count($query_associated) > 0){
-					// Verificamos cuales de las tiendas no están en la nueva lista
-					foreach($query_associated as $association){
-						if(!in_array($association->tienda_id, $ids_tiendas)){
-							// Eliminamos la asociacion de la tabla users_tiendas
-							$this->MUser->delete_user_tienda($this->input->post('id'), $association->tienda_id);
-						}
-					}
-				}
-			}else{
-				// Eliminamos las asociaciones de la tabla users_tiendas correspondientes al usuario seleccionado
-				// Primero buscamos todas las tiendas asociados al usuario
-				$query_associated = $this->MUser->obtenerTiendasUserId($this->input->post('id'));
-				if(count($query_associated) > 0){
-					// Eliminamos las asociaciones encontradas
-					foreach($query_associated as $association){
-						$this->MUser->delete_user_tienda($this->input->post('id'), $association->tienda_id);
-					}
-				}
-			}
+			//~ // Si hay nuevas tiendas asociadas al usuario, los registramos en la tabla 'users_tiendas'
+			//~ if($this->input->post('tiendas_ids') != ""){
+				//~ // Proceso de registro de tiendas asociados al usuario
+				//~ $ids_tiendas = array(); // Aquí almacenaremos los ids de las tiendas a asociar
+				//~ // Asociamos las nuevas tiendas seleccionadas del combo select
+				//~ foreach($this->input->post('tiendas_ids') as $tienda_id){
+					//~ // Primero verificamos si ya está asociada cada tienda, si no lo está, la insertamos
+					//~ $check_associated = $this->MUser->obtenerUserTiendaId($this->input->post('id'), $tienda_id);
+					//~ // echo count($check_associated);
+					//~ if(count($check_associated) == 0){
+						//~ $data_tienda = array('user_id'=>$this->input->post('id'), 'tienda_id'=>$tienda_id, 'tipo'=>1, 'status'=>1);
+						//~ $this->MUser->insert_tienda($data_tienda);
+					//~ }
+					//~ // Vamos colectando los ids recorridos
+					//~ $ids_tiendas[] = $tienda_id;
+				//~ }
+				//~ 
+				//~ // Validamos qué tiendas han sido quitadas del combo select para proceder a borrar las relaciones
+				//~ // Primero buscamos todas las tiendas asociadas al usuario
+				//~ $query_associated = $this->MUser->obtenerTiendasUserId($this->input->post('id'));
+				//~ if(count($query_associated) > 0){
+					//~ // Verificamos cuales de las tiendas no están en la nueva lista
+					//~ foreach($query_associated as $association){
+						//~ if(!in_array($association->tienda_id, $ids_tiendas)){
+							//~ // Eliminamos la asociacion de la tabla users_tiendas
+							//~ $this->MUser->delete_user_tienda($this->input->post('id'), $association->tienda_id);
+						//~ }
+					//~ }
+				//~ }
+			//~ }else{
+				//~ // Eliminamos las asociaciones de la tabla users_tiendas correspondientes al usuario seleccionado
+				//~ // Primero buscamos todas las tiendas asociados al usuario
+				//~ $query_associated = $this->MUser->obtenerTiendasUserId($this->input->post('id'));
+				//~ if(count($query_associated) > 0){
+					//~ // Eliminamos las asociaciones encontradas
+					//~ foreach($query_associated as $association){
+						//~ $this->MUser->delete_user_tienda($this->input->post('id'), $association->tienda_id);
+					//~ }
+				//~ }
+			//~ }
 			
 			// Si hay nuevas acciones asociadas al usuario, los registramos en la tabla 'permissions'
 			if($this->input->post('actions_ids') != ""){
