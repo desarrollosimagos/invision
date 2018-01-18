@@ -23,7 +23,7 @@
 
 <div class="wrapper wrapper-content animated fadeInUp">
 	
-	<!-- Cuerpo de la sección de cuenta de twitter -->
+	<!-- Cuerpo de la sección de cintillo de montos -->
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="contact-box">
@@ -68,9 +68,86 @@
 			</div>
 		</div>
 	</div>
-	<!-- Cierre del cuerpo de la sección de cuenta de twitter -->
+	<!-- Cierre del cuerpo de la sección de cintillo de montos -->
 	
-	<!-- Cuerpo de la sección de perfiles asociados -->
+	<?php if($this->session->userdata('logged_in')['profile_id'] == 1){?>
+	<!-- Cuerpo de la sección de cuentas -->
+	<div class="ibox">
+		<div class="ibox-title">
+			<h5>Cuentas</h5>
+		</div>
+		<div class="ibox-content">
+
+			<div class="project-list">
+				
+				<div class="table-responsive">
+					<table id="tab_fondo_personal" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny" >
+						<thead>
+							<tr>
+								<th>#</th>
+								<th data-hide="phone" >Cuenta</th>
+								<th data-hide="phone" >Número</th>
+								<th data-hide="phone" >Tipo</th>
+								<th data-hide="phone" >Monto</th>
+								<th data-hide="phone" >Estatus</th>
+								<th data-hide="all" >Descripción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $i = 1; ?>
+							<?php foreach ($cuentas as $cuenta) { ?>
+								<tr style="text-align: center">
+									<td>
+										<?php echo $i; ?>
+									</td>
+									<td>
+										<?php echo $cuenta->cuenta; ?>
+									</td>
+									<td>
+										<?php echo $cuenta->numero; ?>
+									</td>
+									<td>
+										<?php
+										if($cuenta->tipo == 1){
+											echo "Tipo 1";
+										}else if($cuenta->tipo == 2){
+											echo "Tipo 2";
+										}else{
+											echo "";
+										}
+										?>
+									</td>
+									<td>
+										<?php echo $cuenta->monto."  ".$cuenta->coin_symbol."  (".$cuenta->coin_avr.")"; ?>
+									</td>
+									<td>
+										<?php
+										if($cuenta->status == 1){
+											echo "<span style='color:#337AB7;'>Activa</span>";
+										}else if($cuenta->status == 0){
+											echo "<span style='color:#D33333;'>Inactiva</span>";
+										}else{
+											echo "";
+										}
+										?>
+									</td>
+									<td>
+										<?php echo $cuenta->descripcion; ?>
+									</td>
+								</tr>
+								<?php $i++ ?>
+							<?php } ?>
+						</tbody>
+					</table>					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- Cierre del cuerpo de la sección de cuentas -->
+	<?php } ?>
+	
+	<!-- Cuerpo de la sección de transacciones asociadas -->
 	<div class="ibox">
 		<div class="ibox-title">
 			<h5>Transacciones</h5>
@@ -177,84 +254,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Cierre del cuerpo de la sección de perfiles asociados -->
-	
-	<?php if($this->session->userdata('logged_in')['profile_id'] == 1){?>
-	<!-- Cuerpo de la sección de cuentas -->
-	<div class="ibox">
-		<div class="ibox-title">
-			<h5>Cuentas</h5>
-		</div>
-		<div class="ibox-content">
-
-			<div class="project-list">
-				
-				<div class="table-responsive">
-					<table id="tab_fondo_personal" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny" >
-						<thead>
-							<tr>
-								<th>#</th>
-								<th data-hide="phone" >Cuenta</th>
-								<th data-hide="phone" >Número</th>
-								<th data-hide="phone" >Tipo</th>
-								<th data-hide="phone" >Monto</th>
-								<th data-hide="phone" >Estatus</th>
-								<th data-hide="all" >Descripción</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $i = 1; ?>
-							<?php foreach ($cuentas as $cuenta) { ?>
-								<tr style="text-align: center">
-									<td>
-										<?php echo $i; ?>
-									</td>
-									<td>
-										<?php echo $cuenta->cuenta; ?>
-									</td>
-									<td>
-										<?php echo $cuenta->numero; ?>
-									</td>
-									<td>
-										<?php
-										if($cuenta->tipo == 1){
-											echo "Tipo 1";
-										}else if($cuenta->tipo == 2){
-											echo "Tipo 2";
-										}else{
-											echo "";
-										}
-										?>
-									</td>
-									<td>
-										<?php echo $cuenta->monto."  ".$cuenta->coin_symbol."  (".$cuenta->coin_avr.")"; ?>
-									</td>
-									<td>
-										<?php
-										if($cuenta->status == 1){
-											echo "<span style='color:#337AB7;'>Activa</span>";
-										}else if($cuenta->status == 0){
-											echo "<span style='color:#D33333;'>Inactiva</span>";
-										}else{
-											echo "";
-										}
-										?>
-									</td>
-									<td>
-										<?php echo $cuenta->descripcion; ?>
-									</td>
-								</tr>
-								<?php $i++ ?>
-							<?php } ?>
-						</tbody>
-					</table>					
-				</div>
-				
-			</div>
-		</div>
-	</div>
-	<!-- Cierre del cuerpo de la sección de cuentas -->
-	<?php } ?>
+	<!-- Cierre del cuerpo de la sección de transacciones asociadas -->
 	
 </div>
 
