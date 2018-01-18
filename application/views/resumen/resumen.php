@@ -31,8 +31,8 @@
 				<div class="contact-box-footer" style="border-top:0px;">
 					<div>
 						<div class="col-md-3 forum-info">
-							<span class="views-number">
-								<?php echo (float)$capital_pendiente[0]->monto." $"; ?>
+							<span class="views-number" id="span_pendiente">
+								<?php //echo (float)$capital_pendiente[0]->monto." $"; ?>
 							</span>
 							<div>
 								<small>Capital pendiente</small>
