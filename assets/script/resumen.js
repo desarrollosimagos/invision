@@ -119,14 +119,15 @@ $(document).ready(function(){
     });
     
     
-    // Proceso de conversión de moneda
+    // Proceso de conversión de moneda (captura del equivalente a 1 dólar en las distintas monedas)
     $.post('https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664', function (coins) {
 		
 		var currency_user = coins['rates'][$("#iso_currency_user").val()];  // Tipo de moneda del usuario logueado
+		var capital_pendiente = 0;
 		var capital_aprobado = 0;
 		
-		// Proceso de carga de fondos 
-		$.post(base_url+'resumen/fondos_json/', function (fondos) {
+		// Proceso de carga de capital aprobado
+		$.post(base_url+'resumen/fondos_json/1', function (fondos) {
 			
 			$.each(fondos, function (i) {
 				
@@ -134,7 +135,7 @@ $(document).ready(function(){
 				var currency = fondos[i]['coin_avr'];  // Tipo de moneda de la transacción
 				var trans_usd = parseFloat(fondos[i]['monto'])/coins['rates'][currency];
 				//~ alert(trans_usd);
-				console.log("tipo: "+fondos[i]['tipo']+" - "+trans_usd);
+				//~ console.log("tipo: "+fondos[i]['tipo']+" - "+trans_usd);
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
 				if(fondos[i]['tipo'] == 1){
@@ -146,6 +147,30 @@ $(document).ready(function(){
 			});
 			
 			$("#span_aprobado").text((capital_aprobado*currency_user).toFixed(2)+" "+$("#symbol_currency_user").val());
+			
+		}, 'json');
+		
+		// Proceso de carga de capital pendiente
+		$.post(base_url+'resumen/fondos_json/0', function (fondos) {
+			
+			$.each(fondos, function (i) {
+				
+				// Conversión de cada monto a dólares
+				var currency = fondos[i]['coin_avr'];  // Tipo de moneda de la transacción
+				var trans_usd = parseFloat(fondos[i]['monto'])/coins['rates'][currency];
+				//~ alert(trans_usd);
+				//~ console.log("tipo: "+fondos[i]['tipo']+" - "+trans_usd);
+				
+				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
+				if(fondos[i]['tipo'] == 1){
+					capital_pendiente += trans_usd;
+				}else{
+					capital_pendiente -= trans_usd;
+				}
+				
+			});
+			
+			$("#span_pendiente").text((capital_pendiente*currency_user).toFixed(2)+" "+$("#symbol_currency_user").val());
 			
 		}, 'json');
 		

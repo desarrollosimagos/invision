@@ -40,9 +40,9 @@ class CResumen extends CI_Controller {
         echo json_encode($result);
     }
     
-	public function fondos_json()
+	public function fondos_json($status)
     {
-        $result = $this->MResumen->fondos_json();
+        $result = $this->MResumen->fondos_json($status);
         echo json_encode($result);
     }	
 	
