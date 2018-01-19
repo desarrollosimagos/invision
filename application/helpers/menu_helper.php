@@ -60,10 +60,30 @@ if (!function_exists('menu')) {
 		<!-- Cargamos los menús y submenús correspondientes al perfil -->
 		<?php 
 		// Imprimiendo los menús
-		foreach($ci->session->userdata('logged_in')['menus'] as $menus){
-			//~ print_r($menus);
+		
+		// Primero transformamos los objetos del arreglo de sesión de menus en elementos de tipo array 
+		// valiendonos de json_decode y json_encode. Vale destacar que en el segundo parámetro de json_decode 
+		// es donde especificamos con el argumento true que debe devolver los datos como arreglo. Si se deja vacío o en false
+		// el segundo parámetro de json_decode, nos devuelve los datos como objetos.
+		$array = json_decode( json_encode( $ci->session->userdata('logged_in')['menus'] ), true );
+		
+		// Armamos un arreglo con todas las posiciones del los distintos elementos del menú	
+		foreach($array as $modulo){
+			$aux[] = $modulo[0]['position'];
+		}
+		
+		// Usando el arreglo de posiciones $aux, reordenamos el menú con la función de php array_multisort()
+		array_multisort($aux, SORT_ASC, $array);
+		
+		// Volvemos a transformar el menú en un objeto
+		$array = json_decode( json_encode( $array ), false );
+		
+		//~ foreach($ci->session->userdata('logged_in')['menus'] as $menus){
+		foreach($array as $menus){		
+			
 			foreach($menus as $menu){
 				//~ print_r($menu);
+				//~ exit();
 		?>
 			<li>
 				<?php 
