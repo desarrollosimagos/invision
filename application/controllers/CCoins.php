@@ -41,7 +41,7 @@ class CCoins extends CI_Controller {
         
         $result = $this->MCoins->insert($datos);
         
-        if ($result) {
+        if ($result != 'existe') {
 
 			echo '{"response":"ok"}';
        

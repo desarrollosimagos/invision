@@ -200,7 +200,7 @@ $(document).ready(function(){
 				var id_new_action = value.id;
 				var name_new_action = value.text;
 				var permission_new_action = '<input type="checkbox" id="">';
-				var i = table.row.add( [ id_new_action, name_new_action, permission_new_action, permission_new_action, permission_new_action ] ).draw();
+				var i = table.row.add( [ id_new_action, name_new_action, permission_new_action, permission_new_action, permission_new_action, permission_new_action ] ).draw();
 				table.rows(i).nodes().to$().attr("id", $("#id").val());
 			}
 		});
