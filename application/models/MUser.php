@@ -15,8 +15,9 @@ class MUser extends CI_Model {
     // Public method to obtain the users
     public function obtener() {
 		
-		$this->db->select('u.id, u.username, u.name, u.lastname, u.profile_id, u.admin, u.status, c.description as coin, c.abbreviation as coin_avr');
+		$this->db->select('u.id, u.username, u.name, u.lastname, u.profile_id, u.admin, u.status, c.description as coin, c.abbreviation as coin_avr, p.name as perfil');
 		$this->db->from('users u');
+		$this->db->join('profile p', 'p.id = u.profile_id');
 		$this->db->join('coins c', 'c.id = u.coin_id');
 		$this->db->order_by("u.id", "desc");
         $query = $this->db->get();

@@ -104,6 +104,11 @@ $route['coins'] = 'CCoins';
 $route['coins/register'] = 'CCoins/register';
 $route['coins/edit/(:num)'] = 'CCoins/edit/$1';
 $route['coins/delete/(:num)'] = 'CCoins/delete/$1';
+/*   Asociaciones */
+$route['relate_users'] = 'CRelateUsers';
+$route['relate_users/register'] = 'CRelateUsers/register';
+$route['relate_users/edit/(:num)'] = 'CRelateUsers/edit/$1';
+$route['relate_users/delete/(:num)'] = 'CRelateUsers/delete/$1';
 
 
 /*   Migraciones */

@@ -28,9 +28,16 @@ class MCoins extends CI_Model {
     // Public method to insert the data
     public function insert($datos) {
 		
-		$result = $this->db->insert("coins", $datos);
-		$id = $this->db->insert_id();
-		return $id;
+		$result = $this->db->where('description =', $datos['description']);
+		$result = $this->db->where('abbreviation =', $datos['abbreviation']);
+        $result = $this->db->get('coins');
+        if ($result->num_rows() > 0) {
+            return 'existe';
+        } else {
+            $result = $this->db->insert("coins", $datos);
+            $id = $this->db->insert_id();
+            return $id;
+        }
         
     }
 
