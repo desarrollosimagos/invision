@@ -15,11 +15,11 @@ class Migration_create_table_relate_users extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
-				"user_id_one" => array(
+				"adviser_id" => array(
 					"type" => "INT",
 					"constraint" => 11
 				),
-				"user_id_two" => array(
+				"investor_id" => array(
 					"type" => "INT",
 					"constraint" => 11
 				),

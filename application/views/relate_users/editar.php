@@ -24,13 +24,13 @@
 					<h5>Editar Asociación <small></small></h5>
 				</div>
 				<div class="ibox-content">
-					<form id="form_monedas" method="post" accept-charset="utf-8" class="form-horizontal">
+					<form id="form_relate_users" method="post" accept-charset="utf-8" class="form-horizontal">
 						<!-- Si el usuario es administrador, entonces puede elegir el usuario -->
 						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Asesor *</label>
 							<div class="col-sm-10">
-								<select class="form-control m-b" name="user_id_one" id="user_id_one">
+								<select class="form-control m-b" name="adviser_id" id="adviser_id">
 									<option value="<?php echo $asesor[0]->id; ?>" selected="selected"><?php echo $asesor[0]->username; ?></option>
 								</select>
 							</div>
@@ -40,7 +40,9 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Inversor(es) *</label>
 							<div class="col-sm-10">
-								<select class="form-control m-b" name="user_id_two" id="user_id_two" multiple="multiple">
+								<select class="form-control m-b" name="investor_id" id="investor_id" multiple="multiple">
+									<!-- Filtramos que se muestre una lista sólo con los inversores que no estén asociados a ningún otro asesor
+									o que en su defecto estén asociados al asesor actual, en cuyo caso éstos deben ser marcados como seleccionados -->
 									<?php foreach($inversores as $inversor){?>
 										<?php if(!in_array($inversor->id, $asociaciones_generales)){?>
 											<?php if(in_array($inversor->id, $inversores_asociados)){?>
@@ -84,19 +86,19 @@ $(document).ready(function(){
 
         e.preventDefault();  // Para evitar que se envíe por defecto
 
-        if ($('#description').val().trim() === "") {
-			swal("Disculpe,", "para continuar debe ingresar la descripción de la moneda");
-			$('#description').parent('div').addClass('has-error');
+        if ($('#adviser_id').val() == "0") {
+			swal("Disculpe,", "para continuar debe seleccionar el asesor");
+			$('#adviser_id').parent('div').addClass('has-error');
 			
-        } else if ($('#abbreviation').val().trim() === "") {
-			swal("Disculpe,", "para continuar debe ingresar la abreviación de la moneda");
-			$('#abbreviation').parent('div').addClass('has-error');
+        } else if ($('#investor_id').val() == "") {
+			swal("Disculpe,", "para continuar debe seleccionar el(los) inversor(es)");
+			$('#investor_id').parent('div').addClass('has-error');
 			
         } else {
 
-            $.post('<?php echo base_url(); ?>CCoins/update', $('#form_monedas').serialize(), function (response) {
+            $.post('<?php echo base_url(); ?>CRelateUsers/update', $('#form_relate_users').serialize()+'&'+$.param({'inversores':$('#investor_id').val()}), function (response) {
 				if (response['response'] == 'error') {
-                    swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
+                    swal("Disculpe,", "Los datos no pudieron ser actualizados, por favor consulte a su administrador...");
                 }else{
 					swal({ 
 						title: "Registro",
@@ -104,7 +106,7 @@ $(document).ready(function(){
 						  type: "success" 
 						},
 					function(){
-					  window.location.href = '<?php echo base_url(); ?>coins';
+					  window.location.href = '<?php echo base_url(); ?>relate_users';
 					});
 				}
             }, 'json');

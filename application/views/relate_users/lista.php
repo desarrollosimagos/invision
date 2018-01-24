@@ -23,7 +23,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table id="tab_monedas" class="table table-striped table-bordered dt-responsive table-hover dataTables-example" >
+                        <table id="tab_relate_users" class="table table-striped table-bordered dt-responsive table-hover dataTables-example" >
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -48,7 +48,7 @@
 											echo "<br>";
                                             // Validamos qué inversores están asociadas al asesor
 											foreach ($asociaciones as $asociacion){
-												if($asesor->user_id_one == $asociacion->user_id_one){
+												if($asesor->adviser_id == $asociacion->adviser_id){
 													echo $asociacion->username."<br>";
 												}else{
 													echo "";
@@ -57,11 +57,11 @@
                                             ?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>relate_users/edit/<?= $asesor->user_id_one; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+                                            <a href="<?php echo base_url() ?>relate_users/edit/<?= $asesor->adviser_id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
                                             
-                                            <a class='borrar' id='<?php echo $asesor->user_id_one; ?>' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
+                                            <a class='borrar' id='<?php echo $asesor->adviser_id; ?>' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
                                         </td>
                                     </tr>
                                     <?php $i++ ?>
@@ -79,7 +79,7 @@
  <!-- Page-Level Scripts -->
 <script>
 $(document).ready(function(){
-     $('#tab_monedas').DataTable({
+     $('#tab_relate_users').DataTable({
         "paging": true,
         "lengthChange": false,
         "autoWidth": false,
@@ -119,13 +119,13 @@ $(document).ready(function(){
     });
              
          // Validacion para borrar
-    $("table#tab_monedas").on('click', 'a.borrar', function (e) {
+    $("table#tab_relate_users").on('click', 'a.borrar', function (e) {
         e.preventDefault();
         var id = this.getAttribute('id');
 
         swal({
             title: "Borrar registro",
-            text: "¿Está seguro de borrar el registro?",
+            text: "¿Está seguro de borrar las asociaciones?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -139,11 +139,11 @@ $(document).ready(function(){
              
                 $.post('<?php echo base_url(); ?>relate_users/delete/' + id + '', function (response) {
 
-                    if (response[0] == "e") {
+                    if (response['response'] == "error") {
                        
                          swal({ 
                            title: "Disculpe,",
-                            text: "No se puede eliminar se encuentra asociado a una cuenta o usuario",
+                            text: "No se pudo eliminar, contacte con su administrador",
                              type: "warning" 
                            },
                            function(){
@@ -159,7 +159,7 @@ $(document).ready(function(){
                              window.location.href = '<?php echo base_url(); ?>relate_users';
                          });
                     }
-                });
+                }, 'json');
             } 
         });
     });       

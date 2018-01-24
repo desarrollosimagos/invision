@@ -31,7 +31,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Asesor *</label>
 							<div class="col-sm-10">
-								<select class="form-control m-b" name="user_id_one" id="user_id_one">
+								<select class="form-control m-b" name="adviser_id" id="adviser_id">
 									<option value="0">Seleccione</option>
 									<?php foreach($asesores as $asesor){?>
 										<?php if(!in_array($asesor->id, $asesores_asociados)){?>
@@ -46,7 +46,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Inversor(es) *</label>
 							<div class="col-sm-10">
-								<select class="form-control m-b" name="user_id_two" id="user_id_two" multiple="multiple">
+								<select class="form-control m-b" name="investor_id" id="investor_id" multiple="multiple">
 									<?php foreach($inversores as $inversor){?>
 										<?php if(!in_array($inversor->id, $inversores_asociados)){?>
 										<option value="<?php echo $inversor->id; ?>"><?php echo $inversor->username; ?></option>
@@ -85,19 +85,19 @@ $(document).ready(function(){
 
         e.preventDefault();  // Para evitar que se envíe por defecto
 
-        if ($('#user_id_one').val() == "0") {
+        if ($('#adviser_id').val() == "0") {
 			swal("Disculpe,", "para continuar debe seleccionar el asesor");
-			$('#user_id_one').parent('div').addClass('has-error');
+			$('#adviser_id').parent('div').addClass('has-error');
 			
-        } else if ($('#user_id_two').val() == "") {
+        } else if ($('#investor_id').val() == "") {
 			swal("Disculpe,", "para continuar debe seleccionar el(los) inversor(es)");
-			$('#user_id_two').parent('div').addClass('has-error');
+			$('#investor_id').parent('div').addClass('has-error');
 			
         } else {
 			
-			//~ alert($("#user_id_two").val());
+			//~ alert($("#investor_id").val());
 
-            $.post('<?php echo base_url(); ?>CRelateUsers/add', $('#form_relate_users').serialize()+'&'+$.param({'inversores':$('#user_id_two').val()}), function (response) {
+            $.post('<?php echo base_url(); ?>CRelateUsers/add', $('#form_relate_users').serialize()+'&'+$.param({'inversores':$('#investor_id').val()}), function (response) {
 				if (response['response'] == 'error') {
                     swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
                 }else{
