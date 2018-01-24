@@ -76,6 +76,7 @@ class Acceso
 			//~ Si ingresamos en un controlador al que no tenemos acceso
 			if(!in_array($this->CI->router->class, $controllerspermitidos)){
 				//~ echo "Acceso denegado...";
+				//~ exit();
 				redirect('home');
 			}
 			
