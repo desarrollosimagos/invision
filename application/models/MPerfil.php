@@ -128,12 +128,12 @@ class MPerfil extends CI_Model {
        
     }
     
-    // Public method to delete the actions asociated 
+    // Public method to delete the asociated actions
     public function delete_action($id) {
 		$result = $this->db->delete('profile_actions', array('id' => $id));
     }
     
-    // Public method to delete the actions asociated 
+    // Public method to delete a specific association
     public function delete_profile_action($id_profile, $id_action) {
 		$result = $this->db->delete('profile_actions', array('profile_id' => $id_profile, 'action_id' => $id_action));
     }

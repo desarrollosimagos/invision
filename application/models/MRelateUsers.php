@@ -15,10 +15,10 @@ class MRelateUsers extends CI_Model {
     //Public method to obtain the relate_users
     public function obtener() {
         
-        $this->db->select('r_u.user_id_one, u.username');
+        $this->db->select('r_u.adviser_id, u.username');
 		$this->db->from('relate_users r_u');
-		$this->db->join('users u', 'u.id=r_u.user_id_one');
-		$this->db->group_by('r_u.user_id_one, u.username');
+		$this->db->join('users u', 'u.id=r_u.adviser_id');
+		$this->db->group_by('r_u.adviser_id, u.username');
         $query = $this->db->get();
         //~ $query = $this->db->get('relate_users');
 
@@ -32,9 +32,9 @@ class MRelateUsers extends CI_Model {
     //Public method to obtain the relate_users alternative
     public function associated_investors() {
         
-        $this->db->select('r_u.user_id_one, r_u.user_id_two, u.username');
+        $this->db->select('r_u.adviser_id, r_u.investor_id, u.username');
 		$this->db->from('relate_users r_u');
-		$this->db->join('users u', 'u.id=r_u.user_id_two');
+		$this->db->join('users u', 'u.id=r_u.investor_id');
         $query = $this->db->get();
         //~ $query = $this->db->get('relate_users');
 
@@ -82,16 +82,28 @@ class MRelateUsers extends CI_Model {
         
     }
 
-    // Public method to obtain the relate_users by id
+    // Public method to obtain the relate_users by adviser_id
     public function obtenerRelacion($id) {
 		
-        $this->db->where('id', $id);
+        $this->db->where('adviser_id', $id);
         $query = $this->db->get('relate_users');
         if ($query->num_rows() > 0)
             return $query->result();
         else
             return $query->result();
             
+    }
+    
+    //Public method to obtain the relate_users by adviser_id and investor_id
+    public function obtenerRelacionIds($id_asesor, $id_inversor) {
+		$this->db->where('adviser_id =', $id_asesor);
+		$this->db->where('investor_id =', $id_inversor);
+        $query = $this->db->get('relate_users');
+
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
     }
 
     // Public method to update a record  
@@ -102,23 +114,16 @@ class MRelateUsers extends CI_Model {
 		return $result;
         
     }
-
-
-    // Public method to delete a record
-    public function delete($id) {
-		$query = $this->db->where('coin_id =', $id);
-        $query = $this->db->get('users');
-        
-		$query2 = $this->db->where('coin_id =', $id);
-        $query2 = $this->db->get('cuentas');
-        
-        if ($query->num_rows() > 0 || $query2->num_rows() > 0) {
-            echo 'existe';
-        } else {
-            $result = $this->db->delete('relate_users', array('id' => $id));
-			return $result;
-        }
-       
+    
+	// Public method to delete the asociated investors
+    public function delete_investors($id) {
+		$result = $this->db->delete('relate_users', array('adviser_id' => $id));
+		return $result;
+    }
+    
+    // Public method to delete the specific association 
+    public function delete_adviser_investor($id_adviser, $id_investor) {
+		$result = $this->db->delete('relate_users', array('adviser_id' => $id_adviser, 'investor_id' => $id_investor));
     }
     
 
