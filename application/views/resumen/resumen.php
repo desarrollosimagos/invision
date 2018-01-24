@@ -1,5 +1,5 @@
 <!-- FooTable -->
-<link href="<?php echo assets_url('css/plugins/footable/footable.core.css');?>" rel="stylesheet">
+<link href="<?php echo assets_url('css/plugins/footable/footable.bootstrap.css');?>" rel="stylesheet">
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
@@ -81,16 +81,16 @@
 			<div class="project-list">
 				
 				<div class="table-responsive">
-					<table id="tab_fondo_personal" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny" >
+					<table id="tab_fondo_personal" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
 						<thead>
 							<tr>
 								<th>#</th>
-								<th data-hide="phone" >Cuenta</th>
-								<th data-hide="phone" >Número</th>
-								<th data-hide="phone" >Tipo</th>
-								<th data-hide="phone" >Monto</th>
-								<th data-hide="phone" >Estatus</th>
-								<th data-hide="all" >Descripción</th>
+								<th data-breakpoints="xs sm" >Cuenta</th>
+								<th >Número</th>
+								<th data-breakpoints="xs sm" >Tipo</th>
+								<th data-breakpoints="xs sm" >Monto</th>
+								<th data-breakpoints="xs sm" >Estatus</th>
+								<th data-breakpoints="all">Descripción</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -162,18 +162,19 @@
 			<div class="project-list">
 				
 				<div class="table-responsive">
-					<table id="tab_fondo_personal" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny" >
+					<?php $filter_profile = array(1,5); ?>
+					<table id="tab_fondo_personal" <?php if(in_array($this->session->userdata('logged_in')['profile_id'], $filter_profile)){ echo "data-filtering='true'"; } ?> data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
 						<thead>
 							<tr>
 								<th>#</th>
-								<th data-hide="phone" >Usuario</th>
-								<th data-hide="phone" >Tipo</th>
-								<th data-hide="phone" >Monto</th>
-								<th data-hide="phone" >Estatus</th>
-								<th data-hide="all" >Cuenta</th>
-								<th data-hide="all" >Descripción</th>
-								<th data-hide="all" >Referencia</th>
-								<th data-hide="all" >Observaciones</th>
+								<th >Usuario</th>
+								<th data-breakpoints="xs sm" >Tipo</th>
+								<th data-breakpoints="xs sm" >Monto</th>
+								<th data-breakpoints="xs sm" >Estatus</th>
+								<th data-breakpoints="all" >Cuenta</th>
+								<th data-breakpoints="all" >Descripción</th>
+								<th data-breakpoints="all" >Referencia</th>
+								<th data-breakpoints="all" >Observaciones</th>
 								<th>Validar</th>
 							</tr>
 						</thead>
@@ -259,7 +260,7 @@
 </div>
 
 <!-- FooTable -->
-<script src="<?php echo assets_url('js/plugins/footable/footable.all.min.js');?>"></script>
+<script src="<?php echo assets_url('js/plugins/footable/footable.js');?>"></script>
 
 <!-- Page-Level Scripts -->
 <script src="<?php echo assets_url(); ?>script/resumen.js"></script>
