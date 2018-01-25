@@ -127,7 +127,7 @@ $(document).ready(function(){
 		var capital_aprobado = 0;
 		
 		// Proceso de carga de capital aprobado
-		$.post(base_url+'resumen/fondos_json/1', function (fondos) {
+		$.post(base_url+'resumen/fondos_json', function (fondos) {
 			
 			$.each(fondos, function (i) {
 				
@@ -138,37 +138,23 @@ $(document).ready(function(){
 				//~ console.log("tipo: "+fondos[i]['tipo']+" - "+trans_usd);
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
-				if(fondos[i]['tipo'] == 1){
-					capital_aprobado += trans_usd;
-				}else{
-					capital_aprobado -= trans_usd;
+				if(fondos[i]['status'] == 0){
+					if(fondos[i]['tipo'] == 1){
+						capital_pendiente += trans_usd;
+					}else{
+						capital_pendiente -= trans_usd;
+					}
 				}
-				
+				if(fondos[i]['status'] == 1){
+					if(fondos[i]['tipo'] == 1){
+						capital_aprobado += trans_usd;
+					}else{
+						capital_aprobado -= trans_usd;
+					}
+				}
 			});
 			
 			$("#span_aprobado").text((capital_aprobado*currency_user).toFixed(2)+" "+$("#symbol_currency_user").val());
-			
-		}, 'json');
-		
-		// Proceso de carga de capital pendiente
-		$.post(base_url+'resumen/fondos_json/0', function (fondos) {
-			
-			$.each(fondos, function (i) {
-				
-				// Conversión de cada monto a dólares
-				var currency = fondos[i]['coin_avr'];  // Tipo de moneda de la transacción
-				var trans_usd = parseFloat(fondos[i]['monto'])/coins['rates'][currency];
-				//~ alert(trans_usd);
-				//~ console.log("tipo: "+fondos[i]['tipo']+" - "+trans_usd);
-				
-				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
-				if(fondos[i]['tipo'] == 1){
-					capital_pendiente += trans_usd;
-				}else{
-					capital_pendiente -= trans_usd;
-				}
-				
-			});
 			
 			$("#span_pendiente").text((capital_pendiente*currency_user).toFixed(2)+" "+$("#symbol_currency_user").val());
 			
