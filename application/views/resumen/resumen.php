@@ -147,6 +147,72 @@
 	<!-- Cierre del cuerpo de la sección de cuentas -->
 	<?php } ?>
 	
+	<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 5){?>
+	<!-- Cuerpo de la sección de resumen por usuario -->
+	<div class="ibox">
+		<div class="ibox-title">
+			<h5>Resumen por usuario</h5>
+		</div>
+		<div class="ibox-content">
+
+			<div class="project-list">
+				
+				<div class="table-responsive">
+					<?php //~ print_r($fondo_usuarios);	?>
+					<table id="tab_fondo_personal" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th data-breakpoints="xs sm" >Nombre</th>
+								<th data-breakpoints="xs sm" >Apellido</th>
+								<th >Usuario</th>
+								<th data-breakpoints="xs sm" >Capital Pendiente</th>
+								<th data-breakpoints="xs sm" >Capital Aprobado</th>
+								<th data-breakpoints="xs sm" >Capital Invertido</th>
+								<th data-breakpoints="xs sm" >Capital Retornado</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $i = 1; ?>
+							<?php foreach ($fondo_usuarios as $fondo) { ?>
+								<tr style="text-align: center">
+									<td>
+										<?php echo $i; ?>
+									</td>
+									<td>
+										<?php echo $fondo->name; ?>
+									</td>
+									<td>
+										<?php echo $fondo->lastname; ?>
+									</td>
+									<td>
+										<?php echo $fondo->username; ?>
+									</td>
+									<td>
+										<?php echo $fondo->pending_capital; ?>
+									</td>
+									<td>
+										<?php echo $fondo->approved_capital; ?>
+									</td>
+									<td>
+										<?php echo $fondo->capital_invested; ?>
+									</td>
+									<td>
+										<?php echo $fondo->returned_capital; ?>
+									</td>
+								</tr>
+								<?php $i++ ?>
+							<?php } ?>
+						</tbody>
+					</table>					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- Cierre del cuerpo de la sección de resume por usuario -->
+	<?php } ?>
+	
 	<!-- Cuerpo de la sección de transacciones asociadas -->
 	<div class="ibox">
 		<div class="ibox-title">

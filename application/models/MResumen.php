@@ -107,6 +107,26 @@ class MResumen extends CI_Model {
     }
 
     // Public method to obtain the fondo_personal by id
+    public function fondos_json_users() {
+		
+		$select = 'u.name, u.lastname, u.username, f_p.id, f_p.user_id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, ';
+		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol';
+		
+		$this->db->select($select);
+		$this->db->from('fondo_personal f_p');
+		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('coins cn', 'cn.id = c.coin_id');
+		$this->db->join('users u', 'u.id = f_p.user_id');
+		if($this->session->userdata('logged_in')['profile_id'] != 1){
+			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
+		}
+        $query = $this->db->get();
+        
+        return $query->result();
+            
+    }
+
+    // Public method to obtain the fondo_personal by id
     public function obtenerFondoPersonal($id) {
 		
         $this->db->where('id', $id);

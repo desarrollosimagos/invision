@@ -19,17 +19,8 @@ class CResumen extends CI_Controller {
 		$data['listar'] = $this->MResumen->obtener();
 		$data['cuentas'] = $this->MCuentas->obtener();
 		$data['capital_pendiente'] = $this->MResumen->capitalPendiente();
-		//~ $data['capital_aprobado'] = $this->MResumen->capitalAprobado();
+		$data['fondo_usuarios'] = $this->fondos_json_users();
 		$this->load->view('resumen/resumen', $data);
-		
-		//~ //Cuarta opción
-		//~ $get = file_get_contents("https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664");
-		//~ // Se decodifica la respuesta JSON
-		//~ $exchangeRates = json_decode($get);
-		//~ // print_r($exchangeRates);
-		//~ // Ahora se puede acceder a los datos parseados
-		//~ echo '<h3>openexchangerates (based on Yahoo):</h3> <i>1 USD</i> equivale a <i>' . $exchangeRates->rates->EUR . ' EUR</i>';
-		//~ exit();
 		
 		$this->load->view('footer');
 	}
@@ -44,6 +35,87 @@ class CResumen extends CI_Controller {
     {
         $result = $this->MResumen->fondos_json($status);
         echo json_encode($result);
+    }	
+    
+	public function fondos_json_users()
+    {
+		// Obtenemos el valor en dólares de las disitntas divisas
+		$get = file_get_contents("https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664");
+		// Se decodifica la respuesta JSON
+		$exchangeRates = json_decode($get, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		
+		
+		$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+		
+        
+        $resumen_users = array();  // Para el resultado final (Listado de usuarios con sus respectivos resúmenes)
+        
+        $fondos_details = $this->MResumen->fondos_json_users();  // Listado de fondos detallados
+        
+        $ids_users = array();  // Para almacenar los ids de los usuarios que han registrado fondos
+        
+        // Colectamos los ids de los usuarios
+        foreach($fondos_details as $fondo){
+			
+			if(!in_array($fondo->user_id, $ids_users)){
+				$ids_users[] = $fondo->user_id;
+			}
+			
+		}
+		
+		// Armamos una lista de fondos por usuario y lo almacenamos en el arreglo '$resumen_users'
+		foreach($ids_users as $id_user){
+			
+			$resumen_user = array(
+				'name' => '',
+				'lastname' => '',
+				'username' => '',
+				'pending_capital' => 0,
+				'approved_capital' => 0,
+				'capital_invested' => 0,
+				'returned_capital' => 0
+			);
+			
+			foreach($fondos_details as $fondo){
+				
+				if($fondo->user_id == $id_user){
+					
+					// Conversión de cada monto a dólares
+					$currency = $fondo->coin_avr;  // Tipo de moneda de la transacción
+					$trans_usd = (float)$fondo->monto/$exchangeRates['rates'][$currency];
+					
+					$resumen_user['name'] = $fondo->name;
+					$resumen_user['lastname'] = $fondo->lastname;
+					$resumen_user['username'] = $fondo->username;
+					if($fondo->status == 0){
+						$resumen_user['pending_capital'] += $trans_usd;
+					}
+					if($fondo->status == 1){
+						if($fondo->tipo == 1){
+							$resumen_user['approved_capital'] += $trans_usd;
+						}else if($fondo->tipo == 2){
+							$resumen_user['approved_capital'] -= $trans_usd;
+						}
+					}
+				}
+				
+			}
+			
+			// Conversión de los montos a la divisa del usuario
+			$resumen_user['pending_capital'] *= $currency_user; 
+			$resumen_user['pending_capital'] = round($resumen_user['pending_capital'], 2);
+			$resumen_user['pending_capital'] = $resumen_user['pending_capital']." ".$this->session->userdata('logged_in')['coin_symbol'];
+			
+			$resumen_user['approved_capital'] *= $currency_user; 
+			$resumen_user['approved_capital'] = round($resumen_user['approved_capital'], 2);
+			$resumen_user['approved_capital'] = $resumen_user['approved_capital']." ".$this->session->userdata('logged_in')['coin_symbol'];
+			
+			$resumen_users[] = $resumen_user;
+			
+		}
+		
+        return json_decode(json_encode($resumen_users), false);  // Esto retorna un arreglo de objetos
     }	
 	
 }
