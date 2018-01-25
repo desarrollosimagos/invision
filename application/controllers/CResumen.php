@@ -31,9 +31,9 @@ class CResumen extends CI_Controller {
         echo json_encode($result);
     }
     
-	public function fondos_json($status)
+	public function fondos_json()
     {
-        $result = $this->MResumen->fondos_json($status);
+        $result = $this->MResumen->fondos_json();
         echo json_encode($result);
     }	
     
@@ -89,7 +89,11 @@ class CResumen extends CI_Controller {
 					$resumen_user['lastname'] = $fondo->lastname;
 					$resumen_user['username'] = $fondo->username;
 					if($fondo->status == 0){
-						$resumen_user['pending_capital'] += $trans_usd;
+						if($fondo->tipo == 1){
+							$resumen_user['pending_capital'] += $trans_usd;
+						}else if($fondo->tipo == 2){
+							$resumen_user['pending_capital'] -= $trans_usd;
+						}
 					}
 					if($fondo->status == 1){
 						if($fondo->tipo == 1){

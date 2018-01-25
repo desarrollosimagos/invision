@@ -86,7 +86,7 @@ class MResumen extends CI_Model {
     }
 
     // Public method to obtain the fondo_personal by id
-    public function fondos_json($status) {
+    public function fondos_json() {
 		
 		$capitalAprobado = 0;
 		
@@ -95,10 +95,7 @@ class MResumen extends CI_Model {
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		if($this->session->userdata('logged_in')['profile_id'] != 1){
-			$this->db->where('f_p.status', $status);
 			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
-		}else{
-			$this->db->where('f_p.status', $status);
 		}
         $query = $this->db->get();
         

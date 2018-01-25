@@ -98,7 +98,7 @@ $route['resumen'] = 'CResumen';
 $route['resumen/register'] = 'CResumen/register';
 $route['resumen/edit/(:num)'] = 'CResumen/edit/$1';
 $route['resumen/delete/(:num)'] = 'CResumen/delete/$1';
-$route['resumen/fondos_json/(:num)'] = 'CResumen/fondos_json/$1';
+$route['resumen/fondos_json'] = 'CResumen/fondos_json';
 /*   Monedas */
 $route['coins'] = 'CCoins';
 $route['coins/register'] = 'CCoins/register';
