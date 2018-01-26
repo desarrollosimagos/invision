@@ -11,14 +11,27 @@
         </ol>
     </div>
 </div>
+
+<!-- Campos ocultos que almacenan el tipo de moneda de la cuenta del usuario logueado -->
+<input type="hidden" id="iso_currency_user" value="<?php echo $this->session->userdata('logged_in')['coin_iso']; ?>">
+<input type="hidden" id="symbol_currency_user" value="<?php echo $this->session->userdata('logged_in')['coin_symbol']; ?>">
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a href="<?php echo base_url() ?>fondo_personal/register">
-            <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button></a>
+            <a href="<?php echo base_url() ?>fondo_personal/register/1">
+				<button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button>
+            </a>
+            <a href="<?php echo base_url() ?>fondo_personal/register/2">
+				<button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-minus"></i> Retirar</button>
+            </a>
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Listado de Fondo Personal</h5>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label style="color:red;">
+						(Capital aprobado: <span id="span_capital_aprobado"></span>
+						<?php echo $this->session->userdata('logged_in')['coin_symbol']; ?>)
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
@@ -219,6 +232,50 @@ $(document).ready(function(){
             } 
         });
     });
+    
+    
+    // Proceso de conversión de moneda (captura del equivalente a 1 dólar en las distintas monedas)
+    $.post('https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664', function (coins) {
+		
+		var currency_user = coins['rates'][$("#iso_currency_user").val()];  // Tipo de moneda del usuario logueado
+		var capital_pendiente = 0;
+		var capital_aprobado = 0;
+		
+		// Proceso de cálculo de capital aprobado y pendiente
+		$.post('<?php echo base_url(); ?>resumen/fondos_json', function (fondos) {
+			
+			$.each(fondos, function (i) {
+				
+				// Conversión de cada monto a dólares
+				var currency = fondos[i]['coin_avr'];  // Tipo de moneda de la transacción
+				var trans_usd = parseFloat(fondos[i]['monto'])/coins['rates'][currency];
+				
+				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
+				if(fondos[i]['status'] == 0){
+					if(fondos[i]['tipo'] == 1){
+						capital_pendiente += trans_usd;
+					}else{
+						capital_pendiente -= trans_usd;
+					}
+				}
+				if(fondos[i]['status'] == 1){
+					if(fondos[i]['tipo'] == 1){
+						capital_aprobado += trans_usd;
+					}else{
+						capital_aprobado -= trans_usd;
+					}
+				}
+			});
+			
+			capital_aprobado = (capital_aprobado*currency_user).toFixed(2);
+			
+			capital_pendiente = (capital_pendiente*currency_user).toFixed(2);
+			
+			$("#span_capital_aprobado").text(capital_aprobado);
+			
+		}, 'json');
+		
+	}, 'json');
     
     
     // Función para validar transacción
