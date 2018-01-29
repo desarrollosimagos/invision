@@ -303,6 +303,7 @@ class Welcome extends CI_Controller {
 				'logo' => $data[3],
 				'route' => $data[4],
 				'action_id' => $data[5],
+				'position' => $data[6],
 				'd_create' => date('Y-m-d H:i:s'),
 				'd_update' => date('Y-m-d H:i:s')
 			);
