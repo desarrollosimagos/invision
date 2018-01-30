@@ -200,33 +200,35 @@ $(document).ready(function() {
 		$('#actions_ids').find('option').remove().end();
 		
 		if(perfil_id != '0'){
-			$.post(base_url+'CUser/search_actions', $.param({'profile_id':perfil_id}), function (response) {
-				// alert(response);
-				var selectedValues = new Array();  // Arreglo donde almacenaremos los ids de las acciones a marcar
-				var option = "";
-				$.each(response, function (i) {
-					option += "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
-					if(perfil == 'ADMINISTRADOR'){
-						selectedValues[i] = response[i]['id'];  // Añadimos el id de la acción a marcar
-					}
-				});
-				$('#actions_ids').append(option);
-				$('#actions_ids').select2('val', selectedValues);  // Marcamos
-			}, 'json');
-			// Si estamos editando un usuario buscamos las acciones asociadas a él y las añadimos a la lista
-			if(usuario_id != '' && perfil != 'ADMINISTRADOR'){
-				$.post(base_url+'CUser/search_actions2', $.param({'user_id':usuario_id}), function (response) {
+			if($('#actions_ids').val() != undefined){
+				$.post(base_url+'CUser/search_actions', $.param({'profile_id':perfil_id}), function (response) {
+					// alert(response);
 					var selectedValues = new Array();  // Arreglo donde almacenaremos los ids de las acciones a marcar
 					var option = "";
 					$.each(response, function (i) {
-						// Primero removemos la opción igual a la que vamos a imprimir (evitará redundancia de datos)
-						$("#actions_ids option[value='"+response[i]['id']+"']").remove();
-						option = "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
-						$('#actions_ids').append(option);
-						selectedValues[i] = response[i]['id'];  // Añadimos el id de la acción a marcar
-						$('#actions_ids').select2('val', selectedValues);  // Marcamos
+						option += "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
+						if(perfil == 'ADMINISTRADOR'){
+							selectedValues[i] = response[i]['id'];  // Añadimos el id de la acción a marcar
+						}
 					});
+					$('#actions_ids').append(option);
+					$('#actions_ids').select2('val', selectedValues);  // Marcamos
 				}, 'json');
+				// Si estamos editando un usuario buscamos las acciones asociadas a él y las añadimos a la lista
+				if(usuario_id != '' && perfil != 'ADMINISTRADOR'){
+					$.post(base_url+'CUser/search_actions2', $.param({'user_id':usuario_id}), function (response) {
+						var selectedValues = new Array();  // Arreglo donde almacenaremos los ids de las acciones a marcar
+						var option = "";
+						$.each(response, function (i) {
+							// Primero removemos la opción igual a la que vamos a imprimir (evitará redundancia de datos)
+							$("#actions_ids option[value='"+response[i]['id']+"']").remove();
+							option = "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
+							$('#actions_ids').append(option);
+							selectedValues[i] = response[i]['id'];  // Añadimos el id de la acción a marcar
+							$('#actions_ids').select2('val', selectedValues);  // Marcamos
+						});
+					}, 'json');
+				}
 			}
 		}
 	

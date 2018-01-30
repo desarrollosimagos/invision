@@ -94,6 +94,7 @@
 								</select>
 							</div>
 						</div>-->
+						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
 						<div class="form-group"><label class="col-sm-2 control-label" >Acciones</label>
 							<div class="col-sm-10">
 								<select id="actions_ids" class="form-control" multiple="multiple">
@@ -101,6 +102,7 @@
 								</select>
 							</div>
 						</div>
+						<?php } ?>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Estatus *</label>
 							<div class="col-sm-10">
