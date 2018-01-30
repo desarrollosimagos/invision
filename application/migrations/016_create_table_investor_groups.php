@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_relate_users extends CI_Migration
+class Migration_create_table_investor_groups extends CI_Migration
 {
 	public function up(){
 		
@@ -15,13 +15,10 @@ class Migration_create_table_relate_users extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
-				"adviser_id" => array(
-					"type" => "INT",
-					"constraint" => 11
-				),
-				"investor_id" => array(
-					"type" => "INT",
-					"constraint" => 11
+				"name" => array(
+					"type" => "VARCHAR",
+					"constraint" => 100,
+					"null" => FALSE
 				),
 				"d_create" => array(
 					"type" => "TIMESTAMP",
@@ -36,18 +33,14 @@ class Migration_create_table_relate_users extends CI_Migration
 		
 		$this->dbforge->add_key('id', TRUE);  // Establecemos el id como primary_key
 		
-		$this->dbforge->add_key('adviser_id');  // Establecemos el adviser_id como key
-		
-		$this->dbforge->add_key('investor_id');  // Establecemos el investor_id como key
-		
-		$this->dbforge->create_table('relate_users', TRUE);
+		$this->dbforge->create_table('investor_groups', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'relate_users'
-		$this->dbforge->drop_table('relate_users', TRUE);
+		// Eliminamos la tabla 'investor_groups'
+		$this->dbforge->drop_table('investor_groups', TRUE);
 		
 	}
 	

@@ -454,7 +454,8 @@ Class CLogin extends CI_Controller {
 			$data_coin = array(
 				'description' => $data[1],
 				'abbreviation' => $data[2],
-				'status' => $data[3],
+				'symbol' => $data[3],
+				'status' => $data[4],
 				'd_create' => date('Y-m-d H:i:s'),
 				'd_update' => date('Y-m-d H:i:s')
 			);
