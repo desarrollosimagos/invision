@@ -111,6 +111,11 @@ $route['relate_users'] = 'CRelateUsers';
 $route['relate_users/register'] = 'CRelateUsers/register';
 $route['relate_users/edit/(:num)'] = 'CRelateUsers/edit/$1';
 $route['relate_users/delete/(:num)'] = 'CRelateUsers/delete/$1';
+/* Grupos de Inversionistas */
+$route['investor_groups'] = 'CInvestorGroups';
+$route['investor_groups/register'] = 'CInvestorGroups/register';
+$route['investor_groups/edit/(:num)'] = 'CInvestorGroups/edit/$1';
+$route['investor_groups/delete/(:num)'] = 'CInvestorGroups/delete/$1';
 
 
 /*   Migraciones */
