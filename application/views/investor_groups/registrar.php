@@ -42,7 +42,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="form-group"><label class="col-sm-2 control-label" >Inversores</label>
+						<div class="form-group"><label class="col-sm-2 control-label" >Cuentas</label>
 							<div class="col-sm-10">
 								<select id="accounts_ids" class="form-control" multiple="multiple">
 									<?php
