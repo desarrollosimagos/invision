@@ -111,16 +111,24 @@ class MInvestorGroups extends CI_Model {
 		$result = $this->db->insert("investor_groups_accounts", $datos);
     }
     
-    // Public method to insert the actions asociated
-    public function update_action($datos) {
-		$this->db->where('investor_groups_id', $datos['investor_groups_id']);
-		$this->db->where('action_id', $datos['action_id']);
-		$result = $this->db->update('investor_groups_actions', $datos);
+    // Public method to insert the asociated users
+    public function update_user($datos) {
+		$this->db->where('group_id', $datos['group_id']);
+		$this->db->where('user_id', $datos['user_id']);
+		$result = $this->db->update('investor_groups_users', $datos);
+		return $result;
+    }
+    
+    // Public method to insert the asociated users
+    public function update_account($datos) {
+		$this->db->where('group_id', $datos['group_id']);
+		$this->db->where('account_id', $datos['account_id']);
+		$result = $this->db->update('investor_groups_accounts', $datos);
 		return $result;
     }
 
     // Public method to obtain the investor_groups by id
-    public function obtenerPerfiles($id) {
+    public function obtenerGrupos($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('investor_groups');
         if ($query->num_rows() > 0)
@@ -146,23 +154,24 @@ class MInvestorGroups extends CI_Model {
 
     // Public method to delete a record 
     public function delete($id) {
-        $result = $this->db->where('investor_groups_id =', $id);
-        $result = $this->db->get('users');
-
-        if ($result->num_rows() > 0) {
-            echo 'existe';
-        } else {
-			// Primero buscamos y eliminamos las acciones asociadas en la tabla 'investor_groups_actions'
-			$query_actions = $this->obtener_acciones_id($id);
-			if(count($query_actions) > 0){
-				foreach($query_actions as $action){
-					$delete_action = $this->delete_action($action->id);
-				}
+		
+		// Primero buscamos y eliminamos los usuarios asociados en la tabla 'investor_groups_users'
+		$query_users = $this->obtener_usuarios_id($id);
+		if(count($query_users) > 0){
+			foreach($query_users as $user){
+				$delete_user = $this->delete_user($user->id);
 			}
-			// Eliminamos el perfil
-            $result = $this->db->delete('investor_groups', array('id' => $id));
-            return $result;
-        }
+		}
+		// Luego buscamos y eliminamos las cuentas asociadas en la tabla 'investor_groups_accounts'
+		$query_accounts = $this->obtener_cuentas_id($id);
+		if(count($query_accounts) > 0){
+			foreach($query_accounts as $account){
+				$delete_account = $this->delete_account($account->id);
+			}
+		}
+		// Eliminamos el grupo
+		$result = $this->db->delete('investor_groups', array('id' => $id));
+		return $result;
        
     }
     

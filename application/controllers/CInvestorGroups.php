@@ -80,7 +80,7 @@ class CInvestorGroups extends CI_Controller {
     public function edit() {
 		$this->load->view('base');
         $data['id'] = $this->uri->segment(3);
-        $data['editar'] = $this->MInvestorGroups->obtenerPerfiles($data['id']);
+        $data['editar'] = $this->MInvestorGroups->obtenerGrupos($data['id']);
         $data['group_users'] = $this->MInvestorGroups->obtener_usuarios_id($data['id']);
         $data['group_accountss'] = $this->MInvestorGroups->obtener_cuentas_id($data['id']);
         $data['inversores'] = $this->MRelateUsers->obtener_inversores();

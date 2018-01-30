@@ -22,7 +22,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table id="tab_perfiles" class="table table-striped table-bordered dt-responsive table-hover dataTables-example" >
+                        <table id="tab_groups" class="table table-striped table-bordered dt-responsive table-hover dataTables-example" >
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -99,7 +99,7 @@
  <!-- Page-Level Scripts -->
 <script>
 $(document).ready(function(){
-    $('#tab_perfiles').DataTable({
+    $('#tab_groups').DataTable({
        "paging": true,
        "lengthChange": false,
        "autoWidth": false,
@@ -140,13 +140,13 @@ $(document).ready(function(){
    });
              
          // Validacion para borrar
-    $("table#tab_perfiles").on('click', 'a.borrar', function (e) {
+    $("table#tab_groups").on('click', 'a.borrar', function (e) {
         e.preventDefault();
         var id = this.getAttribute('id');
 
         swal({
             title: "Borrar registro",
-            text: "¿Está seguro de borrar el perfil?",
+            text: "¿Está seguro de borrar el grupo?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
