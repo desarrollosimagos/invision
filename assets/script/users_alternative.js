@@ -104,51 +104,7 @@ $(document).ready(function() {
 	});
 	
 	// Al cargar la página validamos las acciones que se deben mostrar
-	var perfil = $("#profile").find('option').filter(':selected').text();
-	if(perfil == 'ADMINISTRADOR'){
-		$('#admin').val(1);
-	}else{
-		$('#admin').val(0);
-	}
-	var perfil_id = $("#profile").val();
-	var usuario_id = $("#id").val();
-	//~ $('#actions_ids').find('option:gt(0)').remove().end().select2('val', '0');
-	$('#actions_ids').find('option').remove().end();
-	
-	if(perfil_id != '0'){
-		if(perfil == 'ADMINISTRADOR'){
-			$.post(base_url+'CUser/search_actions', $.param({'profile_id':perfil_id}), function (response) {
-				// alert(response);
-				var selectedValues = new Array();  // Arreglo donde almacenaremos los ids de las acciones a marcar
-				var option = "";
-				$.each(response, function (i) {
-					option += "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
-					selectedValues[i] = response[i]['id'];  // Añadimos el id de la acción a marcar
-				});
-				$('#actions_ids').append(option);
-				$('#actions_ids').select2('val', selectedValues);  // Marcamos
-			}, 'json');
-		// Si estamos editando un usuario buscamos las acciones asociadas a él y las añadimos a la lista
-		}else{
-			$.post(base_url+'CUser/search_actions', $.param({'profile_id':perfil_id}), function (response) {
-				var selectedValues2 = $("#ids_actions").val();  // Cadena con la lista de ids de la acciones asociadas
-				selectedValues2 = selectedValues2.split(',');
-				var option = "";
-				$.each(response, function (i) {
-					option += "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
-				});
-				$('#actions_ids').append(option);
-				$('#actions_ids').select2('val', selectedValues2);  // Marcamos
-			}, 'json');
-			
-		}
-	}
-	
-	// Al cambiar el perfil validamos las acciones que se deben mostrar
-	$('#profile').change(function (){
-		
-		$('#profile').parent('div').removeClass("has-error");
-		
+	if($('#actions_ids').val() != undefined){
 		var perfil = $("#profile").find('option').filter(':selected').text();
 		if(perfil == 'ADMINISTRADOR'){
 			$('#admin').val(1);
@@ -188,61 +144,111 @@ $(document).ready(function() {
 				
 			}
 		}
+	}
+	
+	// Al cambiar el perfil validamos las acciones que se deben mostrar
+	$('#profile').change(function (){
+		
+		$('#profile').parent('div').removeClass("has-error");
+		
+		var perfil = $("#profile").find('option').filter(':selected').text();
+		if(perfil == 'ADMINISTRADOR'){
+			$('#admin').val(1);
+		}else{
+			$('#admin').val(0);
+		}
+		var perfil_id = $("#profile").val();
+		var usuario_id = $("#id").val();
+		//~ $('#actions_ids').find('option:gt(0)').remove().end().select2('val', '0');
+		$('#actions_ids').find('option').remove().end();
+		
+		if(perfil_id != '0'){
+			if($('#actions_ids').val() != undefined){
+				if(perfil == 'ADMINISTRADOR'){
+					$.post(base_url+'CUser/search_actions', $.param({'profile_id':perfil_id}), function (response) {
+						// alert(response);
+						var selectedValues = new Array();  // Arreglo donde almacenaremos los ids de las acciones a marcar
+						var option = "";
+						$.each(response, function (i) {
+							option += "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
+							selectedValues[i] = response[i]['id'];  // Añadimos el id de la acción a marcar
+						});
+						$('#actions_ids').append(option);
+						$('#actions_ids').select2('val', selectedValues);  // Marcamos
+					}, 'json');
+				// Si estamos editando un usuario buscamos las acciones asociadas a él y las añadimos a la lista
+				}else{
+					$.post(base_url+'CUser/search_actions', $.param({'profile_id':perfil_id}), function (response) {
+						var selectedValues2 = $("#ids_actions").val();  // Cadena con la lista de ids de la acciones asociadas
+						selectedValues2 = selectedValues2.split(',');
+						var option = "";
+						$.each(response, function (i) {
+							option += "<option value=" + response[i]['id'] + ">" + response[i]['name'] + "</option>";
+						});
+						$('#actions_ids').append(option);
+						$('#actions_ids').select2('val', selectedValues2);  // Marcamos
+					}, 'json');
+					
+				}
+			}
+		}
 	
 	});
 	
 	
 	//~ $("#actions_ids").ready(function() {
 		// Función para la interacción del combo select2 y la lista datatable
-		$("#actions_ids").on('change', function () {
-			
-			var ids_actions = $(this).val();
-			var data_actions = $(this).select2('data');
-			
-			// Comparamos las acciones del select con las de la lista y agregamos las que falten
-			$.each(data_actions, function (index, value){
-				// alert(index + ": " + value.id);
-				var contador = 0;  // Para verificar si la acción ya está en la tabla
+		if($('#actions_ids').val() != undefined){
+			$("#actions_ids").on('change', function () {
+				
+				var ids_actions = $(this).val();
+				var data_actions = $(this).select2('data');
+				
+				// Comparamos las acciones del select con las de la lista y agregamos las que falten
+				$.each(data_actions, function (index, value){
+					// alert(index + ": " + value.id);
+					var contador = 0;  // Para verificar si la acción ya está en la tabla
+					$("#tab_acciones tbody tr").each(function (index){
+						var id_action = $(this).find('td').eq(0).text();
+					
+						if(value.id == id_action){
+							contador += 1;
+						}
+					})
+					//~ alert(contador+"-"+value.text);
+					// Si la acción no está en la tabla, la añadimos
+					if(contador == 0){
+						var table = $('#tab_acciones').DataTable();
+						var id_new_action = value.id;
+						var name_new_action = value.text;
+						var permission_new_action = '<input type="checkbox" id="">';
+						var i = table.row.add( [ id_new_action, name_new_action, permission_new_action, permission_new_action, permission_new_action, permission_new_action ] ).draw();
+						table.rows(i).nodes().to$().attr("id", $("#id").val());
+					}
+				});
+				
+				// Comparamos las acciones de la lista con las del combo select y eliminamos las que sobren
 				$("#tab_acciones tbody tr").each(function (index){
 					var id_action = $(this).find('td').eq(0).text();
-				
-					if(value.id == id_action){
-						contador += 1;
+					var contador2 = 0  // Para verificar si la acción está en la tabla
+					
+					// Recorremos la lista de ids capturados del combo select2
+					$.each(ids_actions, function (index, value){
+						if(id_action == value) {
+							contador2 += 1;
+						}
+					})
+					// Si el contador es igual a cero, significa que la acción ha sido borrada del combo select, por tanto la quitamos también de la lista
+					if(contador2 == 0) {
+						// Borramos la línea correspondiente (línea actual)
+						var table = $('#tab_acciones').DataTable();
+						table.row($(this)).remove().draw();
 					}
-				})
-				//~ alert(contador+"-"+value.text);
-				// Si la acción no está en la tabla, la añadimos
-				if(contador == 0){
-					var table = $('#tab_acciones').DataTable();
-					var id_new_action = value.id;
-					var name_new_action = value.text;
-					var permission_new_action = '<input type="checkbox" id="">';
-					var i = table.row.add( [ id_new_action, name_new_action, permission_new_action, permission_new_action, permission_new_action, permission_new_action ] ).draw();
-					table.rows(i).nodes().to$().attr("id", $("#id").val());
-				}
-			});
-			
-			// Comparamos las acciones de la lista con las del combo select y eliminamos las que sobren
-			$("#tab_acciones tbody tr").each(function (index){
-				var id_action = $(this).find('td').eq(0).text();
-				var contador2 = 0  // Para verificar si la acción está en la tabla
-				
-				// Recorremos la lista de ids capturados del combo select2
-				$.each(ids_actions, function (index, value){
-					if(id_action == value) {
-						contador2 += 1;
-					}
-				})
-				// Si el contador es igual a cero, significa que la acción ha sido borrada del combo select, por tanto la quitamos también de la lista
-				if(contador2 == 0) {
-					// Borramos la línea correspondiente (línea actual)
-					var table = $('#tab_acciones').DataTable();
-					table.row($(this)).remove().draw();
-				}
-				
-			});
+					
+				});
 
-		});
+			});
+		}
 	//~ });
 
     $("#edit").click(function (e) {
