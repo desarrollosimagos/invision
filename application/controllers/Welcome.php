@@ -41,7 +41,7 @@ class Welcome extends CI_Controller {
 		}
 		
 		// Cargamos la plantilla base
-		$this->load->view('login_form');
+		$this->load->view('publico/home');
 	}
 	
 	public function admin()
