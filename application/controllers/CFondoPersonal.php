@@ -26,7 +26,9 @@ class CFondoPersonal extends CI_Controller {
 	public function register()
 	{
 		$this->load->view('base');
-		$data['cuentas'] = $this->MCuentas->obtener();
+		//~ echo $this->uri->segment(3);
+		$tipo = $this->uri->segment(3);  // 1 = Agregar, 2 = Retirar
+		$data['cuentas'] = $this->MFondoPersonal->obtener_cuentas_group($tipo);
 		$data['usuarios'] = $this->MUser->obtener();
 		$this->load->view('fondo_personal/registrar', $data);
 		$this->load->view('footer');

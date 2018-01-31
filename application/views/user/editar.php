@@ -123,7 +123,7 @@
 							</div>
 						</div>
 						
-						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
+						<?php if($this->session->userdata('logged_in')['profile_id'] == 1){ ?>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" ></label>
 							<div class="col-sm-10">
