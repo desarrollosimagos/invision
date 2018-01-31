@@ -19,14 +19,18 @@ class MCuentas extends CI_Model {
 		$this->db->from('cuentas f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('coins c', 'c.id = f_p.coin_id');
+		// Si el usuario corresponde al de un administrador quitamos el filtro de usuario
+        if($this->session->userdata('logged_in')['profile_id'] != 1){
+			$this->db->where('f_p.user_id =', $this->session->userdata('logged_in')['id']);
+		}
 		$this->db->order_by("f_p.id", "desc");
-        $query = $this->db->get();
-        //~ $query = $this->db->get('cuentas');
+		$query = $this->db->get();
+		//~ $query = $this->db->get('cuentas');
 
-        if ($query->num_rows() > 0)
-            return $query->result();
-        else
-            return $query->result();
+		if ($query->num_rows() > 0)
+			return $query->result();
+		else
+			return $query->result();
             
     }
 
