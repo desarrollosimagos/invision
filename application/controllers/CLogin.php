@@ -55,7 +55,7 @@ Class CLogin extends CI_Controller {
     public function logout() {
 		// Removing session data
         $this->basicauth->logout();
-        redirect('login');
+        redirect('/');
     }
     
 	// Show login page
