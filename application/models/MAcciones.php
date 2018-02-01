@@ -111,7 +111,7 @@ class MAcciones extends CI_Model {
         }
     }
 
-    // Método público, para obterner los datos de una acción según el id
+    // Método público, para obtener los datos de una acción según el id
     public function obtenerAccion($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('actions');
@@ -121,7 +121,17 @@ class MAcciones extends CI_Model {
             return $query->result();
     }
     
-    // Método público, para obterner los datos de una acción según la clase
+    // Método público, para obtener los datos de una acción según el nombre
+    public function obtenerAccionByName($name) {
+        $this->db->where('name', $name);
+        $query = $this->db->get('actions');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
+    // Método público, para obtener los datos de una acción según la clase
     public function obtenerAccionByClass($class) {
         $this->db->where('class', $class);
         $query = $this->db->get('actions');

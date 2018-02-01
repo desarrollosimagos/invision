@@ -60,14 +60,24 @@ class CUser extends CI_Controller {
         echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método insert()
         
         if ($result != 'existe'){
-			//~ // Si hay tiendas asociadas al usuario, registramos la relación en la tabla 'users_tiendas'
-			//~ if($this->input->post('tiendas_ids') != ""){
-				//~ // Inserción de las relaciones usuario-tienda				
-				//~ foreach($this->input->post('tiendas_ids') as $tienda_id){
-					//~ $data = array('user_id'=>$result, 'tienda_id'=>$tienda_id, 'tipo'=>1, 'status'=>1);
-					//~ $this->MUser->insert_tienda($data);
-				//~ }
-			//~ }
+			// Nos aseguramos de que la acción correspondiente a 'CUENTAS' sea asociada al usuario registrado
+			$accion = $this->MAcciones->obtenerAccionByName('CUENTAS');
+			$id_accion = $accion[0]->id;
+			$perfil_action = $this->MPerfil->obtener_accion_ids($this->input->post('profile_id'), $id_accion);
+			// Si el id de la acción 'CUENTAS' no está presente en el arreglo de actions_ids y si tampoco está ya asociado
+			// al perfil del usuario registrado asociamos manualmente la acción
+			if(count($this->input->post('actions_ids')) > 0){
+				if(!in_array($id_accion, $this->input->post('actions_ids')) && count($perfil_action) <= 0){
+					$data = array('user_id'=>$result, 'action_id'=>$id_accion, 'parameter_permit'=>'7770');
+					$this->MUser->insert_action($data);
+				}
+			}else{
+				if(count($perfil_action) <= 0){
+					$data = array('user_id'=>$result, 'action_id'=>$id_accion, 'parameter_permit'=>'7770');
+					$this->MUser->insert_action($data);
+				}
+			}
+			
 			// Si hay acciones asociadas al usuario, registramos la relación en la tabla 'permissions'
 			if($this->input->post('actions_ids') != ""){
 				// Inserción de las relaciones usuario-tienda				
