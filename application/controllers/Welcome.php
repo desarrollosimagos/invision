@@ -28,6 +28,7 @@ class Welcome extends CI_Controller {
         $this->load->model('MMenus');
         $this->load->model('MSubMenus');
         $this->load->model('MCoins');
+        $this->load->model('MWelcome');
     }
 	 
 	public function index()
@@ -39,9 +40,18 @@ class Welcome extends CI_Controller {
 			$this->migrations();  // Ejecutamos las migraciones
 			
 		}
+
+		$slider = $this->MWelcome->get_slider_projects();
 		
 		// Cargamos la plantilla base
-		$this->load->view('publico/home');
+		$this->load->view('publico/home', compact('slider'));
+	}
+
+	public function detail_projects()
+	{
+		$id         = $this->input->get('id');
+		$get_detail = $this->MWelcome->get_slider_detail($id);
+		$this->load->view('publico/detail_projects', compact('get_detail'));
 	}
 	
 	public function admin()
