@@ -18,6 +18,17 @@
     <link href="<?php echo assets_url('publico/css/animate.min.css');?>" rel="stylesheet">
 
     <link href="<?php echo assets_url('publico/font-awesome/css/font-awesome.min.css');?>" rel="stylesheet">
+    <style type="text/css">
+        .carousel-caption {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            bottom: auto;
+            right: auto;
+            text-align: left;
+            margin-left: 5% !important;
+        }
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -169,20 +180,46 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <div class="navy-line"></div>
-            <h1>Discover great feautres</h1>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+            <h1>Proyectos</h1>
+            <!--<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>-->
         </div>
     </div>
     <div class="row features-block">
-        <div class="col-lg-6 features-text wow fadeInLeft">
-            <small>INSPINIA</small>
-            <h2>Perfectly designed </h2>
-            <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with latest jQuery plugins.</p>
-            <a href="" class="btn btn-primary">Learn more</a>
-        </div>
-        <div class="col-lg-6 text-right wow fadeInRight">
-            <img src="<?php echo assets_url('publico/img/dashboard.png');?>" alt="dashboard" class="img-responsive pull-right">
-        </div>
+        <div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <?php $i = 1; ?>
+        <?php foreach ($slider as $value) { ?>
+            <div class="item <?php ( $i == 1 ) ? 'active' : '';?>">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1><?php echo $value->name;?><br/>
+                        <p><?php echo $value->description;?></p>
+                        <p>
+                            <a target="_blank" href="<?php base_url();?>detail_projects?id=<?php echo $value->id?>" class="btn btn-lg btn-primary detalles" href="#" role="button">Mas detalles</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- Set background for slide in css -->
+                <div class="header-back one">
+                    <img src="<?php echo assets_url("img/projects/$value->image");?>" alt="laptop" style='width:100% !important;;height: 470px !important;'/>
+                </div>
+            </div>
+            <?php $i++ ?>
+        <?php }?>
+    </div>
+    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
     </div>
 </section>
 
