@@ -106,14 +106,20 @@ class CResumen extends CI_Controller {
 				
 			}
 			
+			$decimals = 2;
+			if($this->session->userdata('logged_in')['coin_decimals'] != ""){
+				$decimals = $this->session->userdata('logged_in')['coin_decimals'];
+			}
+			$symbol = $this->session->userdata('logged_in')['coin_symbol'];
+			
 			// Conversión de los montos a la divisa del usuario
 			$resumen_user['pending_capital'] *= $currency_user; 
-			$resumen_user['pending_capital'] = round($resumen_user['pending_capital'], 2);
-			$resumen_user['pending_capital'] = $resumen_user['pending_capital']." ".$this->session->userdata('logged_in')['coin_symbol'];
+			$resumen_user['pending_capital'] = round($resumen_user['pending_capital'], $decimals);
+			$resumen_user['pending_capital'] = $resumen_user['pending_capital']." ".$symbol;
 			
 			$resumen_user['approved_capital'] *= $currency_user; 
-			$resumen_user['approved_capital'] = round($resumen_user['approved_capital'], 2);
-			$resumen_user['approved_capital'] = $resumen_user['approved_capital']." ".$this->session->userdata('logged_in')['coin_symbol'];
+			$resumen_user['approved_capital'] = round($resumen_user['approved_capital'], $decimals);
+			$resumen_user['approved_capital'] = $resumen_user['approved_capital']." ".$symbol;
 			
 			$resumen_users[] = $resumen_user;
 			

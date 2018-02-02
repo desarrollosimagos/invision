@@ -93,6 +93,7 @@ Class Basicauth
 				$query_coin = $this->CI->db->get_where('coins', array('id'=>$query->row()->coin_id));
 				$coin_iso = $query_coin->row()->abbreviation;
 				$coin_symbol = $query_coin->row()->symbol;
+				$coin_decimals = $query_coin->row()->decimals;
 				
 				// Creamos la sesión y le cargamos los datos de usuario
 				$session_data = array(
@@ -104,11 +105,11 @@ Class Basicauth
 					'acciones' => $acciones,
 					'permisos' => $permisos,
 					'tiendas' => $tiendas,
-					//~ 'servicios' => $servicios,
 					'submenus' => $submenus,
 					'menus' => $menus,
 					'coin_iso' => $coin_iso,
-					'coin_symbol' => $coin_symbol
+					'coin_symbol' => $coin_symbol,
+					'coin_decimals' => $coin_decimals
 				);
 				$this->CI->session->set_userdata('logged_in',$session_data);
 				
