@@ -35,6 +35,7 @@ class CCoins extends CI_Controller {
 			'description' => $this->input->post('description'),
 			'abbreviation' => $this->input->post('abbreviation'),
 			'symbol' => $this->input->post('symbol'),
+			'decimals' => $this->input->post('decimals'),
             'status' => $this->input->post('status'),
             'd_create' => date('Y-m-d H:i:s')
         );
@@ -70,6 +71,7 @@ class CCoins extends CI_Controller {
 			'description' => $this->input->post('description'),
 			'abbreviation' => $this->input->post('abbreviation'),
 			'symbol' => $this->input->post('symbol'),
+			'decimals' => $this->input->post('decimals'),
             'status' => $this->input->post('status'),
             'd_update' => date('Y-m-d H:i:s')
 		);

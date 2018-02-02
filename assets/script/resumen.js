@@ -154,9 +154,17 @@ $(document).ready(function(){
 				}
 			});
 			
-			$("#span_aprobado").text((capital_aprobado*currency_user).toFixed(2)+" "+$("#symbol_currency_user").val());
+			var decimals;
+			if($("#decimals_currency_user").val().trim() != ""){
+				decimals = $("#decimals_currency_user").val();
+			}else{
+				decimals = 2;
+			}
+			var symbol = $("#symbol_currency_user").val();
 			
-			$("#span_pendiente").text((capital_pendiente*currency_user).toFixed(2)+" "+$("#symbol_currency_user").val());
+			$("#span_aprobado").text((capital_aprobado*currency_user).toFixed(decimals)+" "+symbol);
+			
+			$("#span_pendiente").text((capital_pendiente*currency_user).toFixed(decimals)+" "+symbol);
 			
 		}, 'json');
 		

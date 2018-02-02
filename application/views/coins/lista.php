@@ -29,6 +29,7 @@
                                     <th>Descripción</th>
                                     <th>Abreviatura</th>
                                     <th>Símbolo</th>
+                                    <th>Decimales</th>
                                     <th>Estatus</th>
                                     <th>Editar</th>
                                     <th>Eliminar</th>
@@ -49,6 +50,9 @@
                                         </td>
                                         <td>
                                             <?php echo $moneda->symbol; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $moneda->decimals; ?>
                                         </td>
                                         <td>
                                             <?php 
@@ -116,6 +120,7 @@ $(document).ready(function(){
         "oLanguage": {"sUrl": "<?= assets_url() ?>js/es.txt"},
         "aoColumns": [
             {"sClass": "registro center", "sWidth": "5%"},
+            {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},

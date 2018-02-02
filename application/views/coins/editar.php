@@ -44,6 +44,14 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label">Decimales 
+							<i class="fa fa-info-circle fa-1.5x" style="color:#337AB7;cursor:pointer;" title="Indique en números la cantidad de decimales a utilizar en operaciones"></i> *
+							</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="decimals" maxlength="2" id="decimals" value="<?php echo $editar[0]->decimals ?>">
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" >Estatus *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="status" id="status">
@@ -93,6 +101,10 @@ $(document).ready(function(){
         } else if ($('#abbreviation').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar la abreviación de la moneda");
 			$('#abbreviation').parent('div').addClass('has-error');
+			
+        } else if ($('#decimals').val().trim() === "") {
+			swal("Disculpe,", "para continuar debe ingresar el número de decimales a tener en cuenta durante las operaciones");
+			$('#decimals').parent('div').addClass('has-error');
 			
         } else {
 

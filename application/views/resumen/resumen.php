@@ -20,6 +20,7 @@
 <!-- Campos ocultos que almacenan el tipo de moneda de la cuenta del usuario logueado -->
 <input type="hidden" id="iso_currency_user" value="<?php echo $this->session->userdata('logged_in')['coin_iso']; ?>">
 <input type="hidden" id="symbol_currency_user" value="<?php echo $this->session->userdata('logged_in')['coin_symbol']; ?>">
+<input type="hidden" id="decimals_currency_user" value="<?php echo $this->session->userdata('logged_in')['coin_decimals']; ?>">
 
 <div class="wrapper wrapper-content animated fadeInUp">
 	
@@ -63,6 +64,7 @@
 							</div>
 						</div>
 					</div>
+					<br>
 					<br>
 				</div>
 			</div>

@@ -30,6 +30,11 @@ class Migration_create_table_coins extends CI_Migration
 					"constraint" => 5,
 					"null" => TRUE
 				),
+				"decimals" => array(
+					"type" => "INT",
+					"constraint" => 11,
+					"null" => TRUE
+				),
 				"status" => array(
 					"type" => "INT",
 					"constraint" => 11,
