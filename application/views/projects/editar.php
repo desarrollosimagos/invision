@@ -62,7 +62,12 @@
 									<div class="form-group">
 										<label class="col-sm-2 control-label" >Fecha *</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control" name="date" id="date" maxlength="11" value="<?php echo $editar[0]->date ?>">
+											<?php
+											$fecha = $editar[0]->date;
+											$fecha = explode("-", $fecha);
+											$fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+											?>
+											<input type="text" class="form-control" name="date" id="date" maxlength="11" value="<?php echo $fecha; ?>">
 										</div>
 									</div>
 								</div>
@@ -218,6 +223,12 @@ $(document).ready(function(){
             $(this).parent('div').removeClass('has-error');
         }
     });
+    
+    $('#date').datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        autoclose: true,
+    })
 
     $('#volver').click(function () {
         url = '<?php echo base_url() ?>projects/';

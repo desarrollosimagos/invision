@@ -150,6 +150,12 @@ $(document).ready(function(){
             $(this).parent('div').removeClass('has-error');
         }
     });
+    
+    $('#date').datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        autoclose: true,
+    })
 
     $('#volver').click(function () {
         url = '<?php echo base_url() ?>projects/';
