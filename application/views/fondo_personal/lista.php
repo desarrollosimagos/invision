@@ -100,10 +100,18 @@
                                             <?php echo $fondo->observaciones; ?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>fondo_personal/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+											<?php if($this->session->userdata('logged_in')['profile_id'] == 1){ ?>
+												<a href="<?php echo base_url() ?>fondo_personal/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+                                            <?php }else{ ?>
+												<a ><i class="fa fa-ban fa-2x" style='color:#D33333;'></i></a>
+                                            <?php } ?>
                                         </td>
                                         <td style='text-align: center'>
+											<?php if($this->session->userdata('logged_in')['profile_id'] == 1){ ?>
                                             <a class='borrar' id='<?php echo $fondo->id; ?>' title='Eliminar'><i class="fa fa-trash-o fa-2x"></i></a>
+                                            <?php }else{ ?>
+												<a ><i class="fa fa-ban fa-2x" style='color:#D33333;'></i></a>
+                                            <?php } ?>
                                         </td>
                                         <td style='text-align: center'>
 											<?php
