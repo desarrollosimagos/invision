@@ -158,27 +158,47 @@ $(document).ready(function(){
              
                 $.post('<?php echo base_url(); ?>cuentas/delete/' + id + '', function (response) {
 
-                    if (response[0] == "e") {
+                    if (response['response'] == "existe") {
                        
                          swal({ 
                            title: "Disculpe,",
-                            text: "No se puede eliminar se encuentra asociado a un usuario",
+                            text: "No se puede eliminar, se encuentra asociado a una transacción",
                              type: "warning" 
                            },
                            function(){
                              
                          });
-                    }else{
+                    } else if (response['response'] == "existe2") {
+                       
+                         swal({ 
+                           title: "Disculpe,",
+                            text: "No se puede eliminar, se encuentra asociado a un grupo de inversionistas.",
+                             type: "warning" 
+                           },
+                           function(){
+                             
+                         });
+                    } else if (response['response'] == "error") {
+                       
+                         swal({ 
+                           title: "Disculpe,",
+                            text: "No se puede eliminar, ha ocurrido un falo en el sistema, por favor consulte con su administrador.",
+                             type: "warning" 
+                           },
+                           function(){
+                             
+                         });
+                    } else {
                          swal({ 
                            title: "Eliminar",
-                            text: "Registro eliminado con exito",
+                            text: "Registro eliminado con exito.",
                              type: "success" 
                            },
                            function(){
                              window.location.href = '<?php echo base_url(); ?>cuentas';
                          });
                     }
-                });
+                }, 'json');
             } 
         });
     });       

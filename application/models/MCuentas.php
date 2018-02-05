@@ -55,6 +55,30 @@ class MCuentas extends CI_Model {
             
     }
 
+    // Public method to obtain the cuentas by id
+    public function obtenerCuentaFondos($id) {
+		
+        $this->db->where('cuenta_id', $id);
+        $query = $this->db->get('fondo_personal');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+            
+    }
+
+    // Public method to obtain the cuentas by id
+    public function obtenerCuentaGrupos($id) {
+		
+        $this->db->where('account_id', $id);
+        $query = $this->db->get('investor_groups_accounts');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+            
+    }
+
     // Public method to update a record  
     public function update($datos) {
 		

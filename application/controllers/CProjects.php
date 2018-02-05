@@ -235,8 +235,6 @@ class CProjects extends CI_Controller {
 			}
 			
 		}
-		
-        
         
     }
 	
