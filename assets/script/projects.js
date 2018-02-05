@@ -66,27 +66,37 @@ $(document).ready(function(){
              
                 $.post(base_url+'projects/delete/' + id + '', function (response) {
 
-                    if (response[0] == "e") {
+                    if (response['response'] == "existe") {
                        
-                         swal({ 
-                           title: "Disculpe,",
-                            text: "No se puede eliminar se encuentra asociado a un usuario",
-                             type: "warning" 
-                           },
-                           function(){
+                        swal({ 
+							title: "Disculpe,",
+                            text: "No se puede eliminar, se encuentra asociado a un grupo de inversionistas",
+                            type: "warning" 
+						},
+						function(){
                              
-                         });
+                        });
+                    }else if (response['response'] == "error") {
+                       
+                        swal({ 
+							title: "Disculpe,",
+                            text: "No se puede eliminar, por favor consulte a su administrador",
+                            type: "warning" 
+						},
+						function(){
+                             
+                        });
                     }else{
-                         swal({ 
-                           title: "Eliminar",
+                        swal({
+                            title: "Eliminar",
                             text: "Registro eliminado con exito",
-                             type: "success" 
-                           },
-                           function(){
+                            type: "success" 
+                        },
+                        function(){
                              window.location.href = base_url+'projects';
-                         });
+                        });
                     }
-                });
+                }, 'json');
             } 
         });
     });       

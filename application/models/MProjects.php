@@ -73,6 +73,18 @@ class MProjects extends CI_Model {
             return $query->result();
             
     }
+
+    // Public method to obtain the projects by id
+    public function obtenerProyectoGrupo($id) {
+		
+        $this->db->where('project_id', $id);
+        $query = $this->db->get('investor_groups_projects');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+            
+    }
     
     // Public method to obtain the photos by project_id
     public function obtenerFotos($project_id) {
