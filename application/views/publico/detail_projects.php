@@ -52,24 +52,10 @@
                     </button>
                     <a class="navbar-brand" href="#">WEBAPPLAYERS</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a class="page-scroll" href="#page-top">Inicio</a></li>
-                        <li><a class="page-scroll" href="#features">Posibilidades</a></li>
-                        <li><a class="page-scroll" href="#team">Inversiones</a></li>
-                        <li><a class="page-scroll" href="#testimonials">Contactos</a></li>
-                        <li><a href="<?php echo base_url('login');?>" class="page-scroll" href="#pricing">Entrar</a></li>
-                        <li><a class="page-scroll" href="#contact">Registro</a></li>
-                    </ul>
-                </div>
             </div>
         </nav>
 </div>
 <div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
-        <li data-target="#inSlider" data-slide-to="1"></li>
-    </ol>
     <div class="carousel-inner" role="listbox">
         <div class="item active">
             <!-- Set background for slide in css -->
@@ -84,24 +70,12 @@
 <section id="features" class="container services">
     <div class="row">
         <div class="col-sm-3">
-            <h2>Full responsive</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
+            <h2>Proyecto</h2>
+            <p><?php echo $get_detail->name;?></p>
         </div>
         <div class="col-sm-3">
-            <h2>LESS/SASS Files</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
-        </div>
-        <div class="col-sm-3">
-            <h2>6 Charts Library</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
-        </div>
-        <div class="col-sm-3">
-            <h2>Advanced Forms</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
+            <h2>Descripción</h2>
+            <p><?php echo $get_detail->description;?></p>
         </div>
     </div>
 </section>

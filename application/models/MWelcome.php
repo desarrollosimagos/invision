@@ -14,14 +14,20 @@ class MWelcome extends CI_Model {
 
     public function get_slider_projects()
     {
-        $result = $this->db->get('projects');
+        $this->db->select('a.id, a.name, a.description, b.photo as image');
+        $this->db->from('projects a');
+        $this->db->join('photos b', 'b.project_id = a.id');
+        $result = $this->db->get();
         return $result->result();
     }
 
     public function get_slider_detail($id)
     {
-        $this->db->where('id =', $id);
-        $result = $this->db->get('projects');
+        $this->db->where('a.id =', $id);
+        $this->db->select('a.id, a.name, a.description, b.photo as image');
+        $this->db->from('projects a');
+        $this->db->join('photos b', 'b.project_id = a.id');
+        $result = $this->db->get();
         return $result->row();
     }
 
