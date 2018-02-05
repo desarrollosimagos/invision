@@ -27,6 +27,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre</th>
+                                    <th>Proyectos</th>
                                     <th>Usuarios</th>
                                     <th>Cuentas</th>
                                     <th>Editar</th>
@@ -42,6 +43,23 @@
                                         </td>
                                         <td>
                                             <?php echo $grupo->name; ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            echo "<br>";
+                                            // Validamos qué proyectos están asociados a cada grupo
+                                            foreach($group_projects as $group_project){
+												if($grupo->id == $group_project->group_id){
+													foreach ($projects as $project){
+														if($group_project->project_id == $project->id){
+															echo $project->name."<br>";
+														}else{
+															echo "";
+														}
+													}
+												}
+											}
+											?>
                                         </td>
                                         <td>
                                             <?php
@@ -132,6 +150,7 @@ $(document).ready(function(){
        "aoColumns": [
            {"sClass": "registro center", "sWidth": "5%"},
            {"sClass": "registro center", "sWidth": "20%"},
+           {"sClass": "none", "sWidth": "8%"},
            {"sClass": "none", "sWidth": "8%"},
            {"sClass": "none", "sWidth": "8%"},
            {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},

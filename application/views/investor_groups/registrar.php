@@ -29,6 +29,19 @@
 								<input type="text" class="form-control"  placeholder="Introdúzca nombre" name="name" id="name">
 							</div>
 						</div>
+						<div class="form-group"><label class="col-sm-2 control-label" >Proyectos</label>
+							<div class="col-sm-10">
+								<select id="projects_ids" class="form-control" multiple="multiple">
+									<?php
+									foreach ($projects as $project) {
+										?>
+										<option value="<?php echo $project->id; ?>"><?php echo $project->name; ?></option>
+										<?php
+									}
+									?>
+								</select>
+							</div>
+						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Inversores</label>
 							<div class="col-sm-10">
 								<select id="users_ids" class="form-control" multiple="multiple">
@@ -95,6 +108,11 @@ $(document).ready(function(){
 			swal("Disculpe,", "para continuar debe ingresar nombre");
 			$('#name').parent('div').addClass('has-error');
 			
+        } else if ($('#projects_ids').val() == "") {
+          
+			swal("Disculpe,", "para continuar debe seleccionar los proyectos");
+			$('#projects_ids').parent('div').addClass('has-error');
+			
         } else if ($('#users_ids').val() == "") {
           
 			swal("Disculpe,", "para continuar debe seleccionar los usuarios");
@@ -108,7 +126,7 @@ $(document).ready(function(){
         } else {
 			//~ alert(String($('#users_ids').val()));
 
-            $.post('<?php echo base_url(); ?>CInvestorGroups/add', $('#form_group').serialize()+'&'+$.param({'users_ids':$('#users_ids').val(), 'accounts_ids':$('#accounts_ids').val()}), function (response) {
+            $.post('<?php echo base_url(); ?>CInvestorGroups/add', $('#form_group').serialize()+'&'+$.param({'users_ids':$('#users_ids').val(), 'accounts_ids':$('#accounts_ids').val(), 'projects_ids':$('#projects_ids').val()}), function (response) {
 				//~ alert(response);
 				if (response == 'existe') {
                     swal("Disculpe,", "este nombre de grupo se encuentra registrado");

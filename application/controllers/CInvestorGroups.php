@@ -10,6 +10,7 @@ class CInvestorGroups extends CI_Controller {
         $this->load->model('MInvestorGroups');
         $this->load->model('MUser');
         $this->load->model('MCuentas');
+        $this->load->model('MProjects');
         $this->load->model('MRelateUsers');
 		
     }
@@ -18,6 +19,8 @@ class CInvestorGroups extends CI_Controller {
 	{
 		$this->load->view('base');
 		$data['listar'] = $this->MInvestorGroups->obtener();
+		$data['group_projects'] = $this->MInvestorGroups->obtener_proyectos();
+		$data['projects'] = $this->MProjects->obtener();
 		$data['group_users'] = $this->MInvestorGroups->obtener_inversores();
 		$data['users'] = $this->MRelateUsers->obtener_inversores();
 		$data['group_accounts'] = $this->MInvestorGroups->obtener_cuentas();
@@ -29,6 +32,7 @@ class CInvestorGroups extends CI_Controller {
 	public function register()
 	{
 		$this->load->view('base');
+		$data['projects'] = $this->MProjects->obtener();
 		$data['inversores'] = $this->MRelateUsers->obtener_inversores();
 		$data['accounts'] = $this->MCuentas->obtener();
 		$this->load->view('investor_groups/registrar', $data);
@@ -49,6 +53,17 @@ class CInvestorGroups extends CI_Controller {
         echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método insert()
         
         if ($result != 'existe') {
+			// Proceso de registro de proyectos asociados al grupo
+			// Asociamos los proyectos seleccionados del combo select
+			foreach($this->input->post('projects_ids') as $project_id){
+				$data_project = array(
+					'group_id'=>$result, 
+					'project_id'=>$project_id,
+					'd_create' => date('Y-m-d H:i:s'),
+					'd_update' => date('Y-m-d H:i:s')
+				);
+				$this->MInvestorGroups->insert_project($data_project);
+			}
 			// Proceso de registro de usuarios asociados al grupo
 			// Asociamos los usuarios seleccionados del combo select
 			foreach($this->input->post('users_ids') as $user_id){
@@ -81,10 +96,22 @@ class CInvestorGroups extends CI_Controller {
 		$this->load->view('base');
         $data['id'] = $this->uri->segment(3);
         $data['editar'] = $this->MInvestorGroups->obtenerGrupos($data['id']);
+        $data['group_projects'] = $this->MInvestorGroups->obtener_proyectos_id($data['id']);
         $data['group_users'] = $this->MInvestorGroups->obtener_usuarios_id($data['id']);
         $data['group_accountss'] = $this->MInvestorGroups->obtener_cuentas_id($data['id']);
+        $data['projects'] = $this->MProjects->obtener();
         $data['inversores'] = $this->MRelateUsers->obtener_inversores();
 		$data['accounts'] = $this->MCuentas->obtener();
+        // Lista de proyectos asociados al grupo
+        $ids_projects = "";
+        $query_projects = $this->MInvestorGroups->obtener_proyectos_id($data['id']);
+        if(count($query_projects) > 0){
+			foreach($query_projects as $project){
+				$ids_projects .= $project->project_id.",";
+			}
+		}
+		$ids_projects = substr($ids_projects,0,-1);
+        $data['ids_projects'] = $ids_projects;
         // Lista de usuarios asociados al grupo
         $ids_users = "";
         $query_users = $this->MInvestorGroups->obtener_usuarios_id($data['id']);
@@ -124,6 +151,40 @@ class CInvestorGroups extends CI_Controller {
         echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método update()
         
         if ($result) {
+			
+			// Proceso de registro de proyectos asociados al grupo
+			$ids_projects = array(); // Aquí almacenaremos los ids de los proyectos a asociar
+			// Asociamos los nuevos proyectos seleccionados del combo select
+			foreach($this->input->post('projects_ids') as $project_id){
+				// Primero verificamos si ya está asociado cada proyecto, si no lo está, lo insertamos
+				$check_associated = $this->MInvestorGroups->obtener_proyectos_ids($data['id'], $project_id);
+				//~ echo count($check_associated);
+				if(count($check_associated) == 0){
+					$data_project = array(
+						'group_id'=>$data['id'], 
+						'project_id'=>$project_id,
+						'd_create' => date('Y-m-d H:i:s'),
+						'd_update' => date('Y-m-d H:i:s')
+					);
+					$this->MInvestorGroups->insert_project($data_project);
+				}
+				// Vamos colectando los ids recorridos
+				$ids_projects[] = $project_id;
+			}
+			
+			// Validamos que proyectos han sido quitados del combo select para proceder a borrar las relaciones
+			// Primero buscamos todos los proyectos asociados al grupo
+			$query_associated = $this->MInvestorGroups->obtener_proyectos_id($data['id']);
+			if(count($query_associated) > 0){
+				// Verificamos cuales de los proyectos no están en la nueva lista
+				foreach($query_associated as $association){
+					if(!in_array($association->project_id, $ids_projects)){
+						// Eliminamos la asociacion de la tabla investor_groups_projects
+						$this->MInvestorGroups->delete_investor_groups_project($data['id'], $association->project_id);
+					}
+				}
+			}
+			
 			// Proceso de registro de usuarios asociados al grupo
 			$ids_users = array(); // Aquí almacenaremos los ids de los usuarios a asociar
 			// Asociamos los nuevos usuarios seleccionados del combo select
