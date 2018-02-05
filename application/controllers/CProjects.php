@@ -60,11 +60,15 @@ class CProjects extends CI_Controller {
 	// Método para guardar un nuevo registro
     public function add() {
 		
+		$fecha = $this->input->post('date');
+		$fecha = explode("/", $fecha);
+		$fecha = $fecha[2]."-".$fecha[1]."-".$fecha[0];
+		
 		$datos = array(
 			'name' => $this->input->post('name'),
 			'description' => $this->input->post('description'),
             'valor' => $this->input->post('valor'),
-            'date' => $this->input->post('date'),
+            'date' => $fecha,
             'd_create' => date('Y-m-d H:i:s')
         );
         
@@ -138,12 +142,16 @@ class CProjects extends CI_Controller {
 	// Método para actualizar
     public function update() {
 		
+		$fecha = $this->input->post('date');
+		$fecha = explode("/", $fecha);
+		$fecha = $fecha[2]."-".$fecha[1]."-".$fecha;
+		
 		$datos = array(
 			'id' => $this->input->post('id'),
 			'name' => $this->input->post('name'),
 			'description' => $this->input->post('description'),
             'valor' => $this->input->post('valor'),
-            'date' => $this->input->post('date'),
+            'date' => $fecha,
             'd_create' => date('Y-m-d H:i:s')
 		);
 		
