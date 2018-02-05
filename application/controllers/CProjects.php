@@ -205,11 +205,30 @@ class CProjects extends CI_Controller {
 	// Método para eliminar
 	function delete($id) {
 		
-        $result = $this->MProjects->delete($id);
+		// Primero verificamos si está asociado a algún grupo
+		$search_assoc = $this->MProjects->obtenerProyectoGrupo($id);
+		
+		if(count($search_assoc) > 0){
+			
+			echo '{"response":"existe"}';
+			
+		}else{
+			
+			$result = $this->MProjects->delete($id);
+			
+			if($result){
+				
+				echo '{"response":"ok"}';
+				
+			}else{
+				
+				echo '{"response":"error"}';
+				
+			}
+			
+		}
+		
         
-        if ($result) {
-          /*  $this->libreria->generateActivity('Eliminado País', $this->session->userdata['logged_in']['id']);*/
-        }
         
     }
 	
