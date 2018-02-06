@@ -28,7 +28,7 @@
             text-align: left;
             margin-left: 5% !important;
         }
-
+      
         .carousel-indicators {
             bottom: -91%;
         }
