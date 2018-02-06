@@ -7,12 +7,15 @@ application/cache/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
+/vendor/
+
+application/config/database.php
+application/config/config.php
 
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
-
 
 # IDE Files
 #-------------------------
@@ -27,6 +30,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
-application/config/database.php
 *.sublime*
 *.sql
