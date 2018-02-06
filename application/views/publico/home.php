@@ -28,9 +28,13 @@
             text-align: left;
             margin-left: 5% !important;
         }
+      
+        .carousel-indicators {
+            bottom: -91%;
+        }
 
-        .carousel {
-            height: 1024px !important;
+        .row-div-info{
+            margin-top: 34% !important;
         }
     
     </style>
@@ -125,7 +129,7 @@
 
 
 <section id="features" class="container services">
-    <div class="row">
+    <div class="row row-div-info">
         <div class="col-sm-3">
             <h2>Full responsive</h2>
             <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
@@ -194,10 +198,10 @@
         </div>
     </div>
     <div class="row features-block">
-        <div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+        <div id="inSlider-proy" class="carousel carousel-fade" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
-        <li data-target="#inSlider" data-slide-to="1"></li>
+        <li data-target="#inSlider-proy" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider-proy" data-slide-to="1"></li>
     </ol>
     <div class="carousel-inner" role="listbox">
         <?php $i = 1; ?>
@@ -220,11 +224,11 @@
             <?php $i++ ?>
         <?php }?>
     </div>
-    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+    <a class="left carousel-control" href="#inSlider-proy" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+    <a class="right carousel-control" href="#inSlider-proy" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
