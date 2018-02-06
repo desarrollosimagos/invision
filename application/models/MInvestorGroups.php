@@ -22,6 +22,16 @@ class MInvestorGroups extends CI_Model {
             return $query->result();
     }
     
+    //Public method to obtain the asociated accounts
+    public function obtener_proyectos() {
+        $query = $this->db->get('investor_groups_projects');
+
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
     //Public method to obtain the asociated users
     public function obtener_inversores() {
         $query = $this->db->get('investor_groups_users');
@@ -35,6 +45,17 @@ class MInvestorGroups extends CI_Model {
     //Public method to obtain the asociated accounts
     public function obtener_cuentas() {
         $query = $this->db->get('investor_groups_accounts');
+
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
+    //Public method to obtain the users asociated by id_group
+    public function obtener_proyectos_id($id_group) {
+		$this->db->where('group_id =', $id_group);
+        $query = $this->db->get('investor_groups_projects');
 
         if ($query->num_rows() > 0)
             return $query->result();
@@ -57,6 +78,18 @@ class MInvestorGroups extends CI_Model {
     public function obtener_cuentas_id($id_group) {
 		$this->db->where('group_id =', $id_group);
         $query = $this->db->get('investor_groups_accounts');
+
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
+    //Public method to obtain the projects asociated by group_id and project_id
+    public function obtener_proyectos_ids($id_group, $id_project) {
+		$this->db->where('group_id =', $id_group);
+		$this->db->where('project_id =', $id_project);
+        $query = $this->db->get('investor_groups_projects');
 
         if ($query->num_rows() > 0)
             return $query->result();
@@ -106,9 +139,14 @@ class MInvestorGroups extends CI_Model {
 		$result = $this->db->insert("investor_groups_users", $datos);
     }
     
-    // Public method to insert the asociated users
+    // Public method to insert the asociated accounts
     public function insert_account($datos) {
 		$result = $this->db->insert("investor_groups_accounts", $datos);
+    }
+    
+    // Public method to insert the asociated projects
+    public function insert_project($datos) {
+		$result = $this->db->insert("investor_groups_projects", $datos);
     }
     
     // Public method to insert the asociated users
@@ -183,6 +221,11 @@ class MInvestorGroups extends CI_Model {
     // Public method to delete the asociated account
     public function delete_account($id) {
 		$result = $this->db->delete('investor_groups_accounts', array('id' => $id));
+    }
+    
+    // Public method to delete a specific association
+    public function delete_investor_groups_project($id_group, $id_project) {
+		$result = $this->db->delete('investor_groups_projects', array('group_id' => $id_group, 'project_id' => $id_project));
     }
     
     // Public method to delete a specific association

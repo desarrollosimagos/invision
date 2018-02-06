@@ -122,7 +122,57 @@ $(document).ready(function(){
     // Proceso de conversión de moneda (captura del equivalente a 1 dólar en las distintas monedas)
     $.post('https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664', function (coins) {
 		
-		var currency_user = coins['rates'][$("#iso_currency_user").val()];  // Tipo de moneda del usuario logueado
+		var valor1btc, valor1vef;
+		
+		// Valor de 1 btc en dólares (uso de async: false para esperar a que cargue la data)
+		$.ajax({
+			type: "get",
+			dataType: "json",
+			url: 'https://api.coinmarketcap.com/v1/ticker/',
+			async: false
+		})
+		.done(function(btc) {
+			if(btc.error){
+				console.log(btc.error);
+			} else {
+				valor1btc = btc[0]['price_usd'];
+			}				
+		}).fail(function() {
+			console.log("error ajax");
+		});
+		
+		// Valor de 1 dólar en bolívares (uso de async: false para esperar a que cargue la data)
+		$.ajax({
+			type: "get",
+			dataType: "json",
+			url: 'https://s3.amazonaws.com/dolartoday/data.json',
+			async: false
+		})
+		.done(function(vef) {
+			if(vef.error){
+				console.log(vef.error);
+			} else {
+				valor1vef = vef['USD']['transferencia'];
+			}				
+		}).fail(function() {
+			console.log("error ajax");
+		});
+		
+		// Si el tipo de moneda de la transacción es Bitcoin (BTC) o Bolívares (VEF) hacemos la conversión usando valores de una api más acorde
+		if ($("#iso_currency_user").val() == 'BTC') {
+			
+			var currency_user = 1/parseFloat(valor1btc);  // Tipo de moneda del usuario logueado
+				
+		} else if($("#iso_currency_user").val() == 'VEF') {
+				
+			var currency_user = valor1vef;  // Tipo de moneda del usuario logueado
+		
+		} else {
+		
+			var currency_user = coins['rates'][$("#iso_currency_user").val()];  // Tipo de moneda del usuario logueado
+		
+		}
+		
 		var capital_pendiente = 0;
 		var capital_aprobado = 0;
 		
@@ -133,9 +183,23 @@ $(document).ready(function(){
 				
 				// Conversión de cada monto a dólares
 				var currency = fondos[i]['coin_avr'];  // Tipo de moneda de la transacción
-				var trans_usd = parseFloat(fondos[i]['monto'])/coins['rates'][currency];
+				
+				// Si el tipo de moneda de la transacción es Bitcoin (BTC) o Bolívares (VEF) hacemos la conversión usando una api más acorde
+				if (currency == 'BTC') {
+					
+					var trans_usd = parseFloat(fondos[i]['monto'])*parseFloat(valor1btc);
+					
+				} else if(currency == 'VEF') {
+						
+					var trans_usd = parseFloat(fondos[i]['monto'])/parseFloat(valor1vef);
+					
+				} else {
+					
+					var trans_usd = parseFloat(fondos[i]['monto'])/parseFloat(coins['rates'][currency]);
+					
+				}
 				//~ alert(trans_usd);
-				//~ console.log("tipo: "+fondos[i]['tipo']+" - "+trans_usd);
+				console.log("id: "+fondos[i]['id']+" - "+"tipo: "+fondos[i]['tipo']+" - "+"monto: "+fondos[i]['monto']+" - "+trans_usd+" - "+fondos[i]['coin_avr']+" - "+"status: "+fondos[i]['status']);
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
 				if(fondos[i]['status'] == 0){
@@ -156,11 +220,18 @@ $(document).ready(function(){
 			
 			var decimals;
 			if($("#decimals_currency_user").val().trim() != ""){
-				decimals = $("#decimals_currency_user").val();
+				decimals = parseFloat($("#decimals_currency_user").val());
 			}else{
 				decimals = 2;
 			}
 			var symbol = $("#symbol_currency_user").val();
+			
+			//~ alert(decimals);
+			//~ alert(typeof(decimals));
+			//~ alert(capital_aprobado);
+			//~ alert(currency_user);
+			//~ alert(typeof(capital_aprobado));
+			//~ alert(typeof(currency_user));
 			
 			$("#span_aprobado").text((capital_aprobado*currency_user).toFixed(decimals)+" "+symbol);
 			

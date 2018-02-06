@@ -101,11 +101,35 @@ class CCuentas extends CI_Controller {
 	// Método para eliminar
 	function delete($id) {
 		
-        $result = $this->MCuentas->delete($id);
-        
-        if ($result) {
-          /*  $this->libreria->generateActivity('Eliminado País', $this->session->userdata['logged_in']['id']);*/
-        }
+		// Primero verificamos si está asociada a alguna transacción
+		$search_assoc = $this->MCuentas->obtenerCuentaFondos($id);
+		
+		// Luego verificamos si está asociada a algún grupo de inversionistas
+		$search_assoc2 = $this->MCuentas->obtenerCuentaGrupos($id);
+		
+		if(count($search_assoc) > 0){
+			
+			echo '{"response":"existe"}';
+			
+		}else if(count($search_assoc2) > 0){
+			
+			echo '{"response":"existe2"}';
+			
+		}else{
+			
+			$result = $this->MCuentas->delete($id);
+			
+			if($result){
+				
+				echo '{"response":"ok"}';
+				
+			}else{
+				
+				echo '{"response":"error"}';
+				
+			}
+			
+		}
         
     }
 	
