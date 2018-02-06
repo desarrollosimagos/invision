@@ -199,7 +199,7 @@ $(document).ready(function(){
 					
 				}
 				//~ alert(trans_usd);
-				console.log("id: "+fondos[i]['id']+" - "+"tipo: "+fondos[i]['tipo']+" - "+"monto: "+fondos[i]['monto']+" - "+trans_usd+" - "+fondos[i]['coin_avr']+" - "+"status: "+fondos[i]['status']);
+				//~ console.log("id: "+fondos[i]['id']+" - "+"tipo: "+fondos[i]['tipo']+" - "+"monto: "+fondos[i]['monto']+" - "+trans_usd+" - "+fondos[i]['coin_avr']+" - "+"status: "+fondos[i]['status']);
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
 				if(fondos[i]['status'] == 0){
@@ -225,13 +225,6 @@ $(document).ready(function(){
 				decimals = 2;
 			}
 			var symbol = $("#symbol_currency_user").val();
-			
-			//~ alert(decimals);
-			//~ alert(typeof(decimals));
-			//~ alert(capital_aprobado);
-			//~ alert(currency_user);
-			//~ alert(typeof(capital_aprobado));
-			//~ alert(typeof(currency_user));
 			
 			$("#span_aprobado").text((capital_aprobado*currency_user).toFixed(decimals)+" "+symbol);
 			
