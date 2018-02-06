@@ -28,6 +28,11 @@
             text-align: left;
             margin-left: 5% !important;
         }
+
+        .carousel {
+            height: 1024px !important;
+        }
+    
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -85,11 +90,13 @@
                     </p>
                 </div>
                 <div class="carousel-image wow zoomIn">
-                    <img src="<?php echo assets_url('publico/img/laptop.png');?>" alt="laptop"/>
+                    <!--<img src="<?php echo assets_url('publico/img/laptop.png');?>" alt="laptop"/>-->
                 </div>
             </div>
             <!-- Set background for slide in css -->
-            <div class="header-back one"></div>
+            <div class="header-back one">
+                <img src="<?php echo assets_url('img/projects/1.jpg');?>" alt="laptop"/>
+            </div>
 
         </div>
         <div class="item">
@@ -101,7 +108,9 @@
                 </div>
             </div>
             <!-- Set background for slide in css -->
-            <div class="header-back two"></div>
+            <div class="header-back two">
+                <img src="<?php echo assets_url('img/projects/2.jpg');?>" alt="laptop"/>
+            </div>
         </div>
     </div>
     <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
