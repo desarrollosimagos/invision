@@ -30,12 +30,33 @@
         }
       
         .carousel-indicators {
-            bottom: -91%;
+            bottom: -80%;
         }
 
         .row-div-info{
             margin-top: 34% !important;
         }
+
+        .carousel-indicators .active {
+            width: 20px !important;
+            height: 20px !important;
+            margin: 0;
+            background-color: #fffafa;
+        }
+
+        .carousel-indicators li {
+            display: inline-block;
+            width: 20px !important;
+            height: 20px !important;
+            margin: 1px;
+            text-indent: -999px;
+            cursor: pointer;
+            background-color: #000 \9;
+            background-color: rgba(0,0,0,0);
+            border: 1px solid #fff;
+            border-radius: 10px;
+        }
+   
     
     </style>
 
@@ -117,13 +138,13 @@
             </div>
         </div>
     </div>
-    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev" style="margin-top: 22% !important;">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only">Anterior</span>
     </a>
-    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next" style="margin-top: 22% !important;">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only">Siguiente</span>
     </a>
 </div>
 
@@ -221,14 +242,14 @@
             <?php $i++ ?>
         <?php }?>
     </div>
-    <a class="left carousel-control" href="#inSlider-proy" role="button" data-slide="prev">
+    <!--<a class="left carousel-control" href="#inSlider-proy" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Anterior</span>
     </a>
     <a class="right carousel-control" href="#inSlider-proy" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Siguiente</span>
-    </a>
+    </a>-->
 </div>
     </div>
 </section>
