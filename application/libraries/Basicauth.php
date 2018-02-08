@@ -95,7 +95,7 @@ Class Basicauth
 				$coin_symbol = $query_coin->row()->symbol;
 				$coin_decimals = $query_coin->row()->decimals;
 				
-				// Creamos la sesión y le cargamos los datos de usuario
+				// Cargamos los datos de usuario
 				$session_data = array(
 					'id' => $query->row()->id,
 					'username' => $usuario,
@@ -109,9 +109,40 @@ Class Basicauth
 					'menus' => $menus,
 					'coin_iso' => $coin_iso,
 					'coin_symbol' => $coin_symbol,
-					'coin_decimals' => $coin_decimals
+					'coin_decimals' => $coin_decimals,
+					'time' => time()  // Hora del acceso
 				);
-				$this->CI->session->set_userdata('logged_in',$session_data);
+				
+				$fecha_actual = date('Y-m-d H:i:s');
+				
+				// Consultamos si hay sesiones registradas para el usuario en 'users_sessions'
+				$query_session = $this->CI->db->query("SELECT * FROM users_sessions WHERE user_id=".$query->row()->id);
+				if(count($query_session->result()) > 0){
+					
+					if($query_session->result()[0]->status == 1){
+						
+						$data['error'] = 'Disculpe, el usuario ya tiene una sesión activa';
+						
+					}else{
+					
+						// Creamos la sesión
+						$this->CI->session->set_userdata('logged_in',$session_data);
+						$this->CI->db->simple_query("UPDATE users_sessions SET status = 1, d_update = '".$fecha_actual."' WHERE user_id = ".$query->row()->id);
+					
+					}
+									
+				}else{
+					
+					
+					// Creamos la sesión
+					$this->CI->session->set_userdata('logged_in',$session_data);
+					
+					if(!$this->CI->db->simple_query("INSERT INTO users_sessions (user_id, status, d_create) VALUES ('".$query->row()->id."', 1, '".$fecha_actual."')")){
+						echo "Error de registro";
+						exit();
+					}
+					
+				}
 				
 			}else{
 				$data['error'] = 'Disculpe, el usuario no tiene acceso, consulte con el administrador del sistema';
@@ -123,8 +154,21 @@ Class Basicauth
 		return $data;
 	}
 	
+	
 	function logout()
 	{
-		$this->CI->session->sess_destroy();
+		
+		$fecha_actual = date('Y-m-d H:i:s');
+		if($this->CI->db->simple_query("UPDATE users_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$this->CI->session->userdata['logged_in']['id'])){
+			
+			$this->CI->session->sess_destroy();
+			
+		}else{
+		
+			echo "Error de actualización";
+			exit();
+		
+		}
+		
 	}
 }

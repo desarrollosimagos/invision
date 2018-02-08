@@ -36,6 +36,9 @@
 
             </div>
             <!--<h3>Bienvenido a Invision</h3>-->
+            
+            <?php echo validation_errors('<div class="error" style="color:#D33333;">','</div>');?>
+            <?php if(isset($error)) echo "<div class='error' style='color:#D33333;'>$error</div>";?>
             <p></p>
             <!--<p>Inicia sesión.</p>-->
             <form class="m-t" role="form" action="login" method="post">
