@@ -194,7 +194,6 @@
         <div class="col-lg-12 text-center">
             <div class="navy-line"></div>
             <h1>Proyectos</h1>
-            <!--<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>-->
         </div>
     </div>
     <div class="row features-block">
@@ -206,19 +205,17 @@
     <div class="carousel-inner" role="listbox">
         <?php $i = 1; ?>
         <?php foreach ($slider as $value) { ?>
-            <div class="item <?php ( $i == 1 ) ? 'active' : '';?>">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1><?php echo $value->name;?><br/>
+            <div class="item <?php ( $i == 1 ) ? 'active' : '';?>" style="background-color: #FFFFFF !important;">
+                <div class="row features-block">
+                    <div class="col-lg-6 features-text wow fadeInLeft">
+                        <small><?php echo $value->name;?></small>
+                        <h2>Perfectly designed </h2>
                         <p><?php echo $value->description;?></p>
-                        <p>
-                            <a target="_blank" href="<?php base_url();?>detail_projects?id=<?php echo $value->id?>" class="btn btn-lg btn-primary detalles" href="#" role="button">Mas detalles</a>
-                        </p>
+                        <a target="_blank" href="<?php base_url();?>detail_projects?id=<?php echo $value->id?>" class="btn btn-lg btn-primary detalles" href="#" role="button">Mas detalles</a>
                     </div>
-                </div>
-                <!-- Set background for slide in css -->
-                <div class="header-back one">
-                    <img src="<?php echo assets_url("img/projects/$value->image");?>" alt="laptop" style='width:100% !important;;height: 470px !important;'/>
+                    <div class="col-lg-6 text-right wow fadeInRight">
+                        <img src="<?php echo assets_url("img/projects/$value->image");?>" alt="dashboard" class="img-responsive pull-right">
+                    </div>
                 </div>
             </div>
             <?php $i++ ?>
@@ -226,11 +223,11 @@
     </div>
     <a class="left carousel-control" href="#inSlider-proy" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only">Anterior</span>
     </a>
     <a class="right carousel-control" href="#inSlider-proy" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only">Siguiente</span>
     </a>
 </div>
     </div>
