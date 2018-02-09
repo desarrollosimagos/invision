@@ -7,7 +7,7 @@ and (min-width : 1224px) {
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 
     .row-div-info{
@@ -20,11 +20,15 @@ and (min-width : 320px)
 and (max-width : 480px) {
     /* Styles */
     .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
+    }
+
+    .img-fluid{
+        height: 100% !important;
     }
 }  
 
@@ -33,11 +37,11 @@ and (max-width : 480px) {
 and (max-width : 320px) {  
 /* Styles */
     .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPads (portrait and landscape) ----------- */  
@@ -50,7 +54,7 @@ and (max-width : 1024px) {
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPads (landscape) ----------- */  
@@ -64,7 +68,7 @@ and (orientation : landscape) {
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPads (portrait) ----------- */  
@@ -78,7 +82,7 @@ and (orientation : portrait) {
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* Desktops and laptops ----------- */  
@@ -90,7 +94,7 @@ and (min-width : 1224px) {
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* Large screens ----------- */  
@@ -102,7 +106,7 @@ and (min-width : 1824px) {
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPhone 4 ----------- */  
@@ -117,11 +121,11 @@ and (min-width : 320px)
 and (max-width : 480px) {  
 /* Styles */
     .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* Smartphones (landscape) ----------- */  
@@ -129,11 +133,11 @@ and (max-width : 480px) {
 and (min-width : 321px) {  
 /* Styles */
     .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* Smartphones (portrait) ----------- */  
@@ -141,11 +145,11 @@ and (min-width : 321px) {
 and (max-width : 320px) {  
 /* Styles */
 .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPads (portrait and landscape) ----------- */  
@@ -154,11 +158,11 @@ and (min-width : 768px)
 and (max-width : 1024px) {  
 /* Styles */
 .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPads (landscape) ----------- */  
@@ -168,11 +172,11 @@ and (max-width : 1024px)
 and (orientation : landscape) {  
 /* Styles */
 .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPads (portrait) ----------- */  
@@ -182,11 +186,11 @@ and (max-width : 1024px)
 and (orientation : portrait) {  
 /* Styles */
 .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }
 /* Large screens ----------- */  
@@ -194,11 +198,11 @@ and (orientation : portrait) {
 and (min-width : 1824px) {  
 /* Styles */
 .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }  
 /* iPhone 4 ----------- */  
@@ -207,11 +211,11 @@ only screen and (-webkit-min-device-pixel-ratio : 1.5),
 only screen and (min-device-pixel-ratio : 1.5) {  
 /* Styles */
 .row-div-info{
-        margin-top: 115% !important;
+        margin-top: -5% !important;
     }
 
     .carousel-indicators {
-        bottom: -80%;
+        bottom: 2%;
     }
 }
 
@@ -228,7 +232,7 @@ only screen and (min-device-pixel-ratio : 1.5) {
 }
 
 .carousel-indicators {
-    bottom: -80%;
+    bottom: 80%;
 }
 
 .carousel-indicators .active {
