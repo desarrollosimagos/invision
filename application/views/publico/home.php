@@ -18,48 +18,7 @@
     <link href="<?php echo assets_url('publico/css/animate.min.css');?>" rel="stylesheet">
 
     <link href="<?php echo assets_url('publico/font-awesome/css/font-awesome.min.css');?>" rel="stylesheet">
-    <style type="text/css">
-        .carousel-caption {
-            position: absolute;
-            top: 100px;
-            left: 0;
-            bottom: auto;
-            right: auto;
-            text-align: left;
-            margin-left: 5% !important;
-        }
-      
-        .carousel-indicators {
-            bottom: -80%;
-        }
-
-        .row-div-info{
-            margin-top: 34% !important;
-        }
-
-        .carousel-indicators .active {
-            width: 20px !important;
-            height: 20px !important;
-            margin: 0;
-            background-color: #fffafa;
-        }
-
-        .carousel-indicators li {
-            display: inline-block;
-            width: 20px !important;
-            height: 20px !important;
-            margin: 1px;
-            text-indent: -999px;
-            cursor: pointer;
-            background-color: #000 \9;
-            background-color: rgba(0,0,0,0);
-            border: 1px solid #fff;
-            border-radius: 10px;
-        }
-   
-    
-    </style>
-
+    <link href="<?php echo assets_url('publico/css/media-query-css3.css');?>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -120,7 +79,7 @@
             </div>
             <!-- Set background for slide in css -->
             <div class="header-back one">
-                <img class='img-fluid' style="width: 100%;height: 100%;" src="<?php echo assets_url('img/projects/1.jpg');?>" alt="laptop"/>
+                <img class='img-fluid' style="width: 100%;height:850px;" src="<?php echo assets_url('img/projects/1.jpg');?>" alt="laptop"/>
             </div>
 
         </div>
@@ -134,7 +93,7 @@
             </div>
             <!-- Set background for slide in css -->
             <div class="header-back two">
-                <img class='img-fluid' style="width: 100%;height: 100%;" src="<?php echo assets_url('img/projects/2.jpg');?>" alt="laptop"/>
+                <img class='img-fluid' style="width: 100%;height:850px;" src="<?php echo assets_url('img/projects/2.jpg');?>" alt="laptop"/>
             </div>
         </div>
     </div>
