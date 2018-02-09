@@ -120,7 +120,7 @@
             </div>
             <!-- Set background for slide in css -->
             <div class="header-back one">
-                <img src="<?php echo assets_url('img/projects/1.jpg');?>" alt="laptop"/>
+                <img class='img-fluid' style="width: 100%;height: 100%;" src="<?php echo assets_url('img/projects/1.jpg');?>" alt="laptop"/>
             </div>
 
         </div>
@@ -134,7 +134,7 @@
             </div>
             <!-- Set background for slide in css -->
             <div class="header-back two">
-                <img src="<?php echo assets_url('img/projects/2.jpg');?>" alt="laptop"/>
+                <img class='img-fluid' style="width: 100%;height: 100%;" src="<?php echo assets_url('img/projects/2.jpg');?>" alt="laptop"/>
             </div>
         </div>
     </div>
