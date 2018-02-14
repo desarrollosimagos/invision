@@ -18,6 +18,10 @@ class MRelateUsers extends CI_Model {
         $this->db->select('r_u.adviser_id, u.username');
 		$this->db->from('relate_users r_u');
 		$this->db->join('users u', 'u.id=r_u.adviser_id');
+		// Si el usuario corresponde al de un administrador quitamos el filtro de usuario
+        if($this->session->userdata('logged_in')['profile_id'] != 1){
+			$this->db->where('r_u.adviser_id =', $this->session->userdata('logged_in')['id']);
+		}
 		$this->db->group_by('r_u.adviser_id, u.username');
         $query = $this->db->get();
         //~ $query = $this->db->get('relate_users');
@@ -48,7 +52,7 @@ class MRelateUsers extends CI_Model {
     //Public method to obtain the consultant users
     public function obtener_asesores() {
 		
-		$this->db->where('profile_id', 5);
+		$this->db->where('profile_id', 4);
         $query = $this->db->get('users');
         //~ $query = $this->db->get('relate_users');
 
@@ -62,7 +66,7 @@ class MRelateUsers extends CI_Model {
     //Public method to obtain the investor users
     public function obtener_inversores() {
 		
-		$this->db->where('profile_id', 4);
+		$this->db->where('profile_id', 3);
         $query = $this->db->get('users');
         //~ $query = $this->db->get('relate_users');
 
@@ -124,8 +128,7 @@ class MRelateUsers extends CI_Model {
     // Public method to delete the specific association 
     public function delete_adviser_investor($id_adviser, $id_investor) {
 		$result = $this->db->delete('relate_users', array('adviser_id' => $id_adviser, 'investor_id' => $id_investor));
-    }
-    
+    }    
 
 }
 ?>
