@@ -142,18 +142,26 @@ $(document).ready(function(){
           function(isConfirm){
             if (isConfirm) {
              
-              $.post('<?php echo base_url(); ?>profile_delete/' + id + '', function (response) {
-
-              swal({ 
-                title: "Eliminar",
-                 text: "Registro eliminado con exito",
-                  type: "success" 
-                },
-                function(){
-                  window.location.href = '<?php echo base_url(); ?>profile';
-              });
-   
-             });
+				$.post('<?php echo base_url(); ?>profile_delete/' + id + '', function (response) {
+					
+					if (response == 'existe') {
+						
+						swal("Disculpe,", "este perfil se encuentra asociado a un usuario");
+						
+					}else{
+						
+						swal({ 
+						title: "Eliminar",
+						 text: "Registro eliminado con exito",
+						  type: "success" 
+						},
+						function(){
+						  window.location.href = '<?php echo base_url(); ?>profile';
+						});
+						
+					}
+					
+				});
             } 
           });
         
