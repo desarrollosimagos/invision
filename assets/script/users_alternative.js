@@ -298,6 +298,11 @@ $(document).ready(function() {
 		  swal("Disculpe,", "para continuar debe seleccionar el perfil");
 	       $('#profile').parent('div').addClass('has-error');
 		   
+		} else if ($('#coin_id').val() == '0') {
+			
+		  swal("Disculpe,", "para continuar debe seleccionar la moneda");
+	       $('#coin_id').parent('div').addClass('has-error');
+		   
 		} else {
 			//~ alert($('#tiendas').val());
 			
