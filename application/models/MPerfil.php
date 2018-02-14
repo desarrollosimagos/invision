@@ -112,7 +112,7 @@ class MPerfil extends CI_Model {
         $result = $this->db->get('users');
 
         if ($result->num_rows() > 0) {
-            echo 'existe';
+            return 'existe';
         } else {
 			// Primero buscamos y eliminamos las acciones asociadas en la tabla 'profile_actions'
 			$query_actions = $this->obtener_acciones_id($id);

@@ -172,10 +172,10 @@ class CPerfil extends CI_Controller {
     
 	// Método para eliminar
 	function delete($id) {
+		
         $result = $this->MPerfil->delete($id);
-        if ($result) {
-          /*  $this->libreria->generateActivity('Eliminado País', $this->session->userdata['logged_in']['id']);*/
-        }
+        
+        echo $result;
     }
 	
 	
