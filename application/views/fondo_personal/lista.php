@@ -151,33 +151,15 @@
 $(document).ready(function(){
      $('#tab_fondo_personal').DataTable({
         "paging": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "autoWidth": false,
         "searching": true,
         "ordering": true,
         "info": true,
-        dom: '<"html5buttons"B>lTfgitp',
-        buttons: [
-            { extend: 'copy'},
-            {extend: 'csv'},
-            {extend: 'excel', title: 'ExampleFile'},
-            {extend: 'pdf', title: 'ExampleFile'},
-
-            {extend: 'print',
-             customize: function (win){
-                    $(win.document.body).addClass('white-bg');
-                    $(win.document.body).css('font-size', '10px');
-
-                    $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'inherit');
-            }
-            }
-        ],
-        "iDisplayLength": 5,
+        "iDisplayLength": 50,
         "iDisplayStart": 0,
         "sPaginationType": "full_numbers",
-        "aLengthMenu": [5, 10, 15],
+        "aLengthMenu": [10, 50, 100, 150],
         "oLanguage": {"sUrl": "<?= assets_url() ?>js/es.txt"},
         "aoColumns": [
             {"sClass": "registro center", "sWidth": "5%"},
