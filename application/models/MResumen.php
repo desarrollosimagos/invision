@@ -30,8 +30,8 @@ class MResumen extends CI_Model {
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
-		// Si el usuario corresponde al de un administrador quitamos el filtro de perfil
-        if($this->session->userdata('logged_in')['profile_id'] != 1){
+		// Si el usuario corresponde al de un administrador o plataforma quitamos el filtro de usuarios
+        if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where_in('f_p.user_id', $ids);
 		}
 		$this->db->order_by("f_p.id", "desc");
@@ -47,7 +47,7 @@ class MResumen extends CI_Model {
 
     // Public method to obtain the fondo_personal by id
     public function capitalPendiente() {
-		if($this->session->userdata('logged_in')['profile_id'] != 1){
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->select_sum('monto');
 			$this->db->where('status', 0);
 			$this->db->where('user_id', $this->session->userdata('logged_in')['id']);
@@ -75,7 +75,7 @@ class MResumen extends CI_Model {
 		$this->db->from('fondo_personal f_p');
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
-		if($this->session->userdata('logged_in')['profile_id'] != 1){
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where('f_p.status', 1);
 			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
 		}else{
@@ -104,7 +104,7 @@ class MResumen extends CI_Model {
 		$this->db->from('fondo_personal f_p');
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
-		if($this->session->userdata('logged_in')['profile_id'] != 1){
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
 		}
         $query = $this->db->get();
@@ -134,7 +134,7 @@ class MResumen extends CI_Model {
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		$this->db->join('users u', 'u.id = f_p.user_id');
-		if($this->session->userdata('logged_in')['profile_id'] != 1){
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where_in('f_p.user_id', $ids);
 		}
         $query = $this->db->get();
