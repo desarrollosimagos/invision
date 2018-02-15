@@ -28,6 +28,7 @@ class Welcome extends CI_Controller {
         $this->load->model('MMenus');
         $this->load->model('MSubMenus');
         $this->load->model('MCoins');
+        $this->load->model('MTiposCuenta');
         $this->load->model('MWelcome');
     }
 	 
@@ -267,6 +268,22 @@ class Welcome extends CI_Controller {
 				}
 			
 			}
+			
+			// Verificamos si existe la tabla de tipos de cuenta 'tipos_cuenta'
+			$exists_type = $this->db->table_exists('tipos_cuenta');
+			
+			if($exists_type){
+			
+				$type = $this->MTiposCuenta->obtener();
+				// Creamos los tipos de cuenta básicos si éstos no existen
+				if(count($type) == 0){
+					
+					// Importamos los tipos de cuenta básicos
+					$this->import_type_accounts();
+				
+				}
+			
+			}
 		
 		}
 		
@@ -421,6 +438,29 @@ class Welcome extends CI_Controller {
 			);
 			
 			$insert_coin = $this->MCoins->insert($data_coin);
+			
+		}
+		
+		fclose ($fp);
+        
+    }
+    
+    // Método que importa los tipos de cuenta desde un csv
+    public function import_type_accounts() {
+        
+        $ruta = getcwd();  // Obtiene el directorio actual en donde se está trabajando
+        
+        $fp = fopen ($ruta."/application/migrations/type_accounts.csv","r");
+        
+        while ($data = fgetcsv ($fp, 1000, ",")) {
+			
+			$data_type = array(
+				'name' => $data[1],
+				'd_create' => date('Y-m-d H:i:s'),
+				'd_update' => date('Y-m-d H:i:s')
+			);
+			
+			$insert_type = $this->MTiposCuenta->insert($data_type);
 			
 		}
 		

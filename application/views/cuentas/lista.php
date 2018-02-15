@@ -55,7 +55,7 @@
                                             <?php echo $fondo->usuario; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->tipo; ?>
+                                            <?php echo $fondo->tipo_cuenta; ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->monto; ?>

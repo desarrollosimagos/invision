@@ -41,8 +41,10 @@
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="tipo" id="tipo">
-									<option value="1">Tipo 1</option>
-									<option value="2">Tipo 2</option>
+									<option value="0" selected="">Seleccione</option>
+									<?php foreach($tipos_cuenta as $tipo){?>
+									<option value="<?php echo $tipo->id; ?>"><?php echo $tipo->name; ?></option>
+									<?php }?>
 								</select>
 							</div>
 						</div>
@@ -119,12 +121,18 @@ $(document).ready(function(){
         e.preventDefault();  // Para evitar que se envíe por defecto
 
         if ($('#cuenta').val().trim() === "") {
+			
 			swal("Disculpe,", "para continuar debe ingresar el nombre de la cuenta");
 			$('#cuenta').parent('div').addClass('has-error');
 			
-        } else if($('#coin_id').val() == "0"){
+        } else if($('#tipo').val() == "0"){
 			
-			swal("Disculpe,", "para continuar debe ingresar el tipo de moneda");
+			swal("Disculpe,", "para continuar debe seleccionar el tipo de cuenta");
+			$('#tipo').parent('div').addClass('has-error');
+			
+		} else if($('#coin_id').val() == "0"){
+			
+			swal("Disculpe,", "para continuar debe seleccionar el tipo de moneda");
 			$('#coin_id').parent('div').addClass('has-error');
 			
 		} else {
