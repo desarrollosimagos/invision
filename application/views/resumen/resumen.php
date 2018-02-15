@@ -149,7 +149,7 @@
 	<!-- Cierre del cuerpo de la sección de cuentas -->
 	<?php } ?>
 	
-	<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 5){?>
+	<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 4){?>
 	<!-- Cuerpo de la sección de resumen por usuario -->
 	<div class="ibox">
 		<div class="ibox-title">
