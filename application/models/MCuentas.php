@@ -25,7 +25,7 @@ class MCuentas extends CI_Model {
 		$this->db->join('coins c', 'c.id = f_p.coin_id');
 		$this->db->join('tipos_cuenta t_c', 't_c.id = f_p.tipo');
 		// Si el usuario corresponde al de un administrador quitamos el filtro de usuario
-        if($this->session->userdata('logged_in')['profile_id'] != 1){
+        if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where('f_p.user_id =', $this->session->userdata('logged_in')['id']);
 		}
 		$this->db->order_by("f_p.id", "desc");
