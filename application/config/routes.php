@@ -85,12 +85,12 @@ $route['acciones'] = 'CAcciones';
 $route['acciones/register'] = 'CAcciones/register';
 $route['acciones/edit/(:num)'] = 'CAcciones/edit/$1';
 $route['acciones/delete/(:num)'] = 'CAcciones/delete/$1';
-/*   Fondos Personales */
-$route['fondo_personal'] = 'CFondoPersonal';
-$route['fondo_personal/register/(:num)'] = 'CFondoPersonal/register/$1';
-$route['fondo_personal/edit/(:num)'] = 'CFondoPersonal/edit/$1';
-$route['fondo_personal/delete/(:num)'] = 'CFondoPersonal/delete/$1';
-$route['fondo_personal/validar'] = 'CFondoPersonal/validar_transaccion';
+/*   Transacciones */
+$route['transactions'] = 'CFondoPersonal';
+$route['transactions/register/(:num)'] = 'CFondoPersonal/register/$1';
+$route['transactions/edit/(:num)'] = 'CFondoPersonal/edit/$1';
+$route['transactions/delete/(:num)'] = 'CFondoPersonal/delete/$1';
+$route['transactions/validar'] = 'CFondoPersonal/validar_transaccion';
 /*   Cuentas */
 $route['cuentas'] = 'CCuentas';
 $route['cuentas/register'] = 'CCuentas/register';

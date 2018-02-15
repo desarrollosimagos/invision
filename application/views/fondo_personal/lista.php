@@ -1,12 +1,12 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Fondo Personal</h2>
+        <h2>Transacciones</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="<?php echo base_url() ?>home">Inicio</a>
             </li>
             <li class="active">
-                <strong>Fondo Personal</strong>
+                <strong>Transacciones</strong>
             </li>
         </ol>
     </div>
@@ -19,15 +19,15 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a href="<?php echo base_url() ?>fondo_personal/register/1">
+            <a href="<?php echo base_url() ?>transactions/register/1">
 				<button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button>
             </a>
-            <a href="<?php echo base_url() ?>fondo_personal/register/2">
+            <a href="<?php echo base_url() ?>transactions/register/2">
 				<button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-minus"></i> Retirar</button>
             </a>
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Listado de Fondo Personal</h5>
+                    <h5>Listado de Transacciones</h5>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label style="color:red;">
 						(Capital aprobado: <span id="span_capital_aprobado"></span>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table id="tab_fondo_personal" class="table table-striped table-bordered dt-responsive table-hover dataTables-example" >
+                        <table id="tab_transactions" class="table table-striped table-bordered dt-responsive table-hover dataTables-example" >
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -101,7 +101,7 @@
                                         </td>
                                         <td style='text-align: center'>
 											<?php if($this->session->userdata('logged_in')['profile_id'] == 1){ ?>
-												<a href="<?php echo base_url() ?>fondo_personal/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+												<a href="<?php echo base_url() ?>transactions/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                             <?php }else{ ?>
 												<a ><i class="fa fa-ban fa-2x" style='color:#D33333;'></i></a>
                                             <?php } ?>
@@ -149,7 +149,7 @@
  <!-- Page-Level Scripts -->
 <script>
 $(document).ready(function(){
-     $('#tab_fondo_personal').DataTable({
+     $('#tab_transactions').DataTable({
         "paging": true,
         "lengthChange": true,
         "autoWidth": false,
@@ -178,7 +178,7 @@ $(document).ready(function(){
     });
              
     // Validacion para borrar
-    $("table#tab_fondo_personal").on('click', 'a.borrar', function (e) {
+    $("table#tab_transactions").on('click', 'a.borrar', function (e) {
         e.preventDefault();
         var id = this.getAttribute('id');
 
@@ -196,7 +196,7 @@ $(document).ready(function(){
         function(isConfirm){
             if (isConfirm) {
              
-                $.post('<?php echo base_url(); ?>fondo_personal/delete/' + id + '', function (response) {
+                $.post('<?php echo base_url(); ?>transactions/delete/' + id + '', function (response) {
 
                     if (response[0] == "e") {
                        
@@ -215,7 +215,7 @@ $(document).ready(function(){
                              type: "success" 
                            },
                            function(){
-                             window.location.href = '<?php echo base_url(); ?>fondo_personal';
+                             window.location.href = '<?php echo base_url(); ?>transactions';
                          });
                     }
                 });
@@ -269,7 +269,7 @@ $(document).ready(function(){
     
     
     // Función para validar transacción
-    $("table#tab_fondo_personal").on('click', 'a.validar', function (e) {
+    $("table#tab_transactions").on('click', 'a.validar', function (e) {
         e.preventDefault();
         var id = this.getAttribute('id');
         
@@ -299,7 +299,7 @@ $(document).ready(function(){
         function(isConfirm){
             if (isConfirm) {
              
-                $.post('<?php echo base_url(); ?>fondo_personal/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo}, function (response) {
+                $.post('<?php echo base_url(); ?>transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo}, function (response) {
 
                     if (response['response'] == 'error') {
                        
@@ -318,7 +318,7 @@ $(document).ready(function(){
                              type: "success" 
                            },
                            function(){
-                             window.location.href = '<?php echo base_url(); ?>fondo_personal';
+                             window.location.href = '<?php echo base_url(); ?>transactions';
                          });
                     }
                 }, 'json');
