@@ -72,7 +72,12 @@
 	</div>
 	<!-- Cierre del cuerpo de la sección de cintillo de montos -->
 	
-	<?php if($this->session->userdata('logged_in')['profile_id'] == 1){?>
+	<?php 
+	// Ids de los perfiles que tendrań permisos de visualización
+	$global_profiles = array(1, 2);
+	?>
+	
+	<?php if(in_array($this->session->userdata('logged_in')['profile_id'], $global_profiles)){?>
 	<!-- Cuerpo de la sección de cuentas -->
 	<div class="ibox">
 		<div class="ibox-title">
@@ -149,7 +154,12 @@
 	<!-- Cierre del cuerpo de la sección de cuentas -->
 	<?php } ?>
 	
-	<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 4){?>
+	<?php 
+	// Ids de los perfiles que tendrań permisos de visualización
+	$global_profiles = array(1, 2, 4);
+	?>
+	
+	<?php if(in_array($this->session->userdata('logged_in')['profile_id'], $global_profiles)){?>
 	<!-- Cuerpo de la sección de resumen por usuario -->
 	<div class="ibox">
 		<div class="ibox-title">
@@ -230,7 +240,7 @@
 			<div class="project-list">
 				
 				<div class="table-responsive">
-					<?php $filter_profile = array(1,5); ?>
+					<?php $filter_profile = array(1, 2, 4); ?>
 					<table id="tab_fondo_personal" <?php if(in_array($this->session->userdata('logged_in')['profile_id'], $filter_profile)){ echo "data-filtering='true'"; } ?> data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
 						<thead>
 							<tr>
