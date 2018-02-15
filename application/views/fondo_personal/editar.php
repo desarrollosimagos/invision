@@ -1,17 +1,17 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Fondo Personal </h2>
+        <h2>Transacción </h2>
         <ol class="breadcrumb">
             <li>
                 <a href="index.html">Inicio</a>
             </li>
             
             <li>
-                <a href="<?php echo base_url() ?>fondo_personal">Fondo Personal</a>
+                <a href="<?php echo base_url() ?>transactions">Transacciones</a>
             </li>
            
             <li class="active">
-                <strong>Editar Fondo Personal</strong>
+                <strong>Editar Transacción</strong>
             </li>
         </ol>
     </div>
@@ -26,7 +26,7 @@
         <div class="col-lg-12">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>Editar Fondo Personal</h5>
+					<h5>Editar Transacción</h5>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label style="color:red;">
 						(Capital aprobado: <span id="span_capital_aprobado"></span>
@@ -35,7 +35,7 @@
 						</label>
 				</div>
 				<div class="ibox-content">
-					<form id="form_fondo_personal" method="post" accept-charset="utf-8" class="form-horizontal">
+					<form id="form_transactions" method="post" accept-charset="utf-8" class="form-horizontal">
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
@@ -130,7 +130,7 @@ $(document).ready(function(){
     });
 
     $('#volver').click(function () {
-        url = '<?php echo base_url() ?>fondo_personal/';
+        url = '<?php echo base_url() ?>transactions/';
         window.location = url;
     });
     
@@ -254,7 +254,7 @@ $(document).ready(function(){
 					
 				}else{
 					
-					$.post('<?php echo base_url(); ?>CFondoPersonal/update', $('#form_fondo_personal').serialize(), function (response) {
+					$.post('<?php echo base_url(); ?>CFondoPersonal/update', $('#form_transactions').serialize(), function (response) {
 						if (response['response'] == 'error') {
 							swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
 						}else{
@@ -264,7 +264,7 @@ $(document).ready(function(){
 								  type: "success" 
 								},
 							function(){
-							  window.location.href = '<?php echo base_url(); ?>fondo_personal';
+							  window.location.href = '<?php echo base_url(); ?>transactions';
 							});
 						}
 					}, 'json');

@@ -1,13 +1,13 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Fondo Personal </h2>
+        <h2>Transacción </h2>
         <ol class="breadcrumb">
             <li>
                 <a href="<?php echo base_url() ?>home">Inicio</a>
             </li>
             
             <li>
-                <a href="<?php echo base_url() ?>fondo_personal">Fondo Personal</a>
+                <a href="<?php echo base_url() ?>transactions">Transacciones</a>
             </li>
             
             <li class="active">
@@ -56,7 +56,7 @@
 					
 				</div>
 				<div class="ibox-content">
-					<form id="form_fondo_personal" method="post" accept-charset="utf-8" class="form-horizontal">
+					<form id="form_transactions" method="post" accept-charset="utf-8" class="form-horizontal">
 						<div class="form-group">
 							<input type="hidden" class="form-control" name="tipo" id="tipo" value="<?php echo $this->uri->segment(3); ?>"/>
 						</div>
@@ -134,7 +134,7 @@ $(document).ready(function(){
     });
 
     $('#volver').click(function () {
-        url = '<?php echo base_url() ?>fondo_personal/';
+        url = '<?php echo base_url() ?>transactions/';
         window.location = url;
     });
 	
@@ -251,7 +251,7 @@ $(document).ready(function(){
 					
 				}else{
 					
-					$.post('<?php echo base_url(); ?>CFondoPersonal/add', $('#form_fondo_personal').serialize(), function (response) {
+					$.post('<?php echo base_url(); ?>CFondoPersonal/add', $('#form_transactions').serialize(), function (response) {
 						if (response['response'] == 'error') {
 							swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
 						}else{
@@ -261,7 +261,7 @@ $(document).ready(function(){
 								  type: "success" 
 								},
 							function(){
-							  window.location.href = '<?php echo base_url(); ?>fondo_personal';
+							  window.location.href = '<?php echo base_url(); ?>transactions';
 							});
 						}
 					}, 'json');
