@@ -18,6 +18,17 @@
     <link href="<?php echo assets_url('publico/css/animate.min.css');?>" rel="stylesheet">
 
     <link href="<?php echo assets_url('publico/font-awesome/css/font-awesome.min.css');?>" rel="stylesheet">
+    <style type="text/css">
+        .carousel-caption {
+            position: absolute !important;
+            top: 100px !important;
+            left: 28% !important;
+            bottom: auto !important;
+            right: auto !important;
+            text-align: left;
+            margin-top: 12% !important;
+        }
+    </style>
     <link href="<?php echo assets_url('publico/css/media-query-css3.css');?>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -54,13 +65,14 @@
             </div>
         </nav>
 </div>
+
 <div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
-    <ol class="carousel-indicators">
+    <!--<ol class="carousel-indicators">
         <li data-target="#inSlider" data-slide-to="0" class="active"></li>
         <li data-target="#inSlider" data-slide-to="1"></li>
-    </ol>
+    </ol>-->
     <div class="carousel-inner" role="listbox">
-        <div class="item active">
+        <div class="item active div-redimension" style='width: 100%;height:760px;background-size: 100% 100%;background-repeat: no-repeat;background-image: url(<?php echo assets_url('img/projects/1.jpg');?>)'>
             <div class="container">
                 <div class="carousel-caption">
                     <h1>We craft<br/>
@@ -69,8 +81,7 @@
                         we are IN+ studio</h1>
                     <p>Lorem Ipsum is simply dummy text of the printing.</p>
                     <p>
-                        <a class="btn btn-lg btn-primary" href="#" role="button">READ MORE</a>
-                        <a class="caption-link" href="#" role="button">Inspinia Theme</a>
+                        <a style="margin-left: 30%;position: absolute !important;" class="btn btn-lg btn-primary font-read" href="#" role="button">Lee mas</a>
                     </p>
                 </div>
                 <div class="carousel-image wow zoomIn">
@@ -78,23 +89,25 @@
                 </div>
             </div>
             <!-- Set background for slide in css -->
-            <div class="header-back one">
+            <!--<div class="header-back one">
                 <img class='img-fluid' style="width: 100%;height:850px;" src="<?php echo assets_url('img/projects/1.jpg');?>" alt="laptop"/>
-            </div>
+            </div>-->
 
         </div>
-        <div class="item">
+        <div class="item div-redimension" style='width: 100%;height:760px;background-size: 100% 100%;background-repeat: no-repeat;background-image: url(<?php echo assets_url('img/projects/2.jpg');?>)'>
             <div class="container">
                 <div class="carousel-caption blank">
                     <h1>We create meaningful <br/> interfaces that inspire.</h1>
                     <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <p>
+                        <a style="margin-left: 30%;" class="btn btn-lg btn-primary font-read" href="#" role="button">Lee mas</a>
+                    </p>
                 </div>
             </div>
             <!-- Set background for slide in css -->
-            <div class="header-back two">
+            <!--<div class="header-back two">
                 <img class='img-fluid' style="width: 100%;height:850px;" src="<?php echo assets_url('img/projects/2.jpg');?>" alt="laptop"/>
-            </div>
+            </div>-->
         </div>
     </div>
     <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev" style="margin-top: 22% !important;">
@@ -106,9 +119,7 @@
         <span class="sr-only">Siguiente</span>
     </a>
 </div>
-
-
-<section id="features" class="container services">
+<section id="features" class="container services content-full" style="padding-top: 25% !important;">
     <div class="row row-div-info">
         <div class="col-sm-3">
             <h2>Full responsive</h2>
