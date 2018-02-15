@@ -159,14 +159,22 @@ Class Basicauth
 	{
 		
 		$fecha_actual = date('Y-m-d H:i:s');
-		if($this->CI->db->simple_query("UPDATE users_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$this->CI->session->userdata['logged_in']['id'])){
+		if(isset($this->CI->session->userdata['logged_in'])){
 			
-			$this->CI->session->sess_destroy();
+			if($this->CI->db->simple_query("UPDATE users_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$this->CI->session->userdata['logged_in']['id'])){
+				
+				$this->CI->session->sess_destroy();
+			
+			}else{
+			
+				echo "Error de actualización";
+				exit();
+				
+			}
 			
 		}else{
 		
-			echo "Error de actualización";
-			exit();
+			$this->CI->session->sess_destroy();
 		
 		}
 		
