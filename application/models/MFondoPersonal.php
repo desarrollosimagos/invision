@@ -21,7 +21,7 @@ class MFondoPersonal extends CI_Model {
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		// Si el usuario corresponde al de un administrador quitamos el filtro de perfil
-        if($this->session->userdata('logged_in')['profile_id'] != 1){
+        if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where('f_p.user_id =', $this->session->userdata('logged_in')['id']);
 		}
 		$this->db->order_by("f_p.id", "desc");
@@ -39,7 +39,7 @@ class MFondoPersonal extends CI_Model {
     public function obtener_cuentas_group($tipo) {
 		
 		// Si el usuario corresponde al de un administrador quitamos el filtro de usuario
-        if($this->session->userdata('logged_in')['profile_id'] != 1){
+        if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			if($tipo == 1){
 				$this->db->select('c.id, c.cuenta, c.numero, cn.abbreviation as coin_avr');
 				$this->db->from('users u');
