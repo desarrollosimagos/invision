@@ -114,15 +114,7 @@
 										<?php echo $cuenta->numero; ?>
 									</td>
 									<td>
-										<?php
-										if($cuenta->tipo == 1){
-											echo "Tipo 1";
-										}else if($cuenta->tipo == 2){
-											echo "Tipo 2";
-										}else{
-											echo "";
-										}
-										?>
+										<?php echo $cuenta->tipo_cuenta; ?>
 									</td>
 									<td>
 										<?php echo $cuenta->monto."  ".$cuenta->coin_symbol."  (".$cuenta->coin_avr.")"; ?>
