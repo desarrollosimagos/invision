@@ -20,18 +20,18 @@ $hook['post_controller_constructor'] = array(
     'filepath' => 'hooks'
 );
 
-// Hook de accesos
-$hook['post_controller'][] = array(
-	'class'    => 'Acceso',
-	'function' => 'identificado',
-	'filename' => 'Acceso.php',
-	'filepath' => 'hooks'
-);
-
 // Hook de tiempos
 $hook['post_controller'][] = array(
 	'class'    => 'Tiempo',
 	'function' => 'transcurrido',
 	'filename' => 'Tiempo.php',
+	'filepath' => 'hooks'
+);
+
+// Hook de accesos
+$hook['post_controller'][] = array(
+	'class'    => 'Acceso',
+	'function' => 'identificado',
+	'filename' => 'Acceso.php',
 	'filepath' => 'hooks'
 );
