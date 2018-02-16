@@ -50,7 +50,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">WEBAPPLAYERS</a>
+                    <a href="#">
+                        <img src="<?php echo assets_url("img/app.png");?>" alt="dashboard" class="img-responsive img-circle img-app" style='width: 160px; height: 60px;display: none;'>
+                    </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -678,5 +680,19 @@
 <script src="<?php echo assets_url('publico/js/cbpAnimatedHeader.js');?>"></script>
 <script src="<?php echo assets_url('publico/js/wow.min.js');?>"></script>
 <script src="<?php echo assets_url('publico/js/inspinia.js');?>"></script>
+<script>
+$(function(){
+    $(window).scroll(function(){
+    if ($(window).scrollTop() > 30)
+    {
+    $("img.img-app").fadeIn();
+    }
+    else
+    {
+    $("img.img-app").fadeOut();
+    }
+    });
+});
+</script>
 </body>
 </html>
