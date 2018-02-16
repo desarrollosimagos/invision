@@ -84,7 +84,7 @@ and (min-width : 740px) {
         font-size: 12px !important;
     }
     h1{
-        font-size: 12px !important;
+        font-size: 20px !important;
     }
     .font-read{
         margin-left: 13% !important;
@@ -92,6 +92,11 @@ and (min-width : 740px) {
 
     .row-div-info {
         margin-top: 2% !important;
+    }
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 20px !important;
+        line-height: 1.4;
     }
 }
 
@@ -253,6 +258,21 @@ and (max-width : 1024px) {
     .div-redimension{
         height: 760px !important;
     }
+    .carousel-caption {
+        position: absolute !important;
+        top: 100px !important;
+        left: 28% !important;
+        bottom: auto !important;
+        right: auto !important;
+        text-align: left;
+        margin-top: 12% !important;
+        font-size: 16px !important;
+    }
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 20px !important;
+        line-height: 1.4;
+    }
 }  
 /* iPads (landscape) ----------- */  
 @media only screen  
@@ -262,6 +282,21 @@ and (orientation : landscape) {
 /* Styles */
     .div-redimension{
         height: 760px !important;
+    }
+    .carousel-caption {
+        position: absolute !important;
+        top: 100px !important;
+        left: 28% !important;
+        bottom: auto !important;
+        right: auto !important;
+        text-align: left;
+        margin-top: 12% !important;
+        font-size: 16px !important;
+    }
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 20px !important;
+        line-height: 1.4;
     }
 }
 
@@ -274,6 +309,21 @@ and (orientation : portrait) {
     .div-redimension{
         height: 760px !important;
     }
+    .carousel-caption {
+        position: absolute !important;
+        top: 100px !important;
+        left: 28% !important;
+        bottom: auto !important;
+        right: auto !important;
+        text-align: left;
+        margin-top: 12% !important;
+        font-size: 16px !important;
+    }
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 20px !important;
+        line-height: 1.4;
+    }
 }
 /* 1080p Full HD Television ----------- */ 
 @media only screen  
@@ -284,6 +334,21 @@ and (orientation : portrait) {
     .div-redimension{
         height: 760px !important;
     }
+    .carousel-caption {
+        position: absolute !important;
+        top: 100px !important;
+        left: 28% !important;
+        bottom: auto !important;
+        right: auto !important;
+        text-align: left;
+        margin-top: 12% !important;
+        font-size: 16px !important;
+    }
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 20px !important;
+        line-height: 1.4;
+    }
 }
 /* Large screens ----------- */
 @media only screen  
@@ -291,6 +356,21 @@ and (min-width : 1824px) {
 /* Styles */
     .div-redimension{
         height: 760px !important;
+    }
+    .carousel-caption {
+        position: absolute !important;
+        top: 100px !important;
+        left: 28% !important;
+        bottom: auto !important;
+        right: auto !important;
+        text-align: left;
+        margin-top: 12% !important;
+        font-size: 16px !important;
+    }
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 20px !important;
+        line-height: 1.4;
     }
 }
 
