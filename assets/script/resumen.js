@@ -174,6 +174,8 @@ $(document).ready(function(){
 		}
 		
 		var capital_pendiente = 0;
+		var ingreso_pendiente = 0;
+		var egreso_pendiente = 0;
 		var capital_aprobado = 0;
 		
 		// Proceso de carga de capital aprobado
@@ -205,8 +207,10 @@ $(document).ready(function(){
 				if(fondos[i]['status'] == 0){
 					if(fondos[i]['tipo'] == 1){
 						capital_pendiente += trans_usd;
+						ingreso_pendiente += trans_usd;
 					}else{
 						capital_pendiente -= trans_usd;
+						egreso_pendiente += trans_usd;
 					}
 				}
 				if(fondos[i]['status'] == 1){
@@ -229,6 +233,12 @@ $(document).ready(function(){
 			$("#span_aprobado").text((capital_aprobado*currency_user).toFixed(decimals)+" "+symbol);
 			
 			$("#span_pendiente").text((capital_pendiente*currency_user).toFixed(decimals)+" "+symbol);
+			
+			//~ $("#span_pendiente").css('display', 'none');
+			
+			$("#span_ingreso_pendiente").text((ingreso_pendiente*currency_user).toFixed(decimals)+" "+symbol);
+			
+			$("#span_egreso_pendiente").text((egreso_pendiente*currency_user).toFixed(decimals)+" "+symbol);
 			
 		}, 'json');
 		

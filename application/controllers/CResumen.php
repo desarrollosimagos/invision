@@ -72,6 +72,8 @@ class CResumen extends CI_Controller {
 				'lastname' => '',
 				'username' => '',
 				'pending_capital' => 0,
+				'pending_entry' => 0,
+				'pending_exit' => 0,
 				'approved_capital' => 0,
 				'capital_invested' => 0,
 				'returned_capital' => 0
@@ -91,8 +93,10 @@ class CResumen extends CI_Controller {
 					if($fondo->status == 0){
 						if($fondo->tipo == 1){
 							$resumen_user['pending_capital'] += $trans_usd;
+							$resumen_user['pending_entry'] += $trans_usd;
 						}else if($fondo->tipo == 2){
 							$resumen_user['pending_capital'] -= $trans_usd;
+							$resumen_user['pending_exit'] += $trans_usd;
 						}
 					}
 					if($fondo->status == 1){
@@ -116,6 +120,14 @@ class CResumen extends CI_Controller {
 			$resumen_user['pending_capital'] *= $currency_user; 
 			$resumen_user['pending_capital'] = round($resumen_user['pending_capital'], $decimals);
 			$resumen_user['pending_capital'] = $resumen_user['pending_capital']." ".$symbol;
+			
+			$resumen_user['pending_entry'] *= $currency_user; 
+			$resumen_user['pending_entry'] = round($resumen_user['pending_entry'], $decimals);
+			$resumen_user['pending_entry'] = $resumen_user['pending_entry']." ".$symbol;
+			
+			$resumen_user['pending_exit'] *= $currency_user; 
+			$resumen_user['pending_exit'] = round($resumen_user['pending_exit'], $decimals);
+			$resumen_user['pending_exit'] = $resumen_user['pending_exit']." ".$symbol;
 			
 			$resumen_user['approved_capital'] *= $currency_user; 
 			$resumen_user['approved_capital'] = round($resumen_user['approved_capital'], $decimals);

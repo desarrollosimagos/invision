@@ -31,7 +31,7 @@
 				
 				<div class="contact-box-footer" style="border-top:0px;">
 					<div>
-						<div class="col-md-3 forum-info">
+						<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_pendiente">
 								<?php //echo (float)$capital_pendiente[0]->monto." $"; ?>
 							</span>
@@ -39,7 +39,23 @@
 								<small>Capital pendiente</small>
 							</div>
 						</div>
-						<div class="col-md-3 forum-info">
+						<div class="col-md-2 forum-info">
+							<span class="views-number" id="span_ingreso_pendiente">
+								
+							</span>
+							<div>
+								<small>Ingreso pendiente</small>
+							</div>
+						</div>
+						<div class="col-md-2 forum-info">
+							<span class="views-number" id="span_egreso_pendiente">
+								
+							</span>
+							<div>
+								<small>Egreso pendiente</small>
+							</div>
+						</div>
+						<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_aprobado">
 								<?php //echo (float)$capital_aprobado." $"; ?>
 							</span>
@@ -47,7 +63,7 @@
 								<small>Capital aprobado</small>
 							</div>
 						</div>
-						<div class="col-md-3 forum-info">
+						<div class="col-md-2 forum-info">
 							<span class="views-number">
 								<?php echo "0.0 $"; ?>
 							</span>
@@ -55,7 +71,7 @@
 								<small>Capital invertido</small>
 							</div>
 						</div>
-						<div class="col-md-3 forum-info">
+						<div class="col-md-2 forum-info">
 							<span class="views-number">
 								<?php echo "0.0 $"; ?>
 							</span>
@@ -171,6 +187,8 @@
 								<th data-breakpoints="xs sm" >Apellido</th>
 								<th >Usuario</th>
 								<th data-breakpoints="xs sm" >Capital Pendiente</th>
+								<th data-breakpoints="xs sm" >Ingreso Pendiente</th>
+								<th data-breakpoints="xs sm" >Egreso Pendiente</th>
 								<th data-breakpoints="xs sm" >Capital Aprobado</th>
 								<th data-breakpoints="xs sm" >Capital Invertido</th>
 								<th data-breakpoints="xs sm" >Capital Retornado</th>
@@ -194,6 +212,12 @@
 									</td>
 									<td>
 										<?php echo $fondo->pending_capital; ?>
+									</td>
+									<td>
+										<?php echo $fondo->pending_entry; ?>
+									</td>
+									<td>
+										<?php echo $fondo->pending_exit; ?>
 									</td>
 									<td>
 										<?php echo $fondo->approved_capital; ?>
