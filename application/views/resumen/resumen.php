@@ -1,6 +1,12 @@
 <!-- FooTable -->
 <link href="<?php echo assets_url('css/plugins/footable/footable.bootstrap.css');?>" rel="stylesheet">
 
+<style>
+.views-number {
+    font-size: 22px !important;
+}
+</style>
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Resumen financiero</h2>
