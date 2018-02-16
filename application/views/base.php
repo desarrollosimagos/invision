@@ -57,6 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body class="md-skin fixed-nav no-skin-config">
 	<div id="wrapper">
+		<?php if(isset($this->session->userdata['logged_in'])){ ?>
 		<nav class="navbar-default navbar-static-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav metismenu" id="side-menu">
@@ -97,6 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			</div>
 		</nav>
+		<?php } ?>
 
 		<div id="page-wrapper" class="gray-bg">
 			<div class="row border-bottom">
@@ -110,7 +112,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 						</form>-->
 					</div>
+					
 					<ul class="nav navbar-top-links navbar-right">
+						<?php if(isset($this->session->userdata['logged_in'])){ ?>
 						<li>
 							<span class="m-r-sm text-muted welcome-message">Bienvenido a Invision.</span>
 						</li>
@@ -168,7 +172,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</ul>
 						</li>-->
 						
-						<li class="dropdown" id="li_respuestas" style="display:none;">
+						<!--<li class="dropdown" id="li_respuestas" style="display:none;">
 							<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
 								<i class="fa fa-bell"></i> <span class="label label-warning" id="span_num_respuestas"></span>
 							</a>
@@ -177,11 +181,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<a href="<?php echo base_url(); ?>bandeja_respuestas">
 										<div>
 											<i class="fa fa-envelope fa-fw"></i> <span id="span_num_respuestas_text"></span>
-											<!--<span class="pull-right text-muted small">4 minutes ago</span>-->
+											<span class="pull-right text-muted small">4 minutes ago</span>
 										</div>
 									</a>
 								</li>
-								<!--<li class="divider"></li>
+								<li class="divider"></li>
 								<li>
 									<a href="profile.html">
 										<div>
@@ -207,9 +211,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<i class="fa fa-angle-right"></i>
 										</a>
 									</div>
-								</li>-->
+								</li>
 							</ul>
-						</li>
+						</li>-->
 			
 			
 						<li>
@@ -217,6 +221,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<i class="fa fa-sign-out"></i> Cerrar Sesión
 							</a>
 						</li>
+						
+						<?php } else { ?>
+						<li>
+							<a href="<?php echo base_url();?>login">
+								<i class="fa fa-sign-in"></i> Iniciar Sesión
+							</a>
+						</li>
+						<?php } ?>
+						
 					</ul>
 			
 				</nav>
