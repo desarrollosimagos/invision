@@ -37,14 +37,14 @@
 				
 				<div class="contact-box-footer" style="border-top:0px;">
 					<div>
-						<div class="col-md-2 forum-info">
+						<!--<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_pendiente">
 								<?php //echo (float)$capital_pendiente[0]->monto." $"; ?>
 							</span>
 							<div>
 								<small>Capital pendiente</small>
 							</div>
-						</div>
+						</div>-->
 						<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_ingreso_pendiente">
 								
@@ -192,7 +192,7 @@
 								<th data-breakpoints="xs sm" >Nombre</th>
 								<th data-breakpoints="xs sm" >Apellido</th>
 								<th >Usuario</th>
-								<th data-breakpoints="xs sm" >Capital Pendiente</th>
+								<!--<th data-breakpoints="xs sm" >Capital Pendiente</th>-->
 								<th data-breakpoints="xs sm" >Ingreso Pendiente</th>
 								<th data-breakpoints="xs sm" >Egreso Pendiente</th>
 								<th data-breakpoints="xs sm" >Capital Aprobado</th>
@@ -216,9 +216,9 @@
 									<td>
 										<?php echo $fondo->username; ?>
 									</td>
-									<td>
-										<?php echo $fondo->pending_capital; ?>
-									</td>
+									<!--<td>
+										<?php //echo $fondo->pending_capital; ?>
+									</td>-->
 									<td>
 										<?php echo $fondo->pending_entry; ?>
 									</td>

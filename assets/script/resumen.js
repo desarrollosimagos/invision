@@ -234,7 +234,7 @@ $(document).ready(function(){
 			
 			$("#span_pendiente").text((capital_pendiente*currency_user).toFixed(decimals)+" "+symbol);
 			
-			//~ $("#span_pendiente").css('display', 'none');
+			$("#span_pendiente").css('display', 'none');
 			
 			$("#span_ingreso_pendiente").text((ingreso_pendiente*currency_user).toFixed(decimals)+" "+symbol);
 			
