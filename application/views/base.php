@@ -114,10 +114,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					
 					<ul class="nav navbar-top-links navbar-right">
-						<?php if(isset($this->session->userdata['logged_in'])){ ?>
-						<li>
-							<span class="m-r-sm text-muted welcome-message">Bienvenido a Invision.</span>
-						</li>
+						<li><a class="page-scroll" href="#inicio">Inicio</a></li>
+                        <li><a class="page-scroll" href="#posibilidades">Posibilidades</a></li>
+                        <li><a class="page-scroll" href="#inversiones">Inversiones</a></li>
+                        <li><a class="page-scroll" href="#contactos">Contactos</a></li>
+                        <li><a class="page-scroll" href="#registro">Registro</a></li>
 						<!--<li class="dropdown">
 							<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
 								<i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
@@ -215,7 +216,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</ul>
 						</li>-->
 			
-			
+						<?php if(isset($this->session->userdata['logged_in'])){ ?>
 						<li>
 							<a href="<?php echo base_url();?>logout">
 								<i class="fa fa-sign-out"></i> Cerrar Sesión
