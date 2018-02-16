@@ -106,7 +106,8 @@ Class CLogin extends CI_Controller {
 		
 		$this->load->dbutil();
 		
-		if ($this->dbutil->database_exists('invision'))
+		// Obtenemos el nobre de la base de datos desde database.php con $this->db->database
+		if ($this->dbutil->database_exists($this->db->database))
 		{
 			
 			return "existe";
