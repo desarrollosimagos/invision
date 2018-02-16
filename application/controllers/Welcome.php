@@ -40,12 +40,9 @@ class Welcome extends CI_Controller {
 			
 			$this->migrations();  // Ejecutamos las migraciones
 			
-		}
-
-		$slider = $this->MWelcome->get_slider_projects();
-		
+		}	
 		// Cargamos la plantilla base
-		$this->load->view('publico/home', compact('slider'));
+		$this->load->view('base');
 	}
 
 	public function detail_projects()
