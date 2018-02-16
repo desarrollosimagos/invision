@@ -32,7 +32,8 @@
         <div>
             <div>
 
-                <h3 class="logo-name">Invision</h3>
+                <!--<h3 class="logo-name">Invision</h3>-->
+                <img src="<?php echo assets_url('img/logos/logotipo_320x130.png'); ?>">
 
             </div>
             <!--<h3>Bienvenido a Invision</h3>-->
