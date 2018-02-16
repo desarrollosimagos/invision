@@ -84,7 +84,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</ul>
 						</div>
 						<div class="logo-element">
-							IN+
+							<!--IN+-->
+							<img src="<?php echo assets_url('img/logos/logotipo_50x50.png'); ?>">
 						</div>
 					</li>
 					
@@ -102,6 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
 					<div class="navbar-header">
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+						<img src="<?php echo assets_url('img/logos/logotipo_200x50.png'); ?>">
 						<!--<form role="search" class="navbar-form-custom" action="search_results.html">
 							<div class="form-group">
 								<input type="text" placeholder="Buscar..." class="form-control" name="top-search" id="top-search">
