@@ -53,7 +53,7 @@
 
                 <a href="#"><small>Olvidó tu contraseña?</small></a>
                 <p class="text-muted text-center"><small>No tiene una cuenta?</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="register.html">Crear una cuenta</a>
+                <a class="btn btn-sm btn-white btn-block" href="#">Contáctenos</a>
             </form>
             <p class="m-t"> <small>Invision &copy; 2018</small> </p>
         </div>
