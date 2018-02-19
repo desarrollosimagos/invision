@@ -54,8 +54,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo assets_url('js/plugins/daterangepicker/daterangepicker.js');?>"></script>
 		<!-- Typehead -->
     <script src="<?php echo assets_url('js/plugins/typehead/bootstrap3-typeahead.min.js');?>"></script>
+    
+    <?php if(!isset($this->session->userdata['logged_in'])){ ?>
+	<style>
+	.page-scroll {
+		color: #ffffff !important;
+		background-color: transparent !important;
+		padding: 20px 10px !important;
+	}
+	</style>		
+	<?php } ?>
 </head>
-<body class="md-skin fixed-nav no-skin-config">
+
+<!-- Clases sin logueo -->
+<?php
+if(isset($this->session->userdata['logged_in'])){
+	$top_navigation = "";
+	$fixed_nav = "fixed-nav";
+}else{
+	$top_navigation = "top-navigation";
+	$fixed_nav = "";
+}
+?>
+<!-- Clases sin logueo -->
+
+<body class="md-skin <?php echo $fixed_nav; ?> no-skin-config <?php echo $top_navigation; ?>">
 	<div id="wrapper">
 		<?php if(isset($this->session->userdata['logged_in'])){ ?>
 		<nav class="navbar-default navbar-static-side" role="navigation">
@@ -104,7 +127,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row border-bottom">
 				<nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
 					<div class="navbar-header">
+						<?php if(isset($this->session->userdata['logged_in'])){ ?>
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+						<?php } ?>
 						<img src="<?php echo assets_url('img/logos/logotipo_200x50.png'); ?>" style="margin-top: 5px;">
 						<!--<form role="search" class="navbar-form-custom" action="search_results.html">
 							<div class="form-group">
@@ -225,7 +250,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						
 						<?php } else { ?>
 						<li>
-							<a href="<?php echo base_url();?>login">
+							<a class="page-scroll" href="<?php echo base_url();?>login">
 								<i class="fa fa-sign-in"></i> Iniciar Sesión
 							</a>
 						</li>
