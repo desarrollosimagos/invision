@@ -41,6 +41,10 @@ class Acceso
 			//~ print_r($this->CI->session->userdata('logged_in'));echo "<br>";
 			// Recorrido de los datos del usuario
 			foreach($this->CI->session->userdata('logged_in') as $clave => $userdata){
+				
+				//Incluimos por defecto el controlador Welcome
+				$controllerspermitidos[] = 'Welcome';
+				
 				if($clave == "acciones"){
 					foreach($userdata as $accion){
 						// Si el usuario no es administrador capturamos los datos de la acción haciendo referencia con el indice 0,

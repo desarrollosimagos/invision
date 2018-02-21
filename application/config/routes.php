@@ -123,6 +123,11 @@ $route['projects'] = 'CProjects';
 $route['projects/register'] = 'CProjects/register';
 $route['projects/edit/(:num)'] = 'CProjects/edit/$1';
 $route['projects/delete/(:num)'] = 'CProjects/delete/$1';
+/*   Público */
+$route['start'] = 'Welcome/start';
+$route['possibilities'] = 'Welcome/possibilities';
+$route['investments'] = 'Welcome/investments';
+$route['contacts'] = 'Welcome/contacts';
 
 
 /*   Migraciones */
