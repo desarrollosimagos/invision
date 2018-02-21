@@ -95,6 +95,7 @@ Class Basicauth
 				$coin_symbol = $query_coin->row()->symbol;
 				$coin_decimals = $query_coin->row()->decimals;
 				
+				$fecha_actual = date('Y-m-d H:i:s');
 				// Cargamos los datos de usuario
 				$session_data = array(
 					'id' => $query->row()->id,
@@ -110,10 +111,8 @@ Class Basicauth
 					'coin_iso' => $coin_iso,
 					'coin_symbol' => $coin_symbol,
 					'coin_decimals' => $coin_decimals,
-					'time' => time()  // Hora del acceso
+					'time' => $fecha_actual  // Hora del acceso
 				);
-				
-				$fecha_actual = date('Y-m-d H:i:s');
 				
 				// Consultamos si hay sesiones registradas para el usuario en 'users_sessions'
 				$query_session = $this->CI->db->query("SELECT * FROM users_sessions WHERE user_id=".$query->row()->id);

@@ -81,6 +81,8 @@ if(isset($this->session->userdata['logged_in'])){
 <body class="md-skin <?php echo $fixed_nav; ?> no-skin-config <?php echo $top_navigation; ?>">
 	<div id="wrapper">
 		<?php if(isset($this->session->userdata['logged_in'])){ ?>
+		<input type="hidden" id="active_session" value="<?php echo $this->session->userdata['logged_in']['id']; ?>">
+		<input type="hidden" id="time_session" value="<?php echo $this->session->userdata['logged_in']['time']; ?>">
 		<nav class="navbar-default navbar-static-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav metismenu" id="side-menu">
@@ -121,6 +123,8 @@ if(isset($this->session->userdata['logged_in'])){
 
 			</div>
 		</nav>
+		<?php } else { ?>
+		<input type="hidden" id="active_session" value="">
 		<?php } ?>
 
 		<div id="page-wrapper" class="gray-bg">
@@ -262,48 +266,41 @@ if(isset($this->session->userdata['logged_in'])){
 			</div>
 			
 			<script>
-				$(document).ready(function () {
-					// Aplicamos select2() a todos los combos select
-					$("select").select2();
-					
-					// Función añadida manualmente para alternar entre mini-barra y barra de menú completa u ocultar en dispositivos móviles
-					// .navbar-minimalize = clase del botón de acción
-					// .md-skin = clase de la etiqueta body asignada automáticamente por los plugins de la plantilla
-					$(".navbar-minimalize").on('click', function(){
-						var cadena1 = "md-skin fixed-nav no-skin-config pace-done pace-done";
-						var cadena1_small = "md-skin fixed-nav no-skin-config body-small pace-done pace-done";
-						var cadena2 = "md-skin fixed-nav no-skin-config pace-done pace-done mini-navbar";
-						var cadena2_small = "md-skin fixed-nav no-skin-config body-small pace-done pace-done mini-navbar";
-						if($(".md-skin").attr("class") == cadena1 || $(".md-skin").attr("class") == cadena1_small){
-							$(".md-skin").addClass("mini-navbar");
-						}else if($(".md-skin").attr("class") == cadena2 || $(".md-skin").attr("class") == cadena2_small){
-							$(".md-skin").removeClass("mini-navbar");
-						}
-					});
+			$(document).ready(function () {
+				// Aplicamos select2() a todos los combos select
+				$("select").select2();
+				
+				// Función añadida manualmente para alternar entre mini-barra y barra de menú completa u ocultar en dispositivos móviles
+				// .navbar-minimalize = clase del botón de acción
+				// .md-skin = clase de la etiqueta body asignada automáticamente por los plugins de la plantilla
+				$(".navbar-minimalize").on('click', function(){
+					var cadena1 = "md-skin fixed-nav no-skin-config pace-done pace-done";
+					var cadena1_small = "md-skin fixed-nav no-skin-config body-small pace-done pace-done";
+					var cadena2 = "md-skin fixed-nav no-skin-config pace-done pace-done mini-navbar";
+					var cadena2_small = "md-skin fixed-nav no-skin-config body-small pace-done pace-done mini-navbar";
+					if($(".md-skin").attr("class") == cadena1 || $(".md-skin").attr("class") == cadena1_small){
+						$(".md-skin").addClass("mini-navbar");
+					}else if($(".md-skin").attr("class") == cadena2 || $(".md-skin").attr("class") == cadena2_small){
+						$(".md-skin").removeClass("mini-navbar");
+					}
 				});
 				
-				// Ajax para contar la cantidad de respuestas pendientes del usuario logueado si éste pertenece a un grupo de bandejas
-				//~ if($("#group_id").val() != "0"){
-					
-					$.post('<?php echo base_url(); ?>CBandejaRespuestas/respuestas_pendientes', function (response) {
+				// Metodo de verificación de tiempo de sesión cada media hora
+				setInterval(function(){ if($("#active_session").val().trim() != ""){ 
+					$.post('<?php echo base_url(); ?>update_session', {'time_session':$("#time_session").val().trim()}, function (response) {
 						
-						$("#span_num_respuestas").text(response['recordsTotal']);
-						$("#span_num_respuestas_text").text('Tienes '+response['recordsTotal']+' respuesta(s) pendiente(s)');
+					}, 'json').done(function(response2) {
 						
-						if(parseInt(response['recordsTotal']) > 0){
-							$("#span_num_respuestas").removeClass('label-primary');
-							$("#span_num_respuestas").addClass('label-warning');
-						}else{
-							$("#span_num_respuestas").removeClass('label-warning');
-							$("#span_num_respuestas").addClass('label-primary');
+						if(response2['update'] == "ok"){
+							alert('El tiempo de su sesión a caducado, inicie sesión nuevamente...');
+							window.location.href = '<?php echo base_url(); ?>login';
 						}
 						
-					}, 'json');
-					
-					$("#li_respuestas").show();
-					
-				//~ }
+					});
+				} }, 1800000);
 				
+			});
+			
 			</script>
 			
 		<!-- Validación de acciones -->

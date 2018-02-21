@@ -25,8 +25,11 @@ class Tiempo
 			
 			$fechaGuardada = $this->CI->session->userdata['logged_in']['time'];  // Variable de sesión con la hora de inicio
 			$tiempo_limite = $this->CI->config->item('sess_time_to_update');  // Variable global de configuración para actualizar id de sesión
-			$ahora = time();  // Hora actual
-			$tiempo_transcurrido = ($ahora-$fechaGuardada);  // Tiempo transcurrido
+			$fecha_actual = date('Y-m-d H:i:s');
+			$tiempo_transcurrido = (strtotime($fecha_actual)-strtotime($fechaGuardada));  // Tiempo transcurrido
+			// FORMA ANTERIOR E IMPRECISA
+			//~ $ahora = time();  // Hora actual
+			//~ $tiempo_transcurrido = ($ahora-$fechaGuardada);  // Tiempo transcurrido
 
 			// Comparamos el tiempo transcurrido  
 			if($tiempo_transcurrido >= $tiempo_limite)
@@ -34,13 +37,12 @@ class Tiempo
 				
 				// Si el tiempo de la sesión ha alcanzado o excedido el límite configurado
 				//~ if($this->CI->db->simple_query("DELETE FROM users_sessions WHERE user_id=".$user_id)){
-				$fecha_actual = date('Y-m-d H:i:s');
 				if($this->CI->db->simple_query("UPDATE users_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$user_id)){
 					
 					// Destruimos la sesión y devolvemos a la página de inicio
 					$this->CI->session->sess_destroy();
-					echo "<script>alert('El tiempo de su sesión a caducado, inicie sesión nuevamente...');</script>";
-					echo "<script>window.location.href = '/';</script>";
+					//~ echo "<script>alert('El tiempo de su sesión a caducado, inicie sesión nuevamente...');</script>";
+					//~ echo "<script>window.location.href = '/';</script>";
 					
 				}else{
 					
@@ -52,7 +54,7 @@ class Tiempo
 			}else{
 				
 				// Si aún no ha expirado el tiempo de la sesión actualizamos la hora de la sesión 
-				$this->CI->session->userdata['logged_in']['time'] = $ahora;
+				$this->CI->session->userdata['logged_in']['time'] = $fecha_actual;
 				
 			}
 			
