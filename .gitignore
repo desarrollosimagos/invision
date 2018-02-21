@@ -34,3 +34,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sql
 *.htaccess
 index.php
+
+assets/img/logos/

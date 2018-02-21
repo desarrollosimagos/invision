@@ -57,6 +57,30 @@ class Welcome extends CI_Controller {
 		$this->load->view('login_form');
 	}
 	
+	public function start()
+	{
+		$this->load->view('base');
+		$this->load->view('publico/start');
+	}
+	
+	public function possibilities()
+	{
+		$this->load->view('base');
+		$this->load->view('publico/possibilities');
+	}
+	
+	public function investments()
+	{
+		$this->load->view('base');
+		$this->load->view('publico/investments');
+	}
+	
+	public function contacts()
+	{
+		$this->load->view('base');
+		$this->load->view('publico/contacts');
+	}
+	
 	
     // Método para verificar si la base de datos existe
     public function exists_database(){

@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Invision | Login</title>
+    <title><?php echo $this->config->item('title_app_login'); ?></title>
 
     <link href="<?php echo base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -33,7 +33,7 @@
             <div>
 
                 <!--<h3 class="logo-name">Invision</h3>-->
-                <img src="<?php echo assets_url('img/logos/logotipo_320x130.png'); ?>">
+                <img src="<?php echo assets_url('img/logos/'.$this->config->item('logo_login')); ?>">
 
             </div>
             <!--<h3>Bienvenido a Invision</h3>-->

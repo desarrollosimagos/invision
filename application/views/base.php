@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Invision</title>
+    <title><?php echo $this->config->item('title_app'); ?></title>
 	<!-- CSS Files -->
     <link href="<?php echo assets_url('css/bootstrap.min.css');?>" rel="stylesheet">
     <link href="<?php echo assets_url('font-awesome/css/font-awesome.css');?>" rel="stylesheet">
@@ -55,20 +55,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<!-- Typehead -->
     <script src="<?php echo assets_url('js/plugins/typehead/bootstrap3-typeahead.min.js');?>"></script>
     
-    <?php if(!isset($this->session->userdata['logged_in'])){ ?>
 	<style>
 	.page-scroll {
 		color: #ffffff !important;
 		background-color: transparent !important;
 		padding: 20px 10px !important;
 	}
-	</style>		
-	<?php } ?>
+	</style>
+	
 </head>
 
 <!-- Clases sin logueo -->
 <?php
-if(isset($this->session->userdata['logged_in'])){
+$rutas_publicas = array();
+if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welcome'){
 	$top_navigation = "";
 	$fixed_nav = "fixed-nav";
 }else{
@@ -80,7 +80,7 @@ if(isset($this->session->userdata['logged_in'])){
 
 <body class="md-skin <?php echo $fixed_nav; ?> no-skin-config <?php echo $top_navigation; ?>">
 	<div id="wrapper">
-		<?php if(isset($this->session->userdata['logged_in'])){ ?>
+		<?php if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welcome'){ ?>
 		<input type="hidden" id="active_session" value="<?php echo $this->session->userdata['logged_in']['id']; ?>">
 		<input type="hidden" id="time_session" value="<?php echo $this->session->userdata['logged_in']['time']; ?>">
 		<nav class="navbar-default navbar-static-side" role="navigation">
@@ -111,7 +111,7 @@ if(isset($this->session->userdata['logged_in'])){
 						</div>
 						<div class="logo-element">
 							<!--IN+-->
-							<img src="<?php echo assets_url('img/logos/logotipo_50x50.png'); ?>">
+							<img src="<?php echo assets_url('img/logos/'.$this->config->item('logo_menu_admin')); ?>">
 						</div>
 					</li>
 					
@@ -131,10 +131,10 @@ if(isset($this->session->userdata['logged_in'])){
 			<div class="row border-bottom">
 				<nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
 					<div class="navbar-header">
-						<?php if(isset($this->session->userdata['logged_in'])){ ?>
+						<?php if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welcome'){ ?>
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
 						<?php } ?>
-						<img src="<?php echo assets_url('img/logos/logotipo_200x50.png'); ?>" style="margin-top: 5px;">
+						<img src="<?php echo assets_url('img/logos/'.$this->config->item('logo_menu_bar')); ?>" style="margin-top: 5px;">
 						<!--<form role="search" class="navbar-form-custom" action="search_results.html">
 							<div class="form-group">
 								<input type="text" placeholder="Buscar..." class="form-control" name="top-search" id="top-search">
@@ -143,11 +143,13 @@ if(isset($this->session->userdata['logged_in'])){
 					</div>
 					
 					<ul class="nav navbar-top-links navbar-right">
-						<li><a class="page-scroll" href="#inicio">Inicio</a></li>
-                        <li><a class="page-scroll" href="#posibilidades">Posibilidades</a></li>
-                        <li><a class="page-scroll" href="#inversiones">Inversiones</a></li>
-                        <li><a class="page-scroll" href="#contactos">Contactos</a></li>
-                        <li><a class="page-scroll" href="#registro">Registro</a></li>
+						<?php foreach($this->config->item('public_menu') as $public_menu){ ?>
+							<?php if(!isset($this->session->userdata['logged_in']) && $public_menu[2] == 2){ ?>
+								<li style="display:none;"><a class="page-scroll" href="<?php echo $public_menu[1] ?>"><?php echo $public_menu[0] ?></a></li>
+							<?php }else{ ?>
+								<li><a class="page-scroll" href="<?php echo $public_menu[1] ?>"><?php echo $public_menu[0] ?></a></li>
+							<?php } ?>
+                        <?php } ?>
 						<!--<li class="dropdown">
 							<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
 								<i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
@@ -247,7 +249,7 @@ if(isset($this->session->userdata['logged_in'])){
 			
 						<?php if(isset($this->session->userdata['logged_in'])){ ?>
 						<li>
-							<a href="<?php echo base_url();?>logout">
+							<a class="page-scroll" href="<?php echo base_url();?>logout">
 								<i class="fa fa-sign-out"></i> Cerrar Sesión
 							</a>
 						</li>
