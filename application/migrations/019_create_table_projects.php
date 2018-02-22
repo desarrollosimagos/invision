@@ -29,12 +29,42 @@ class Migration_create_table_projects extends CI_Migration
 					"type" => "FLOAT",
 					"null" => TRUE
 				),
+				"type" => array(
+					"type" => "INT",
+					"constraint" => 11,
+					"null" => TRUE
+				),
+				"amount_r" => array(
+					"type" => "FLOAT",
+					"null" => TRUE
+				),
+				"amount_min" => array(
+					"type" => "FLOAT",
+					"null" => TRUE
+				),
+				"amount_max" => array(
+					"type" => "FLOAT",
+					"null" => TRUE
+				),
 				"date" => array(
 					"type" => "DATE",
 					"null" => TRUE
 				),
+				"date_r" => array(
+					"type" => "DATE",
+					"null" => TRUE
+				),
+				"date_v" => array(
+					"type" => "DATE",
+					"null" => TRUE
+				),
+				"public" => array(
+					"type" => "INT",
+					"constraint" => 11,
+					"null" => TRUE
+				),
 				"d_create" => array(
-					"type" => "TIMESTAMP",
+					"type" => "DATE",
 					"null" => TRUE
 				),
 				"d_update" => array(
