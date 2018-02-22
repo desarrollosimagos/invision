@@ -24,17 +24,38 @@ class CProjects extends CI_Controller {
 		
 		foreach($proyectos as $proyecto ){
 			
-			// Proceso de busqueda de fotos asociadas al producto
+			// Proceso de busqueda de fotos asociadas al proyecto
 			$num_fotos = $this->MProjects->buscar_photos($proyecto->id);
 			$num_fotos = count($num_fotos);
+			
+			// Proceso de busqueda de notificaciones asociadas al proyecto
+			$num_news = $this->MProjects->buscar_noticias($proyecto->id);
+			$num_news = count($num_news);
+			
+			// Proceso de busqueda de documentos asociados al proyecto
+			$num_docs = $this->MProjects->buscar_documentos($proyecto->id);
+			$num_docs = count($num_docs);
+			
+			// Proceso de busqueda de lecturas recomendadas asociadas al proyecto
+			$num_readings = $this->MProjects->buscar_lecturas($proyecto->id);
+			$num_readings = count($num_readings);
 			
 			$data_proyecto = array(
 				'id' => $proyecto->id,
 				'name' => $proyecto->name,
 				'description' => $proyecto->description,
+				'type' => $proyecto->type,
 				'valor' => $proyecto->valor,
+				'amount_r' => $proyecto->amount_r,
+				'amount_min' => $proyecto->amount_min,
+				'amount_max' => $proyecto->amount_max,
 				'date' => $proyecto->date,
-				'num_fotos' => $num_fotos
+				'date_r' => $proyecto->date_r,
+				'date_v' => $proyecto->date_v,
+				'num_fotos' => $num_fotos,
+				'num_news' => $num_news,
+				'num_docs' => $num_docs,
+				'num_readings' => $num_readings
 			);
 			
 			$listar[] = $data_proyecto;

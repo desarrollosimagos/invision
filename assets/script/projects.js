@@ -5,7 +5,7 @@ $(document).ready(function(){
 	
     $('#tab_projects').DataTable({
         "paging": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "autoWidth": false,
         "searching": true,
         "ordering": true,
@@ -28,10 +28,10 @@ $(document).ready(function(){
             }
             }
         ],
-        "iDisplayLength": 5,
+        "iDisplayLength": 50,
         "iDisplayStart": 0,
         "sPaginationType": "full_numbers",
-        "aLengthMenu": [5, 10, 15],
+        "aLengthMenu": [10, 50, 100, 150],
         "oLanguage": {"sUrl": "<?= assets_url() ?>js/es.txt"},
         "aoColumns": [
             {"sClass": "registro center", "sWidth": "5%"},
@@ -39,6 +39,15 @@ $(document).ready(function(){
             {"sClass": "none", "sWidth": "50%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
+            {"sClass": "none", "sWidth": "50%"},
+            {"sClass": "none", "sWidth": "50%"},
+            {"sClass": "none", "sWidth": "50%"},
+            {"sClass": "registro center", "sWidth": "10%"},
+            {"sClass": "none", "sWidth": "50%"},
+            {"sClass": "none", "sWidth": "50%"},
+            {"sClass": "none", "sWidth": "50%"},
+            {"sClass": "none", "sWidth": "50%"},
+            {"sClass": "none", "sWidth": "50%"},
             {"sClass": "none", "sWidth": "50%"},
             {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false},
             {"sWidth": "3%", "bSortable": false, "sClass": "center sorting_false", "bSearchable": false}

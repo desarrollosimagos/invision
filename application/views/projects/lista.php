@@ -34,9 +34,18 @@
                                     <th>#</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
+                                    <th>Tipo</th>
                                     <th>Valor</th>
+                                    <th>Monto a Recaudar</th>
+                                    <th>Monto Mínimo</th>
+                                    <th>Monto Máximo</th>
                                     <th>Fecha</th>
+                                    <th>Fecha de Retorno</th>
+                                    <th>Fecha de Validez</th>
                                     <th>Número de Fotos</th>
+                                    <th>Número de Notificaciones</th>
+                                    <th>Número de Documentos</th>
+                                    <th>Número de Lecturas</th>
                                     <th>Editar</th>
                                     <th>Eliminar</th>
                                 </tr>
@@ -56,13 +65,40 @@
                                             <?php echo $proyecto->description; ?>
                                         </td>
                                         <td>
+                                            <?php echo $proyecto->type; ?>
+                                        </td>
+                                        <td>
                                             <?php echo $proyecto->valor; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $proyecto->amount_r; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $proyecto->amount_min; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $proyecto->amount_max; ?>
                                         </td>
                                         <td>
                                             <?php echo $proyecto->date; ?>
                                         </td>
                                         <td>
+                                            <?php echo $proyecto->date_r; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $proyecto->date_v; ?>
+                                        </td>
+                                        <td>
                                             <?php echo $proyecto->num_fotos; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $proyecto->num_news; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $proyecto->num_docs; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $proyecto->num_readings; ?>
                                         </td>
                                         <td style='text-align: center'>
                                             <a href="<?php echo base_url() ?>projects/edit/<?= $proyecto->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
