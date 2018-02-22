@@ -43,7 +43,7 @@ Class CLogin extends CI_Controller {
 			$respuesta = $this->basicauth->login($usuario, $password);
 			
 			if(!isset($respuesta['error'])){
-				redirect('resumen');
+				redirect('projects');
 			}else{
 				$data['error'] = $respuesta['error'];
 				$this->load->view('login_form', $data);
