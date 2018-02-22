@@ -14,7 +14,7 @@ class MProjects extends CI_Model {
     //Public method to obtain the projects
     public function obtener() {
 		
-		$this->db->select('pj.id, pj.name, pj.description, pj.valor, pj.date');
+		$this->db->select('pj.id, pj.name, pj.description, pj.type, pj.valor, pj.amount_r, pj.amount_min, pj.amount_max, pj.date, pj.date_r, pj.date_v');
 		$this->db->from('projects pj');
 		$this->db->order_by("pj.id", "desc");
 		$query = $this->db->get();
@@ -59,6 +59,27 @@ class MProjects extends CI_Model {
     public function buscar_photos($project_id) {
         $result = $this->db->where('project_id =', $project_id);
         $result = $this->db->get('photos');
+        return $result->result();
+    }
+
+    // Public method to serach the news associated
+    public function buscar_noticias($project_id) {
+        $result = $this->db->where('project_id =', $project_id);
+        $result = $this->db->get('project_news');
+        return $result->result();
+    }
+
+    // Public method to serach the documents associated
+    public function buscar_documentos($project_id) {
+        $result = $this->db->where('project_id =', $project_id);
+        $result = $this->db->get('project_documents');
+        return $result->result();
+    }
+
+    // Public method to serach the readings associated
+    public function buscar_lecturas($project_id) {
+        $result = $this->db->where('project_id =', $project_id);
+        $result = $this->db->get('project_readings');
         return $result->result();
     }
 
