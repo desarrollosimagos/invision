@@ -36,3 +36,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 index.php
 
 assets/img/logos/
+assets/img/projects/
+assets/documents/
+assets/readings/

@@ -27,7 +27,9 @@
 					<form id="form_proyectos" method="post" accept-charset="utf-8" class="form-horizontal">
 						<ul class="nav nav-tabs">
 						  <li class="active"><a data-toggle="tab" href="#home">Datos</a></li>
-						  <li><a data-toggle="tab" href="#menu1">Fotos</a></li>
+						  <li><a data-toggle="tab" href="#menu1">Documentos</a></li>
+						  <li><a data-toggle="tab" href="#menu2">Lecturas Recomendadas</a></li>
+						  <li><a data-toggle="tab" href="#menu3">Fotos</a></li>
 						</ul>
 						
 						<!-- Tab content -->
@@ -50,6 +52,24 @@
 											<textarea name="description" id="description" cols="52"><?php echo $editar[0]->description; ?></textarea>
 										</div>
 									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" >Monto a recaudar</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="amount_r" id="amount_r" value="<?php echo $editar[0]->amount_r; ?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" >Monto Mínimo</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="amount_min" id="amount_min" value="<?php echo $editar[0]->amount_min; ?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" >Monto Máximo</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="amount_max" id="amount_max" value="<?php echo $editar[0]->amount_max; ?>">
+										</div>
+									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
@@ -67,14 +87,360 @@
 											$fecha = explode("-", $fecha);
 											$fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
 											?>
-											<input type="text" class="form-control" name="date" id="date" maxlength="11" value="<?php echo $fecha; ?>">
+											<input type="text" class="form-control" name="date" id="date" maxlength="10" value="<?php echo $fecha; ?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Fecha de retorno</label>
+										<div class="col-sm-6">
+											<?php
+											$fecha_r = $editar[0]->date_r;
+											$fecha_r = explode("-", $fecha_r);
+											$fecha_r = $fecha_r[2]."/".$fecha_r[1]."/".$fecha_r[0];
+											?>
+											<input type="text" class="form-control" maxlength="10" name="date_r" id="date_r" value="<?php echo $fecha_r; ?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Fecha de validez</label>
+										<div class="col-sm-6">
+											<?php
+											$fecha_v = $editar[0]->date_v;
+											$fecha_v = explode("-", $fecha_v);
+											$fecha_v = $fecha_v[2]."/".$fecha_v[1]."/".$fecha_v[0];
+											?>
+											<input type="text" class="form-control" maxlength="10" name="date_v" id="date_v" value="<?php echo $fecha_v; ?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Público</label>
+										<div class="col-sm-6">
+											<input type="checkbox" name="public" id="public" <?php if($editar[0]->public == true){ echo "checked='checked'"; }?>>
 										</div>
 									</div>
 								</div>
 							</div>
 							
-							<!-- Fotos -->
+							<!-- Documentos -->
 							<div id="menu1" class="tab-pane fade">
+								<br>
+								<div class="col-lg-6">
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 1</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 2</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 3</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 4</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 5</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 6</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 7</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 8</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 9</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Documento 10</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="documento[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 0){ ?>
+										<label class="col-sm-3 control-label" >Documento 1</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[0]->description; ?>">
+											<?php echo $documentos_asociados[0]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 1){ ?>
+										<label class="col-sm-3 control-label" >Documento 2</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[1]->description; ?>">
+											<?php echo $documentos_asociados[1]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 2){ ?>
+										<label class="col-sm-3 control-label" >Documento 3</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[2]->description; ?>">
+											<?php echo $documentos_asociados[2]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 3){ ?>
+										<label class="col-sm-3 control-label" >Documento 4</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[3]->description; ?>">
+											<?php echo $documentos_asociados[3]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 4){ ?>
+										<label class="col-sm-3 control-label" >Documento 5</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[4]->description; ?>">
+											<?php echo $documentos_asociados[4]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 5){ ?>
+										<label class="col-sm-3 control-label" >Documento 6</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[5]->description; ?>">
+											<?php echo $documentos_asociados[5]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 6){ ?>
+										<label class="col-sm-3 control-label" >Documento 7</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[6]->description; ?>">
+											<?php echo $documentos_asociados[6]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 7){ ?>
+										<label class="col-sm-3 control-label" >Documento 8</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[7]->description; ?>">
+											<?php echo $documentos_asociados[7]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 8){ ?>
+										<label class="col-sm-3 control-label" >Documento 9</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[8]->description; ?>">
+											<?php echo $documentos_asociados[8]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($documentos_asociados) > 9){ ?>
+										<label class="col-sm-3 control-label" >Documento 10</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/documents/<?php echo $documentos_asociados[9]->description; ?>">
+											<?php echo $documentos_asociados[9]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+								</div>
+							</div>
+							
+							<!-- Lecturas Recomendadas -->
+							<div id="menu2" class="tab-pane fade">
+								<br>
+								<div class="col-lg-6">
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 1</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 2</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 3</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 4</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 5</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 6</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 7</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 8</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 9</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+									<div class="form-group"><label class="col-sm-2 control-label" >Lectura 10</label>
+										<div class="col-sm-10">
+											<input type="file" class="form-control" name="lectura[]" onChange="valida_tipo_document($(this))">
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 0){ ?>
+										<label class="col-sm-3 control-label" >Lectura 1</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[0]->description; ?>">
+											<?php echo $lecturas_asociadas[0]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 1){ ?>
+										<label class="col-sm-3 control-label" >Lectura 2</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[1]->description; ?>">
+											<?php echo $lecturas_asociadas[1]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 2){ ?>
+										<label class="col-sm-3 control-label" >Lectura 3</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[2]->description; ?>">
+											<?php echo $lecturas_asociadas[2]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 3){ ?>
+										<label class="col-sm-3 control-label" >Lectura 4</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[3]->description; ?>">
+											<?php echo $lecturas_asociadas[3]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 4){ ?>
+										<label class="col-sm-3 control-label" >Lectura 5</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[4]->description; ?>">
+											<?php echo $lecturas_asociadas[4]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 5){ ?>
+										<label class="col-sm-3 control-label" >Lectura 6</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[5]->description; ?>">
+											<?php echo $lecturas_asociadas[5]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 6){ ?>
+										<label class="col-sm-3 control-label" >Lectura 7</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[6]->description; ?>">
+											<?php echo $lecturas_asociadas[6]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 7){ ?>
+										<label class="col-sm-3 control-label" >Lectura 8</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[7]->description; ?>">
+											<?php echo $lecturas_asociadas[7]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 8){ ?>
+										<label class="col-sm-3 control-label" >Lectura 9</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[8]->description; ?>">
+											<?php echo $lecturas_asociadas[8]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+									<div class="form-group">
+										<?php if(count($lecturas_asociadas) > 9){ ?>
+										<label class="col-sm-3 control-label" >Lectura 10</label>
+										<div class="col-sm-9">
+											<a target="_blank" href="<?php echo base_url(); ?>assets/readings/<?php echo $lecturas_asociadas[9]->description; ?>">
+											<?php echo $lecturas_asociadas[9]->description; ?>
+											</a>
+										</div>
+										<?php } ?>
+									</div>
+								</div>
+							</div>
+							
+							<!-- Fotos -->
+							<div id="menu3" class="tab-pane fade">
 								<br>
 								<?php //print_r($fotos_asociadas); echo count($fotos_asociadas);?>
 								<div class="col-lg-6">
@@ -229,6 +595,18 @@ $(document).ready(function(){
         language: "es",
         autoclose: true,
     })
+    
+    $('#date_r').datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        autoclose: true,
+    })
+    
+    $('#date_v').datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        autoclose: true,
+    })
 
     $('#volver').click(function () {
         url = '<?php echo base_url() ?>projects/';
@@ -236,6 +614,9 @@ $(document).ready(function(){
     });
 	
 	$("#valor").numeric(); //Valida solo permite valores numéricos
+    $("#amount_r").numeric(); //Valida solo permite valores numéricos
+    $("#amount_min").numeric(); //Valida solo permite valores numéricos
+    $("#amount_max").numeric(); //Valida solo permite valores numéricos
 	
 	// Al hacer click en el botón de guardado
     $("#edit").click(function (e) {
@@ -283,6 +664,14 @@ $(document).ready(function(){
 					
 					swal("Disculpe,", "ha ocurrido un error al guardar las fotos");
 					
+				}else if (response['response'] == 'error3') {
+					
+					swal("Disculpe,", "ha ocurrido un error al guardar los documentos");
+					
+				}else if (response['response'] == 'error4') {
+					
+					swal("Disculpe,", "ha ocurrido un error al guardar las lecturas recomendadas");
+					
 				}else{
 					
 					swal({
@@ -322,6 +711,31 @@ function valida_tipo(input) {
 	}else{
 		input.parent('div').removeClass('has-error');
 	}
-};
+}
+
+// Validamos que los archivos sean de tipo .pdf y no excedan los 2 MB de tamaño
+function valida_tipo_document(input) {
+	
+	var max_size = '';
+	var archivo = input.val();
+	
+	var ext = archivo.split(".");
+	ext = ext[1];
+	
+	//~ alert(input.attr("id"));
+	//~ alert(input[0].files[0].size);
+	
+	if(input[0].files[0].size > 2000000){
+		swal("Disculpe,", "los archivos no deben exceder los 2 MB");
+		input.val('');
+		input.parent('div').addClass('has-error');
+	}else if (ext != 'pdf'){
+		swal("Disculpe,", "sólo se admiten archivos .pdf");
+		input.val('');
+		input.parent('div').addClass('has-error');
+	}else{
+		input.parent('div').removeClass('has-error');
+	}
+}
 
 </script>
