@@ -54,6 +54,46 @@ class MProjects extends CI_Model {
             return $id;
         }
     }
+    
+    // Public method to insert the data
+    public function insert_document($datos) {
+		// Primero obtenemos el nombre del documento sin extensión para que no haya riesgo de duplicado
+		$without_ext = explode(".",$datos['description']);
+		$without_ext = $without_ext[0];
+        $result = $this->db->where('project_id =', $datos['project_id']);
+        $result = $this->db->like('description', $without_ext);
+        $result = $this->db->get('project_documents');
+        if ($result->num_rows() > 0) {
+			$result = $this->db->where('project_id =', $datos['project_id']);
+			$result = $this->db->like('description', $without_ext);
+			$result = $this->db->update("project_documents", $datos);
+            return 'existe';
+        } else {
+            $result = $this->db->insert("project_documents", $datos);
+            $id = $this->db->insert_id();
+            return $id;
+        }
+    }
+    
+    // Public method to insert the data
+    public function insert_reading($datos) {
+		// Primero obtenemos el nombre de la lectura sin extensión para que no haya riesgo de duplicado
+		$without_ext = explode(".",$datos['description']);
+		$without_ext = $without_ext[0];
+        $result = $this->db->where('project_id =', $datos['project_id']);
+        $result = $this->db->like('description', $without_ext);
+        $result = $this->db->get('project_readings');
+        if ($result->num_rows() > 0) {
+			$result = $this->db->where('project_id =', $datos['project_id']);
+			$result = $this->db->like('description', $without_ext);
+			$result = $this->db->update("project_readings", $datos);
+            return 'existe';
+        } else {
+            $result = $this->db->insert("project_readings", $datos);
+            $id = $this->db->insert_id();
+            return $id;
+        }
+    }
 
     // Public method to serach the photos associated
     public function buscar_photos($project_id) {
@@ -111,6 +151,28 @@ class MProjects extends CI_Model {
     public function obtenerFotos($project_id) {
         $this->db->where('project_id', $project_id);
         $query = $this->db->get('photos');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
+    // Public method to obtain the documentos by project_id
+    public function obtenerDocumentos($project_id) {
+        $this->db->where('project_id', $project_id);
+        $this->db->order_by('description', 'asc');
+        $query = $this->db->get('project_documents');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
+    // Public method to obtain the lecturas by project_id
+    public function obtenerLecturas($project_id) {
+        $this->db->where('project_id', $project_id);
+        $this->db->order_by('description', 'asc');
+        $query = $this->db->get('project_readings');
         if ($query->num_rows() > 0)
             return $query->result();
         else
