@@ -110,7 +110,7 @@
 			<div class="project-list">
 				
 				<div class="table-responsive">
-					<table id="tab_fondo_personal" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
+					<table id="tab_transactions" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -185,7 +185,7 @@
 				
 				<div class="table-responsive">
 					<?php //~ print_r($fondo_usuarios);	?>
-					<table id="tab_fondo_personal" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
+					<table id="tab_transactions" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -263,7 +263,7 @@
 				
 				<div class="table-responsive">
 					<?php $filter_profile = array(1, 2, 4); ?>
-					<table id="tab_fondo_personal" <?php if(in_array($this->session->userdata('logged_in')['profile_id'], $filter_profile)){ echo "data-filtering='true'"; } ?> data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
+					<table id="tab_transactions" <?php if(in_array($this->session->userdata('logged_in')['profile_id'], $filter_profile)){ echo "data-filtering='true'"; } ?> data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
 						<thead>
 							<tr>
 								<th>#</th>

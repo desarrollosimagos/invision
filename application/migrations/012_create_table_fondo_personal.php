@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_fondo_personal extends CI_Migration
+class Migration_create_table_transactions extends CI_Migration
 {
 	public function up(){
 		
@@ -76,14 +76,14 @@ class Migration_create_table_fondo_personal extends CI_Migration
 		
 		$this->dbforge->add_key('cuenta_id');  // Establecemos la cuenta_id como key
 		
-		$this->dbforge->create_table('fondo_personal', TRUE);
+		$this->dbforge->create_table('transactions', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'fondo_personal'
-		$this->dbforge->drop_table('fondo_personal', TRUE);
+		// Eliminamos la tabla 'transactions'
+		$this->dbforge->drop_table('transactions', TRUE);
 		
 	}
 	
