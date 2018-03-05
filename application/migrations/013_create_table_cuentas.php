@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_cuentas extends CI_Migration
+class Migration_create_table_accounts extends CI_Migration
 {
 	public function up(){
 		
@@ -68,14 +68,14 @@ class Migration_create_table_cuentas extends CI_Migration
 		
 		$this->dbforge->add_key('user_id');  // Establecemos el user_id como key
 		
-		$this->dbforge->create_table('cuentas', TRUE);
+		$this->dbforge->create_table('accounts', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'cuentas'
-		$this->dbforge->drop_table('cuentas', TRUE);
+		// Eliminamos la tabla 'accounts'
+		$this->dbforge->drop_table('accounts', TRUE);
 		
 	}
 	

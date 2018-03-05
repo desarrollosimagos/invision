@@ -12,7 +12,7 @@ class MCuentas extends CI_Model {
         $this->load->database();
     }
 
-    //Public method to obtain the cuentas
+    //Public method to obtain the accounts
     public function obtener() {
 		
 		$select = 'f_p.id, f_p.cuenta, f_p.numero, f_p.tipo, f_p.descripcion, f_p.monto, f_p.status, ';
@@ -20,7 +20,7 @@ class MCuentas extends CI_Model {
 		$select .= 't_c.name as tipo_cuenta';
 		
 		$this->db->select($select);
-		$this->db->from('cuentas f_p');
+		$this->db->from('accounts f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('coins c', 'c.id = f_p.coin_id');
 		$this->db->join('tipos_cuenta t_c', 't_c.id = f_p.tipo');
@@ -30,7 +30,7 @@ class MCuentas extends CI_Model {
 		}
 		$this->db->order_by("f_p.id", "desc");
 		$query = $this->db->get();
-		//~ $query = $this->db->get('cuentas');
+		//~ $query = $this->db->get('accounts');
 
 		if ($query->num_rows() > 0)
 			return $query->result();
@@ -42,17 +42,17 @@ class MCuentas extends CI_Model {
     // Public method to insert the data
     public function insert($datos) {
 		
-		$result = $this->db->insert("cuentas", $datos);
+		$result = $this->db->insert("accounts", $datos);
 		$id = $this->db->insert_id();
 		return $id;
         
     }
 
-    // Public method to obtain the cuentas by id
+    // Public method to obtain the accounts by id
     public function obtenerCuenta($id) {
 		
         $this->db->where('id', $id);
-        $query = $this->db->get('cuentas');
+        $query = $this->db->get('accounts');
         if ($query->num_rows() > 0)
             return $query->result();
         else
@@ -60,11 +60,11 @@ class MCuentas extends CI_Model {
             
     }
 
-    // Public method to obtain the cuentas by id
+    // Public method to obtain the accounts by id
     public function obtenerCuentaFondos($id) {
 		
         $this->db->where('cuenta_id', $id);
-        $query = $this->db->get('fondo_personal');
+        $query = $this->db->get('transactions');
         if ($query->num_rows() > 0)
             return $query->result();
         else
@@ -72,7 +72,7 @@ class MCuentas extends CI_Model {
             
     }
 
-    // Public method to obtain the cuentas by id
+    // Public method to obtain the accounts by id
     public function obtenerCuentaGrupos($id) {
 		
         $this->db->where('account_id', $id);
@@ -88,7 +88,7 @@ class MCuentas extends CI_Model {
     public function update($datos) {
 		
 		$result = $this->db->where('id', $datos['id']);
-		$result = $this->db->update('cuentas', $datos);
+		$result = $this->db->update('accounts', $datos);
 		return $result;
         
     }
@@ -97,7 +97,7 @@ class MCuentas extends CI_Model {
     // Public method to delete a record
      public function delete($id) {
 		 
-		$result = $this->db->delete('cuentas', array('id' => $id));
+		$result = $this->db->delete('accounts', array('id' => $id));
 		return $result;
        
     }

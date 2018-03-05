@@ -28,7 +28,7 @@ class MResumen extends CI_Model {
 		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.monto, f_p.status, u.username as usuario, c.cuenta, c.numero, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
-		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		// Si el usuario corresponde al de un administrador o plataforma quitamos el filtro de usuarios
         if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
@@ -73,7 +73,7 @@ class MResumen extends CI_Model {
 		
 		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
-		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where('f_p.status', 1);
@@ -102,7 +102,7 @@ class MResumen extends CI_Model {
 		
 		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
-		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
@@ -131,7 +131,7 @@ class MResumen extends CI_Model {
 		
 		$this->db->select($select);
 		$this->db->from('transactions f_p');
-		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
+		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){

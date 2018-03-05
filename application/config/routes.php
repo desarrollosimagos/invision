@@ -93,10 +93,10 @@ $route['transactions/edit/(:num)'] = 'CFondoPersonal/edit/$1';
 $route['transactions/delete/(:num)'] = 'CFondoPersonal/delete/$1';
 $route['transactions/validar'] = 'CFondoPersonal/validar_transaccion';
 /*   Cuentas */
-$route['cuentas'] = 'CCuentas';
-$route['cuentas/register'] = 'CCuentas/register';
-$route['cuentas/edit/(:num)'] = 'CCuentas/edit/$1';
-$route['cuentas/delete/(:num)'] = 'CCuentas/delete/$1';
+$route['accounts'] = 'CCuentas';
+$route['accounts/register'] = 'CCuentas/register';
+$route['accounts/edit/(:num)'] = 'CCuentas/edit/$1';
+$route['accounts/delete/(:num)'] = 'CCuentas/delete/$1';
 /*   Resumen */
 $route['resumen'] = 'CResumen';
 $route['resumen/register'] = 'CResumen/register';
