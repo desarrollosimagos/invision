@@ -14,8 +14,9 @@ class MProjects extends CI_Model {
     //Public method to obtain the projects
     public function obtener() {
 		
-		$this->db->select('pj.id, pj.name, pj.description, pj.type, pj.valor, pj.amount_r, pj.amount_min, pj.amount_max, pj.date, pj.date_r, pj.date_v');
+		$this->db->select('pj.id, pj.name, pj.description, p_t.type as type, pj.valor, pj.amount_r, pj.amount_min, pj.amount_max, pj.date, pj.date_r, pj.date_v');
 		$this->db->from('projects pj');
+		$this->db->join('project_types p_t', 'p_t.id = pj.type');
 		$this->db->order_by("pj.id", "desc");
 		$query = $this->db->get();
 
@@ -123,6 +124,13 @@ class MProjects extends CI_Model {
         return $result->result();
     }
 
+    // Public method to serach the types associated
+    public function buscar_tipos($project_id) {
+        $result = $this->db->where('project_id =', $project_id);
+        $result = $this->db->get('project_types');
+        return $result->result();
+    }
+
     // Public method to obtain the projects by id
     public function obtenerProyecto($id) {
 		
@@ -173,6 +181,15 @@ class MProjects extends CI_Model {
         $this->db->where('project_id', $project_id);
         $this->db->order_by('description', 'asc');
         $query = $this->db->get('project_readings');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
+    // Public method to obtain the types of projects
+    public function obtenerTipos() {
+        $query = $this->db->get('project_types');
         if ($query->num_rows() > 0)
             return $query->result();
         else

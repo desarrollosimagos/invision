@@ -7,7 +7,7 @@
             </li>
             
             <li>
-                <a href="<?php echo base_url() ?>productos">Proyectos</a>
+                <a href="<?php echo base_url() ?>projects">Proyectos</a>
             </li>
             
             <li class="active">
@@ -72,6 +72,16 @@
 									</div>
 								</div>
 								<div class="col-lg-6">
+									<div class="form-group"><label class="col-sm-2 control-label" >Tipo *</label>
+										<div class="col-sm-6">
+											<select class="form-control m-b" name="type" id="type">
+												<option value="0">Seleccione</option>
+												<?php foreach($project_types as $type){?>
+												<option value="<?php echo $type->id; ?>"><?php echo $type->type; ?></option>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
 									<div class="form-group"><label class="col-sm-2 control-label" >Valor *</label>
 										<div class="col-sm-6">
 											<input type="text" class="form-control"  name="valor" id="valor">
@@ -342,6 +352,10 @@ $(document).ready(function(){
         if ($('#name').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar el nombre del proyecto");
 			$('#name').parent('div').addClass('has-error');
+			
+        } else if ($('#type').val() == "0") {
+			swal("Disculpe,", "para continuar debe seleccionar el tipo de proyecto");
+			$('#type').parent('div').addClass('has-error');
 			
         } else if ($('#valor').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar el valor del proyecto");

@@ -24,21 +24,21 @@ class CProjects extends CI_Controller {
 		
 		foreach($proyectos as $proyecto ){
 			
-			// Proceso de busqueda de fotos asociadas al proyecto
+			// Proceso de búsqueda de fotos asociadas al proyecto
 			$num_fotos = $this->MProjects->buscar_photos($proyecto->id);
 			$num_fotos = count($num_fotos);
 			
-			// Proceso de busqueda de notificaciones asociadas al proyecto
+			// Proceso de búsqueda de notificaciones asociadas al proyecto
 			$num_news = $this->MProjects->buscar_noticias($proyecto->id);
 			$num_news = count($num_news);
 			
-			// Proceso de busqueda de documentos asociados al proyecto
+			// Proceso de búsqueda de documentos asociados al proyecto
 			$num_docs = $this->MProjects->buscar_documentos($proyecto->id);
 			$num_docs = count($num_docs);
 			
-			// Proceso de busqueda de lecturas recomendadas asociadas al proyecto
+			// Proceso de búsqueda de lecturas recomendadas asociadas al proyecto
 			$num_readings = $this->MProjects->buscar_lecturas($proyecto->id);
-			$num_readings = count($num_readings);
+			$num_readings = count($num_readings);			
 			
 			$data_proyecto = array(
 				'id' => $proyecto->id,
@@ -65,7 +65,7 @@ class CProjects extends CI_Controller {
 		// Conversión a objeto
 		$listar = json_decode( json_encode( $listar ), false );
 		
-		$data['listar'] = $listar;
+		$data['listar'] = $listar;		
 		$this->load->view('projects/lista', $data);
 		$this->load->view('footer');
 	}
@@ -74,6 +74,7 @@ class CProjects extends CI_Controller {
 	{
 		$this->load->view('base');
 		$data['monedas'] = $this->MCoins->obtener();
+		$data['project_types'] = $this->MProjects->obtenerTipos();
 		$this->load->view('projects/registrar', $data);
 		$this->load->view('footer');
 	}
@@ -101,6 +102,7 @@ class CProjects extends CI_Controller {
 		$datos = array(
 			'name' => $this->input->post('name'),
 			'description' => $this->input->post('description'),
+			'type' => $this->input->post('type'),
             'valor' => $this->input->post('valor'),
             'amount_r' => $this->input->post('amount_r'),
             'amount_min' => $this->input->post('amount_min'),
@@ -247,6 +249,7 @@ class CProjects extends CI_Controller {
         $data['fotos_asociadas'] = $this->MProjects->obtenerFotos($data['id']);
         $data['documentos_asociados'] = $this->MProjects->obtenerDocumentos($data['id']);
         $data['lecturas_asociadas'] = $this->MProjects->obtenerLecturas($data['id']);
+        $data['project_types'] = $this->MProjects->obtenerTipos();
         $this->load->view('projects/editar', $data);
 		$this->load->view('footer');
     }
@@ -275,6 +278,7 @@ class CProjects extends CI_Controller {
 			'id' => $this->input->post('id'),
 			'name' => $this->input->post('name'),
 			'description' => $this->input->post('description'),
+			'type' => $this->input->post('type'),
             'valor' => $this->input->post('valor'),
             'amount_r' => $this->input->post('amount_r'),
             'amount_min' => $this->input->post('amount_min'),
