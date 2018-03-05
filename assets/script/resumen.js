@@ -61,7 +61,7 @@ $(document).ready(function(){
 
 	
 	// Función para validar transacción
-    $("table#tab_fondo_personal").on('click', 'a.validar', function (e) {
+    $("table#tab_transactions").on('click', 'a.validar', function (e) {
         e.preventDefault();
         var id = this.getAttribute('id');
         
@@ -91,7 +91,7 @@ $(document).ready(function(){
         function(isConfirm){
             if (isConfirm) {
              
-                $.post(base_url+'fondo_personal/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo}, function (response) {
+                $.post(base_url+'transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo}, function (response) {
 
                     if (response['response'] == 'error') {
                        

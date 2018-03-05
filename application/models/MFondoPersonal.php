@@ -12,11 +12,11 @@ class MFondoPersonal extends CI_Model {
         $this->load->database();
     }
 
-    //Public method to obtain the fondo_personal
+    //Public method to obtain the transactions
     public function obtener() {
 		
 		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.monto, f_p.status, u.username as usuario, c.cuenta, c.numero, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
-		$this->db->from('fondo_personal f_p');
+		$this->db->from('transactions f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('cuentas c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
@@ -26,7 +26,7 @@ class MFondoPersonal extends CI_Model {
 		}
 		$this->db->order_by("f_p.id", "desc");
         $query = $this->db->get();
-        //~ $query = $this->db->get('fondo_personal');
+        //~ $query = $this->db->get('transactions');
 
         if ($query->num_rows() > 0)
             return $query->result();
@@ -35,7 +35,7 @@ class MFondoPersonal extends CI_Model {
             
     }
 
-    //Public method to obtain the fondo_personal
+    //Public method to obtain the transactions
     public function obtener_cuentas_group($tipo) {
 		
 		// Si el usuario corresponde al de un administrador quitamos el filtro de usuario
@@ -85,17 +85,17 @@ class MFondoPersonal extends CI_Model {
     // Public method to insert the data
     public function insert($datos) {
 		
-		$result = $this->db->insert("fondo_personal", $datos);
+		$result = $this->db->insert("transactions", $datos);
 		$id = $this->db->insert_id();
 		return $id;
         
     }
 
-    // Public method to obtain the fondo_personal by id
+    // Public method to obtain the transactions by id
     public function obtenerFondoPersonal($id) {
 		
         $this->db->where('id', $id);
-        $query = $this->db->get('fondo_personal');
+        $query = $this->db->get('transactions');
         if ($query->num_rows() > 0)
             return $query->result();
         else
@@ -107,7 +107,7 @@ class MFondoPersonal extends CI_Model {
     public function update($datos) {
 		
 		$result = $this->db->where('id', $datos['id']);
-		$result = $this->db->update('fondo_personal', $datos);
+		$result = $this->db->update('transactions', $datos);
 		return $result;
         
     }
@@ -116,7 +116,7 @@ class MFondoPersonal extends CI_Model {
     // Public method to delete a record
      public function delete($id) {
 		 
-		$result = $this->db->delete('fondo_personal', array('id' => $id));
+		$result = $this->db->delete('transactions', array('id' => $id));
 		return $result;
        
     }
