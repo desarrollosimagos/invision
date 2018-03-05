@@ -7,7 +7,7 @@
             </li>
             
             <li>
-                <a href="<?php echo base_url() ?>productos">Proyectos</a>
+                <a href="<?php echo base_url() ?>projects">Proyectos</a>
             </li>
            
             <li class="active">
@@ -72,6 +72,17 @@
 									</div>
 								</div>
 								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="col-sm-2 control-label" >Tipo *</label>
+										<div class="col-sm-6">
+											<select class="form-control m-b" name="type" id="type">
+												<option value="0">Seleccione</option>
+												<?php foreach($project_types as $type){?>
+												<option value="<?php echo $type->id; ?>"><?php echo $type->type; ?></option>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="col-sm-2 control-label" >Valor *</label>
 										<div class="col-sm-6">
@@ -570,6 +581,7 @@
 						<div class="form-group">
 							<div class="col-sm-12">
 								<input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
+								<input id="id_tipo" type="hidden" value="<?php echo $editar[0]->type ?>"/>
 								<button class="btn btn-white" id="volver" type="button">Volver</button>
 								<button class="btn btn-primary" id="edit" type="submit">Guardar</button>
 							</div>
@@ -617,6 +629,8 @@ $(document).ready(function(){
     $("#amount_r").numeric(); //Valida solo permite valores numéricos
     $("#amount_min").numeric(); //Valida solo permite valores numéricos
     $("#amount_max").numeric(); //Valida solo permite valores numéricos
+    
+    $("#type").select2('val', $("#id_tipo").val());
 	
 	// Al hacer click en el botón de guardado
     $("#edit").click(function (e) {
@@ -626,6 +640,10 @@ $(document).ready(function(){
         if ($('#name').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar el nombre del proyecto");
 			$('#name').parent('div').addClass('has-error');
+			
+        } else if ($('#type').val() == "0") {
+			swal("Disculpe,", "para continuar debe seleccionar el tipo de proyecto");
+			$('#type').parent('div').addClass('has-error');
 			
         } else if ($('#valor').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar el valor del proyecto");

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_type_projects extends CI_Migration
+class Migration_create_table_project_types extends CI_Migration
 {
 	public function up(){
 		
@@ -38,14 +38,14 @@ class Migration_create_table_type_projects extends CI_Migration
 		
 		$this->dbforge->add_key('id', TRUE);  // Establecemos el id como primary_key
 		
-		$this->dbforge->create_table('type_projects', TRUE);
+		$this->dbforge->create_table('project_types', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'type_projects'
-		$this->dbforge->drop_table('type_projects', TRUE);
+		// Eliminamos la tabla 'project_types'
+		$this->dbforge->drop_table('project_types', TRUE);
 		
 	}
 	

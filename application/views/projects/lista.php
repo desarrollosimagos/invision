@@ -1,12 +1,12 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Projectos</h2>
+        <h2>Proyectos</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="<?php echo base_url() ?>home">Inicio</a>
             </li>
             <li class="active">
-                <strong>Projectos</strong>
+                <strong>Proyectos</strong>
             </li>
         </ol>
     </div>
