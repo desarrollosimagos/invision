@@ -75,24 +75,6 @@
 								</select>
 							</div>
 						</div>
-						<!--<div class="form-group" id="div_tiendas">
-							<label class="col-sm-2 control-label" >Tienda</label>
-							<div class="col-sm-10">
-								<select class="form-control m-b" id="tiendas" multiple="multiple">
-									<?php
-									// Primero creamos un arreglo con la lista de ids de tiendas proveniente del controlador
-									$ids_tiendas = explode(",",$ids_tiendas);
-									?>
-									<?php foreach ($tiendas as $tienda) { ?>
-										<?php if(in_array($tienda->id, $ids_tiendas)) { ?>
-										<option selected="selected" value="<?php echo $tienda->id ?>"><?php echo $tienda->name ?></option>
-										<?php }else{ ?>
-										<option value="<?php echo $tienda->id ?>"><?php echo $tienda->name ?></option>
-										<?php } ?>
-									<?php } ?>
-								</select>
-							</div>
-						</div>-->
 						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
 						<div class="form-group"><label class="col-sm-2 control-label" >Acciones</label>
 							<div class="col-sm-10">

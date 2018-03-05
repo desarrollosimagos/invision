@@ -10,7 +10,6 @@ class CUser extends CI_Controller {
         $this->load->model('MUser');
 		$this->load->model('MPerfil');
         $this->load->model('MAcciones');
-        $this->load->model('MTiendas');
         $this->load->model('MCoins');
 		
     }
@@ -19,8 +18,6 @@ class CUser extends CI_Controller {
 	{
 		$this->load->view('base');
 		$data['listar'] = $this->MUser->obtener();
-		$data['tiendas'] = $this->MTiendas->obtener();
-		$data['users_tiendas'] = $this->MUser->obtenerUsersTiendas();
 		$data['acciones'] = $this->MAcciones->obtener();
 		$data['permisos'] = $this->MUser->obtener_permisos();
 		$this->load->view('user/lista', $data);
@@ -31,7 +28,6 @@ class CUser extends CI_Controller {
 	{
 		$this->load->view('base');
 		$data['list_perfil'] = $this->MPerfil->obtener();
-		$data['tiendas'] = $this->MTiendas->obtener();
 		$data['acciones'] = $this->MAcciones->obtener_without_home();
 		$data['monedas'] = $this->MCoins->obtener();
 		//~ $data['user_tiendas'] = $this->MUser->obtenerUsersTiendas();
@@ -99,19 +95,8 @@ class CUser extends CI_Controller {
 		$this->load->view('base');
         $data['id'] = $this->uri->segment(2);
 		$data['list_perfil'] = $this->MPerfil->obtener();
-		$data['tiendas'] = $this->MTiendas->obtener();
 		//~ $data['user_tiendas'] = $this->MUser->obtenerUsersTiendas();
         $data['editar'] = $this->MUser->obtenerUsers($data['id']);
-        // Lista de ids de tiendas asociadas al usuario
-        $ids_tiendas = "";
-        $query_tiendas = $this->MUser->obtenerTiendasUserId($data['id']);
-        if(count($query_tiendas) > 0){
-			foreach($query_tiendas as $tienda){
-				$ids_tiendas .= $tienda->tienda_id.",";
-			}
-		}
-		$ids_tiendas = substr($ids_tiendas,0,-1);  // Quitamos la última coma de la cadena
-		$data['ids_tiendas'] = $ids_tiendas;
 		$data['permissions'] = $this->MUser->obtener_permisos_id($data['id']);
 		$data['acciones'] = $this->MAcciones->obtener_without_home();
 		$data['monedas'] = $this->MCoins->obtener();
