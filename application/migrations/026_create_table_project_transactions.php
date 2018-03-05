@@ -36,8 +36,8 @@ class Migration_create_table_project_transactions extends CI_Migration
 					"null" => TRUE
 				),
 				"tipo" => array(
-					"type" => "INT",
-					"constraint" => 11,
+					"type" => "VARCHAR",
+					"constraint" => 25,
 					"null" => TRUE
 				),
 				"descripcion" => array(
@@ -60,8 +60,8 @@ class Migration_create_table_project_transactions extends CI_Migration
 					"null" => TRUE
 				),
 				"status" => array(
-					"type" => "INT",
-					"constraint" => 11,
+					"type" => "VARCHAR",
+					"constraint" => 25,
 					"null" => TRUE
 				),
 				"d_create" => array(
