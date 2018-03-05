@@ -50,7 +50,7 @@
 								
 							</span>
 							<div>
-								<small>Ingreso pendiente</small>
+								<small>Deposito Pendiente</small>
 							</div>
 						</div>
 						<div class="col-md-2 forum-info">
@@ -58,7 +58,7 @@
 								
 							</span>
 							<div>
-								<small>Egreso pendiente</small>
+								<small>Capital Diferido</small>
 							</div>
 						</div>
 						<div class="col-md-2 forum-info">
