@@ -39,18 +39,18 @@ Class Basicauth
 				$menus = array();
 				$submenus = array();
 				
-				// Buscamos si hay tiendas asociadas al usuario
-				$query_user_tienda = $this->CI->db->get_where('users_tiendas', array('user_id'=>$query->row()->id));
-				if($query_user_tienda->num_rows() > 0){
-					// Listamos las tiendas asociadas
-					$ids_serv = array();  // Variable para almacenar los ids de los servicios y filtrar los repetidos
-					foreach($query_user_tienda->result() as $tienda){
-						//~ print $tienda->tienda_id;
-						$query_tienda = $this->CI->db->get_where('tiendas', array('id'=>$tienda->tienda_id));
-						//~ print_r($query_tienda->result());
-						$tiendas[] = $query_tienda->result();
-					}
-				}
+				//~ // Buscamos si hay tiendas asociadas al usuario
+				//~ $query_user_tienda = $this->CI->db->get_where('users_tiendas', array('user_id'=>$query->row()->id));
+				//~ if($query_user_tienda->num_rows() > 0){
+					//~ // Listamos las tiendas asociadas
+					//~ $ids_serv = array();  // Variable para almacenar los ids de los servicios y filtrar los repetidos
+					//~ foreach($query_user_tienda->result() as $tienda){
+						//~ // print $tienda->tienda_id;
+						//~ $query_tienda = $this->CI->db->get_where('tiendas', array('id'=>$tienda->tienda_id));
+						//~ // print_r($query_tienda->result());
+						//~ $tiendas[] = $query_tienda->result();
+					//~ }
+				//~ }
 				
 				// Carga de menús y submenús para usuarios no administradores
 				$ids_acciones = array();  // Lista de ids de acciones para buscar en submenús
@@ -105,7 +105,7 @@ Class Basicauth
 					'profile_name' => $query_profile->row()->name,
 					'acciones' => $acciones,
 					'permisos' => $permisos,
-					'tiendas' => $tiendas,
+					//~ 'tiendas' => $tiendas,
 					'submenus' => $submenus,
 					'menus' => $menus,
 					'coin_iso' => $coin_iso,
