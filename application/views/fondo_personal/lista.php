@@ -19,10 +19,10 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a href="<?php echo base_url() ?>transactions/register/1">
+            <a href="<?php echo base_url() ?>transactions/register/deposit">
 				<button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button>
             </a>
-            <a href="<?php echo base_url() ?>transactions/register/2">
+            <a href="<?php echo base_url() ?>transactions/register/withdraw">
 				<button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-minus"></i> Retirar</button>
             </a>
             <div class="ibox float-e-margins">
@@ -64,9 +64,9 @@
                                         </td>
                                         <td>
                                             <?php
-                                            if($fondo->tipo == 1){
+                                            if($fondo->tipo == 'deposit'){
 												echo "<span style='color:#337AB7;'>Ingreso</span>";
-											}else if($fondo->tipo == 2){
+											}else if($fondo->tipo == 'withdraw'){
 												echo "<span style='color:#D33333;'>Egreso</span>";
 											}else{
 												echo "";
