@@ -40,8 +40,8 @@
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="tipo" id="tipo">
-									<option value="1">Ingreso</option>
-									<option value="2">Egreso</option>
+									<option value="deposit">Ingreso</option>
+									<option value="withdraw">Egreso</option>
 								</select>
 							</div>
 						</div>

@@ -88,7 +88,7 @@ $route['acciones/edit/(:num)'] = 'CAcciones/edit/$1';
 $route['acciones/delete/(:num)'] = 'CAcciones/delete/$1';
 /*   Transacciones */
 $route['transactions'] = 'CFondoPersonal';
-$route['transactions/register/(:num)'] = 'CFondoPersonal/register/$1';
+$route['transactions/register/(:any)'] = 'CFondoPersonal/register/$1';
 $route['transactions/edit/(:num)'] = 'CFondoPersonal/edit/$1';
 $route['transactions/delete/(:num)'] = 'CFondoPersonal/delete/$1';
 $route['transactions/validar'] = 'CFondoPersonal/validar_transaccion';
