@@ -7,7 +7,7 @@
             </li>
             
             <li>
-                <a href="<?php echo base_url() ?>cuentas">Cuentas</a>
+                <a href="<?php echo base_url() ?>accounts">Cuentas</a>
             </li>
            
             <li class="active">
@@ -106,7 +106,7 @@ $(document).ready(function(){
     });
 
     $('#volver').click(function () {
-        url = '<?php echo base_url() ?>cuentas/';
+        url = '<?php echo base_url() ?>accounts/';
         window.location = url;
     });
     
@@ -147,7 +147,7 @@ $(document).ready(function(){
 						  type: "success" 
 						},
 					function(){
-					  window.location.href = '<?php echo base_url(); ?>cuentas';
+					  window.location.href = '<?php echo base_url(); ?>accounts';
 					});
 				}
             }, 'json');

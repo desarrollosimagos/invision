@@ -14,7 +14,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a href="<?php echo base_url() ?>cuentas/register">
+            <a href="<?php echo base_url() ?>accounts/register">
             <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button></a>
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -70,7 +70,7 @@
                                             <?php echo $fondo->descripcion; ?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>cuentas/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+                                            <a href="<?php echo base_url() ?>accounts/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
                                             
@@ -138,7 +138,7 @@ $(document).ready(function(){
         function(isConfirm){
             if (isConfirm) {
              
-                $.post('<?php echo base_url(); ?>cuentas/delete/' + id + '', function (response) {
+                $.post('<?php echo base_url(); ?>accounts/delete/' + id + '', function (response) {
 
                     if (response['response'] == "existe") {
                        
@@ -177,7 +177,7 @@ $(document).ready(function(){
                              type: "success" 
                            },
                            function(){
-                             window.location.href = '<?php echo base_url(); ?>cuentas';
+                             window.location.href = '<?php echo base_url(); ?>accounts';
                          });
                     }
                 }, 'json');
