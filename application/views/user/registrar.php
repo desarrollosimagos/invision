@@ -75,25 +75,6 @@
 								</select>
 							</div>
 						</div>
-						<!--<div class="form-group" id="div_tiendas">
-							<label class="col-sm-2 control-label" >Tienda</label>
-							<div class="col-sm-10">
-								<select class="form-control m-b" id="tiendas" multiple="multiple">
-									<?php
-									// Armamos un arreglo de ids de tiendas asignadas a usuarios
-									//~ $tiendas_ids = array();
-									//~ foreach ($user_tiendas as $user_tienda) {
-										//~ $tiendas_ids[] = $user_tienda->tienda_id;
-									//~ }
-									?>
-									<?php foreach ($tiendas as $tienda) { ?>
-										<?php //if(!in_array($tienda->id, $tiendas_ids)) { ?>
-										<option value="<?php echo $tienda->id ?>"><?php echo $tienda->name ?></option>
-										<?php //} ?>
-									<?php } ?>
-								</select>
-							</div>
-						</div>-->
 						<?php if($this->session->userdata('logged_in')['profile_id'] == 1){ ?>
 						<div class="form-group"><label class="col-sm-2 control-label" >Acciones</label>
 							<div class="col-sm-10">

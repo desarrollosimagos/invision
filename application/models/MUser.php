@@ -62,37 +62,6 @@ class MUser extends CI_Model {
         else
             return $query->result();
     }
-    
-    // Public method to obtain the tiendas assigned to user
-    public function obtenerUsersTiendas() {
-        $query = $this->db->get('users_tiendas');
-        if ($query->num_rows() > 0)
-            return $query->result();
-        else
-            return $query->result();
-    }
-    
-    // Public method to obtain the services of the tiendas by tienda_id
-    public function obtenerTiendasUserId($id_user) {
-        $this->db->where('user_id', $id_user);
-        $query = $this->db->get('users_tiendas');
-        if ($query->num_rows() > 0)
-            return $query->result();
-        else
-            return $query->result();
-    }
-    
-    // Public method to obtain the permissions asociated by user_id and tienda_id
-    public function obtenerUserTiendaId($id_user, $id_tienda) {
-		$this->db->where('user_id =', $id_user);
-		$this->db->where('tienda_id =', $id_tienda);
-        $query = $this->db->get('users_tiendas');
-
-        if ($query->num_rows() > 0)
-            return $query->result();
-        else
-            return $query->result();
-    }
 
     // Public method to insert the data
     public function insert($datos) {
@@ -105,12 +74,6 @@ class MUser extends CI_Model {
             $id = $this->db->insert_id();
             return $id;
         }
-    }
-    
-    // Public method to insert the tienda associated
-    public function insert_tienda($datos) {
-		$result = $this->db->insert("users_tiendas", $datos);
-		return $result;
     }
     
     // Public method to insert the action associated
@@ -179,13 +142,8 @@ class MUser extends CI_Model {
         $result = $this->db->delete('users', array('id' => $id));
         return $result;
     }
-    
-    // Public method to delete the tiendas asociated 
-    public function delete_user_tienda($id_user, $id_tienda) {
-		$result = $this->db->delete('users_tiendas', array('user_id' => $id_user, 'tienda_id' => $id_tienda));
-    }
 
-    // Public method to delete the tiendas asociated 
+    // Public method to delete the permissions asociated 
     public function delete_user_action($id_user, $id_action) {
 		$result = $this->db->delete('permissions', array('user_id' => $id_user, 'action_id' => $id_action));
     }

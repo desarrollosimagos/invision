@@ -304,7 +304,6 @@ $(document).ready(function() {
 	       $('#coin_id').parent('div').addClass('has-error');
 		   
 		} else {
-			//~ alert($('#tiendas').val());
 			
 			// Construimos la data de permisología leyendo las filas de la tabla
 			var campos= "";
@@ -339,7 +338,7 @@ $(document).ready(function() {
 				data.push(campos);
 			});
 
-            $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'tiendas_ids':$('#tiendas').val(),'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
+            $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
 
 				if (response == 'existe') {
                     swal("Disculpe,", "este nombre de usuario se encuentra registrado");

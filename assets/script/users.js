@@ -118,13 +118,7 @@ $(document).ready(function() {
 	}else{
 		$('#admin').val(0);
 	}
-	//~ 
-	//~ if(perfil == "FRANQUICIA" || perfil == "franquicia"){
-		//~ $("#tiendas").css("display","block");
-	//~ }else{
-		//~ $("#tiendas").css("display","none");
-		//~ $("#tienda").val("0");
-	//~ }
+	
 	var perfil_id = $("#profile").val();
 	var usuario_id = $("#id").val();
 	if(perfil_id != '0'){
@@ -169,13 +163,7 @@ $(document).ready(function() {
 		}else{
 			$('#admin').val(0);
 		}
-		//~ 
-		//~ if(perfil == "FRANQUICIA" || perfil == "franquicia"){
-			//~ $("#tiendas").css("display","block");
-		//~ }else{
-			//~ $("#tiendas").css("display","none");
-			//~ $("#tienda").val("0");
-		//~ }
+		
 		var perfil_id = $("#profile").val();
 		var usuario_id = $("#id").val();
 		//~ $('#actions_ids').find('option:gt(0)').remove().end().select2('val', '0');
@@ -263,13 +251,7 @@ $(document).ready(function() {
 		  swal("Disculpe,", "para continuar debe seleccionar el perfil");
 	       $('#profile').parent('div').addClass('has-error');
 		   
-		} /*else if (($("#profile").find('option').filter(':selected').text() == "FRANQUICIA" || $("#profile").find('option').filter(':selected').text() == "franquicia") && $('#tienda').val() == '0') {
-			
-		  swal("Disculpe,", "para continuar debe seleccionar la franquicia");
-	       $('#tienda').parent('div').addClass('has-error');
-		   
-		}*/ else {
-			//~ alert($('#tiendas').val());
+		} else {
 			
 			// Construimos la data de permisología leyendo las filas de la tabla
 			var campos= "";
@@ -299,7 +281,7 @@ $(document).ready(function() {
 				data.push(campos);
 			});
 
-            $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'tiendas_ids':$('#tiendas').val(),'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
+            $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
 
 				if (response == 'existe') {
                     swal("Disculpe,", "este nombre de usuario se encuentra registrado");
@@ -371,15 +353,9 @@ $(document).ready(function() {
 		  swal("Disculpe,", "para continuar debe seleccionar la moneda");
 	       $('#coin_id').parent('div').addClass('has-error');
 		   
-		} /*else if (($("#profile").find('option').filter(':selected').text() == "FRANQUICIA" || $("#profile").find('option').filter(':selected').text() == "franquicia") && $('#tienda').val() == '0') {
-			
-		  swal("Disculpe,", "para continuar debe seleccionar la franquicia");
-	       $('#tienda').parent('div').addClass('has-error');
-		   
-		}*/ else {
-			//~ alert($('#tiendas').val());
+		} else {
 
-            $.post(base_url+'CUser/add', $('#form_users').serialize()+'&'+$.param({'tiendas_ids':$('#tiendas').val(),'actions_ids':$('#actions_ids').val()}), function (response) {
+            $.post(base_url+'CUser/add', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val()}), function (response) {
 
 				if (response == 'existe') {
                     swal("Disculpe,", "este nombre de usuario se encuentra registrado");
