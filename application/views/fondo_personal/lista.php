@@ -78,12 +78,12 @@
                                         </td>
                                         <td>
                                             <?php
-                                            if($fondo->status == 1){
+                                            if($fondo->status == 'approved'){
 												echo "<span style='color:#337AB7;'>Validado</span>";
-											}else if($fondo->status == 0){
-												echo "<span style='color:#D33333;'>Pendiente</span>";
+											}else if($fondo->status == 'waiting'){
+												echo "<span style='color:#A5D353;'>En espera</span>";
 											}else{
-												echo "";
+												echo "<span style='color:#D33333;'>Denegado</span>";
 											}
                                             ?>
                                         </td>
@@ -119,17 +119,29 @@
 											$class_icon_validar = "";
 											$disabled = "";
 											$cursor_style = "";
-											if($fondo->status == 1){
+											$color_style = "";
+											$title = "";
+											if($fondo->status == 'approved'){
 												$class_icon_validar = "fa-check-circle";
 												$disabled = "disabled='true'";
 												$cursor_style = "cursor:default";
-											}else{
+												$color_style = "";
+												$title = "";
+											}else if($fondo->status == 'waiting'){
 												$class = "validar";
 												$class_icon_validar = "fa-check-circle-o";
 												$cursor_style = "cursor:pointer";
+												$color_style = "";
+												$title = "title='Validar'";
+											}else{
+												$class_icon_validar = "fa-check-circle";
+												$disabled = "disabled='true'";
+												$cursor_style = "cursor:default";
+												$color_style = "color:grey";
+												$title = "";
 											}
 											?>
-                                            <a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='<?php echo $cursor_style; ?>' title='Validar'>
+                                            <a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='<?php echo $cursor_style; ?>;<?php echo $color_style; ?>' <?php echo $title; ?>>
 												<i class="fa <?php echo $class_icon_validar; ?> fa-2x"></i>
                                             </a>
                                         </td>
@@ -241,15 +253,15 @@ $(document).ready(function(){
 				var trans_usd = parseFloat(fondos[i]['monto'])/coins['rates'][currency];
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
-				if(fondos[i]['status'] == 0){
-					if(fondos[i]['tipo'] == 1){
+				if(fondos[i]['status'] == 'waiting'){
+					if(fondos[i]['tipo'] == 'deposit'){
 						capital_pendiente += trans_usd;
 					}else{
 						capital_pendiente -= trans_usd;
 					}
 				}
-				if(fondos[i]['status'] == 1){
-					if(fondos[i]['tipo'] == 1){
+				if(fondos[i]['status'] == 'approved'){
+					if(fondos[i]['tipo'] == 'deposit'){
 						capital_aprobado += trans_usd;
 					}else{
 						capital_aprobado -= trans_usd;
@@ -292,14 +304,16 @@ $(document).ready(function(){
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Validar",
-            cancelButtonText: "Cancelar",
+            cancelButtonText: "Denegar",
             closeOnConfirm: false,
             closeOnCancel: true
           },
         function(isConfirm){
             if (isConfirm) {
+				
+				//~ alert('approved');
              
-                $.post('<?php echo base_url(); ?>transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo}, function (response) {
+                $.post('<?php echo base_url(); ?>transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo, 'status': 'approved'}, function (response) {
 
                     if (response['response'] == 'error') {
                        
@@ -321,8 +335,39 @@ $(document).ready(function(){
                              window.location.href = '<?php echo base_url(); ?>transactions';
                          });
                     }
+                    
                 }, 'json');
-            } 
+                
+            }else{
+				
+				//~ alert('denied');
+				
+				$.post('<?php echo base_url(); ?>transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo, 'status': 'denied'}, function (response) {
+
+                    if (response['response'] == 'error') {
+                       
+                         swal({ 
+                           title: "Disculpe,",
+                            text: "No se pudo negar la transacción, por favor consulte con su administrador",
+                             type: "warning" 
+                           },
+                           function(){
+                             
+                         });
+                    }else{
+                         swal({ 
+                           title: "Negada",
+                            text: "Transacción negada con exito",
+                             type: "success" 
+                           },
+                           function(){
+                             window.location.href = '<?php echo base_url(); ?>transactions';
+                         });
+                    }
+                    
+                }, 'json');
+				
+			}
         });
     });
     
