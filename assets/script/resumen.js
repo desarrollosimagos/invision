@@ -204,19 +204,19 @@ $(document).ready(function(){
 				//~ console.log("id: "+fondos[i]['id']+" - "+"tipo: "+fondos[i]['tipo']+" - "+"monto: "+fondos[i]['monto']+" - "+trans_usd+" - "+fondos[i]['coin_avr']+" - "+"status: "+fondos[i]['status']);
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
-				if(fondos[i]['status'] == 0){
-					if(fondos[i]['tipo'] == 1){
+				if(fondos[i]['status'] == 'waiting'){
+					if(fondos[i]['tipo'] == 'deposit'){
 						capital_pendiente += trans_usd;
 						ingreso_pendiente += trans_usd;
-					}else{
+					}else if(fondos[i]['tipo'] == 'withdraw'){
 						capital_pendiente -= trans_usd;
 						egreso_pendiente += trans_usd;
 					}
 				}
-				if(fondos[i]['status'] == 1){
-					if(fondos[i]['tipo'] == 1){
+				if(fondos[i]['status'] == 'approved'){
+					if(fondos[i]['tipo'] == 'deposit'){
 						capital_aprobado += trans_usd;
-					}else{
+					}else if(fondos[i]['tipo'] == 'withdraw'){
 						capital_aprobado -= trans_usd;
 					}
 				}

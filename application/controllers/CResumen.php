@@ -20,6 +20,7 @@ class CResumen extends CI_Controller {
 		$data['cuentas'] = $this->MCuentas->obtener();
 		$data['capital_pendiente'] = $this->MResumen->capitalPendiente();
 		$data['fondo_usuarios'] = $this->fondos_json_users();
+		$data['fondo_proyectos'] = $this->fondos_json_projects();
 		$this->load->view('resumen/resumen', $data);
 		
 		$this->load->view('footer');
@@ -90,19 +91,19 @@ class CResumen extends CI_Controller {
 					$resumen_user['name'] = $fondo->name;
 					$resumen_user['lastname'] = $fondo->lastname;
 					$resumen_user['username'] = $fondo->username;
-					if($fondo->status == 0){
-						if($fondo->tipo == 1){
+					if($fondo->status == 'waiting'){
+						if($fondo->tipo == 'deposit'){
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_entry'] += $trans_usd;
-						}else if($fondo->tipo == 2){
+						}else if($fondo->tipo == 'withdraw'){
 							$resumen_user['pending_capital'] -= $trans_usd;
 							$resumen_user['pending_exit'] += $trans_usd;
 						}
 					}
-					if($fondo->status == 1){
-						if($fondo->tipo == 1){
+					if($fondo->status == 'approved'){
+						if($fondo->tipo == 'deposit'){
 							$resumen_user['approved_capital'] += $trans_usd;
-						}else if($fondo->tipo == 2){
+						}else if($fondo->tipo == 'withdraw'){
 							$resumen_user['approved_capital'] -= $trans_usd;
 						}
 					}
@@ -138,6 +139,68 @@ class CResumen extends CI_Controller {
 		}
 		
         return json_decode(json_encode($resumen_users), false);  // Esto retorna un arreglo de objetos
+    }	
+    
+	public function fondos_json_projects()
+    {
+		// Obtenemos el valor en dólares de las disitntas divisas
+		$get = file_get_contents("https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664");
+		// Se decodifica la respuesta JSON
+		$exchangeRates = json_decode($get, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		
+		$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+        
+        $fondos_details = $this->MResumen->fondos_json_projects();  // Listado de fondos detallados
+		
+		$resumen = array(
+			'capital_invested' => 0,
+			'returned_capital' => 0,
+			'retirement_capital_available' => 0
+		);
+			
+		foreach($fondos_details as $fondo){
+				
+			// Conversión de cada monto a dólares
+			$currency = $fondo->coin_avr;  // Tipo de moneda de la transacción
+			$trans_usd = (float)$fondo->monto/$exchangeRates['rates'][$currency];
+			
+			if($fondo->status == 'approved'){
+				if($fondo->tipo == 'deposit'){
+					$resumen['capital_invested'] += $trans_usd;
+					$resumen['retirement_capital_available'] += $trans_usd;
+				}else if($fondo->tipo == 'profit'){
+					$resumen['returned_capital'] += $trans_usd;
+					$resumen['retirement_capital_available'] += $trans_usd;
+				}else if($fondo->tipo == 'expense'){
+					$resumen['retirement_capital_available'] -= $trans_usd;
+				}else if($fondo->tipo == 'withdraw'){
+					$resumen['retirement_capital_available'] -= $trans_usd;
+				}
+			}
+			
+		}
+		
+		$decimals = 2;
+		if($this->session->userdata('logged_in')['coin_decimals'] != ""){
+			$decimals = $this->session->userdata('logged_in')['coin_decimals'];
+		}
+		$symbol = $this->session->userdata('logged_in')['coin_symbol'];
+		
+		// Conversión de los montos a la divisa del usuario
+		$resumen['capital_invested'] *= $currency_user; 
+		$resumen['capital_invested'] = round($resumen['capital_invested'], $decimals);
+		$resumen['capital_invested'] = $resumen['capital_invested']." ".$symbol;
+		
+		$resumen['returned_capital'] *= $currency_user; 
+		$resumen['returned_capital'] = round($resumen['returned_capital'], $decimals);
+		$resumen['returned_capital'] = $resumen['returned_capital']." ".$symbol;
+		
+		$resumen['retirement_capital_available'] *= $currency_user; 
+		$resumen['retirement_capital_available'] = round($resumen['retirement_capital_available'], $decimals);
+		$resumen['retirement_capital_available'] = $resumen['retirement_capital_available']." ".$symbol;
+		
+        return json_decode(json_encode($resumen), false);  // Esto retorna un arreglo de objetos
     }	
 	
 }
