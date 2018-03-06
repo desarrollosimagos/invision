@@ -49,11 +49,11 @@ class MResumen extends CI_Model {
     public function capitalPendiente() {
 		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->select_sum('monto');
-			$this->db->where('status', 0);
+			$this->db->where('status', 'waiting');
 			$this->db->where('user_id', $this->session->userdata('logged_in')['id']);
 		}else{
 			$this->db->select_sum('monto');
-			$this->db->where('status', 0);			
+			$this->db->where('status', 'waiting');			
 		}
         $query = $this->db->get('transactions');
         if ($query->num_rows() > 0)
@@ -76,15 +76,15 @@ class MResumen extends CI_Model {
 		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
-			$this->db->where('f_p.status', 1);
+			$this->db->where('f_p.status', 'approved');
 			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
 		}else{
-			$this->db->where('f_p.status', 1);
+			$this->db->where('f_p.status', 'approved');
 		}
         $query = $this->db->get();
         
         foreach($query->result() as $result){
-			if($result->tipo == 1){
+			if($result->tipo == 'deposit'){
 				$capitalAprobado += $result->monto;
 			}else{
 				$capitalAprobado -= $result->monto;
@@ -112,7 +112,7 @@ class MResumen extends CI_Model {
         return $query->result();
             
     }
-
+	
     // Public method to obtain the transactions by id
     public function fondos_json_users() {
 		
@@ -136,6 +136,27 @@ class MResumen extends CI_Model {
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where_in('f_p.user_id', $ids);
+		}
+        $query = $this->db->get();
+        
+        return $query->result();
+            
+    }
+	
+    // Public method to obtain the transactions by project
+    public function fondos_json_projects() {
+		
+		$select = 'u.name, u.lastname, u.username, f_p.id, f_p.user_id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, ';
+		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, p.name, p.description';
+		
+		$this->db->select($select);
+		$this->db->from('project_transactions f_p');
+		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
+		$this->db->join('coins cn', 'cn.id = c.coin_id');
+		$this->db->join('users u', 'u.id = f_p.user_id');
+		$this->db->join('projects p', 'p.id = f_p.project_id');
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
+			$this->db->where('f_p.user_id', $this->session->userdata('logged_in')['id']);
 		}
         $query = $this->db->get();
         

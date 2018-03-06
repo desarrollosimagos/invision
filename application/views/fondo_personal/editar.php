@@ -109,6 +109,7 @@
 								 <input id="id_user" type="hidden" value="<?php echo $editar[0]->user_id ?>"/>
 								 <input id="id_cuenta" type="hidden" value="<?php echo $editar[0]->cuenta_id ?>"/>
 								 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
+								 <input id="usuario" type="hidden" value="<?php echo $this->session->userdata('logged_in')['id']; ?>"/>
 								 <input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
 								<button class="btn btn-white" id="volver" type="button">Volver</button>
 								<button class="btn btn-primary" id="edit" type="submit">Guardar</button>
@@ -248,7 +249,7 @@ $(document).ready(function(){
 				//~ alert("Monto convertido: " + monto_convertido);
 				//~ alert("Capital aprobado: " + capital_aprobado);
 				
-				if(monto_convertido > capital_aprobado && $('#tipo').val().trim() == 'withdraw'){
+				if(monto_convertido > capital_aprobado && $('#tipo').val().trim() == 'withdraw' && $("#usuario").val().trim() != 1){
 					
 					alert("El monto a retirar no puede ser superior al capital aprobado");
 					

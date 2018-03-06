@@ -37,14 +37,38 @@
 				
 				<div class="contact-box-footer" style="border-top:0px;">
 					<div>
-						<!--<div class="col-md-2 forum-info">
-							<span class="views-number" id="span_pendiente">
-								<?php //echo (float)$capital_pendiente[0]->monto." $"; ?>
+						<div class="col-md-2 forum-info">
+							<span class="views-number">
+								<?php echo $fondo_proyectos->capital_invested; ?>
 							</span>
 							<div>
-								<small>Capital pendiente</small>
+								<small>Capital invertido</small>
 							</div>
-						</div>-->
+						</div>
+						<div class="col-md-2 forum-info">
+							<span class="views-number" id="span_invertido">
+								<?php echo $fondo_proyectos->returned_capital; ?>
+							</span>
+							<div>
+								<small>Capital de retorno</small>
+							</div>
+						</div>
+						<div class="col-md-2 forum-info">
+							<span class="views-number" id="span_retornado">
+								<?php echo $fondo_proyectos->retirement_capital_available; ?>
+							</span>
+							<div>
+								<small>Capital de retiro disponible</small>
+							</div>
+						</div>
+						<div class="col-md-2 forum-info">
+							<span class="views-number" id="span_aprobado">
+								
+							</span>
+							<div>
+								<small>Capital aprobado</small>
+							</div>
+						</div>
 						<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_ingreso_pendiente">
 								
@@ -59,30 +83,6 @@
 							</span>
 							<div>
 								<small>Capital Diferido</small>
-							</div>
-						</div>
-						<div class="col-md-2 forum-info">
-							<span class="views-number" id="span_aprobado">
-								<?php //echo (float)$capital_aprobado." $"; ?>
-							</span>
-							<div>
-								<small>Capital aprobado</small>
-							</div>
-						</div>
-						<div class="col-md-2 forum-info">
-							<span class="views-number">
-								<?php echo "0.0 $"; ?>
-							</span>
-							<div>
-								<small>Capital invertido</small>
-							</div>
-						</div>
-						<div class="col-md-2 forum-info">
-							<span class="views-number">
-								<?php echo "0.0 $"; ?>
-							</span>
-							<div>
-								<small>Capital retornado</small>
 							</div>
 						</div>
 					</div>
@@ -290,9 +290,9 @@
 									</td>
 									<td>
 										<?php
-										if($fondo->tipo == 1){
+										if($fondo->tipo == 'deposit'){
 											echo "<span style='color:#337AB7;'>Ingreso</span>";
-										}else if($fondo->tipo == 2){
+										}else if($fondo->tipo == 'withdraw'){
 											echo "<span style='color:#D33333;'>Egreso</span>";
 										}else{
 											echo "";
@@ -304,12 +304,12 @@
 									</td>
 									<td>
 										<?php
-										if($fondo->status == 1){
+										if($fondo->status == 'approved'){
 											echo "<span style='color:#337AB7;'>Validado</span>";
-										}else if($fondo->status == 0){
-											echo "<span style='color:#D33333;'>Pendiente</span>";
+										}else if($fondo->status == 'waiting'){
+											echo "<span style='color:#A5D353;'>En espera</span>";
 										}else{
-											echo "";
+											echo "<span style='color:#D33333;'>Denegado</span>";
 										}
 										?>
 									</td>
@@ -331,17 +331,29 @@
 										$class_icon_validar = "";
 										$disabled = "";
 										$cursor_style = "";
-										if($fondo->status == 1){
+										$color_style = "";
+										$title = "";
+										if($fondo->status == 'approved'){
 											$class_icon_validar = "fa-check-circle";
 											$disabled = "disabled='true'";
 											$cursor_style = "cursor:default";
-										}else{
+											$color_style = "";
+											$title = "";
+										}else if($fondo->status == 'waiting'){
 											$class = "validar";
 											$class_icon_validar = "fa-check-circle-o";
 											$cursor_style = "cursor:pointer";
+											$color_style = "";
+											$title = "title='Validar'";
+										}else{
+											$class_icon_validar = "fa-check-circle";
+											$disabled = "disabled='true'";
+											$cursor_style = "cursor:default";
+											$color_style = "color:grey";
+											$title = "";
 										}
 										?>
-										<a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='<?php echo $cursor_style; ?>' title='Validar'>
+										<a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='<?php echo $cursor_style; ?>;<?php echo $color_style; ?>' <?php echo $title; ?>>
 											<i class="fa <?php echo $class_icon_validar; ?> fa-2x"></i>
 										</a>
 									</td>
