@@ -56,7 +56,7 @@ class CFondoPersonal extends CI_Controller {
             'referencia' => $this->input->post('referencia'),
             'observaciones' => $this->input->post('observaciones'),
             'monto' => $this->input->post('monto'),
-            'status' => 0,
+            'status' => 'waiting',
             'd_create' => date('Y-m-d H:i:s')
         );
         
@@ -68,9 +68,9 @@ class CFondoPersonal extends CI_Controller {
 			//~ $data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
 			//~ 
 			//~ // Sumamos o restamos el monto de la transacción
-			//~ if($this->input->post('tipo') == 1){
+			//~ if($this->input->post('tipo') == 'deposit'){
 				//~ $monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-			//~ }else if($this->input->post('tipo') == 2){
+			//~ }else if($this->input->post('tipo') == 'withdraw'){
 				//~ $monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
 			//~ }
 			//~ 
@@ -139,9 +139,9 @@ class CFondoPersonal extends CI_Controller {
 			//~ $data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
 			//~ 
 			//~ // Sumamos o restamos el monto de la transacción
-			//~ if($this->input->post('tipo') == 1){
+			//~ if($this->input->post('tipo') == 'deposit'){
 				//~ $monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-			//~ }else if($this->input->post('tipo') == 2){
+			//~ }else if($this->input->post('tipo') == 'withdraw'){
 				//~ $monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
 			//~ }
 			//~ 
@@ -181,34 +181,41 @@ class CFondoPersonal extends CI_Controller {
 		// Armamos los nuevos datos de la transacción
 		$data_transaccion = array(
 			'id' => $this->input->post('id'),
-			'status' => 1,
+			'status' => $this->input->post('status'),
 			'd_update' => date('Y-m-d H:i:s')
 		);
-		
-		// Actualizamos la cuenta
+			
+		// Actualizamos la transacción
 		$update_transaccion = $this->MFondoPersonal->update($data_transaccion);
 		
-		// Obtenemos los datos de la cuenta a actualizar
-		$data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
-		
-		// Sumamos o restamos el monto de la transacción
-		if($this->input->post('tipo') == 1){
-			$monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-		}else if($this->input->post('tipo') == 2){
-			$monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
+		// Si estamos validando y no negando la transacción, actualizamos también la cuenta de dicha transacción
+		if($this->input->post('status') == 'approved'){
+			
+			// Obtenemos los datos de la cuenta a actualizar
+			$data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
+			
+			// Sumamos o restamos el monto de la transacción
+			if($this->input->post('tipo') == 'deposit'){
+				$monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
+			}else if($this->input->post('tipo') == 'withdraw'){
+				$monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
+			}
+			
+			// Armamos los nuevos datos de la cuenta
+			$data_cuenta = array(
+				'id' => $this->input->post('cuenta_id'),
+				'monto' => $monto_cuenta,
+				'd_update' => date('Y-m-d H:i:s')
+			);
+			
+			// Actualizamos la cuenta
+			$update_cuenta = $this->MCuentas->update($data_cuenta);
+			
+		}else{
+			$update_cuenta = true;
 		}
 		
-		// Armamos los nuevos datos de la cuenta
-		$data_cuenta = array(
-			'id' => $this->input->post('cuenta_id'),
-			'monto' => $monto_cuenta,
-			'd_update' => date('Y-m-d H:i:s')
-		);
-		
-		// Actualizamos la cuenta
-		$update_cuenta = $this->MCuentas->update($data_cuenta);
-		
-		if($data_transaccion && $update_cuenta){
+		if($update_transaccion && $update_cuenta){
 			echo '{"response":"ok"}';
 		}else{
 			echo '{"response":"error"}';

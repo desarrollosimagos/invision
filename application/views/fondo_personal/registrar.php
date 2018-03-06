@@ -164,14 +164,14 @@ $(document).ready(function(){
 				var trans_usd = parseFloat(fondos[i]['monto'])/coins['rates'][currency];
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
-				if(fondos[i]['status'] == 0){
+				if(fondos[i]['status'] == 'waiting'){
 					if(fondos[i]['tipo'] == 'deposit'){
 						capital_pendiente += trans_usd;
 					}else{
 						capital_pendiente -= trans_usd;
 					}
 				}
-				if(fondos[i]['status'] == 1){
+				if(fondos[i]['status'] == 'approved'){
 					if(fondos[i]['tipo'] == 'deposit'){
 						capital_aprobado += trans_usd;
 					}else{
