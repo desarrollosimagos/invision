@@ -143,13 +143,16 @@ if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welc
 					</div>
 					
 					<ul class="nav navbar-top-links navbar-right">
+						<!-- Construimos el menú superior combinando el arreglo de menús del config.php más las etiquetas de idiomas -->
+						<?php $i = 1; ?>
 						<?php foreach($this->config->item('public_menu') as $public_menu){ ?>
+							<?php $public_menu[0] = $this->lang->line('menu_bar_menu'.$i); ?>
 							<?php if(!isset($this->session->userdata['logged_in']) && $public_menu[2] == 2){ ?>
 								<li style="display:none;"><a class="page-scroll" href="<?php echo $public_menu[1] ?>"><?php echo $public_menu[0] ?></a></li>
 							<?php }else{ ?>
 								<li><a class="page-scroll" href="<?php echo $public_menu[1] ?>"><?php echo $public_menu[0] ?></a></li>
 							<?php } ?>
-                        <?php } ?>
+                        <?php $i++; } ?>
 						<!--<li class="dropdown">
 							<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
 								<i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
@@ -232,14 +235,14 @@ if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welc
 						<?php if(isset($this->session->userdata['logged_in'])){ ?>
 						<li>
 							<a class="page-scroll" href="<?php echo base_url();?>logout">
-								<i class="fa fa-sign-out"></i> Cerrar Sesión
+								<i class="fa fa-sign-out"></i> <?php echo $this->lang->line('top_bar_logout'); ?>
 							</a>
 						</li>
 						
 						<?php } else { ?>
 						<li>
 							<a class="page-scroll" href="<?php echo base_url();?>login">
-								<i class="fa fa-sign-in"></i> Iniciar Sesión
+								<i class="fa fa-sign-in"></i> <?php echo $this->lang->line('top_bar_login'); ?>
 							</a>
 						</li>
 						<?php } ?>
