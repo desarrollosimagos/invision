@@ -275,7 +275,7 @@
 								<th data-breakpoints="all" >Descripción</th>
 								<th data-breakpoints="all" >Referencia</th>
 								<th data-breakpoints="all" >Observaciones</th>
-								<th>Validar</th>
+								<!--<th>Validar</th>-->
 							</tr>
 						</thead>
 						<tbody>
@@ -325,7 +325,7 @@
 									<td>
 										<?php echo $fondo->observaciones; ?>
 									</td>
-									<td style='text-align: center'>
+									<!--<td style='text-align: center'>
 										<?php
 										$class = "";
 										$class_icon_validar = "";
@@ -356,7 +356,7 @@
 										<a class='<?php echo $class; ?>' id='<?php echo $fondo->id.';'.$fondo->cuenta_id.';'.$fondo->monto.';'.$fondo->tipo; ?>' <?php echo $disabled; ?> style='<?php echo $cursor_style; ?>;<?php echo $color_style; ?>' <?php echo $title; ?>>
 											<i class="fa <?php echo $class_icon_validar; ?> fa-2x"></i>
 										</a>
-									</td>
+									</td>-->
 								</tr>
 								<?php $i++ ?>
 							<?php } ?>
