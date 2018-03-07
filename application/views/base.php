@@ -204,48 +204,30 @@ if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welc
 							</ul>
 						</li>-->
 						
-						<!--<li class="dropdown" id="li_respuestas" style="display:none;">
-							<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-								<i class="fa fa-bell"></i> <span class="label label-warning" id="span_num_respuestas"></span>
+						<li class="dropdown" id="li_language">
+							<a class="dropdown-toggle count-info page-scroll" data-toggle="dropdown" href="#" title="Idioma">
+								<i class="fa fa-language"></i> <span class="label label-warning" id="span_num_respuestas"></span>
 							</a>
-							<ul class="dropdown-menu dropdown-alerts">
+							<ul class="dropdown-menu">
 								<li>
-									<a href="<?php echo base_url(); ?>bandeja_respuestas">
+									<a onclick="javascript:window.location.href='<?php echo base_url(); ?>LanguageSwitcher/switchLang/english';" href="#">
 										<div>
-											<i class="fa fa-envelope fa-fw"></i> <span id="span_num_respuestas_text"></span>
-											<span class="pull-right text-muted small">4 minutes ago</span>
+											<img src="<?php echo assets_url('img/language/United-kingdom_29738.png');?>" style="height:25px;width:25px;"> 
+											<?php echo $this->lang->line('language_menu1'); ?>
 										</div>
 									</a>
 								</li>
 								<li class="divider"></li>
 								<li>
-									<a href="profile.html">
+									<a onclick="javascript:window.location.href='<?php echo base_url(); ?>LanguageSwitcher/switchLang/spanish';" href="#">
 										<div>
-											<i class="fa fa-twitter fa-fw"></i> 3 New Followers
-											<span class="pull-right text-muted small">12 minutes ago</span>
+											<img src="<?php echo assets_url('img/language/Spain_29723.png');?>" style="height:25px;width:25px;"> 
+											<?php echo $this->lang->line('language_menu2'); ?>
 										</div>
 									</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="grid_options.html">
-										<div>
-											<i class="fa fa-upload fa-fw"></i> Server Rebooted
-											<span class="pull-right text-muted small">4 minutes ago</span>
-										</div>
-									</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<div class="text-center link-block">
-										<a href="notifications.html">
-											<strong>See All Alerts</strong>
-											<i class="fa fa-angle-right"></i>
-										</a>
-									</div>
 								</li>
 							</ul>
-						</li>-->
+						</li>
 			
 						<?php if(isset($this->session->userdata['logged_in'])){ ?>
 						<li>
