@@ -84,14 +84,14 @@ $(document).ready(function(){
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "Validar",
-            cancelButtonText: "Cancelar",
+            cancelButtonText: "Denegar",
             closeOnConfirm: false,
             closeOnCancel: true
           },
         function(isConfirm){
             if (isConfirm) {
              
-                $.post(base_url+'transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo}, function (response) {
+                $.post(base_url+'transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo, 'status': 'approved'}, function (response) {
 
                     if (response['response'] == 'error') {
                        
@@ -114,8 +114,39 @@ $(document).ready(function(){
                          });
                     }
                 }, 'json');
-            } 
+            }else{
+				
+				//~ alert('denied');
+				
+				$.post(base_url+'transactions/validar/', {'id': id, 'cuenta_id': cuenta_id, 'monto': monto, 'tipo': tipo, 'status': 'denied'}, function (response) {
+
+                    if (response['response'] == 'error') {
+                       
+                         swal({ 
+                           title: "Disculpe,",
+                            text: "No se pudo negar la transacción, por favor consulte con su administrador",
+                             type: "warning" 
+                           },
+                           function(){
+                             
+                         });
+                    }else{
+                         swal({ 
+                           title: "Negada",
+                            text: "Transacción negada con exito",
+                             type: "success" 
+                           },
+                           function(){
+                             window.location.href = base_url+'resumen';
+                         });
+                    }
+                    
+                }, 'json');
+				
+			}
+			
         });
+        
     });
     
     
