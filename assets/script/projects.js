@@ -32,7 +32,7 @@ $(document).ready(function(){
         "iDisplayStart": 0,
         "sPaginationType": "full_numbers",
         "aLengthMenu": [10, 50, 100, 150],
-        "oLanguage": {"sUrl": "<?= assets_url() ?>js/es.txt"},
+        "oLanguage": {"sUrl": base_url+"js/es.txt"},
         "aoColumns": [
             {"sClass": "registro center", "sWidth": "5%"},
             {"sClass": "registro center", "sWidth": "10%"},
