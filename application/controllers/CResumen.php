@@ -52,12 +52,21 @@ class CResumen extends CI_Controller {
         
         $resumen_users = array();  // Para el resultado final (Listado de usuarios con sus respectivos resúmenes)
         
-        $fondos_details = $this->MResumen->fondos_json_users();  // Listado de fondos detallados
+        list ($transactions, $project_transactions) = $this->MResumen->fondos_json_users();  // Listados de transacciones y transacciones por proyecto
         
         $ids_users = array();  // Para almacenar los ids de los usuarios que han registrado fondos
         
-        // Colectamos los ids de los usuarios
-        foreach($fondos_details as $fondo){
+        // Colectamos los ids de los usuarios de las transacciones generales
+        foreach($transactions as $fondo){
+			
+			if(!in_array($fondo->user_id, $ids_users)){
+				$ids_users[] = $fondo->user_id;
+			}
+			
+		}
+        
+        // Colectamos los ids de los usuarios de las transacciones por proyecto
+        foreach($project_transactions as $fondo){
 			
 			if(!in_array($fondo->user_id, $ids_users)){
 				$ids_users[] = $fondo->user_id;
@@ -72,15 +81,16 @@ class CResumen extends CI_Controller {
 				'name' => '',
 				'lastname' => '',
 				'username' => '',
+				'capital_invested' => 0,
+				'returned_capital' => 0,
+				'retirement_capital_available' => 0,
 				'pending_capital' => 0,
 				'pending_entry' => 0,
 				'pending_exit' => 0,
-				'approved_capital' => 0,
-				'capital_invested' => 0,
-				'returned_capital' => 0
+				'approved_capital' => 0
 			);
 			
-			foreach($fondos_details as $fondo){
+			foreach($transactions as $fondo){
 				
 				if($fondo->user_id == $id_user){
 					
@@ -111,6 +121,34 @@ class CResumen extends CI_Controller {
 				
 			}
 			
+			foreach($project_transactions as $fondo2){
+				
+				if($fondo2->user_id == $id_user){
+					
+					// Conversión de cada monto a dólares
+					$currency = $fondo2->coin_avr;  // Tipo de moneda de la transacción
+					$trans_usd = (float)$fondo2->monto/$exchangeRates['rates'][$currency];
+					
+					$resumen_user['name'] = $fondo2->name;
+					$resumen_user['lastname'] = $fondo2->lastname;
+					$resumen_user['username'] = $fondo2->username;
+					if($fondo2->status == 'approved'){
+						if($fondo2->tipo == 'deposit'){
+							$resumen_user['capital_invested'] += $trans_usd;
+							$resumen_user['retirement_capital_available'] += $trans_usd;
+						}else if($fondo2->tipo == 'profit'){
+							$resumen_user['returned_capital'] += $trans_usd;
+							$resumen_user['retirement_capital_available'] += $trans_usd;
+						}else if($fondo2->tipo == 'expense'){
+							$resumen_user['retirement_capital_available'] -= $trans_usd;
+						}else if($fondo2->tipo == 'withdraw'){
+							$resumen_user['retirement_capital_available'] -= $trans_usd;
+						}
+					}
+				}
+				
+			}
+			
 			$decimals = 2;
 			if($this->session->userdata('logged_in')['coin_decimals'] != ""){
 				$decimals = $this->session->userdata('logged_in')['coin_decimals'];
@@ -118,6 +156,18 @@ class CResumen extends CI_Controller {
 			$symbol = $this->session->userdata('logged_in')['coin_symbol'];
 			
 			// Conversión de los montos a la divisa del usuario
+			$resumen_user['capital_invested'] *= $currency_user; 
+			$resumen_user['capital_invested'] = round($resumen_user['capital_invested'], $decimals);
+			$resumen_user['capital_invested'] = $resumen_user['capital_invested']." ".$symbol;
+			
+			$resumen_user['returned_capital'] *= $currency_user; 
+			$resumen_user['returned_capital'] = round($resumen_user['returned_capital'], $decimals);
+			$resumen_user['returned_capital'] = $resumen_user['returned_capital']." ".$symbol;
+			
+			$resumen_user['retirement_capital_available'] *= $currency_user; 
+			$resumen_user['retirement_capital_available'] = round($resumen_user['retirement_capital_available'], $decimals);
+			$resumen_user['retirement_capital_available'] = $resumen_user['retirement_capital_available']." ".$symbol;
+			
 			$resumen_user['pending_capital'] *= $currency_user; 
 			$resumen_user['pending_capital'] = round($resumen_user['pending_capital'], $decimals);
 			$resumen_user['pending_capital'] = $resumen_user['pending_capital']." ".$symbol;
