@@ -280,7 +280,7 @@ if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welc
 						
 						if(response2['update'] == "ok"){
 							alert('El tiempo de su sesión a caducado, inicie sesión nuevamente...');
-							window.location.href = '<?php echo base_url(); ?>login';
+							window.location.href = '<?php echo base_url(); ?>logout';
 						}
 						
 					});
