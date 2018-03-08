@@ -34,9 +34,9 @@
 								<select class="form-control m-b" name="adviser_id" id="adviser_id">
 									<option value="0">Seleccione</option>
 									<?php foreach($asesores as $asesor){?>
-										<?php if(!in_array($asesor->id, $asesores_asociados)){?>
+										<?php //if(!in_array($asesor->id, $asesores_asociados)){?>
 										<option value="<?php echo $asesor->id; ?>"><?php echo $asesor->username; ?></option>
-										<?php } ?>
+										<?php //} ?>
 									<?php } ?>
 								</select>
 							</div>
