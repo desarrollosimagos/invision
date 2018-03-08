@@ -74,7 +74,7 @@
 								
 							</span>
 							<div>
-								<small>Deposito Pendiente</small>
+								<small>Depósito Pendiente</small>
 							</div>
 						</div>
 						<div class="col-md-2 forum-info">
@@ -193,11 +193,11 @@
 								<th data-breakpoints="xs sm" >Apellido</th>
 								<th >Usuario</th>
 								<!--<th data-breakpoints="xs sm" >Capital Pendiente</th>-->
-								<th data-breakpoints="xs sm" >Ingreso Pendiente</th>
-								<th data-breakpoints="xs sm" >Egreso Pendiente</th>
-								<th data-breakpoints="xs sm" >Capital Aprobado</th>
 								<th data-breakpoints="xs sm" >Capital Invertido</th>
 								<th data-breakpoints="xs sm" >Capital Retornado</th>
+								<th data-breakpoints="xs sm" >Capital Aprobado</th>
+								<th data-breakpoints="xs sm" >Depósito Pendiente</th>
+								<th data-breakpoints="xs sm" >Capital Diferido</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -220,19 +220,19 @@
 										<?php //echo $fondo->pending_capital; ?>
 									</td>-->
 									<td>
-										<?php echo $fondo->pending_entry; ?>
+										<?php echo $fondo->capital_invested; ?>
 									</td>
 									<td>
-										<?php echo $fondo->pending_exit; ?>
+										<?php echo $fondo->returned_capital; ?>
 									</td>
 									<td>
 										<?php echo $fondo->approved_capital; ?>
 									</td>
 									<td>
-										<?php echo $fondo->capital_invested; ?>
+										<?php echo $fondo->pending_entry; ?>
 									</td>
 									<td>
-										<?php echo $fondo->returned_capital; ?>
+										<?php echo $fondo->pending_exit; ?>
 									</td>
 								</tr>
 								<?php $i++ ?>

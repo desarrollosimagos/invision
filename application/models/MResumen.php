@@ -126,6 +126,7 @@ class MResumen extends CI_Model {
 			}
 		}
 		
+		// Consulta a la tabla 'transactions'
 		$select = 'u.name, u.lastname, u.username, f_p.id, f_p.user_id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, ';
 		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol';
 		
@@ -139,7 +140,22 @@ class MResumen extends CI_Model {
 		}
         $query = $this->db->get();
         
-        return $query->result();
+        // Consulta a la tabla 'project_transactions'
+        $select2 = 'u.name, u.lastname, u.username, p_t.id, p_t.user_id, p_t.cuenta_id, p_t.tipo, p_t.monto, p_t.status, ';
+		$select2 .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, p.name, p.description';
+		
+		$this->db->select($select2);
+		$this->db->from('project_transactions p_t');
+		$this->db->join('accounts c', 'c.id = p_t.cuenta_id');
+		$this->db->join('coins cn', 'cn.id = c.coin_id');
+		$this->db->join('users u', 'u.id = p_t.user_id');
+		$this->db->join('projects p', 'p.id = p_t.project_id');
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
+			$this->db->where_in('p_t.user_id', $ids);
+		}
+        $query2 = $this->db->get();
+        
+        return array($query->result(), $query2->result());
             
     }
 	
