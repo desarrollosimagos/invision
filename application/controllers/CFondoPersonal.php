@@ -204,12 +204,8 @@ class CFondoPersonal extends CI_Controller {
 			// Obtenemos los datos de la cuenta a actualizar
 			$data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
 			
-			// Sumamos o restamos el monto de la transacción
-			if($this->input->post('tipo') == 'deposit'){
-				$monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-			}else if($this->input->post('tipo') == 'withdraw'){
-				$monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
-			}
+			// Sumamos el monto de la transacción a la cuenta
+			$monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
 			
 			// Armamos los nuevos datos de la cuenta
 			$data_cuenta = array(
