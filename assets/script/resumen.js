@@ -237,19 +237,13 @@ $(document).ready(function(){
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
 				if(fondos[i]['status'] == 'waiting'){
 					if(fondos[i]['tipo'] == 'deposit'){
-						capital_pendiente += trans_usd;
 						ingreso_pendiente += trans_usd;
 					}else if(fondos[i]['tipo'] == 'withdraw'){
-						capital_pendiente -= trans_usd;
 						egreso_pendiente += trans_usd;
 					}
 				}
 				if(fondos[i]['status'] == 'approved'){
-					if(fondos[i]['tipo'] == 'deposit'){
-						capital_aprobado += trans_usd;
-					}else if(fondos[i]['tipo'] == 'withdraw'){
-						capital_aprobado -= trans_usd;
-					}
+					capital_aprobado += trans_usd;
 				}
 			});
 			
