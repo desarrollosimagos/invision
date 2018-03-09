@@ -47,6 +47,11 @@ class CFondoPersonal extends CI_Controller {
 			$user_id = $this->session->userdata('logged_in')['id'];
 		}
 		
+		$monto = $this->input->post('monto');
+		if($this->input->post('tipo') == 'withdraw'){
+			$monto = $this->input->post('monto') * -1;
+		}
+		
 		$datos = array(
             'user_id' => $user_id,
             'tipo' => $this->input->post('tipo'),
@@ -55,7 +60,7 @@ class CFondoPersonal extends CI_Controller {
             'descripcion' => $this->input->post('descripcion'),
             'referencia' => $this->input->post('referencia'),
             'observaciones' => $this->input->post('observaciones'),
-            'monto' => $this->input->post('monto'),
+            'monto' => $monto,
             'status' => 'waiting',
             'd_create' => date('Y-m-d H:i:s')
         );
@@ -118,6 +123,11 @@ class CFondoPersonal extends CI_Controller {
 			$user_id = $this->session->userdata('logged_in')['id'];
 		}
 		
+		$monto = $this->input->post('monto');
+		if($this->input->post('tipo') == 'withdraw'){
+			$monto = $this->input->post('monto') * -1;
+		}
+		
 		$datos = array(
 			'id' => $this->input->post('id'),
 			'user_id' => $user_id,
@@ -127,7 +137,7 @@ class CFondoPersonal extends CI_Controller {
             'descripcion' => $this->input->post('descripcion'),
             'referencia' => $this->input->post('referencia'),
             'observaciones' => $this->input->post('observaciones'),
-            'monto' => $this->input->post('monto'),
+            'monto' => $monto,
             'd_update' => date('Y-m-d H:i:s')
 		);
 		
