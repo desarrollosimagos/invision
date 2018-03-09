@@ -46,8 +46,31 @@ class CResumen extends CI_Controller {
 		$exchangeRates = json_decode($get, true);
 		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
 		
+		// Valor de 1 btc en dólares
+		$get2 = file_get_contents("https://api.coinmarketcap.com/v1/ticker/");
+		$exchangeRates2 = json_decode($get2, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		$valor1btc = $exchangeRates2[0]['price_usd'];
 		
-		$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+		// Valor de 1 dólar en bolívares
+		$get3 = file_get_contents("https://s3.amazonaws.com/dolartoday/data.json");
+		$exchangeRates3 = json_decode($get3, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		$valor1vef = $exchangeRates3['USD']['transferencia'];
+		
+		if ($this->session->userdata('logged_in')['coin_iso'] == 'BTC') {
+		
+			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			
+		} else if($this->session->userdata('logged_in')['coin_iso'] == 'VEF') {
+		
+			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+		
+		} else {
+			
+			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+			
+		}
 		
         
         $resumen_users = array();  // Para el resultado final (Listado de usuarios con sus respectivos resúmenes)
@@ -96,7 +119,21 @@ class CResumen extends CI_Controller {
 					
 					// Conversión de cada monto a dólares
 					$currency = $fondo->coin_avr;  // Tipo de moneda de la transacción
-					$trans_usd = (float)$fondo->monto/$exchangeRates['rates'][$currency];
+					
+					// Si el tipo de moneda de la transacción es Bitcoin (BTC) o Bolívares (VEF) hacemos la conversión usando una api más acorde
+					if ($currency == 'BTC') {
+						
+						$trans_usd = (float)$fondo->monto*(float)$valor1btc;
+						
+					}else if($currency == 'VEF'){
+						
+						$trans_usd = (float)$fondo->monto/(float)$valor1vef;
+						
+					}else{
+						
+						$trans_usd = (float)$fondo->monto/$exchangeRates['rates'][$currency];
+						
+					}
 					
 					$resumen_user['name'] = $fondo->name;
 					$resumen_user['lastname'] = $fondo->lastname;
@@ -123,7 +160,21 @@ class CResumen extends CI_Controller {
 					
 					// Conversión de cada monto a dólares
 					$currency = $fondo2->coin_avr;  // Tipo de moneda de la transacción
-					$trans_usd = (float)$fondo2->monto/$exchangeRates['rates'][$currency];
+					
+					// Si el tipo de moneda de la transacción es Bitcoin (BTC) o Bolívares (VEF) hacemos la conversión usando una api más acorde
+					if ($currency == 'BTC') {
+						
+						$trans_usd = (float)$fondo2->monto*(float)$valor1btc;
+						
+					}else if($currency == 'VEF'){
+						
+						$trans_usd = (float)$fondo2->monto/(float)$valor1vef;
+						
+					}else{
+						
+						$trans_usd = (float)$fondo2->monto/$exchangeRates['rates'][$currency];
+						
+					}
 					
 					$resumen_user['name'] = $fondo2->name;
 					$resumen_user['lastname'] = $fondo2->lastname;
