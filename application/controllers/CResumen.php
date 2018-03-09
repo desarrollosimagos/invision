@@ -106,16 +106,12 @@ class CResumen extends CI_Controller {
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_entry'] += $trans_usd;
 						}else if($fondo->tipo == 'withdraw'){
-							$resumen_user['pending_capital'] -= $trans_usd;
+							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_exit'] += $trans_usd;
 						}
 					}
 					if($fondo->status == 'approved'){
-						if($fondo->tipo == 'deposit'){
-							$resumen_user['approved_capital'] += $trans_usd;
-						}else if($fondo->tipo == 'withdraw'){
-							$resumen_user['approved_capital'] -= $trans_usd;
-						}
+						$resumen_user['approved_capital'] += $trans_usd;
 					}
 				}
 				
@@ -140,9 +136,9 @@ class CResumen extends CI_Controller {
 							$resumen_user['returned_capital'] += $trans_usd;
 							$resumen_user['retirement_capital_available'] += $trans_usd;
 						}else if($fondo2->tipo == 'expense'){
-							$resumen_user['retirement_capital_available'] -= $trans_usd;
+							$resumen_user['retirement_capital_available'] += $trans_usd;
 						}else if($fondo2->tipo == 'withdraw'){
-							$resumen_user['retirement_capital_available'] -= $trans_usd;
+							$resumen_user['retirement_capital_available'] += $trans_usd;
 						}
 					}
 				}
@@ -223,9 +219,9 @@ class CResumen extends CI_Controller {
 					$resumen['returned_capital'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
 				}else if($fondo->tipo == 'expense'){
-					$resumen['retirement_capital_available'] -= $trans_usd;
+					$resumen['retirement_capital_available'] += $trans_usd;
 				}else if($fondo->tipo == 'withdraw'){
-					$resumen['retirement_capital_available'] -= $trans_usd;
+					$resumen['retirement_capital_available'] += $trans_usd;
 				}
 			}
 			
