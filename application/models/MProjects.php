@@ -14,7 +14,7 @@ class MProjects extends CI_Model {
     //Public method to obtain the projects
     public function obtener() {
 		
-		$this->db->select('pj.id, pj.name, pj.description, p_t.type as type, pj.valor, pj.amount_r, pj.amount_min, pj.amount_max, pj.date, pj.date_r, pj.date_v');
+		$this->db->select('pj.id, pj.name, pj.description, p_t.type as type, pj.valor, pj.amount_r, pj.amount_min, pj.amount_max, pj.date, pj.date_r, pj.date_v, pj.status');
 		$this->db->from('projects pj');
 		$this->db->join('project_types p_t', 'p_t.id = pj.type');
 		$this->db->order_by("pj.id", "desc");
