@@ -71,14 +71,18 @@ $rutas_publicas = array();
 if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welcome'){
 	$top_navigation = "";
 	$fixed_nav = "fixed-nav";
+	$md_skin = "";
+	$no_skin_config = "";
 }else{
 	$top_navigation = "top-navigation";
 	$fixed_nav = "";
+	$md_skin = "md-skin";
+	$no_skin_config = "no-skin-config";
 }
 ?>
 <!-- Clases sin logueo -->
 
-<body class="md-skin <?php echo $fixed_nav; ?> no-skin-config <?php echo $top_navigation; ?>">
+<body class="<?php echo $md_skin; ?> <?php echo $fixed_nav; ?> <?php echo $no_skin_config; ?> <?php echo $top_navigation; ?>">
 	<div id="wrapper">
 		<?php if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welcome'){ ?>
 		<input type="hidden" id="active_session" value="<?php echo $this->session->userdata['logged_in']['id']; ?>">
@@ -86,7 +90,7 @@ if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welc
 		<nav class="navbar-default navbar-static-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav metismenu" id="side-menu">
-					<li class="nav-header">
+					<li class="nav-header" style="background-color:#1b426c !important">
 						<div class="dropdown profile-element">
 							<!--<span>
 								<img alt="image" class="img-circle" src="<?php echo assets_url('img/profile_small.jpg'); ?>" />
@@ -129,7 +133,7 @@ if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welc
 
 		<div id="page-wrapper" class="gray-bg">
 			<div class="row border-bottom">
-				<nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+				<nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0; background-color:#1b426c !important">
 					<div class="navbar-header">
 						<?php if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welcome'){ ?>
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
