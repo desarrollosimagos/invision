@@ -95,8 +95,12 @@
 										<div class="col-sm-6">
 											<?php
 											$fecha = $editar[0]->date;
-											$fecha = explode("-", $fecha);
-											$fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+											if($fecha != null){
+												$fecha = explode("-", $fecha);
+												$fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+											}else{
+												$fecha = "";
+											}
 											?>
 											<input type="text" class="form-control" name="date" id="date" maxlength="10" value="<?php echo $fecha; ?>">
 										</div>
@@ -106,8 +110,12 @@
 										<div class="col-sm-6">
 											<?php
 											$fecha_r = $editar[0]->date_r;
-											$fecha_r = explode("-", $fecha_r);
-											$fecha_r = $fecha_r[2]."/".$fecha_r[1]."/".$fecha_r[0];
+											if($fecha_r != null){
+												$fecha_r = explode("-", $fecha_r);
+												$fecha_r = $fecha_r[2]."/".$fecha_r[1]."/".$fecha_r[0];
+											}else{
+												$fecha_r = "";
+											}
 											?>
 											<input type="text" class="form-control" maxlength="10" name="date_r" id="date_r" value="<?php echo $fecha_r; ?>">
 										</div>
@@ -117,8 +125,12 @@
 										<div class="col-sm-6">
 											<?php
 											$fecha_v = $editar[0]->date_v;
-											$fecha_v = explode("-", $fecha_v);
-											$fecha_v = $fecha_v[2]."/".$fecha_v[1]."/".$fecha_v[0];
+											if($fecha_v != null){
+												$fecha_v = explode("-", $fecha_v);
+												$fecha_v = $fecha_v[2]."/".$fecha_v[1]."/".$fecha_v[0];
+											}else{
+												$fecha_v = "";
+											}
 											?>
 											<input type="text" class="form-control" maxlength="10" name="date_v" id="date_v" value="<?php echo $fecha_v; ?>">
 										</div>

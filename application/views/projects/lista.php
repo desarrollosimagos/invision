@@ -12,7 +12,8 @@
     </div>
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
+    
+    <!--<div class="row">
         <div class="col-lg-12">
             <a href="<?php echo base_url() ?>projects/register" id="agregar">
             <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button>
@@ -113,14 +114,79 @@
 							
                         </table>
                         
-                        <!-- Campo oculto de base_url -->
-                        <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url() ?>"/>
-                        
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
+    
+    <div class="line"></div>
+    
+    <!-- Nuevo estilo de listado -->
+    <div class="ibox">
+		<div class="ibox-title">
+			<h5>All projects assigned to this account</h5>
+			<div class="ibox-tools">
+				<a href="<?php echo base_url() ?>projects/register" id="agregar" class="btn btn-primary btn-xs">Create new project</a>
+			</div>
+		</div>
+		<div class="ibox-content">
+			<div class="row m-b-sm m-t-sm">
+				<div class="col-md-1">
+					<button type="button" id="loading-example-btn" class="btn btn-white btn-sm" ><i class="fa fa-refresh"></i> Refresh</button>
+				</div>
+				<div class="col-md-11">
+					<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+						<button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+				</div>
+			</div>
+
+			<div class="project-list">
+
+				<table class="table table-hover" id="tab_projects" >
+					<tbody>
+					<?php $i = 1; ?>
+					<?php foreach ($listar as $proyecto) { ?>
+					<tr>
+						<td class="project-status">
+							<span class="label label-primary">Active</span>
+						</td>
+						<td class="project-title">
+							<a href="project_detail.html"><?php echo $proyecto->name; ?></a>
+							<br/>
+							<small><?php echo $proyecto->description; ?></small>&nbsp;&nbsp;&nbsp;<small>Created 14.08.2014</small>
+						</td>
+						<td class="project-completion">
+								<small>Completion with: 48%</small>
+								<div class="progress progress-mini">
+									<div style="width: 48%;" class="progress-bar"></div>
+								</div>
+						</td>
+						<td class="project-people">
+							<a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
+							<a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
+							<a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
+							<a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
+							<a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+						</td>
+						<td class="project-actions">
+							<a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+							<a href="<?php echo base_url() ?>projects/edit/<?= $proyecto->id; ?>" title="Editar" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+							<a id='<?php echo $proyecto->id; ?>' title='Eliminar' class="btn btn-danger btn-sm borrar"><i class="fa fa-trash"></i> Delete </a>
+						</td>
+					</tr>
+					<?php $i++ ?>
+					<?php } ?>
+					</tbody>
+				</table>
+                        
+				<!-- Campo oculto de base_url -->
+				<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url() ?>"/>
+				
+			</div>
+		</div>
+	</div>
+    
 </div>
 
 
