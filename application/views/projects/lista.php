@@ -149,7 +149,11 @@
 					<?php foreach ($listar as $proyecto) { ?>
 					<tr>
 						<td class="project-status">
+							<?php if($proyecto->status == 1) { ?>
 							<span class="label label-primary">Active</span>
+							<?php }else{ ?>
+							<span class="label label-default">Unactive</span>
+							<?php } ?>
 						</td>
 						<td class="project-title">
 							<a href="project_detail.html"><?php echo $proyecto->name; ?></a>

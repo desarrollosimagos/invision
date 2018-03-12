@@ -52,6 +52,7 @@ class CProjects extends CI_Controller {
 				'date' => $proyecto->date,
 				'date_r' => $proyecto->date_r,
 				'date_v' => $proyecto->date_v,
+				'status' => $proyecto->status,
 				'num_fotos' => $num_fotos,
 				'num_news' => $num_news,
 				'num_docs' => $num_docs,
@@ -111,6 +112,7 @@ class CProjects extends CI_Controller {
             'date_r' => $fecha_r,
             'date_v' => $fecha_v,
             'public' => $publico,
+            'status' => 1,
             'd_create' => date('Y-m-d H:i:s')
         );
         
