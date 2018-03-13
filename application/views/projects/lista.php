@@ -158,12 +158,30 @@
 						<td class="project-title">
 							<a href="project_detail.html"><?php echo $proyecto->name; ?></a>
 							<br/>
-							<small><?php echo $proyecto->description; ?></small>&nbsp;&nbsp;&nbsp;<small>Created 14.08.2014</small>
+							<small>Created <?php echo $proyecto->date; ?></small>
+							<br>
+							<small><?php echo $proyecto->investors_names; ?></small>
 						</td>
 						<td class="project-completion">
-								<small>Completion with: 48%</small>
+								<small>
+									Completion with: 
+									<?php 
+									if($proyecto->amount_r == null){
+										echo "&infin;";
+										$percentage = 0;
+									}else{
+										if($proyecto->percentage_collected > 0){
+											echo round($proyecto->percentage_collected, 2)."%";
+											$percentage = round($proyecto->percentage_collected, 2);
+										}else{
+											echo "0%";
+											$percentage = 0;
+										}
+									}
+									?>
+								</small>
 								<div class="progress progress-mini">
-									<div style="width: 48%;" class="progress-bar"></div>
+									<div style="width: <?php echo $percentage; ?>%;" class="progress-bar"></div>
 								</div>
 						</td>
 						<td class="project-people">

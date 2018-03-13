@@ -38,7 +38,23 @@ class CProjects extends CI_Controller {
 			
 			// Proceso de búsqueda de lecturas recomendadas asociadas al proyecto
 			$num_readings = $this->MProjects->buscar_lecturas($proyecto->id);
-			$num_readings = count($num_readings);			
+			$num_readings = count($num_readings);
+			
+			// Proceso de búsqueda de grupos de inversores asociados al proyecto
+			$investors = $this->MProjects->buscar_inversores($proyecto->id);
+			$investors_names = "";
+			foreach($investors as $investor){
+				$investors_names .= $investor->name.",";
+			}
+			$investors_names = substr($investors_names, 0, -1);
+			
+			// Proceso de búsqueda de transacciones asociados al proyecto para calcular el porcentaje recaudado
+			$transacctions = $this->MProjects->buscar_transacciones($proyecto->id);
+			if($proyecto->amount_r != null){
+				$porcentaje = (float)$transacctions[0]->ingresos/(float)$proyecto->amount_r*100;
+			}else{
+				$porcentaje = "null";
+			}
 			
 			$data_proyecto = array(
 				'id' => $proyecto->id,
@@ -56,7 +72,9 @@ class CProjects extends CI_Controller {
 				'num_fotos' => $num_fotos,
 				'num_news' => $num_news,
 				'num_docs' => $num_docs,
-				'num_readings' => $num_readings
+				'num_readings' => $num_readings,
+				'investors_names' => $investors_names,
+				'percentage_collected' => $porcentaje
 			);
 			
 			$listar[] = $data_proyecto;
