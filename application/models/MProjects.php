@@ -131,6 +131,27 @@ class MProjects extends CI_Model {
         return $result->result();
     }
 
+    // Public method to serach the investors associated
+    public function buscar_inversores($project_id) {
+        $this->db->select('i_g.name');
+		$this->db->from('investor_groups_projects i_g_p');
+		$this->db->join('investor_groups i_g', 'i_g.id = i_g_p.group_id');
+		$this->db->where('project_id', $project_id);
+		$query = $this->db->get();
+		
+        return $query->result();
+    }
+
+    // Public method to serach the transactions associated
+    public function buscar_transacciones($project_id) {
+        $this->db->select('SUM(monto) as ingresos');
+		$this->db->from('project_transactions p_t');
+		$this->db->where('project_id', $project_id);
+		$query = $this->db->get();
+		
+        return $query->result();
+    }
+
     // Public method to obtain the projects by id
     public function obtenerProyecto($id) {
 		
