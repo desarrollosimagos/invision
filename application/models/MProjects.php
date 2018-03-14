@@ -237,16 +237,34 @@ class MProjects extends CI_Model {
     
     // Public method to obtain the documentos by project_id
     public function obtenerTransacciones($project_id) {
-		$this->db->select('pt.id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username');
+		
+		// Almacenamos los ids de los inversores asociados al asesor más su id propio en un array
+		$ids = array($this->session->userdata('logged_in')['id']);
+		$this->db->where('adviser_id', $this->session->userdata('logged_in')['id']);
+        $query_asesor_inversores = $this->db->get('relate_users');
+        if ($query_asesor_inversores->num_rows() > 0) {
+            foreach($query_asesor_inversores->result() as $relacion){
+				$ids[] = $relacion->investor_id;
+			}
+		}
+		
+		$this->db->select('pt.id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username, c.cuenta');
 		$this->db->from('project_transactions pt');
+		$this->db->join('accounts c', 'c.id = pt.cuenta_id');
+		$this->db->join('coins cn', 'cn.id = c.coin_id');
 		$this->db->join('users u', 'u.id = pt.user_id');
-		$this->db->where('project_id', $project_id);
+		$this->db->where('pt.project_id', $project_id);
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
+			$this->db->where_in('pt.user_id', $ids);
+		}
 		$this->db->order_by("pt.fecha", "desc");
 		$query = $this->db->get();
+		
         if ($query->num_rows() > 0)
             return $query->result();
         else
             return $query->result();
+            
     }
 
     // Public method to update a record  

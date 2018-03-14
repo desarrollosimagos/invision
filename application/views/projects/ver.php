@@ -10,6 +10,10 @@
 }
 </style>
 
+<!-- FooTable -->
+<!--<link href="<?php echo assets_url('css/plugins/footable/footable.bootstrap.css');?>" rel="stylesheet">-->
+<link href="<?php echo assets_url('css/plugins/footable/footable.core.css');?>" rel="stylesheet">
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Project detail </h2>
@@ -211,138 +215,167 @@
 	</div>
 
 	<!-- Cuerpo de la sección de transacciones -->
-	<div class="ibox">
+	<div class="ibox float-e-margins">
 		<div class="ibox-title">
 			<h5>Transactions</h5>
-		</div>
-		<div class="ibox-content">
 
-			<div class="project-list">
-				
-				<div class="table-responsive">
-					<table id="tab_transactions" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
-						<thead>
-							<tr>
-								<th data-breakpoints="xs sm" >Fecha</th>
-								<th>Usuario(nombre)</th>
-								<th data-breakpoints="xs sm" >Tipo</th>
-								<th data-breakpoints="all" >Descripción</th>
-								<th>Monto</th>
-								<th data-breakpoints="xs sm">Estatus</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $i = 1; ?>
-							<?php foreach ($project_transactions as $transact) { ?>
-								<tr style="text-align: center">
-									<td>
-										<?php echo $transact->fecha; ?>
-									</td>
-									<td>
-										<?php echo $transact->username; ?>
-									</td>
-									<td>
-										<?php echo $transact->tipo; ?>
-									</td>
-									<td>
-										<?php echo $transact->descripcion; ?>
-									</td>
-									<td>
-										<?php echo $transact->monto; ?>
-									</td>
-									<td>
-										<?php
-										if($transact->status == "approved"){
-											echo "<span style='color:#337AB7;'>Activa</span>";
-										}else if($transact->status == "waiting"){
-											echo "<span style='color:#D33333;'>Inactiva</span>";
-										}else{
-											echo "";
-										}
-										?>
-									</td>
-								</tr>
-								<?php $i++ ?>
-							<?php } ?>
-						</tbody>
-					</table>					
-				</div>
-				
+			<div class="ibox-tools">
+				<a class="collapse-link">
+					<i class="fa fa-chevron-up"></i>
+				</a>
+				<!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-wrench"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-user">
+					<li><a href="#">Config option 1</a>
+					</li>
+					<li><a href="#">Config option 2</a>
+					</li>
+				</ul>-->
+				<a class="close-link">
+					<i class="fa fa-times"></i>
+				</a>
 			</div>
 		</div>
+		<div class="ibox-content">
+			
+			<input type="text" class="form-control input-sm m-b-xs" id="filter1" placeholder="Search in table">
+			
+			<table class="footable table table-stripped" data-page-size="8" data-filter=#filter1>
+				<thead>
+					<tr>
+						<th data-hide="phone,tablet">Fecha</th>
+						<th>Usuario(nombre)</th>
+						<th data-hide="phone,tablet">Tipo</th>
+						<th data-hide="phone,tablet">Descripción</th>
+						<th>Monto</th>
+						<?php if($this->session->userdata('logged_in')['profile_id'] != 3){ ?>
+						<th data-hide="phone,tablet">Cuenta</th>
+						<?php } ?>
+						<th data-hide="phone,tablet">Estatus</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $i = 1; ?>
+					<?php foreach ($project_transactions as $transact) { ?>
+						<tr style="text-align: center">
+							<td>
+								<?php echo $transact->fecha; ?>
+							</td>
+							<td>
+								<?php echo $transact->username; ?>
+							</td>
+							<td>
+								<?php echo $transact->tipo; ?>
+							</td>
+							<td>
+								<?php echo $transact->descripcion; ?>
+							</td>
+							<td>
+								<?php echo $transact->monto; ?>
+							</td>
+							<?php if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){ ?>
+							<td>
+								<?php echo $transact->cuenta; ?>
+							</td>
+							<?php } ?>
+							<td>
+								<?php
+								if($transact->status == "approved"){
+									echo "<i class='fa fa-check text-navy'></i>";
+								}else if($transact->status == "waiting"){
+									echo "<i class='fa fa-check text-warning'></i>";
+								}else if($transact->status == "denied"){
+									echo "<i class='fa fa-check text-danger'></i>";
+								}else{
+									echo "";
+								}
+								?>
+							</td>
+						</tr>
+						<?php $i++ ?>
+					<?php } ?>
+				</tbody>
+			</table>
+			
+		</div>
+		
 	</div>
 	<!-- Cierre del cuerpo de la sección de transacciones -->
 
-	<!-- Cuerpo de la sección de transacciones -->
-	<div class="ibox">
+	<!-- Cuerpo de la sección de transacciones por usuario-->
+	<div class="ibox float-e-margins">
 		<div class="ibox-title">
 			<h5>Transactions</h5>
 		</div>
 		<div class="ibox-content">
-
-			<div class="project-list">
-				
-				<div class="table-responsive">
-					<table id="tab_transactions" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">
-						<thead>
-							<tr>
-								<th data-breakpoints="xs sm" >Fecha</th>
-								<th>Usuario(nombre)</th>
-								<th data-breakpoints="xs sm" >Tipo</th>
-								<th data-breakpoints="all" >Descripción</th>
-								<th>Monto</th>
-								<th data-breakpoints="xs sm">Estatus</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $i = 1; ?>
-							<?php foreach ($project_transactions as $transact) { ?>
-								<tr style="text-align: center">
-									<td>
-										<?php echo $transact->fecha; ?>
-									</td>
-									<td>
-										<?php echo $transact->username; ?>
-									</td>
-									<td>
-										<?php echo $transact->tipo; ?>
-									</td>
-									<td>
-										<?php echo $transact->descripcion; ?>
-									</td>
-									<td>
-										<?php echo $transact->monto; ?>
-									</td>
-									<td>
-										<?php
-										if($transact->status == 1){
-											echo "<span style='color:#337AB7;'>Activa</span>";
-										}else if($transact->status == 0){
-											echo "<span style='color:#D33333;'>Inactiva</span>";
-										}else{
-											echo "";
-										}
-										?>
-									</td>
-								</tr>
-								<?php $i++ ?>
-							<?php } ?>
-						</tbody>
-					</table>					
-				</div>
-				
-			</div>
+			
+			<input type="text" class="form-control input-sm m-b-xs" id="filter2" placeholder="Search in table">
+			
+			<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter=#filter2>
+				<thead>
+					<tr>
+						<th data-hide="phone,tablet">Fecha</th>
+						<th>Usuario(nombre)</th>
+						<th data-hide="phone,tablet">Tipo</th>
+						<th data-hide="all">Descripción</th>
+						<th>Monto</th>
+						<th data-hide="phone,tablet">Estatus</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $i = 1; ?>
+					<?php foreach ($project_transactions as $transact) { ?>
+						<tr style="text-align: center">
+							<td>
+								<?php echo $transact->fecha; ?>
+							</td>
+							<td>
+								<?php echo $transact->username; ?>
+							</td>
+							<td>
+								<?php echo $transact->tipo; ?>
+							</td>
+							<td>
+								<?php echo $transact->descripcion; ?>
+							</td>
+							<td>
+								<?php echo $transact->monto; ?>
+							</td>
+							<td>
+								<?php
+								if($transact->status == "approved"){
+									echo "<i class='fa fa-check text-navy'></i>";
+								}else if($transact->status == "waiting"){
+									echo "<i class='fa fa-check text-warning'></i>";
+								}else if($transact->status == "denied"){
+									echo "<i class='fa fa-check text-danger'></i>";
+								}else{
+									echo "";
+								}
+								?>
+							</td>
+						</tr>
+						<?php $i++ ?>
+					<?php } ?>
+				</tbody>
+			</table>
+			
 		</div>
+		
 	</div>
 
 </div>
-<!-- Cierre del cuerpo de la sección de transacciones -->
+<!-- Cierre del cuerpo de la sección de transacciones por usuario -->
+
+<!-- FooTable -->
+<!--<script src="<?php echo assets_url('js/plugins/footable/footable.js');?>"></script>-->
+<script src="<?php echo assets_url('js/plugins/footable/footable.all.min.js');?>"></script>
 
 <script>
 $(document).ready(function(){
-
-    
+	
+	$('.footable').footable();  // Aplicamos el plugin footable
 	
 });
-
 </script>
