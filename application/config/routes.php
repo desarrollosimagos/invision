@@ -121,6 +121,7 @@ $route['investor_groups/delete/(:num)'] = 'CInvestorGroups/delete/$1';
 /*   Proyectos */
 $route['projects'] = 'CProjects';
 $route['projects/register'] = 'CProjects/register';
+$route['projects/view/(:num)'] = 'CProjects/view/$1';
 $route['projects/edit/(:num)'] = 'CProjects/edit/$1';
 $route['projects/delete/(:num)'] = 'CProjects/delete/$1';
 /*   Público */

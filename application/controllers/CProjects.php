@@ -41,12 +41,12 @@ class CProjects extends CI_Controller {
 			$num_readings = count($num_readings);
 			
 			// Proceso de búsqueda de grupos de inversores asociados al proyecto
-			$investors = $this->MProjects->buscar_inversores($proyecto->id);
-			$investors_names = "";
-			foreach($investors as $investor){
-				$investors_names .= $investor->name.",";
+			$groups = $this->MProjects->buscar_grupos($proyecto->id);
+			$groups_names = "";
+			foreach($groups as $group){
+				$groups_names .= $group->name.",";
 			}
-			$investors_names = substr($investors_names, 0, -1);
+			$groups_names = substr($groups_names, 0, -1);
 			
 			// Proceso de búsqueda de transacciones asociados al proyecto para calcular el porcentaje recaudado
 			$transacctions = $this->MProjects->buscar_transacciones($proyecto->id);
@@ -73,7 +73,7 @@ class CProjects extends CI_Controller {
 				'num_news' => $num_news,
 				'num_docs' => $num_docs,
 				'num_readings' => $num_readings,
-				'investors_names' => $investors_names,
+				'groups_names' => $groups_names,
 				'percentage_collected' => $porcentaje
 			);
 			
@@ -131,6 +131,7 @@ class CProjects extends CI_Controller {
             'date_v' => $fecha_v,
             'public' => $publico,
             'status' => 1,
+            'user_id' => $this->session->userdata('logged_in')['id'],
             'd_create' => date('Y-m-d H:i:s')
         );
         
@@ -260,6 +261,38 @@ class CProjects extends CI_Controller {
 		}
     }
 	
+	// Método para ver detalles
+    public function view() {
+		
+		$this->load->view('base');
+        $data['id'] = $this->uri->segment(3);
+        $data['ver'] = $this->MProjects->obtenerProyecto($data['id']);
+        $data['fotos_asociadas'] = $this->MProjects->obtenerFotos($data['id']);
+        $data['documentos_asociados'] = $this->MProjects->obtenerDocumentos($data['id']);
+        $data['lecturas_asociadas'] = $this->MProjects->obtenerLecturas($data['id']);
+        $data['project_types'] = $this->MProjects->obtenerTipos();
+        $data['project_transactions'] = $this->MProjects->obtenerTransacciones($data['id']);
+		
+		// Proceso de búsqueda de los grupos de inversores asociados al proyecto
+		$investors = $this->MProjects->buscar_inversores($data['id']);
+		$num_investors = count($investors);
+		
+		$data['investors'] = $investors;
+		
+		// Proceso de búsqueda de transacciones asociados al proyecto para calcular el porcentaje recaudado
+		$transacctions = $this->MProjects->buscar_transacciones($data['id']);
+		if($data['ver'][0]->amount_r != null){
+			$porcentaje = (float)$transacctions[0]->ingresos/(float)$data['ver'][0]->amount_r*100;
+		}else{
+			$porcentaje = "null";
+		}
+		
+		$data['porcentaje_r'] = $porcentaje;
+		
+        $this->load->view('projects/ver', $data);
+		$this->load->view('footer');
+    }
+	
 	// Método para editar
     public function edit() {
 		
@@ -307,7 +340,7 @@ class CProjects extends CI_Controller {
             'date_r' => $fecha_r,
             'date_v' => $fecha_v,
             'public' => $publico,
-            'd_create' => date('Y-m-d H:i:s')
+            'd_update' => date('Y-m-d H:i:s')
 		);
 		
         $result = $this->MProjects->update($datos);
