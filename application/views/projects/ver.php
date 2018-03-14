@@ -249,7 +249,7 @@
 						<th data-hide="phone,tablet">Tipo</th>
 						<th data-hide="phone,tablet">Descripción</th>
 						<th>Monto</th>
-						<?php if($this->session->userdata('logged_in')['profile_id'] != 3){ ?>
+						<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 2){ ?>
 						<th data-hide="phone,tablet">Cuenta</th>
 						<?php } ?>
 						<th data-hide="phone,tablet">Estatus</th>
@@ -274,7 +274,7 @@
 							<td>
 								<?php echo $transact->monto; ?>
 							</td>
-							<?php if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){ ?>
+							<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 2){ ?>
 							<td>
 								<?php echo $transact->cuenta; ?>
 							</td>
@@ -306,7 +306,26 @@
 	<!-- Cuerpo de la sección de transacciones por usuario-->
 	<div class="ibox float-e-margins">
 		<div class="ibox-title">
-			<h5>Transactions</h5>
+			<h5>Transactions by user</h5>
+			
+			<div class="ibox-tools">
+				<a class="collapse-link">
+					<i class="fa fa-chevron-up"></i>
+				</a>
+				<!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-wrench"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-user">
+					<li><a href="#">Config option 1</a>
+					</li>
+					<li><a href="#">Config option 2</a>
+					</li>
+				</ul>-->
+				<a class="close-link">
+					<i class="fa fa-times"></i>
+				</a>
+			</div>
+			
 		</div>
 		<div class="ibox-content">
 			
@@ -315,45 +334,39 @@
 			<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter=#filter2>
 				<thead>
 					<tr>
-						<th data-hide="phone,tablet">Fecha</th>
 						<th>Usuario(nombre)</th>
-						<th data-hide="phone,tablet">Tipo</th>
-						<th data-hide="all">Descripción</th>
-						<th>Monto</th>
-						<th data-hide="phone,tablet">Estatus</th>
+						<th data-hide="phone,tablet">Payback</th>
+						<th data-hide="phone,tablet">C. Invertido</th>
+						<th data-hide="phone,tablet">Dividendo</th>
+						<th data-hide="phone,tablet">C. Disponible</th>
+						<th data-hide="phone,tablet">Depósito Pendiente</th>
+						<th data-hide="phone,tablet">Retiro Pendiente</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php $i = 1; ?>
-					<?php foreach ($project_transactions as $transact) { ?>
+					<?php foreach ($project_transactions_users as $transact) { ?>
 						<tr style="text-align: center">
-							<td>
-								<?php echo $transact->fecha; ?>
-							</td>
 							<td>
 								<?php echo $transact->username; ?>
 							</td>
 							<td>
-								<?php echo $transact->tipo; ?>
+								<span class="pie">0.52/1.561</span>
 							</td>
 							<td>
-								<?php echo $transact->descripcion; ?>
+								<?php echo $transact->capital_invested; ?>
 							</td>
 							<td>
-								<?php echo $transact->monto; ?>
+								<?php echo $transact->returned_capital; ?>
 							</td>
 							<td>
-								<?php
-								if($transact->status == "approved"){
-									echo "<i class='fa fa-check text-navy'></i>";
-								}else if($transact->status == "waiting"){
-									echo "<i class='fa fa-check text-warning'></i>";
-								}else if($transact->status == "denied"){
-									echo "<i class='fa fa-check text-danger'></i>";
-								}else{
-									echo "";
-								}
-								?>
+								<?php echo $transact->retirement_capital_available; ?>
+							</td>
+							<td>
+								<?php echo $transact->pending_entry; ?>
+							</td>
+							<td>
+								<?php echo $transact->pending_exit; ?>
 							</td>
 						</tr>
 						<?php $i++ ?>
@@ -371,6 +384,10 @@
 <!-- FooTable -->
 <!--<script src="<?php echo assets_url('js/plugins/footable/footable.js');?>"></script>-->
 <script src="<?php echo assets_url('js/plugins/footable/footable.all.min.js');?>"></script>
+
+<!-- Peity -->
+<script src="<?php echo assets_url('js/plugins/peity/jquery.peity.min.js');?>"></script>
+<script src="<?php echo assets_url('js/demo/peity-demo.js');?>"></script>
 
 <script>
 $(document).ready(function(){
