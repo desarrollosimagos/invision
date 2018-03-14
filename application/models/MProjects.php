@@ -132,11 +132,23 @@ class MProjects extends CI_Model {
     }
 
     // Public method to serach the investors associated
-    public function buscar_inversores($project_id) {
+    public function buscar_grupos($project_id) {
         $this->db->select('i_g.name');
 		$this->db->from('investor_groups_projects i_g_p');
 		$this->db->join('investor_groups i_g', 'i_g.id = i_g_p.group_id');
 		$this->db->where('project_id', $project_id);
+		$query = $this->db->get();
+		
+        return $query->result();
+    }
+
+    // Public method to serach the investors associated
+    public function buscar_inversores($project_id) {
+        $this->db->select('i_g.name');
+		$this->db->from('investor_groups i_g');
+		$this->db->join('investor_groups_projects i_g_p', 'i_g_p.group_id = i_g.id');
+		$this->db->join('investor_groups_users i_g_u', 'i_g_u.group_id = i_g.id');
+		$this->db->where('i_g_p.project_id', $project_id);
 		$query = $this->db->get();
 		
         return $query->result();
@@ -155,8 +167,14 @@ class MProjects extends CI_Model {
     // Public method to obtain the projects by id
     public function obtenerProyecto($id) {
 		
-        $this->db->where('id', $id);
-        $query = $this->db->get('projects');
+		$select = 'p.id, p.name, p.description, p.valor, p.type, p.amount_r, p.amount_min, p.amount_max, ';
+		$select .= 'p.public, p.status, u.username, p.date, p.date_r, p.date_v, p.d_create, p.d_update';
+		
+		$this->db->select($select);
+		$this->db->from('projects p');
+		$this->db->join('users u', 'u.id = p.user_id');
+		$this->db->where('p.id', $id);
+		$query = $this->db->get();
         if ($query->num_rows() > 0)
             return $query->result();
         else
@@ -211,6 +229,20 @@ class MProjects extends CI_Model {
     // Public method to obtain the types of projects
     public function obtenerTipos() {
         $query = $this->db->get('project_types');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+    }
+    
+    // Public method to obtain the documentos by project_id
+    public function obtenerTransacciones($project_id) {
+		$this->db->select('pt.id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username');
+		$this->db->from('project_transactions pt');
+		$this->db->join('users u', 'u.id = pt.user_id');
+		$this->db->where('project_id', $project_id);
+		$this->db->order_by("pt.fecha", "desc");
+		$query = $this->db->get();
         if ($query->num_rows() > 0)
             return $query->result();
         else

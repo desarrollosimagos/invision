@@ -68,6 +68,11 @@ class Migration_create_table_projects extends CI_Migration
 					"constraint" => 11,
 					"null" => TRUE
 				),
+				"user_id" => array(
+					"type" => "INT",
+					"constraint" => 11,
+					"null" => TRUE
+				),
 				"d_create" => array(
 					"type" => "DATE",
 					"null" => TRUE

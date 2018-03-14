@@ -147,7 +147,7 @@
 					<tbody>
 					<?php $i = 1; ?>
 					<?php foreach ($listar as $proyecto) { ?>
-					<tr>
+					<tr class="scroll">
 						<td class="project-status">
 							<?php if($proyecto->status == 1) { ?>
 							<span class="label label-primary">Active</span>
@@ -160,7 +160,9 @@
 							<br/>
 							<small>Created <?php echo $proyecto->date; ?></small>
 							<br>
-							<small><?php echo $proyecto->investors_names; ?></small>
+							<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 2) { ?>
+							<small><?php echo $proyecto->groups_names; ?></small>
+							<?php } ?>
 						</td>
 						<td class="project-completion">
 								<small>
@@ -192,7 +194,7 @@
 							<a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
 						</td>
 						<td class="project-actions">
-							<a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+							<a href="<?php echo base_url() ?>projects/view/<?= $proyecto->id; ?>" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
 							<a href="<?php echo base_url() ?>projects/edit/<?= $proyecto->id; ?>" title="Editar" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
 							<a id='<?php echo $proyecto->id; ?>' title='Eliminar' class="btn btn-danger btn-sm borrar"><i class="fa fa-trash"></i> Delete </a>
 						</td>
@@ -211,6 +213,12 @@
     
 </div>
 
+<!-- jScroll -->
+<script src="<?php echo assets_url('js/plugins/jscroll/jquery.jscroll.js');?>"></script>
+
+<script>
+	//~ $('.scroll').jscroll();
+</script>
 
  <!-- Page-Level Scripts -->
 <script src="<?php echo assets_url(); ?>script/projects.js"></script>
