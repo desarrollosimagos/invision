@@ -239,7 +239,16 @@
 		</div>
 		<div class="ibox-content">
 			
-			<input type="text" class="form-control input-sm m-b-xs" id="filter1" placeholder="Search in table">
+			<div class="col-sm-4 col-md-offset-8">
+				<div class="input-group">
+					<input type="text" placeholder="Search in table" class="input-sm form-control" id="filter1">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-sm btn-primary"> Go!</button>
+					</span>
+				</div>
+			</div>
+			
+			<!--<input type="text" class="form-control input-sm m-b-xs"  placeholder="">-->
 			
 			<table class="footable table table-stripped" data-page-size="8" data-filter=#filter1>
 				<thead>
@@ -302,7 +311,13 @@
 		
 	</div>
 	<!-- Cierre del cuerpo de la sección de transacciones -->
-
+	
+	<?php 
+	// Ids de los perfiles que tendrań permisos de visualización
+	$global_profiles = array(1, 2, 4);
+	?>
+	
+	<?php if(in_array($this->session->userdata('logged_in')['profile_id'], $global_profiles)){?>
 	<!-- Cuerpo de la sección de transacciones por usuario-->
 	<div class="ibox float-e-margins">
 		<div class="ibox-title">
@@ -329,7 +344,14 @@
 		</div>
 		<div class="ibox-content">
 			
-			<input type="text" class="form-control input-sm m-b-xs" id="filter2" placeholder="Search in table">
+			<div class="col-sm-4 col-md-offset-8">
+				<div class="input-group">
+					<input type="text" placeholder="Search in table" class="input-sm form-control" id="filter2">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-sm btn-primary"> Go!</button>
+					</span>
+				</div>
+			</div>
 			
 			<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter=#filter2>
 				<thead>
@@ -377,9 +399,10 @@
 		</div>
 		
 	</div>
+	<!-- Cierre del cuerpo de la sección de transacciones por usuario -->
+	<?php } ?>
 
 </div>
-<!-- Cierre del cuerpo de la sección de transacciones por usuario -->
 
 <!-- FooTable -->
 <!--<script src="<?php echo assets_url('js/plugins/footable/footable.js');?>"></script>-->
