@@ -248,7 +248,10 @@ class MProjects extends CI_Model {
 			}
 		}
 		
-		$this->db->select('pt.id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username, c.cuenta');
+		$select = 'pt.id, pt.user_id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username, c.cuenta, ';
+		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, u.name, u.lastname, u.username,';
+		
+		$this->db->select($select);
 		$this->db->from('project_transactions pt');
 		$this->db->join('accounts c', 'c.id = pt.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');
@@ -260,10 +263,7 @@ class MProjects extends CI_Model {
 		$this->db->order_by("pt.fecha", "desc");
 		$query = $this->db->get();
 		
-        if ($query->num_rows() > 0)
-            return $query->result();
-        else
-            return $query->result();
+        return $query->result();
             
     }
 

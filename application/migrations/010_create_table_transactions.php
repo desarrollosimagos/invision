@@ -46,8 +46,7 @@ class Migration_create_table_transactions extends CI_Migration
 					"null" => TRUE
 				),
 				"observaciones" => array(
-					"type" => "VARCHAR",
-					"constraint" => 250,
+					"type" => "TEXT",
 					"null" => TRUE
 				),
 				"monto" => array(
