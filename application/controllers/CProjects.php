@@ -272,6 +272,7 @@ class CProjects extends CI_Controller {
         $data['lecturas_asociadas'] = $this->MProjects->obtenerLecturas($data['id']);
         $data['project_types'] = $this->MProjects->obtenerTipos();
         $data['project_transactions'] = $this->MProjects->obtenerTransacciones($data['id']);
+        $data['project_transactions_gen'] = $this->fondos_json_project($data['id']);
         $data['project_transactions_users'] = $this->fondos_json_users($data['id']);
 		
 		// Proceso de búsqueda de los grupos de inversores asociados al proyecto
@@ -656,6 +657,115 @@ class CProjects extends CI_Controller {
 		}
 		
         return json_decode(json_encode($resumen_users), false);  // Esto retorna un arreglo de objetos
+    }
+    
+    
+	public function fondos_json_project($project_id)
+    {
+		// Obtenemos el valor en dólares de las disitntas divisas
+		$get = file_get_contents("https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664");
+		// Se decodifica la respuesta JSON
+		$exchangeRates = json_decode($get, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		
+		// Valor de 1 btc en dólares
+		$get2 = file_get_contents("https://api.coinmarketcap.com/v1/ticker/");
+		$exchangeRates2 = json_decode($get2, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		$valor1btc = $exchangeRates2[0]['price_usd'];
+		
+		// Valor de 1 dólar en bolívares
+		$get3 = file_get_contents("https://s3.amazonaws.com/dolartoday/data.json");
+		$exchangeRates3 = json_decode($get3, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		$valor1vef = $exchangeRates3['USD']['transferencia'];
+		
+		if ($this->session->userdata('logged_in')['coin_iso'] == 'BTC') {
+		
+			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			
+		} else if($this->session->userdata('logged_in')['coin_iso'] == 'VEF') {
+		
+			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+		
+		} else {
+			
+			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+			
+		}
+        
+        $fondos_details = $this->MProjects->obtenerTransacciones($project_id);  // Listado de fondos detallados
+		
+		$resumen = array(
+			'capital_payback' => 0,
+			'capital_invested' => 0,
+			'returned_capital' => 0,
+			'retirement_capital_available' => 0
+		);
+			
+		foreach($fondos_details as $fondo){
+				
+			// Conversión de cada monto a dólares
+			$currency = $fondo->coin_avr;  // Tipo de moneda de la transacción
+			
+			// Si el tipo de moneda de la transacción es Bitcoin (BTC) o Bolívares (VEF) hacemos la conversión usando una api más acorde
+			if ($currency == 'BTC') {
+				
+				$trans_usd = (float)$fondo->monto*(float)$valor1btc;
+				
+			}else if($currency == 'VEF'){
+				
+				$trans_usd = (float)$fondo->monto/(float)$valor1vef;
+				
+			}else{
+				
+				$trans_usd = (float)$fondo->monto/$exchangeRates['rates'][$currency];
+				
+			}
+			
+			if($fondo->status == 'approved'){
+				if($fondo->tipo == 'deposit'){
+					$resumen['capital_invested'] += $trans_usd;
+					$resumen['retirement_capital_available'] += $trans_usd;
+				}else if($fondo->tipo == 'profit'){
+					$resumen['returned_capital'] += $trans_usd;
+					$resumen['retirement_capital_available'] += $trans_usd;
+				}else if($fondo->tipo == 'expense'){
+					$resumen['retirement_capital_available'] += $trans_usd;
+				}else if($fondo->tipo == 'withdraw'){
+					$resumen['retirement_capital_available'] += $trans_usd;
+				}
+			}
+			
+		}
+		
+		$decimals = 2;
+		if($this->session->userdata('logged_in')['coin_decimals'] != ""){
+			$decimals = $this->session->userdata('logged_in')['coin_decimals'];
+		}
+		$symbol = $this->session->userdata('logged_in')['coin_symbol'];
+		
+		// Cálculo del capital payback (Porcentaje del capital de retorno con respecto al capital invertido)
+		$resumen['capital_payback'] = $resumen['returned_capital']*$resumen['capital_invested']/100;
+		
+		// Conversión de los montos a la divisa del usuario
+		$resumen['capital_payback'] *= $currency_user; 
+		$resumen['capital_payback'] = round($resumen['capital_payback'], $decimals);
+		$resumen['capital_payback'] = $resumen['capital_payback']." ".$symbol;
+		
+		$resumen['capital_invested'] *= $currency_user; 
+		$resumen['capital_invested'] = round($resumen['capital_invested'], $decimals);
+		$resumen['capital_invested'] = $resumen['capital_invested']." ".$symbol;
+		
+		$resumen['returned_capital'] *= $currency_user; 
+		$resumen['returned_capital'] = round($resumen['returned_capital'], $decimals);
+		$resumen['returned_capital'] = $resumen['returned_capital']." ".$symbol;
+		
+		$resumen['retirement_capital_available'] *= $currency_user; 
+		$resumen['retirement_capital_available'] = round($resumen['retirement_capital_available'], $decimals);
+		$resumen['retirement_capital_available'] = $resumen['retirement_capital_available']." ".$symbol;
+		
+        return json_decode(json_encode($resumen), false);  // Esto retorna un arreglo de objetos
     }
 	
 	public function ajax_projects()

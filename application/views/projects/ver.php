@@ -124,31 +124,54 @@
 							
 							<div class="col-lg-12">
 								
-								<div class="col-lg-4">
+								<div class="col-lg-3">
+									<div class="ibox">
+										<div class="ibox-content">
+											<h5>Payback</h5>
+											<h1 class="no-margins">
+												<?php 
+												$payback = explode(" ", $project_transactions_gen->capital_payback);
+												$invested = explode(" ", $project_transactions_gen->capital_invested);
+												$result = (string)$payback[0]."/".(string)$invested[0];
+												?>
+												<span class="pie"><?php echo $result; ?></span>
+											</h1>
+											<div class="stat-percent font-bold text-danger">24% <i class="fa fa-level-down"></i></div>
+											<small>Total income</small>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3">
 									<div class="ibox">
 										<div class="ibox-content">
 											<h5>Capital Invertido</h5>
-											<h1 class="no-margins">1 738,200</h1>
+											<h1 class="no-margins" style="font-size:25px;">
+											<?php echo $project_transactions_gen->capital_invested; ?>
+											</h1>
 											<div class="stat-percent font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
 											<small>Total income</small>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-4">
+								<div class="col-lg-3">
 									<div class="ibox">
 										<div class="ibox-content">
 											<h5>Dividendo</h5>
-											<h1 class="no-margins">-200,100</h1>
+											<h1 class="no-margins" style="font-size:25px;">
+											<?php echo $project_transactions_gen->returned_capital; ?>
+											</h1>
 											<div class="stat-percent font-bold text-danger">12% <i class="fa fa-level-down"></i></div>
 											<small>Total income</small>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-4">
+								<div class="col-lg-3">
 									<div class="ibox">
 										<div class="ibox-content">
 											<h5>Capital de retiro disponible</h5>
-											<h1 class="no-margins">54,200</h1>
+											<h1 class="no-margins" style="font-size:25px;">
+											<?php echo $project_transactions_gen->retirement_capital_available; ?>
+											</h1>
 											<div class="stat-percent font-bold text-danger">24% <i class="fa fa-level-down"></i></div>
 											<small>Total income</small>
 										</div>
@@ -295,7 +318,7 @@
 								}else if($transact->status == "waiting"){
 									echo "<i class='fa fa-check text-warning'></i>";
 								}else if($transact->status == "denied"){
-									echo "<i class='fa fa-check text-danger'></i>";
+									echo "<i class='fa fa-times text-danger'></i>";
 								}else{
 									echo "";
 								}
@@ -411,6 +434,10 @@
 <!-- Peity -->
 <script src="<?php echo assets_url('js/plugins/peity/jquery.peity.min.js');?>"></script>
 <script src="<?php echo assets_url('js/demo/peity-demo.js');?>"></script>
+
+<!-- Flot -->
+<script src="<?php echo assets_url('js/plugins/flot/jquery.flot.js');?>"></script>
+<script src="<?php echo assets_url('js/plugins/flot/jquery.flot.pie.js');?>"></script>
 
 <script>
 $(document).ready(function(){
