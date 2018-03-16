@@ -50,7 +50,7 @@ class CProjects extends CI_Controller {
 			
 			// Proceso de búsqueda de transacciones asociados al proyecto para calcular el porcentaje recaudado
 			$transacctions = $this->MProjects->buscar_transacciones($proyecto->id);
-			if($proyecto->amount_r != null){
+			if($proyecto->amount_r != null && $proyecto->amount_r > 0){
 				$porcentaje = (float)$transacctions[0]->ingresos/(float)$proyecto->amount_r*100;
 			}else{
 				$porcentaje = "null";
