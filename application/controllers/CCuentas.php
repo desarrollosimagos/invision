@@ -36,6 +36,7 @@ class CCuentas extends CI_Controller {
     public function add() {
 		
 		$datos = array(
+			'owner' => $this->input->post('owner'),
 			'cuenta' => $this->input->post('cuenta'),
 			'numero' => $this->input->post('numero'),
             'user_id' => $this->session->userdata('logged_in')['id'],
@@ -77,6 +78,7 @@ class CCuentas extends CI_Controller {
 		
 		$datos = array(
 			'id' => $this->input->post('id'),
+			'owner' => $this->input->post('owner'),
 			'cuenta' => $this->input->post('cuenta'),
 			'numero' => $this->input->post('numero'),
 			'user_id' => $this->session->userdata('logged_in')['id'],

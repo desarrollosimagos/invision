@@ -26,6 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Persona</th>
                                     <th>Nombre</th>
                                     <th>Número</th>
                                     <th>Usuario</th>
@@ -44,6 +45,9 @@
                                     <tr style="text-align: center">
                                         <td>
                                             <?php echo $i; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $fondo->owner; ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->cuenta; ?>
@@ -106,6 +110,7 @@ $(document).ready(function(){
         "oLanguage": {"sUrl": "<?= assets_url() ?>js/es.txt"},
         "aoColumns": [
             {"sClass": "registro center", "sWidth": "5%"},
+            {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},

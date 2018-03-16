@@ -15,6 +15,10 @@ class Migration_create_table_accounts extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
+				"owner" => array(
+					"type" => "VARCHAR",
+					"constraint" => 50
+				),
 				"cuenta" => array(
 					"type" => "VARCHAR",
 					"constraint" => 250
