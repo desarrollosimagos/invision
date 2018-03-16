@@ -554,7 +554,7 @@ class CProjects extends CI_Controller {
 			
 			$resumen_user = array(
 				'name' => '',
-				'lastname' => '',
+				'alias' => '',
 				'username' => '',
 				'capital_invested' => 0,
 				'returned_capital' => 0,
@@ -588,7 +588,7 @@ class CProjects extends CI_Controller {
 					}
 					
 					$resumen_user['name'] = $fondo->name;
-					$resumen_user['lastname'] = $fondo->lastname;
+					$resumen_user['alias'] = $fondo->alias;
 					$resumen_user['username'] = $fondo->username;
 					if($fondo->status == 'waiting'){
 						if($fondo->tipo == 'deposit'){
