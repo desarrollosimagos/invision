@@ -38,10 +38,13 @@ class CUser extends CI_Controller {
 	// Método para guardar un nuevo registro
     public function add() {
 		
+		//~ print_r($this->input->post('actions_ids'));
+		//~ exit();
+		
 		$data = array(
 			'username' => $this->input->post('username'),
 			'name' => $this->input->post('name'),
-			'lastname' => $this->input->post('lastname'),
+			'alias' => $this->input->post('alias'),
 			'profile_id' => $this->input->post('profile_id'),
 			'coin_id' => $this->input->post('coin_id'),
 			'admin' => $this->input->post('admin'),
@@ -51,11 +54,13 @@ class CUser extends CI_Controller {
 			'd_update' => date('Y-m-d H:i:s'),
 
 		);
-        $result = $this->MUser->insert($data);
+		
+        //~ $result = $this->MUser->insert($data);
         
-        echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método insert()
+        //~ echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método insert()
         
-        if ($result != 'existe'){
+        if ($result = $this->MUser->insert($data)){
+			//~ echo $result;
 			// Nos aseguramos de que la acción correspondiente a 'CUENTAS' sea asociada al usuario registrado
 			$accion = $this->MAcciones->obtenerAccionByName('CUENTAS');
 			$id_accion = $accion[0]->id;
@@ -74,6 +79,8 @@ class CUser extends CI_Controller {
 				//~ }
 			//~ }
 			
+			$errors = 0;
+			
 			// Si hay acciones asociadas al usuario, registramos la relación en la tabla 'permissions'
 			if($this->input->post('actions_ids') != ""){
 				// Inserción de las relaciones usuario-tienda				
@@ -83,11 +90,64 @@ class CUser extends CI_Controller {
 					}else{
 						$data = array('user_id'=>$result, 'action_id'=>$action_id, 'parameter_permit'=>'7700');
 					}
-					$this->MUser->insert_action($data);
+					if(!$this->MUser->insert_action($data)){
+						$errors += 1;
+					}
 				}
 			}
+			
+			// Sección para el registro de la foto en la ruta establecida para tal fin (assets/img/userss)
+			$ruta = getcwd();  // Obtiene el directorio actual en donde se esta trabajando
+			
+			//~ // print_r($_FILES);
+			$i = 0;
+			
+			$errors2 = 0;
+				
+			if($_FILES['image']['name'][0] != ""){
+				
+				// Obtenemos la extensión
+				$ext = explode(".", $_FILES['image']['name'][0]);
+				$ext = $ext[1];
+				$image = "user_".$result.".".$ext;
+				
+				if (!move_uploaded_file($_FILES['image']['tmp_name'][0], $ruta."/assets/img/users/user_".$result.".".$ext)) {
+					
+					$errors2 += 1;
+					
+				}else{
+					//~ echo $result;
+					$data_user = array(
+						'id' => $result,
+						'username' => $this->input->post('username'),
+						'image' => $image,
+					);
+					$update_user = $this->MUser->update($data_user);
+				
+				}
+				
+				$i++;
+			}
+			
+			if($errors > 0){
+				
+				echo '{"response":"error1"}';
+				
+			}else if($errors2 > 0){
+				
+				echo '{"response":"error2"}';
+				
+			}else{
+				
+				echo '{"response":"ok"}';
+				
+			}
 			       
-        }
+        }else{
+			
+			echo '{"response":"error"}';
+			
+		}
     }
 	
 	// Método para editar
@@ -121,7 +181,7 @@ class CUser extends CI_Controller {
 			'id' => $this->input->post('id'),
 			'username' => $this->input->post('username'),
 			'name' => $this->input->post('name'),
-			'lastname' => $this->input->post('lastname'),
+			'alias' => $this->input->post('alias'),
 			'profile_id' => $this->input->post('profile_id'),
 			'coin_id' => $this->input->post('coin_id'),
 			'admin' => $this->input->post('admin'),
@@ -132,9 +192,11 @@ class CUser extends CI_Controller {
 		
         $result = $this->MUser->update($data);
         
-        echo $result;
+        //~ echo $result;
         
         if ($result) {
+			
+			$errors = 0;
 			
 			// Si hay nuevas acciones asociadas al usuario, los registramos en la tabla 'permissions'
 			if($this->input->post('actions_ids') != ""){
@@ -151,7 +213,9 @@ class CUser extends CI_Controller {
 						}else{
 							$data_action = array('user_id'=>$data['id'], 'action_id'=>$action_id, 'parameter_permit'=>'7700');
 						}
-						$this->MUser->insert_action($data_action);
+						if(!$this->MUser->insert_action($data_action)){
+							$errors += 1;
+						}
 					}
 					// Vamos colectando los ids recorridos
 					$ids_actions[] = $action_id;
@@ -168,14 +232,20 @@ class CUser extends CI_Controller {
 						if($query_action[0]->class != 'Home'){
 							if(!in_array($association->action_id, $ids_actions)){
 								// Eliminamos la asociacion de la tabla profile_actions
-								$this->MUser->delete_user_action($data['id'], $association->action_id);
+								if(!$this->MUser->delete_user_action($data['id'], $association->action_id)){
+									$errors += 1;
+								}
 							}
 						}
 					}
 				}
 				
 				// Actualizamos la permisología
-				$data_permisos = $this->input->post('data');
+				
+				// Convertimos a formato json y posteriormente a arreglo con el segundo argumento (true)
+				$data_permisos = json_decode($this->input->post('data'), true);  
+				
+				//~ print_r($data_permisos);
 				
 				foreach ($data_permisos as $campo){
 					// Concatenamos los permisos como una cadena
@@ -189,8 +259,11 @@ class CUser extends CI_Controller {
 					);
 					
 					// Actualizamos los permisos para la acción asociada
-					$result = $this->MUser->update_action($data_ps);
+					if(!$result = $this->MUser->update_action($data_ps)){
+						$errors += 1;
+					}
 				}
+				
 			}else{
 				// Eliminamos las asociaciones de la tabla permissions correspondientes al usuario seleccionado
 				// Primero buscamos todas las acciones asociados al usuario
@@ -202,8 +275,58 @@ class CUser extends CI_Controller {
 					}
 				}
 			}
+			
+			// Sección para el registro de la foto en la ruta establecida para tal fin (assets/img/userss)
+			$ruta = getcwd();  // Obtiene el directorio actual en donde se esta trabajando
+			
+			//~ // print_r($_FILES);
+			$i = 0;
+			
+			$errors2 = 0;
+				
+			if($_FILES['image']['name'][0] != ""){
+				
+				// Obtenemos la extensión
+				$ext = explode(".", $_FILES['image']['name'][0]);
+				$ext = $ext[1];
+				$image = "user_".$data['id'].".".$ext;
+				
+				if (!move_uploaded_file($_FILES['image']['tmp_name'][0], $ruta."/assets/img/users/user_".$data['id'].".".$ext)) {
+					
+					$errors2 += 1;
+					
+				}else{
+					
+					$data_user = array(
+						'id' => $data['id'],
+						'username' => $this->input->post('username'),
+						'image' => $image,
+					);
+					$update_user = $this->MUser->update($data_user);
+				
+				}
+				
+				$i++;
+			}
+			
+			if($errors > 0){
+				
+				echo '{"response":"error1"}';
+				
+			}else if($errors2 > 0){
+				
+				echo '{"response":"error2"}';
+				
+			}else{
+				
+				echo '{"response":"ok"}';
+				
+			}
+			
         }else{
-			return $result;
+			
+			echo '{"response":"error"}';
+			
 		}
     }
     

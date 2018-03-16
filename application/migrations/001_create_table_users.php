@@ -26,9 +26,9 @@ class Migration_create_table_users extends CI_Migration
 				),
 				"name" => array(
 					"type" => "VARCHAR",
-					"constraint" => 50
+					"constraint" => 100
 				),
-				"lastname" => array(
+				"alias" => array(
 					"type" => "VARCHAR",
 					"constraint" => 50,
 					"null" => TRUE
@@ -51,6 +51,11 @@ class Migration_create_table_users extends CI_Migration
 				"coin_id" => array(
 					"type" => "INT",
 					"constraint" => 11,
+					"null" => TRUE
+				),
+				"image" => array(
+					"type" => "VARCHAR",
+					"constraint" => 50,
 					"null" => TRUE
 				),
 				"d_create" => array(

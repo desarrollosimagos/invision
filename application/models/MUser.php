@@ -15,7 +15,7 @@ class MUser extends CI_Model {
     // Public method to obtain the users
     public function obtener() {
 		
-		$this->db->select('u.id, u.username, u.name, u.lastname, u.profile_id, u.admin, u.status, c.description as coin, c.abbreviation as coin_avr, p.name as perfil');
+		$this->db->select('u.id, u.username, u.name, u.alias, u.profile_id, u.admin, u.status, u.image, c.description as coin, c.abbreviation as coin_avr, p.name as perfil');
 		$this->db->from('users u');
 		$this->db->join('profile p', 'p.id = u.profile_id');
 		$this->db->join('coins c', 'c.id = u.coin_id');
@@ -65,10 +65,10 @@ class MUser extends CI_Model {
 
     // Public method to insert the data
     public function insert($datos) {
-        $result = $this->db->where('username =', $datos['username']);
+        $result = $this->db->where('username', $datos['username']);
         $result = $this->db->get('users');
         if ($result->num_rows() > 0) {
-            return 'existe';
+            return false;
         } else {
             $result = $this->db->insert("users", $datos);
             $id = $this->db->insert_id();
