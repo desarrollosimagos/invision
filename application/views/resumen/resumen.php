@@ -190,7 +190,7 @@
 							<tr>
 								<th>#</th>
 								<th data-breakpoints="xs sm" >Nombre</th>
-								<th data-breakpoints="xs sm" >Apellido</th>
+								<th data-breakpoints="xs sm" >Alias</th>
 								<th >Usuario</th>
 								<!--<th data-breakpoints="xs sm" >Capital Pendiente</th>-->
 								<th data-breakpoints="xs sm" >Capital Invertido</th>
