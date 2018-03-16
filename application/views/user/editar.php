@@ -1,3 +1,6 @@
+<!-- FooTable -->
+<link href="<?php echo assets_url('css/plugins/fileinput/fileinput.min.css');?>" rel="stylesheet">
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Usuarios </h2>
@@ -26,10 +29,10 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Foto *</label>
 							<div class="col-sm-4">
-								<input type="file" class="form-control image" placeholder="" name="image[]" id="image" onChange="valida_tipo($(this))">
+								<input type="file" class="form-control image" name="image[]" id="image" onChange="valida_tipo($(this))">
 							</div>
 							<div class="col-sm-6">
-								<img style="height:100px;width:100px;" src="<?php echo base_url(); ?>assets/img/users/<?php echo $editar[0]->image; ?>">
+								<img id="imgSalida" style="height:150px;width:150px;" class="img-circle" src="<?php echo base_url(); ?>assets/img/users/<?php echo $editar[0]->image; ?>">
 							</div>
 						</div>
 						<div class="form-group">
@@ -197,6 +200,7 @@
 								<input id="id_coin" type="hidden" value="<?php echo $editar[0]->coin_id ?>"/>
                                 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
                                 <input id="ids_actions" type="hidden" value="<?php echo $ids_actions; ?>"/>
+                                <input id="id_image" type="hidden" value="<?php echo $editar[0]->image; ?>"/>
                                 <input id="data" name="data" type="hidden" value=""/>
 								<input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
 								<input type="hidden" name="admin" id="admin" value="<?php echo $editar[0]->admin ?>">
@@ -210,4 +214,8 @@
         </div>
     </div>
 </div>
- <script src="<?php echo assets_url('script/users_alternative.js'); ?>" type="text/javascript" charset="utf-8" ></script>
+
+<!-- FooTable -->
+<script src="<?php echo assets_url('js/plugins/fileinput/fileinput.min.js');?>"></script>
+
+<script src="<?php echo assets_url('script/users_alternative.js'); ?>" type="text/javascript" charset="utf-8" ></script>
