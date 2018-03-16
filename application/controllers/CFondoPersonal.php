@@ -82,7 +82,7 @@ class CFondoPersonal extends CI_Controller {
 			//~ // Armamos los nuevos datos de la cuenta
 			//~ $data_cuenta = array(
 				//~ 'id' => $this->input->post('cuenta_id'),
-				//~ 'monto' => $monto_cuenta,
+				//~ 'amount' => $monto_cuenta,
 				//~ 'd_update' => date('Y-m-d H:i:s')
 			//~ );
 			//~ 
@@ -158,7 +158,7 @@ class CFondoPersonal extends CI_Controller {
 			//~ // Armamos los nuevos datos de la cuenta
 			//~ $data_cuenta = array(
 				//~ 'id' => $this->input->post('cuenta_id'),
-				//~ 'monto' => $monto_cuenta,
+				//~ 'amount' => $monto_cuenta,
 				//~ 'd_update' => date('Y-m-d H:i:s')
 			//~ );
 			//~ 
@@ -210,7 +210,7 @@ class CFondoPersonal extends CI_Controller {
 			// Armamos los nuevos datos de la cuenta
 			$data_cuenta = array(
 				'id' => $this->input->post('cuenta_id'),
-				'monto' => $monto_cuenta,
+				'amount' => $monto_cuenta,
 				'd_update' => date('Y-m-d H:i:s')
 			);
 			

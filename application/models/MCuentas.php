@@ -15,7 +15,7 @@ class MCuentas extends CI_Model {
     //Public method to obtain the accounts
     public function obtener() {
 		
-		$select = 'f_p.id, f_p.owner, f_p.cuenta, f_p.numero, f_p.tipo, f_p.descripcion, f_p.monto, f_p.status, ';
+		$select = 'f_p.id, f_p.owner, f_p.alias, f_p.number, f_p.type, f_p.description, f_p.amount, f_p.status, ';
 		$select .= 'u.username as usuario, c.description as coin, c.abbreviation as coin_avr, c.symbol as coin_symbol, ';
 		$select .= 't_c.name as tipo_cuenta';
 		
@@ -23,7 +23,7 @@ class MCuentas extends CI_Model {
 		$this->db->from('accounts f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('coins c', 'c.id = f_p.coin_id');
-		$this->db->join('tipos_cuenta t_c', 't_c.id = f_p.tipo');
+		$this->db->join('tipos_cuenta t_c', 't_c.id = f_p.type');
 		// Si el usuario corresponde al de un administrador quitamos el filtro de usuario
         if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where('f_p.user_id =', $this->session->userdata('logged_in')['id']);

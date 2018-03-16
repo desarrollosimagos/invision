@@ -81,7 +81,7 @@
 								<select class="form-control m-b" name="cuenta_id" id="cuenta_id">
 									<option value="0">Seleccione</option>
 									<?php foreach($cuentas as $cuenta){?>
-									<option value="<?php echo $cuenta->id; ?>"><?php echo $cuenta->cuenta." - ".$cuenta->numero." - ".$cuenta->coin_avr; ?></option>
+									<option value="<?php echo $cuenta->id; ?>"><?php echo $cuenta->alias." - ".$cuenta->number." - ".$cuenta->coin_avr; ?></option>
 									<?php } ?>
 								</select>
 							</div>

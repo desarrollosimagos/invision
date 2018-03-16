@@ -35,19 +35,19 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Nombre *</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="cuenta" id="cuenta">
+								<input type="text" class="form-control" name="alias" id="alias">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Número</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="numero" id="numero">
+								<input type="text" class="form-control" name="number" id="number">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
-								<select class="form-control m-b" name="tipo" id="tipo">
+								<select class="form-control m-b" name="type" id="type">
 									<option value="0" selected="">Seleccione</option>
 									<?php foreach($tipos_cuenta as $tipo){?>
 									<option value="<?php echo $tipo->id; ?>"><?php echo $tipo->name; ?></option>
@@ -57,13 +57,13 @@
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Descripción</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" name="descripcion" maxlength="250" id="descripcion"></textarea>
+								<textarea class="form-control" name="description" maxlength="250" id="description"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Monto *</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="monto" id="monto" value="0" readonly="readonly">
+								<input type="text" class="form-control" name="amount" id="amount" value="0" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group">

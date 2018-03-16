@@ -50,10 +50,10 @@
                                             <?php echo $fondo->owner; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->cuenta; ?>
+                                            <?php echo $fondo->alias; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->numero; ?>
+                                            <?php echo $fondo->number; ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->usuario; ?>
@@ -62,7 +62,7 @@
                                             <?php echo $fondo->tipo_cuenta; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->monto; ?>
+                                            <?php echo $fondo->amount; ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->coin_avr." (".$fondo->coin.")"; ?>
@@ -71,7 +71,7 @@
                                             <?php echo $fondo->status; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->descripcion; ?>
+                                            <?php echo $fondo->description; ?>
                                         </td>
                                         <td style='text-align: center'>
                                             <a href="<?php echo base_url() ?>accounts/edit/<?= $fondo->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>

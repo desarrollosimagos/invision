@@ -37,12 +37,12 @@ class CCuentas extends CI_Controller {
 		
 		$datos = array(
 			'owner' => $this->input->post('owner'),
-			'cuenta' => $this->input->post('cuenta'),
-			'numero' => $this->input->post('numero'),
+			'alias' => $this->input->post('alias'),
+			'number' => $this->input->post('number'),
             'user_id' => $this->session->userdata('logged_in')['id'],
-            'tipo' => $this->input->post('tipo'),
-            'descripcion' => $this->input->post('descripcion'),
-            'monto' => $this->input->post('monto'),
+            'type' => $this->input->post('type'),
+            'description' => $this->input->post('description'),
+            'amount' => $this->input->post('amount'),
             'coin_id' => $this->input->post('coin_id'),
             'status' => $this->input->post('status'),
             'd_create' => date('Y-m-d H:i:s')
@@ -79,12 +79,12 @@ class CCuentas extends CI_Controller {
 		$datos = array(
 			'id' => $this->input->post('id'),
 			'owner' => $this->input->post('owner'),
-			'cuenta' => $this->input->post('cuenta'),
-			'numero' => $this->input->post('numero'),
+			'alias' => $this->input->post('alias'),
+			'number' => $this->input->post('number'),
 			'user_id' => $this->session->userdata('logged_in')['id'],
-            'tipo' => $this->input->post('tipo'),
-            'descripcion' => $this->input->post('descripcion'),
-            'monto' => $this->input->post('monto'),
+            'type' => $this->input->post('type'),
+            'description' => $this->input->post('description'),
+            'amount' => $this->input->post('amount'),
             'coin_id' => $this->input->post('coin_id'),
             'status' => $this->input->post('status'),
             'd_update' => date('Y-m-d H:i:s')

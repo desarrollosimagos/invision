@@ -25,7 +25,7 @@ class MResumen extends CI_Model {
 			}
 		}
 		
-		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.monto, f_p.status, u.username as usuario, c.owner, c.cuenta, c.numero, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
+		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.monto, f_p.status, u.username as usuario, c.owner, c.alias, c.number, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
