@@ -295,7 +295,7 @@
 								<?php echo $transact->fecha; ?>
 							</td>
 							<td>
-								<?php echo $transact->username; ?>
+								<?php echo $transact->name; ?>
 							</td>
 							<td>
 								<?php echo $transact->tipo; ?>
@@ -393,7 +393,7 @@
 					<?php foreach ($project_transactions_users as $transact) { ?>
 						<tr style="text-align: center">
 							<td>
-								<?php echo $transact->username; ?>
+								<?php echo $transact->name; ?>
 							</td>
 							<td>
 								<span class="pie">0.52/1.561</span>

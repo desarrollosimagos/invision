@@ -249,7 +249,7 @@ class MProjects extends CI_Model {
 		}
 		
 		$select = 'pt.id, pt.user_id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username, c.cuenta, ';
-		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, u.name, u.lastname, u.username,';
+		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, u.name, u.alias';
 		
 		$this->db->select($select);
 		$this->db->from('project_transactions pt');
