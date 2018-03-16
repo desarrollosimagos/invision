@@ -211,7 +211,7 @@
 										<?php echo $fondo->name; ?>
 									</td>
 									<td>
-										<?php echo $fondo->lastname; ?>
+										<?php echo $fondo->alias; ?>
 									</td>
 									<td>
 										<?php echo $fondo->username; ?>

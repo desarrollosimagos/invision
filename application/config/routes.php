@@ -98,11 +98,11 @@ $route['accounts/register'] = 'CCuentas/register';
 $route['accounts/edit/(:num)'] = 'CCuentas/edit/$1';
 $route['accounts/delete/(:num)'] = 'CCuentas/delete/$1';
 /*   Resumen */
-$route['resumen'] = 'CResumen';
-$route['resumen/register'] = 'CResumen/register';
-$route['resumen/edit/(:num)'] = 'CResumen/edit/$1';
-$route['resumen/delete/(:num)'] = 'CResumen/delete/$1';
-$route['resumen/fondos_json'] = 'CResumen/fondos_json';
+$route['dashboard'] = 'CResumen';
+$route['dashboard/register'] = 'CResumen/register';
+$route['dashboard/edit/(:num)'] = 'CResumen/edit/$1';
+$route['dashboard/delete/(:num)'] = 'CResumen/delete/$1';
+$route['dashboard/fondos_json'] = 'CResumen/fondos_json';
 /*   Monedas */
 $route['coins'] = 'CCoins';
 $route['coins/register'] = 'CCoins/register';
