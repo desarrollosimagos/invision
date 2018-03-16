@@ -26,6 +26,12 @@
 				<div class="ibox-content">
 					<form id="form_cuentas" method="post" accept-charset="utf-8" class="form-horizontal">
 						<div class="form-group">
+							<label class="col-sm-2 control-label">Persona *</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="owner" id="owner" value="<?php echo $editar[0]->owner ?>">
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label">Nombre *</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="cuenta" id="cuenta" value="<?php echo $editar[0]->cuenta ?>">
@@ -120,7 +126,12 @@ $(document).ready(function(){
 
         e.preventDefault();  // Para evitar que se envíe por defecto
 
-        if ($('#cuenta').val().trim() === "") {
+        if ($('#owner').val().trim() === "") {
+			
+			swal("Disculpe,", "para continuar debe ingresar el nombre de la persona");
+			$('#owner').parent('div').addClass('has-error');
+			
+        } else if ($('#cuenta').val().trim() === "") {
 			
 			swal("Disculpe,", "para continuar debe ingresar el nombre de la cuenta");
 			$('#cuenta').parent('div').addClass('has-error');

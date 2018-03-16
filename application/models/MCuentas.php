@@ -15,7 +15,7 @@ class MCuentas extends CI_Model {
     //Public method to obtain the accounts
     public function obtener() {
 		
-		$select = 'f_p.id, f_p.cuenta, f_p.numero, f_p.tipo, f_p.descripcion, f_p.monto, f_p.status, ';
+		$select = 'f_p.id, f_p.owner, f_p.cuenta, f_p.numero, f_p.tipo, f_p.descripcion, f_p.monto, f_p.status, ';
 		$select .= 'u.username as usuario, c.description as coin, c.abbreviation as coin_avr, c.symbol as coin_symbol, ';
 		$select .= 't_c.name as tipo_cuenta';
 		
