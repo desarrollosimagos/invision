@@ -142,7 +142,7 @@ class MResumen extends CI_Model {
         
         // Consulta a la tabla 'project_transactions'
         $select2 = 'u.name, u.alias, u.username, p_t.id, p_t.user_id, p_t.cuenta_id, p_t.tipo, p_t.monto, p_t.status, ';
-		$select2 .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, p.name, p.description';
+		$select2 .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, p.name as name_p, p.description';
 		
 		$this->db->select($select2);
 		$this->db->from('project_transactions p_t');
