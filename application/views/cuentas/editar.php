@@ -34,19 +34,19 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Nombre *</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="cuenta" id="cuenta" value="<?php echo $editar[0]->cuenta ?>">
+								<input type="text" class="form-control" name="alias" id="alias" value="<?php echo $editar[0]->cuenta ?>">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Número</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="numero" id="numero" value="<?php echo $editar[0]->numero ?>">
+								<input type="text" class="form-control" name="number" id="number" value="<?php echo $editar[0]->numero ?>">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
-								<select class="form-control m-b" name="tipo" id="tipo">
+								<select class="form-control m-b" name="type" id="type">
 									<option value="0" selected="">Seleccione</option>
 									<?php foreach($tipos_cuenta as $tipo){?>
 									<option value="<?php echo $tipo->id; ?>"><?php echo $tipo->name; ?></option>
@@ -57,13 +57,13 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Descripción</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" name="descripcion" maxlength="250" id="descripcion"><?php echo $editar[0]->descripcion; ?></textarea>
+								<textarea class="form-control" name="description" maxlength="250" id="description"><?php echo $editar[0]->descripcion; ?></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Monto *</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="monto" id="monto" value="<?php echo $editar[0]->monto ?>" readonly="readonly">
+								<input type="text" class="form-control" name="amount" id="amount" value="<?php echo $editar[0]->monto ?>" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group">

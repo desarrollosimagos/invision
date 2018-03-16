@@ -88,7 +88,7 @@
                                             ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->cuenta." - ".$fondo->numero; ?>
+                                            <?php echo $fondo->alias." - ".$fondo->number; ?>
                                         </td>
                                         <td>
                                             <?php echo $fondo->descripcion; ?>

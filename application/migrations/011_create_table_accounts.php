@@ -19,11 +19,11 @@ class Migration_create_table_accounts extends CI_Migration
 					"type" => "VARCHAR",
 					"constraint" => 50
 				),
-				"cuenta" => array(
+				"alias" => array(
 					"type" => "VARCHAR",
 					"constraint" => 250
 				),
-				"numero" => array(
+				"number" => array(
 					"type" => "VARCHAR",
 					"constraint" => 100,
 					"null" => TRUE
@@ -33,17 +33,17 @@ class Migration_create_table_accounts extends CI_Migration
 					"constraint" => 11,
 					"null" => TRUE
 				),
-				"tipo" => array(
+				"type" => array(
 					"type" => "INT",
 					"constraint" => 11,
 					"null" => TRUE
 				),
-				"descripcion" => array(
+				"description" => array(
 					"type" => "VARCHAR",
 					"constraint" => 250,
 					"null" => TRUE
 				),
-				"monto" => array(
+				"amount" => array(
 					"type" => "FLOAT",
 					"null" => TRUE
 				),

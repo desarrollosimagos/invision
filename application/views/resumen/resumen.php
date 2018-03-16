@@ -130,16 +130,16 @@
 										<?php echo $i; ?>
 									</td>
 									<td>
-										<?php echo $cuenta->cuenta; ?>
+										<?php echo $cuenta->alias; ?>
 									</td>
 									<td>
-										<?php echo $cuenta->numero; ?>
+										<?php echo $cuenta->number; ?>
 									</td>
 									<td>
 										<?php echo $cuenta->tipo_cuenta; ?>
 									</td>
 									<td>
-										<?php echo $cuenta->monto."  ".$cuenta->coin_symbol."  (".$cuenta->coin_avr.")"; ?>
+										<?php echo $cuenta->amount."  ".$cuenta->coin_symbol."  (".$cuenta->coin_avr.")"; ?>
 									</td>
 									<td>
 										<?php
@@ -153,7 +153,7 @@
 										?>
 									</td>
 									<td>
-										<?php echo $cuenta->descripcion; ?>
+										<?php echo $cuenta->description; ?>
 									</td>
 								</tr>
 								<?php $i++ ?>
