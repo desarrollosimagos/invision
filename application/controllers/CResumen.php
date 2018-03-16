@@ -102,7 +102,7 @@ class CResumen extends CI_Controller {
 			
 			$resumen_user = array(
 				'name' => '',
-				'lastname' => '',
+				'alias' => '',
 				'username' => '',
 				'capital_invested' => 0,
 				'returned_capital' => 0,
@@ -136,7 +136,7 @@ class CResumen extends CI_Controller {
 					}
 					
 					$resumen_user['name'] = $fondo->name;
-					$resumen_user['lastname'] = $fondo->lastname;
+					$resumen_user['alias'] = $fondo->alias;
 					$resumen_user['username'] = $fondo->username;
 					if($fondo->status == 'waiting'){
 						if($fondo->tipo == 'deposit'){
@@ -177,7 +177,7 @@ class CResumen extends CI_Controller {
 					}
 					
 					$resumen_user['name'] = $fondo2->name;
-					$resumen_user['lastname'] = $fondo2->lastname;
+					$resumen_user['alias'] = $fondo2->alias;
 					$resumen_user['username'] = $fondo2->username;
 					if($fondo2->status == 'approved'){
 						if($fondo2->tipo == 'deposit'){
