@@ -29,7 +29,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
+                                    <th>Alias</th>
                                     <th>Usuario</th>
                                     <th>Moneda</th>
                                     <th>Perfil</th>
@@ -49,7 +49,7 @@
                                             <?php echo $usuario->name; ?>
                                         </td>
                                         <td>
-                                            <?php echo $usuario->lastname; ?>
+                                            <?php echo $usuario->alias; ?>
                                         </td>
                                         <td>
                                             <?php echo $usuario->username; ?>

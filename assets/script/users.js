@@ -312,10 +312,10 @@ $(document).ready(function() {
           
 		   swal("Disculpe,", "para continuar debe ingresar nombre");
 	       $('#name').parent('div').addClass('has-error');
-        } else if ($('#lastname').val().trim() === "") {
+        } else if ($('#alias').val().trim() === "") {
           
-		   swal("Disculpe,", "para continuar debe ingresar el apellido");
-	       $('#lastname').parent('div').addClass('has-error');
+		   swal("Disculpe,", "para continuar debe ingresar el alias");
+	       $('#alias').parent('div').addClass('has-error');
 		   
         } else if ($('#username').val().trim() === "") {
           
@@ -355,23 +355,70 @@ $(document).ready(function() {
 		   
 		} else {
 
-            $.post(base_url+'CUser/add', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val()}), function (response) {
-
-				if (response == 'existe') {
-                    swal("Disculpe,", "este nombre de usuario se encuentra registrado");
-                }else{
-					swal({ 
-						title: "Registro",
-						 text: "Guardado con exito",
-						  type: "success"
-						},
-					function(){
-					  window.location.href = 'users';
-					});
-
-				}
-
-            });
+            //~ $.post(base_url+'CUser/add', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val()}), function (response) {
+//~ 
+				//~ if (response == 'existe') {
+                    //~ swal("Disculpe,", "este nombre de usuario se encuentra registrado");
+                //~ }else{
+					//~ swal({ 
+						//~ title: "Registro",
+						 //~ text: "Guardado con exito",
+						  //~ type: "success"
+						//~ },
+					//~ function(){
+					  //~ window.location.href = 'users';
+					//~ });
+//~ 
+				//~ }
+//~ 
+            //~ });
+            
+            var formData = new FormData(document.getElementById("form_users"));  // Forma de capturar todos los datos del formulario
+			
+			$.ajax({
+				//~ method: "POST",
+				type: "post",
+				dataType: "json",
+				url: base_url+'CUser/add',
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false
+			})
+			.done(function(response) {
+				if(response.error){
+					console.log(response.error);
+				} else {
+					if (response['response'] == 'error') {
+					
+						swal("Disculpe,", "este usuario se encuentra registrado");
+						
+					}else if (response['response'] == 'error1') {
+						
+						swal("Disculpe,", "ha ocurrido un error al guardar las acciones");
+						
+					}else if (response['response'] == 'error2') {
+						
+						swal("Disculpe,", "ha ocurrido un error al guardar la foto");
+						
+					}else{
+						
+						swal({ 
+							title: "Registro",
+							 text: "Guardado con exito",
+							  type: "success" 
+							},
+						function(){
+						  window.location.href = base_url+'users';
+						});
+						
+					}
+					
+				}				
+			}).fail(function() {
+				console.log("error ajax");
+			});
+			
         }
 
     });
@@ -430,3 +477,21 @@ $(document).ready(function() {
 	});
     
 });
+
+// Validamos que los archivos sean de tipo .jpg, jpeg o png
+function valida_tipo(input) {
+	
+	var max_size = '';
+	var archivo = input.val();
+	
+	var ext = archivo.split(".");
+	ext = ext[1];
+	
+	if (ext != 'jpg' && ext != 'jpeg' && ext != 'png'){
+		swal("Disculpe,", "sólo se admiten archivos .jpg, .jpeg y png");
+		input.val('');
+		input.parent('div').addClass('has-error');
+	}else{
+		input.parent('div').removeClass('has-error');
+	}
+}

@@ -262,10 +262,10 @@ $(document).ready(function() {
           
 		   swal("Disculpe,", "para continuar debe ingresar nombre");
 	       $('#name').parent('div').addClass('has-error');
-        } else if ($('#lastname').val().trim() === "") {
+        } else if ($('#alias').val().trim() === "") {
           
-		   swal("Disculpe,", "para continuar debe ingresar el apellido");
-	       $('#lastname').parent('div').addClass('has-error');
+		   swal("Disculpe,", "para continuar debe ingresar el alias");
+	       $('#alias').parent('div').addClass('has-error');
 		   
         } else if ($('#username').val().trim() === "") {
           
@@ -306,8 +306,8 @@ $(document).ready(function() {
 		} else {
 			
 			// Construimos la data de permisología leyendo las filas de la tabla
-			var campos= "";
-			var data = [];
+			var campos= '';
+			var data = '[';
 			$("#tab_acciones tbody tr").each(function () {
 				var campo0, campo1, campo2, campo3, campo4, campo5, campo6;
 				//~ campo0 = $(this).attr('id');  // Id del usuario
@@ -334,28 +334,106 @@ $(document).ready(function() {
 					campo6 = '0';
 				}
 				
-				campos = { "id" : campo1, "accion" : campo2, "crear" : campo3, "editar" : campo4, "eliminar" : campo5, "validar" : campo6 },
-				data.push(campos);
+				//~ campos = { "id" : campo1, "accion" : campo2, "crear" : campo3, "editar" : campo4, "eliminar" : campo5, "validar" : campo6 },
+				//~ data.push(campos);
+				
+				// Siempre que se construya una cadena de texto con el fin de transaformarla en json en el controlador php se debe usar estrictamente este formato
+				campos = '{ "id" : "'+campo1+'", "accion" : "'+campo2+'", "crear" : "'+campo3+'", "editar" : "'+campo4+'", "eliminar" : "'+campo5+'", "validar" : "'+campo6+'" }',
+				data += campos+',';
+				
 			});
+			
+			data = data.substring(0, data.length-1);  // Quitamos la última coma
+			data += ']';
+			
+			//~ console.log(data);
+			
+			$("#data").val(data);
+			
+			//~ alert($("#data").val());
 
-            $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
-
-				if (response == 'existe') {
-                    swal("Disculpe,", "este nombre de usuario se encuentra registrado");
-                }else{
-					swal({ 
-						title: "Actualizar",
-						 text: "Guardado con exito",
-						  type: "success" 
-						},
-					function(){
-					  window.location.href = '../users';
-					});
-				}
-
-            });
+            //~ $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
+//~ 
+				//~ if (response == 'existe') {
+                    //~ swal("Disculpe,", "este nombre de usuario se encuentra registrado");
+                //~ }else{
+					//~ swal({ 
+						//~ title: "Actualizar",
+						 //~ text: "Guardado con exito",
+						  //~ type: "success" 
+						//~ },
+					//~ function(){
+					  //~ window.location.href = '../users';
+					//~ });
+				//~ }
+//~ 
+            //~ });
+            
+            var formData = new FormData(document.getElementById("form_users"));  // Forma de capturar todos los datos del formulario
+			
+			$.ajax({
+				// method: "POST",
+				type: "post",
+				dataType: "json",
+				url: base_url+'CUser/update',
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false
+			})
+			.done(function(response) {
+				if(response.error){
+					console.log(response.error);
+				} else {
+					if (response['response'] == 'error') {
+					
+						swal("Disculpe,", "este usuario se encuentra registrado");
+						
+					}else if (response['response'] == 'error1') {
+						
+						swal("Disculpe,", "ha ocurrido un error al actualizar las acciones");
+						
+					}else if (response['response'] == 'error2') {
+						
+						swal("Disculpe,", "ha ocurrido un error al guardar la foto");
+						
+					}else{
+						
+						swal({ 
+							title: "Registro",
+							 text: "Guardado con exito",
+							  type: "success" 
+							},
+						function(){
+						  window.location.href = base_url+'users';
+						});
+						
+					}
+				}				
+			}).fail(function() {
+				console.log("error ajax");
+			});
+			
         }
 
     });
     
 });
+
+// Validamos que los archivos sean de tipo .jpg, jpeg o png
+function valida_tipo(input) {
+	
+	var max_size = '';
+	var archivo = input.val();
+	
+	var ext = archivo.split(".");
+	ext = ext[1];
+	
+	if (ext != 'jpg' && ext != 'jpeg' && ext != 'png'){
+		swal("Disculpe,", "sólo se admiten archivos .jpg, .jpeg y png");
+		input.val('');
+		input.parent('div').addClass('has-error');
+	}else{
+		input.parent('div').removeClass('has-error');
+	}
+}

@@ -22,7 +22,16 @@
 					<h5>Editar Usuario <small></small></h5>
 				</div>
 				<div class="ibox-content">
-					<form id="form_users" method="post" accept-charset="utf-8" class="form-horizontal">
+					<form id="form_users" method="post" accept-charset="utf-8" class="form-horizontal" enctype="multipart/form-data">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" >Foto *</label>
+							<div class="col-sm-4">
+								<input type="file" class="form-control image" placeholder="" name="image[]" id="image" onChange="valida_tipo($(this))">
+							</div>
+							<div class="col-sm-6">
+								<img style="height:100px;width:100px;" src="<?php echo base_url(); ?>assets/img/users/<?php echo $editar[0]->image; ?>">
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Nombre *</label>
 							<div class="col-sm-10">
@@ -30,9 +39,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" >Apellido *</label>
+							<label class="col-sm-2 control-label" >Alias *</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control"  placeholder="" name="lastname" id="lastname" value="<?php echo $editar[0]->lastname ?>">
+								<input type="text" class="form-control"  placeholder="" name="alias" id="alias" value="<?php echo $editar[0]->alias ?>">
 							</div>
 						</div>
 						<div class="form-group">
@@ -78,7 +87,7 @@
 						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
 						<div class="form-group"><label class="col-sm-2 control-label" >Acciones</label>
 							<div class="col-sm-10">
-								<select id="actions_ids" class="form-control" multiple="multiple">
+								<select id="actions_ids" name="actions_ids[]" class="form-control" multiple="multiple">
 									<?php
 									// Primero creamos un arreglo con la lista de ids de acciones proveniente del controlador
 									$acciones_ids = explode(",",$ids_actions);
@@ -188,6 +197,7 @@
 								<input id="id_coin" type="hidden" value="<?php echo $editar[0]->coin_id ?>"/>
                                 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
                                 <input id="ids_actions" type="hidden" value="<?php echo $ids_actions; ?>"/>
+                                <input id="data" name="data" type="hidden" value=""/>
 								<input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
 								<input type="hidden" name="admin" id="admin" value="<?php echo $editar[0]->admin ?>">
 								<button class="btn btn-white" id="volver2" type="button">Volver</button>
