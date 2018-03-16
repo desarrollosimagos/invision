@@ -95,8 +95,48 @@ $(document).ready(function() {
 	$("#profile").select2('val', $("#id_profile").val());
 	$("#coin_id").select2('val', $("#id_coin").val());
     $("#status").select2('val', $("#id_status").val());
+    
+    //~ $("#image").fileinput({
+        //~ initialPreview: [
+			//~ '<img id="picture" name="picture" src="'+base_url+'assets/img/users/'+$("#id_image").val()+'" style="width: 100%; height:100%" class="file-preview-image" alt="Usuario" title="Usuario">',
+        //~ ],
+        //~ browseClass: "btn btn-primary btn-block",
+        //~ browseLabel: "Buscar Imagen",
+        //~ showCaption: false,
+        //~ showRemove: false,
+        //~ maxFileSize: 50,
+        //~ showUpload: false,
+        //~ allowedFileExtensions: ["jpg", "png"],
+        //~ elErrorContainer: "#errorBlock",
+        //~ msgSizeTooLarge: 'Archivo muy pesado "{name}". (<b>{size} KB</b>) excede el tamaño máximo que es de <b>{maxSize} KB',
+        //~ msgInvalidFileExtension: 'Extensiones invalidad "{name}". Solo admite archivos"{extensions}".'
+//~ 
+    //~ });
+    
+    // Función para la pre-visualización de la imagen a cargar
+	$(function() {
+		$('#image').change(function(e) {
+			addImage(e); 
+		});
 
-	
+		function addImage(e){
+			var file = e.target.files[0],
+			imageType = /image.*/;
+
+			if (!file.type.match(imageType))
+			return;
+
+			var reader = new FileReader();
+			reader.onload = fileOnload;
+			reader.readAsDataURL(file);
+		}
+	  
+		function fileOnload(e) {
+			var result=e.target.result;
+			$('#imgSalida').attr("src",result);
+		}
+	});
+    	
 	$('#status').change(function (){
 		
 		$('#status').parent('div').removeClass("has-error");
@@ -277,23 +317,7 @@ $(document).ready(function() {
 			swal("Disculpe,", "el usuario debe ser una dirección de correo electrónico válida");
 			$('#username').parent('div').addClass('has-error');
 			
-		}  /*else if ($('#password').val().trim() === "") {
-          
-		   swal("Disculpe,", "para continuar debe ingresar la contraseña");
-	       $('#password').parent('div').addClass('has-error');
-		   
-        } else if ($('#passw1').val().trim() === "") {
-          
-		   swal("Disculpe,", "debe confirmar la contraseña");
-	       $('#passw1').parent('div').addClass('has-error');
-		   
-        } else if ($('#passw1').val().trim() != $('#password').val().trim()) {
-          
-		   swal("Disculpe,", "las contraseñas deben ser iguales");
-	       $('#password').parent('div').addClass('has-error');
-		   $('#passw1').parent('div').addClass('has-error');
-		   
-        } */ else if ($('#profile').val() == '0') {
+		} else if ($('#profile').val() == '0') {
 			
 		  swal("Disculpe,", "para continuar debe seleccionar el perfil");
 	       $('#profile').parent('div').addClass('has-error');
@@ -349,25 +373,6 @@ $(document).ready(function() {
 			//~ console.log(data);
 			
 			$("#data").val(data);
-			
-			//~ alert($("#data").val());
-
-            //~ $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
-//~ 
-				//~ if (response == 'existe') {
-                    //~ swal("Disculpe,", "este nombre de usuario se encuentra registrado");
-                //~ }else{
-					//~ swal({ 
-						//~ title: "Actualizar",
-						 //~ text: "Guardado con exito",
-						  //~ type: "success" 
-						//~ },
-					//~ function(){
-					  //~ window.location.href = '../users';
-					//~ });
-				//~ }
-//~ 
-            //~ });
             
             var formData = new FormData(document.getElementById("form_users"));  // Forma de capturar todos los datos del formulario
 			

@@ -69,9 +69,6 @@ $(document).ready(function() {
 					mensaje = "activado";
 				}
 				
-				//~ alert("código de la factura: "+$("#codfactura").val());
-				//~ alert("motivo de la anulación: "+$("#motivo_anulacion").val());
-				
 				$.post(base_url+'CUser/update_status/' + id, {'accion':accion}, function(response) {
 					swal("El usuario fue "+mensaje+" exitosamente");
 					location.reload();
@@ -103,7 +100,47 @@ $(document).ready(function() {
 	//~ if($("#status").val() != undefined){
 		//~ $("#status").select2('val', $("#id_status").val());
 	//~ }
+	
+	//~ $("#image").fileinput({
+        //~ initialPreview: [
+            //~ '<img src="'+base_url+'assets/img/users/usuario.jpg" class="file-preview-image" alt="Usuario" title="Usuario">',
+        //~ ],
+        //~ browseClass: "btn btn-primary btn-block",
+        //~ browseLabel: "Buscar Imagen",
+        //~ showCaption: false,
+        //~ showRemove: false,
+        //~ maxFileSize: 50,
+        //~ showUpload: false,
+        //~ allowedFileExtensions: ["jpg", "png", "jpeg"],
+        //~ elErrorContainer: "#errorBlock",
+        //~ msgSizeTooLarge: 'Archivo muy pesado "{name}". (<b>{size} KB</b>) excede el tamaño máximo que es de <b>{maxSize} KB',
+        //~ msgInvalidFileExtension: 'Extensiones invalidad "{name}". Solo admite archivos"{extensions}".'
+//~ 
+    //~ });
+    
+    // Función para la pre-visualización de la imagen a cargar
+	$(function() {
+		$('#image').change(function(e) {
+			addImage(e); 
+		});
 
+		function addImage(e){
+			var file = e.target.files[0],
+			imageType = /image.*/;
+
+			if (!file.type.match(imageType))
+			return;
+
+			var reader = new FileReader();
+			reader.onload = fileOnload;
+			reader.readAsDataURL(file);
+		}
+	  
+		function fileOnload(e) {
+			var result=e.target.result;
+			$('#imgSalida').attr("src",result);
+		}
+	});
 	
 	$('#status').change(function (){
 		
@@ -204,103 +241,6 @@ $(document).ready(function() {
 	
 	});
 
-    $("#edit").click(function (e) {
-
-        e.preventDefault();  // Para evitar que se envíe por defecto
-        // Expresion regular para validar el correo
-		var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
-
-        if ($('#name').val().trim() === "") {
-
-          
-		   swal("Disculpe,", "para continuar debe ingresar nombre");
-	       $('#name').parent('div').addClass('has-error');
-        } else if ($('#lastname').val().trim() === "") {
-          
-		   swal("Disculpe,", "para continuar debe ingresar el apellido");
-	       $('#lastname').parent('div').addClass('has-error');
-		   
-        } else if ($('#username').val().trim() === "") {
-          
-		   swal("Disculpe,", "para continuar debe ingresar el nombre de usuario");
-	       $('#username').parent('div').addClass('has-error');
-		   
-        } else if (!(regex.test($('#username').val().trim()))){
-			
-			swal("Disculpe,", "el usuario debe ser una dirección de correo electrónico válida");
-			$('#username').parent('div').addClass('has-error');
-			
-		}  /*else if ($('#password').val().trim() === "") {
-          
-		   swal("Disculpe,", "para continuar debe ingresar la contraseña");
-	       $('#password').parent('div').addClass('has-error');
-		   
-        } else if ($('#passw1').val().trim() === "") {
-          
-		   swal("Disculpe,", "debe confirmar la contraseña");
-	       $('#passw1').parent('div').addClass('has-error');
-		   
-        } else if ($('#passw1').val().trim() != $('#password').val().trim()) {
-          
-		   swal("Disculpe,", "las contraseñas deben ser iguales");
-	       $('#password').parent('div').addClass('has-error');
-		   $('#passw1').parent('div').addClass('has-error');
-		   
-        } */ else if ($('#profile').val() == '0') {
-			
-		  swal("Disculpe,", "para continuar debe seleccionar el perfil");
-	       $('#profile').parent('div').addClass('has-error');
-		   
-		} else {
-			
-			// Construimos la data de permisología leyendo las filas de la tabla
-			var campos= "";
-			var data = [];
-			$("#tab_acciones tbody tr").each(function () {
-				var campo0, campo1, campo2, campo3, campo4, campo5;
-				//~ campo0 = $(this).attr('id');  // Id del usuario
-				campo1 = $(this).find('td').eq(0).text();
-				campo2 = $(this).find('td').eq(1).text();
-				if($(this).find('input').eq(0).is(':checked')){
-					campo3 = '7';
-				}else{
-					campo3 = '0';
-				}
-				if($(this).find('input').eq(1).is(':checked')){
-					campo4 = '7';
-				}else{
-					campo4 = '0';
-				}
-				if($(this).find('input').eq(2).is(':checked')){
-					campo5 = '7';
-				}else{
-					campo5 = '0';
-				}
-				
-				campos = { "id" : campo1, "accion" : campo2, "crear" : campo3, "editar" : campo4, "eliminar" : campo5 },
-				data.push(campos);
-			});
-
-            $.post(base_url+'CUser/update', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val(), 'data':data}), function (response) {
-
-				if (response == 'existe') {
-                    swal("Disculpe,", "este nombre de usuario se encuentra registrado");
-                }else{
-					swal({ 
-						title: "Actualizar",
-						 text: "Guardado con exito",
-						  type: "success" 
-						},
-					function(){
-					  window.location.href = '../users';
-					});
-				}
-
-            });
-        }
-
-    });
-
     $("#registrar").click(function (e) {
 
         e.preventDefault();  // Para evitar que se envíe por defecto
@@ -354,24 +294,6 @@ $(document).ready(function() {
 	       $('#coin_id').parent('div').addClass('has-error');
 		   
 		} else {
-
-            //~ $.post(base_url+'CUser/add', $('#form_users').serialize()+'&'+$.param({'actions_ids':$('#actions_ids').val()}), function (response) {
-//~ 
-				//~ if (response == 'existe') {
-                    //~ swal("Disculpe,", "este nombre de usuario se encuentra registrado");
-                //~ }else{
-					//~ swal({ 
-						//~ title: "Registro",
-						 //~ text: "Guardado con exito",
-						  //~ type: "success"
-						//~ },
-					//~ function(){
-					  //~ window.location.href = 'users';
-					//~ });
-//~ 
-				//~ }
-//~ 
-            //~ });
             
             var formData = new FormData(document.getElementById("form_users"));  // Forma de capturar todos los datos del formulario
 			

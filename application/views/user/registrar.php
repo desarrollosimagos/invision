@@ -1,3 +1,6 @@
+<!-- FooTable -->
+<link href="<?php echo assets_url('css/plugins/fileinput/fileinput.min.css');?>" rel="stylesheet">
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Usuarios </h2>
@@ -25,8 +28,11 @@
 					<form id="form_users" method="post" accept-charset="utf-8" class="form-horizontal" enctype="multipart/form-data">
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Foto *</label>
-							<div class="col-sm-10">
+							<div class="col-sm-4">
 								<input type="file" class="form-control image" placeholder="" name="image[]" id="image" onChange="valida_tipo($(this))">
+							</div>
+							<div class="col-sm-6">
+								<img id="imgSalida" style="height:150px;width:150px;" class="img-circle" src="<?php echo base_url(); ?>assets/img/users/usuario.jpg">
 							</div>
 						</div>
 						<div class="form-group">
@@ -115,4 +121,8 @@
         </div>
     </div>
 </div>
- <script src="<?php echo assets_url('script/users.js'); ?>" type="text/javascript" charset="utf-8" ></script>
+
+<!-- FooTable -->
+<script src="<?php echo assets_url('js/plugins/fileinput/fileinput.min.js');?>"></script>
+
+<script src="<?php echo assets_url('script/users.js'); ?>" type="text/javascript" charset="utf-8" ></script>
