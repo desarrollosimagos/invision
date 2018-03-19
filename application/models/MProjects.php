@@ -242,7 +242,7 @@ class MProjects extends CI_Model {
 		// Almacenamos los ids de los inversores asociados al asesor más su id propio en un array
 		$ids = array($this->session->userdata('logged_in')['id']);
 		$this->db->where('adviser_id', $this->session->userdata('logged_in')['id']);
-        $query_asesor_inversores = $this->db->get('relate_users');
+        $query_asesor_inversores = $this->db->get('user_relations');
         if ($query_asesor_inversores->num_rows() > 0) {
             foreach($query_asesor_inversores->result() as $relacion){
 				$ids[] = $relacion->investor_id;
