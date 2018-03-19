@@ -153,7 +153,7 @@ class CUser extends CI_Controller {
 	// Método para editar
     public function edit() {
 		$this->load->view('base');
-        $data['id'] = $this->uri->segment(2);
+        $data['id'] = $this->uri->segment(3);
 		$data['list_perfil'] = $this->MPerfil->obtener();
 		//~ $data['user_tiendas'] = $this->MUser->obtenerUsersTiendas();
         $data['editar'] = $this->MUser->obtenerUsers($data['id']);

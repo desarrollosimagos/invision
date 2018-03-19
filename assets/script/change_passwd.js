@@ -50,7 +50,7 @@ $(document).ready(function() {
 		   
         } else {
 
-            $.post(base_url+'update_passwd', $('#change_passwd').serialize(), function (response) {
+            $.post(base_url+'users/update_passwd', $('#change_passwd').serialize(), function (response) {
 
 				if (response['response'] == 'error') {
 					

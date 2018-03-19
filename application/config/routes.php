@@ -66,11 +66,11 @@ $route['profile_edit/(:num)'] = 'CPerfil/edit/$1';
 $route['profile_delete/(:num)'] = 'CPerfil/delete/$1';
 /*   Users */
 $route['users'] = 'CUser';
-$route['users_register'] = 'CUser/register';
-$route['users_edit/(:num)'] = 'CUser/edit/$1';
-$route['change_passwd'] = 'CChangePasswd/index';
-$route['update_passwd'] = 'CChangePasswd/update_passwd';
-$route['update_session'] = 'CUser/transcurrido';
+$route['users/register'] = 'CUser/register';
+$route['users/edit/(:num)'] = 'CUser/edit/$1';
+$route['users/change_passwd'] = 'CChangePasswd/index';
+$route['users/update_passwd'] = 'CChangePasswd/update_passwd';
+$route['users/update_session'] = 'CUser/transcurrido';
 /*   Menús */
 $route['menus'] = 'CMenus';
 $route['menus/register'] = 'CMenus/register';

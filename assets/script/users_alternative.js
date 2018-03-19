@@ -83,7 +83,7 @@ $(document).ready(function() {
     });
 
     $('#volver2').click(function () {
-        url = '../users/';
+        url = base_url+'users/';
         window.location = url;
     });
     
