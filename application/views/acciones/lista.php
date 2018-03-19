@@ -18,7 +18,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a href="<?php echo base_url() ?>acciones/register">
+            <a href="<?php echo base_url() ?>actions/register">
             <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button></a>
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -54,7 +54,7 @@
                                     <?php echo $accion->route; ?>
                                 </td>
                                 <td style='text-align: center'>
-                                    <a href="<?php echo base_url() ?>acciones/edit/<?= $accion->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+                                    <a href="<?php echo base_url() ?>actions/edit/<?= $accion->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                 </td>
                                 <td style='text-align: center'>
                                     
@@ -134,7 +134,7 @@
           function(isConfirm){
             if (isConfirm) {
              
-              $.post('<?php echo base_url(); ?>acciones/delete/' + id + '', function (response) {
+              $.post('<?php echo base_url(); ?>actions/delete/' + id + '', function (response) {
 
                  if (response[0] == "e") {
                     
@@ -153,7 +153,7 @@
                           type: "success" 
                         },
                         function(){
-                          window.location.href = '<?php echo base_url(); ?>acciones';
+                          window.location.href = '<?php echo base_url(); ?>actions';
                       });
                     
                     
