@@ -83,9 +83,9 @@
 									<dd class="project-people">
 									<?php foreach($data_investors as $investor){?>
 										<?php if($investor['image'] != '' && $investor['image'] != null){ ?>
-										<a href=""><img class="img-circle" src="<?php echo base_url(); ?>assets/img/users/<?php echo $investor['image']; ?>"></a>
+										<a href=""><img class="img-circle" src="<?php echo base_url(); ?>assets/img/users/<?php echo $investor['image']; ?>" title="<?php echo $investor['username']?>"></a>
 										<?php }else{ ?>
-										<a href=""><img class="img-circle" src="<?php echo base_url(); ?>assets/img/users/usuario.jpg"></a>
+										<a href=""><img class="img-circle" src="<?php echo base_url(); ?>assets/img/users/usuario.jpg" title="<?php echo $investor['username']?>"></a>
 										<?php } ?>
 									<?php } ?>
 									</dd>
