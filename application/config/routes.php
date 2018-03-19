@@ -61,9 +61,9 @@ $route['admin'] = 'Welcome/admin/';
 
 /* Perfiles */
 $route['profile'] = 'CPerfil';
-$route['profile_register'] = 'CPerfil/register';
-$route['profile_edit/(:num)'] = 'CPerfil/edit/$1';
-$route['profile_delete/(:num)'] = 'CPerfil/delete/$1';
+$route['profile/register'] = 'CPerfil/register';
+$route['profile/edit/(:num)'] = 'CPerfil/edit/$1';
+$route['profile/delete/(:num)'] = 'CPerfil/delete/$1';
 /*   Users */
 $route['users'] = 'CUser';
 $route['users/register'] = 'CUser/register';
