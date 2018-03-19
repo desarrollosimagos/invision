@@ -16,7 +16,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a href="<?php echo base_url() ?>users_register">
+            <a href="<?php echo base_url() ?>users/register">
             <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button></a>
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -78,7 +78,7 @@
 											?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>users_edit/<?= $usuario->id; ?>"  title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+                                            <a href="<?php echo base_url() ?>users/edit/<?= $usuario->id; ?>"  title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
 											<?php if ($usuario->status == 1) {?>

@@ -278,7 +278,7 @@ if(isset($this->session->userdata['logged_in']) && $this->router->class != 'Welc
 				
 				// Metodo de verificación de tiempo de sesión cada media hora
 				setInterval(function(){ if($("#active_session").val().trim() != ""){ 
-					$.post('<?php echo base_url(); ?>update_session', {'time_session':$("#time_session").val().trim()}, function (response) {
+					$.post('<?php echo base_url(); ?>users/update_session', {'time_session':$("#time_session").val().trim()}, function (response) {
 						
 					}, 'json').done(function(response2) {
 						
