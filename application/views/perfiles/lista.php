@@ -14,7 +14,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-            <a href="<?php echo base_url() ?>profile_register">
+            <a href="<?php echo base_url() ?>profile/register">
             <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-plus"></i> Agregar</button></a>
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -61,7 +61,7 @@
 											?>
                                         </td>
                                         <td style='text-align: center'>
-                                            <a href="<?php echo base_url() ?>profile_edit/<?= $perfil->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
+                                            <a href="<?php echo base_url() ?>profile/edit/<?= $perfil->id; ?>" title="Editar"><i class="fa fa-edit fa-2x"></i></a>
                                         </td>
                                         <td style='text-align: center'>
                                             
@@ -142,7 +142,7 @@ $(document).ready(function(){
           function(isConfirm){
             if (isConfirm) {
              
-				$.post('<?php echo base_url(); ?>profile_delete/' + id + '', function (response) {
+				$.post('<?php echo base_url(); ?>profile/delete/' + id + '', function (response) {
 					
 					if (response == 'existe') {
 						

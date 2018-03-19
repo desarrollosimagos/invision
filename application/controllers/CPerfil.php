@@ -74,7 +74,7 @@ class CPerfil extends CI_Controller {
 	// Método para editar
     public function edit() {
 		$this->load->view('base');
-        $data['id'] = $this->uri->segment(2);
+        $data['id'] = $this->uri->segment(3);
         $data['editar'] = $this->MPerfil->obtenerPerfiles($data['id']);
         $data['profile_acciones'] = $this->MPerfil->obtener_acciones_id($data['id']);
         $data['acciones'] = $this->MAcciones->obtener_without_home();
