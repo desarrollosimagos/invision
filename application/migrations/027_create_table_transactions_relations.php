@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_transaction_reference extends CI_Migration
+class Migration_create_table_transactions_relations extends CI_Migration
 {
 	public function up(){
 		
@@ -20,7 +20,7 @@ class Migration_create_table_transaction_reference extends CI_Migration
 					"constraint" => 11,
 					"null" => TRUE
 				),
-				"project_transaction_id" => array(
+				"projects_transactions_id" => array(
 					"type" => "INT",
 					"constraint" => 11,
 					"null" => TRUE
