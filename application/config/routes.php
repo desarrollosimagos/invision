@@ -82,10 +82,10 @@ $route['submenus/register'] = 'CSubMenus/register';
 $route['submenus/edit/(:num)'] = 'CSubMenus/edit/$1';
 $route['submenus/delete/(:num)'] = 'CSubMenus/delete/$1';
 /*   Acciones */
-$route['acciones'] = 'CAcciones';
-$route['acciones/register'] = 'CAcciones/register';
-$route['acciones/edit/(:num)'] = 'CAcciones/edit/$1';
-$route['acciones/delete/(:num)'] = 'CAcciones/delete/$1';
+$route['actions'] = 'CAcciones';
+$route['actions/register'] = 'CAcciones/register';
+$route['actions/edit/(:num)'] = 'CAcciones/edit/$1';
+$route['actions/delete/(:num)'] = 'CAcciones/delete/$1';
 /*   Transacciones */
 $route['transactions'] = 'CFondoPersonal';
 $route['transactions/register/(:any)'] = 'CFondoPersonal/register/$1';
