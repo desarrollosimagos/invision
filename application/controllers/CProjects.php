@@ -275,11 +275,24 @@ class CProjects extends CI_Controller {
         $data['project_transactions_gen'] = $this->fondos_json_project($data['id']);
         $data['project_transactions_users'] = $this->fondos_json_users($data['id']);
 		
-		// Proceso de búsqueda de los grupos de inversores asociados al proyecto
+		// Proceso de búsqueda de los inversores asociados al proyecto
 		$investors = $this->MProjects->buscar_inversores($data['id']);
 		$num_investors = count($investors);
 		
 		$data['investors'] = $investors;
+		
+		// Datos base de los inversores
+		$data_investors = array();
+		foreach($investors as $investor){
+			$data_investors[] = array(
+				'username' => $investor->username,
+				'name_user' => $investor->name,
+				'alias' => $investor->alias,
+				'image' => $investor->image
+			);
+		}
+		
+		$data['data_investors'] = $data_investors;
 		
 		// Proceso de búsqueda de transacciones asociados al proyecto para calcular el porcentaje recaudado
 		$transacctions = $this->MProjects->buscar_transacciones($data['id']);
