@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_relate_users extends CI_Migration
+class Migration_create_table_user_relations extends CI_Migration
 {
 	public function up(){
 		
