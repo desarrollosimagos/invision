@@ -4,5 +4,5 @@
 "4","Cuentas","<a ><i class=""fa fa-id-card-o""></i> <span class=""nav-label"">Cuentas</span><span class=""fa arrow""></span></a>","fa fa-id-card-o","accounts","10","4","2017-05-09 10:03:45","0000-00-00 00:00:00"
 "5","Resumen","<a ><i class=""fa fa-bank""></i> <span class=""nav-label"">Resumen</span><span class=""fa arrow""></span></a>","fa fa-bank","resumen","11","1","2017-05-09 10:03:45","0000-00-00 00:00:00"
 "6","Tipos de Moneda","<a ><i class=""fa fa-usd""></i> <span class=""nav-label"">Tipos de Moneda</span><span class=""fa arrow""></span></a>","fa fa-usd","coins","12","5","2017-05-09 10:03:45","0000-00-00 00:00:00"
-"7","Cambiar Contraseña","<a ><i class=""fa fa-lock""></i> <span class=""nav-label"">Cambiar Contraseña</span><span class=""fa arrow""></span></a>","fa fa-lock","change_passwd","14","8","2017-05-09 10:03:45","0000-00-00 00:00:00"
+"7","Cambiar Contraseña","<a ><i class=""fa fa-lock""></i> <span class=""nav-label"">Cambiar Contraseña</span><span class=""fa arrow""></span></a>","fa fa-lock","users/change_passwd","14","8","2017-05-09 10:03:45","0000-00-00 00:00:00"
 "8","Proyectos","<a ><i class=""fa fa-file""></i> <span class=""nav-label"">Proyectos</span><span class=""fa arrow""></span></a>","fa fa-file","projects","16","3","2017-05-09 10:03:45","0000-00-00 00:00:00"
