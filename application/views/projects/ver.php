@@ -81,11 +81,13 @@
 								<dl class="dl-horizontal" >
 									<dt></dt>
 									<dd class="project-people">
-									<a href=""><img class="img-circle" src="img/a3.jpg"></a>
-									<a href=""><img class="img-circle" src="img/a1.jpg"></a>
-									<a href=""><img class="img-circle" src="img/a2.jpg"></a>
-									<a href=""><img class="img-circle" src="img/a4.jpg"></a>
-									<a href=""><img class="img-circle" src="img/a5.jpg"></a>
+									<?php foreach($data_investors as $investor){?>
+										<?php if($investor['image'] != '' && $investor['image'] != null){ ?>
+										<a href=""><img class="img-circle" src="<?php echo base_url(); ?>assets/img/users/<?php echo $investor['image']; ?>"></a>
+										<?php }else{ ?>
+										<a href=""><img class="img-circle" src="<?php echo base_url(); ?>assets/img/users/usuario.jpg"></a>
+										<?php } ?>
+									<?php } ?>
 									</dd>
 								</dl>
 							</div>
@@ -308,7 +310,7 @@
 							</td>
 							<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 2){ ?>
 							<td>
-								<?php echo $transact->cuenta; ?>
+								<?php echo $transact->alias; ?>
 							</td>
 							<?php } ?>
 							<td>

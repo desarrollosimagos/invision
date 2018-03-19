@@ -144,10 +144,11 @@ class MProjects extends CI_Model {
 
     // Public method to serach the investors associated
     public function buscar_inversores($project_id) {
-        $this->db->select('i_g.name');
+        $this->db->select('i_g.name, u.username, u.name as name_user, u.alias, u.image');
 		$this->db->from('investor_groups i_g');
 		$this->db->join('investor_groups_projects i_g_p', 'i_g_p.group_id = i_g.id');
 		$this->db->join('investor_groups_users i_g_u', 'i_g_u.group_id = i_g.id');
+		$this->db->join('users u', 'u.id = i_g_u.user_id');
 		$this->db->where('i_g_p.project_id', $project_id);
 		$query = $this->db->get();
 		
@@ -248,7 +249,7 @@ class MProjects extends CI_Model {
 			}
 		}
 		
-		$select = 'pt.id, pt.user_id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username, c.cuenta, ';
+		$select = 'pt.id, pt.user_id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username, c.alias, ';
 		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, u.name, u.alias';
 		
 		$this->db->select($select);
