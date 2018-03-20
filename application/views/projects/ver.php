@@ -346,7 +346,7 @@
 	<!-- Cuerpo de la sección de transacciones por usuario-->
 	<div class="ibox float-e-margins">
 		<div class="ibox-title">
-			<h5>Transactions by user</h5>
+			<h5>User Summary</h5>
 			
 			<div class="ibox-tools">
 				<a class="collapse-link">

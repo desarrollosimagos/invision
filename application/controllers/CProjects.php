@@ -747,6 +747,8 @@ class CProjects extends CI_Controller {
 				
 			}
 			
+			//~ $reglas = $this->MProjects->buscar_rules($project_type);  // Listado de reglas
+			
 			if($fondo->status == 'approved'){
 				if($fondo->tipo == 'deposit'){
 					$resumen['capital_invested'] += $trans_usd;
