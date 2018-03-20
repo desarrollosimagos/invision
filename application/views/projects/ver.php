@@ -130,16 +130,20 @@
 									<div class="ibox">
 										<div class="ibox-content">
 											<h5>Payback</h5>
-											<h1 class="no-margins">
+											<!--<h1 class="no-margins">
 												<?php 
-												$payback = explode(" ", $project_transactions_gen->capital_payback);
-												$invested = explode(" ", $project_transactions_gen->capital_invested);
-												$result = (string)$payback[0]."/".(string)$invested[0];
+												//~ $payback = explode(" ", $project_transactions_gen->capital_payback);
+												//~ $invested = explode(" ", $project_transactions_gen->capital_invested);
+												//~ $result = (string)$payback[0]."/".(string)$invested[0];
 												?>
-												<span class="pie"><?php echo $result; ?></span>
-											</h1>
-											<div class="stat-percent font-bold text-danger">24% <i class="fa fa-level-down"></i></div>
-											<small>Total income</small>
+												<span class="pie"><?php //echo $result; ?></span>
+											</h1>-->
+											<h2><?php echo $project_transactions_gen->capital_payback; ?>%</h2>
+											<div class="progress progress-mini">
+												<div style="width: <?php echo $project_transactions_gen->capital_payback; ?>%;" class="progress-bar"></div>
+											</div>
+											<!--<div class="stat-percent font-bold text-danger">24% <i class="fa fa-level-down"></i></div>-->
+											<!--<small><?php echo $result; ?></small>-->
 										</div>
 									</div>
 								</div>
@@ -150,8 +154,14 @@
 											<h1 class="no-margins" style="font-size:25px;">
 											<?php echo $project_transactions_gen->capital_invested; ?>
 											</h1>
-											<div class="stat-percent font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
-											<small>Total income</small>
+											<!--<div class="stat-percent font-bold text-navy">98% <i class="fa fa-bolt"></i></div>-->
+											<small>
+											<?php
+											if($ver[0]->coin_avr != $this->session->userdata('logged_in')['coin_iso']){
+												echo $project_transactions_gen->capital_invested_user; 
+											}
+											?>
+											</small>
 										</div>
 									</div>
 								</div>
@@ -162,8 +172,14 @@
 											<h1 class="no-margins" style="font-size:25px;">
 											<?php echo $project_transactions_gen->returned_capital; ?>
 											</h1>
-											<div class="stat-percent font-bold text-danger">12% <i class="fa fa-level-down"></i></div>
-											<small>Total income</small>
+											<!--<div class="stat-percent font-bold text-danger">12% <i class="fa fa-level-down"></i></div>-->
+											<small>
+											<?php
+											if($ver[0]->coin_avr != $this->session->userdata('logged_in')['coin_iso']){
+												echo $project_transactions_gen->returned_capital_user;
+											}
+											?>
+											</small>
 										</div>
 									</div>
 								</div>
@@ -174,8 +190,14 @@
 											<h1 class="no-margins" style="font-size:25px;">
 											<?php echo $project_transactions_gen->retirement_capital_available; ?>
 											</h1>
-											<div class="stat-percent font-bold text-danger">24% <i class="fa fa-level-down"></i></div>
-											<small>Total income</small>
+											<!--<div class="stat-percent font-bold text-danger">24% <i class="fa fa-level-down"></i></div>-->
+											<small>
+											<?php
+											if($ver[0]->coin_avr != $this->session->userdata('logged_in')['coin_iso']){
+												echo $project_transactions_gen->retirement_capital_available_user;
+											}
+											?>
+											</small>
 										</div>
 									</div>
 								</div>

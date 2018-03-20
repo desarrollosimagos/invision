@@ -703,17 +703,17 @@ class CProjects extends CI_Controller {
 		
 		if ($data_project[0]->coin_avr == 'BTC') {
 		
-			//~ $currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
 			$currency_project = 1/(float)$valor1btc;  // Tipo de moneda del proyecto
 			
 		} else if($data_project[0]->coin_avr == 'VEF') {
 		
-			//~ $currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
 			$currency_project = $valor1vef;  // Tipo de moneda del proyecto
 		
 		} else {
 			
-			//~ $currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
 			$currency_project = $exchangeRates['rates'][$data_project[0]->coin_avr];  // Tipo de moneda del proyecto
 			
 		}
@@ -724,7 +724,11 @@ class CProjects extends CI_Controller {
 			'capital_payback' => 0,
 			'capital_invested' => 0,
 			'returned_capital' => 0,
-			'retirement_capital_available' => 0
+			'retirement_capital_available' => 0,
+			'capital_payback_user' => 0,
+			'capital_invested_user' => 0,
+			'returned_capital_user' => 0,
+			'retirement_capital_available_user' => 0
 		);
 			
 		foreach($fondos_details as $fondo){
@@ -751,19 +755,25 @@ class CProjects extends CI_Controller {
 				
 				if($fondo->tipo == 'deposit'){
 					$resumen['capital_invested'] += $trans_usd;
+					$resumen['capital_invested_user'] += $trans_usd;
 					// Validación de reglas
 					$variable1 = "projects.type"; $condicional = "="; $variable2 = $data_project[0]->type; $segmento = "deposit";
 					$reglas = $this->MProjects->buscar_rules($variable1, $condicional, $variable2, $segmento);  // Listado de reglas
 					if($reglas[0]->result == "true"){
 						$resumen['retirement_capital_available'] += $trans_usd;
+						$resumen['retirement_capital_available_user'] += $trans_usd;
 					}
 				}else if($fondo->tipo == 'profit'){
 					$resumen['returned_capital'] += $trans_usd;
+					$resumen['returned_capital_user'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
+					$resumen['retirement_capital_available_user'] += $trans_usd;
 				}else if($fondo->tipo == 'expense'){
 					$resumen['retirement_capital_available'] += $trans_usd;
+					$resumen['retirement_capital_available_user'] += $trans_usd;
 				}else if($fondo->tipo == 'withdraw'){
 					$resumen['retirement_capital_available'] += $trans_usd;
+					$resumen['retirement_capital_available_user'] += $trans_usd;
 				}
 			}
 			
@@ -772,16 +782,18 @@ class CProjects extends CI_Controller {
 		$decimals = 2;
 		if($this->session->userdata('logged_in')['coin_decimals'] != ""){
 			$decimals = $data_project[0]->coin_decimals;
+			$decimals_user = $this->session->userdata('logged_in')['coin_decimals'];
 		}
-		$symbol = $data_project[0]->coin_avr;
+		$symbol = $data_project[0]->coin_symbol;
+		$symbol_user = $this->session->userdata('logged_in')['coin_symbol'];
 		
 		// Cálculo del capital payback (Porcentaje del capital de retorno con respecto al capital invertido)
-		$resumen['capital_payback'] = $resumen['returned_capital']*$resumen['capital_invested']/100;
+		$resumen['capital_payback'] = $resumen['returned_capital']*100/$resumen['capital_invested'];
 		
-		// Conversión de los montos a la divisa del usuario
-		$resumen['capital_payback'] *= $currency_project; 
+		// Conversión de los montos a la divisa del proyecto
+		//~ $resumen['capital_payback'] *= $currency_project;
 		$resumen['capital_payback'] = round($resumen['capital_payback'], $decimals);
-		$resumen['capital_payback'] = $resumen['capital_payback']." ".$symbol;
+		//~ $resumen['capital_payback'] = $resumen['capital_payback']." ".$symbol;
 		
 		$resumen['capital_invested'] *= $currency_project; 
 		$resumen['capital_invested'] = round($resumen['capital_invested'], $decimals);
@@ -794,6 +806,19 @@ class CProjects extends CI_Controller {
 		$resumen['retirement_capital_available'] *= $currency_project; 
 		$resumen['retirement_capital_available'] = round($resumen['retirement_capital_available'], $decimals);
 		$resumen['retirement_capital_available'] = $resumen['retirement_capital_available']." ".$symbol;
+		
+		// Conversión de los montos a la divisa del usuario
+		$resumen['capital_invested_user'] *= $currency_user; 
+		$resumen['capital_invested_user'] = round($resumen['capital_invested_user'], $decimals_user);
+		$resumen['capital_invested_user'] = $resumen['capital_invested_user']." ".$symbol_user;
+		
+		$resumen['returned_capital_user'] *= $currency_user; 
+		$resumen['returned_capital_user'] = round($resumen['returned_capital_user'], $decimals_user);
+		$resumen['returned_capital_user'] = $resumen['returned_capital_user']." ".$symbol_user;
+		
+		$resumen['retirement_capital_available_user'] *= $currency_user; 
+		$resumen['retirement_capital_available_user'] = round($resumen['retirement_capital_available_user'], $decimals_user);
+		$resumen['retirement_capital_available_user'] = $resumen['retirement_capital_available_user']." ".$symbol_user;
 		
         return json_decode(json_encode($resumen), false);  // Esto retorna un arreglo de objetos
     }
