@@ -86,7 +86,7 @@
 												if($grupo->id == $group_account->group_id){
 													foreach ($accounts as $account){
 														if($group_account->account_id == $account->id){
-															echo $account->cuenta." - ".$account->numero." - ".$account->coin_symbol."<br>";
+															echo $account->alias." - ".$account->number." - ".$account->coin_symbol."<br>";
 														}else{
 															echo "";
 														}

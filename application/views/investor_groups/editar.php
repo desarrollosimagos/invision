@@ -84,11 +84,11 @@
 										// Si el id de la cuenta está en el arreglo lo marcamos, si no, se imprime normalmente
 										if(in_array($account->id, $ids_accounts)){
 										?>
-										<option selected="selected" value="<?php echo $account->id; ?>"><?php echo $account->cuenta." - ".$account->numero; ?></option>
+										<option selected="selected" value="<?php echo $account->id; ?>"><?php echo $account->alias." - ".$account->number; ?></option>
 										<?php
 										}else{
 										?>
-										<option value="<?php echo $account->id; ?>"><?php echo $account->cuenta." - ".$account->numero; ?></option>
+										<option value="<?php echo $account->id; ?>"><?php echo $account->alias." - ".$account->number; ?></option>
 										<?php
 										}
 									}
