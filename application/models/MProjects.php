@@ -165,6 +165,13 @@ class MProjects extends CI_Model {
 		
         return $query->result();
     }
+    
+    // Public method to serach the rules
+    public function buscar_rules($project_type) {
+		//~ $result = $this->db->where('project_id =', $project_type);
+        $result = $this->db->get('projects_rules');
+        return $result->result();
+    }
 
     // Public method to obtain the projects by id
     public function obtenerProyecto($id) {
