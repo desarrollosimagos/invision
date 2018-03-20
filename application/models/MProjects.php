@@ -14,9 +14,10 @@ class MProjects extends CI_Model {
     //Public method to obtain the projects
     public function obtener() {
 		
-		$this->db->select('pj.id, pj.name, pj.description, p_t.type as type, pj.valor, pj.amount_r, pj.amount_min, pj.amount_max, pj.date, pj.date_r, pj.date_v, pj.status');
+		$this->db->select('pj.id, pj.name, pj.description, p_t.type as type, pj.valor, pj.amount_r, pj.amount_min, pj.amount_max, pj.date, pj.date_r, pj.date_v, pj.status, c.description as coin, c.abbreviation as coin_avr, c.symbol as coin_symbol');
 		$this->db->from('projects pj');
 		$this->db->join('project_types p_t', 'p_t.id = pj.type');
+		$this->db->join('coins c', 'c.id = pj.coin_id');
 		$this->db->order_by("pj.id", "desc");
 		$query = $this->db->get();
 
@@ -169,11 +170,13 @@ class MProjects extends CI_Model {
     public function obtenerProyecto($id) {
 		
 		$select = 'p.id, p.name, p.description, p.valor, p.type, p.amount_r, p.amount_min, p.amount_max, ';
-		$select .= 'p.public, p.status, p.date, p.date_r, p.date_v, p.d_create, p.d_update';
+		$select .= 'p.public, p.coin_id, p.status, p.date, p.date_r, p.date_v, p.d_create, p.d_update, ';
+		$select .= 'c.description as coin, c.abbreviation as coin_avr, c.symbol as coin_symbol, c.decimals as coin_decimals';
 		
 		$this->db->select($select);
 		$this->db->from('projects p');
 		//~ $this->db->join('users u', 'u.id = p.user_id');
+		$this->db->join('coins c', 'c.id = p.coin_id');
 		$this->db->where('p.id', $id);
 		$query = $this->db->get();
         if ($query->num_rows() > 0)

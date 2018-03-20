@@ -66,6 +66,7 @@ class CProjects extends CI_Controller {
 				'date' => $proyecto->date,
 				'date_r' => $proyecto->date_r,
 				'date_v' => $proyecto->date_v,
+				'coin' => $proyecto->coin_avr." (".$proyecto->coin.")",
 				'status' => $proyecto->status,
 				'num_fotos' => $num_fotos,
 				'num_news' => $num_news,
@@ -128,8 +129,9 @@ class CProjects extends CI_Controller {
             'date_r' => $fecha_r,
             'date_v' => $fecha_v,
             'public' => $publico,
+            'coin_id' => $this->input->post('coin_id'),
             'status' => 1,
-            'user_id' => $this->session->userdata('logged_in')['id'],
+            //~ 'user_id' => $this->session->userdata('logged_in')['id'],
             'd_create' => date('Y-m-d H:i:s')
         );
         
@@ -312,6 +314,7 @@ class CProjects extends CI_Controller {
 		$this->load->view('base');
         $data['id'] = $this->uri->segment(3);
         $data['editar'] = $this->MProjects->obtenerProyecto($data['id']);
+        $data['monedas'] = $this->MCoins->obtener();
         $data['fotos_asociadas'] = $this->MProjects->obtenerFotos($data['id']);
         $data['documentos_asociados'] = $this->MProjects->obtenerDocumentos($data['id']);
         $data['lecturas_asociadas'] = $this->MProjects->obtenerLecturas($data['id']);
@@ -353,6 +356,7 @@ class CProjects extends CI_Controller {
             'date_r' => $fecha_r,
             'date_v' => $fecha_v,
             'public' => $publico,
+            'coin_id' => $this->input->post('coin_id'),
             'd_update' => date('Y-m-d H:i:s')
 		);
 		
@@ -512,6 +516,9 @@ class CProjects extends CI_Controller {
     // Método que consulta las transacciones asociadas a un proyecto
     public function fondos_json_users($project_id)
     {
+		
+		$data_project = $this->MProjects->obtenerProyecto($project_id);  // Datos del proyecto
+		
 		// Obtenemos el valor en dólares de las disitntas divisas
 		$get = file_get_contents("https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664");
 		// Se decodifica la respuesta JSON
@@ -530,17 +537,17 @@ class CProjects extends CI_Controller {
 		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
 		$valor1vef = $exchangeRates3['USD']['transferencia'];
 		
-		if ($this->session->userdata('logged_in')['coin_iso'] == 'BTC') {
+		if ($data_project[0]->coin_avr == 'BTC') {
 		
-			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			$currency_project = 1/(float)$valor1btc;  // Tipo de moneda del proyecto
 			
-		} else if($this->session->userdata('logged_in')['coin_iso'] == 'VEF') {
+		} else if($data_project[0]->coin_avr == 'VEF') {
 		
-			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+			$currency_project = $valor1vef;  // Tipo de moneda del proyecto
 		
 		} else {
 			
-			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+			$currency_project = $exchangeRates['rates'][$data_project[0]->coin_avr];  // Tipo de moneda del proyecto
 			
 		}
 		
@@ -630,36 +637,36 @@ class CProjects extends CI_Controller {
 			
 			$decimals = 2;
 			if($this->session->userdata('logged_in')['coin_decimals'] != ""){
-				$decimals = $this->session->userdata('logged_in')['coin_decimals'];
+				$decimals = $data_project[0]->coin_decimals;
 			}
-			$symbol = $this->session->userdata('logged_in')['coin_symbol'];
+			$symbol = $data_project[0]->coin_avr;
 			
 			// Conversión de los montos a la divisa del usuario
-			$resumen_user['capital_invested'] *= $currency_user; 
+			$resumen_user['capital_invested'] *= $currency_project; 
 			$resumen_user['capital_invested'] = round($resumen_user['capital_invested'], $decimals);
 			$resumen_user['capital_invested'] = $resumen_user['capital_invested']." ".$symbol;
 			
-			$resumen_user['returned_capital'] *= $currency_user; 
+			$resumen_user['returned_capital'] *= $currency_project; 
 			$resumen_user['returned_capital'] = round($resumen_user['returned_capital'], $decimals);
 			$resumen_user['returned_capital'] = $resumen_user['returned_capital']." ".$symbol;
 			
-			$resumen_user['retirement_capital_available'] *= $currency_user; 
+			$resumen_user['retirement_capital_available'] *= $currency_project; 
 			$resumen_user['retirement_capital_available'] = round($resumen_user['retirement_capital_available'], $decimals);
 			$resumen_user['retirement_capital_available'] = $resumen_user['retirement_capital_available']." ".$symbol;
 			
-			$resumen_user['pending_capital'] *= $currency_user; 
+			$resumen_user['pending_capital'] *= $currency_project; 
 			$resumen_user['pending_capital'] = round($resumen_user['pending_capital'], $decimals);
 			$resumen_user['pending_capital'] = $resumen_user['pending_capital']." ".$symbol;
 			
-			$resumen_user['pending_entry'] *= $currency_user; 
+			$resumen_user['pending_entry'] *= $currency_project; 
 			$resumen_user['pending_entry'] = round($resumen_user['pending_entry'], $decimals);
 			$resumen_user['pending_entry'] = $resumen_user['pending_entry']." ".$symbol;
 			
-			$resumen_user['pending_exit'] *= $currency_user; 
+			$resumen_user['pending_exit'] *= $currency_project; 
 			$resumen_user['pending_exit'] = round($resumen_user['pending_exit'], $decimals);
 			$resumen_user['pending_exit'] = $resumen_user['pending_exit']." ".$symbol;
 			
-			$resumen_user['approved_capital'] *= $currency_user; 
+			$resumen_user['approved_capital'] *= $currency_project; 
 			$resumen_user['approved_capital'] = round($resumen_user['approved_capital'], $decimals);
 			$resumen_user['approved_capital'] = $resumen_user['approved_capital']." ".$symbol;
 			
@@ -673,6 +680,9 @@ class CProjects extends CI_Controller {
     
 	public function fondos_json_project($project_id)
     {
+		
+		$data_project = $this->MProjects->obtenerProyecto($project_id);  // Datos del proyecto
+		
 		// Obtenemos el valor en dólares de las disitntas divisas
 		$get = file_get_contents("https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664");
 		// Se decodifica la respuesta JSON
@@ -691,17 +701,20 @@ class CProjects extends CI_Controller {
 		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
 		$valor1vef = $exchangeRates3['USD']['transferencia'];
 		
-		if ($this->session->userdata('logged_in')['coin_iso'] == 'BTC') {
+		if ($data_project[0]->coin_avr == 'BTC') {
 		
-			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			//~ $currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			$currency_project = 1/(float)$valor1btc;  // Tipo de moneda del proyecto
 			
-		} else if($this->session->userdata('logged_in')['coin_iso'] == 'VEF') {
+		} else if($data_project[0]->coin_avr == 'VEF') {
 		
-			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+			//~ $currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+			$currency_project = $valor1vef;  // Tipo de moneda del proyecto
 		
 		} else {
 			
-			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+			//~ $currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+			$currency_project = $exchangeRates['rates'][$data_project[0]->coin_avr];  // Tipo de moneda del proyecto
 			
 		}
         
@@ -752,27 +765,27 @@ class CProjects extends CI_Controller {
 		
 		$decimals = 2;
 		if($this->session->userdata('logged_in')['coin_decimals'] != ""){
-			$decimals = $this->session->userdata('logged_in')['coin_decimals'];
+			$decimals = $data_project[0]->coin_decimals;
 		}
-		$symbol = $this->session->userdata('logged_in')['coin_symbol'];
+		$symbol = $data_project[0]->coin_avr;
 		
 		// Cálculo del capital payback (Porcentaje del capital de retorno con respecto al capital invertido)
 		$resumen['capital_payback'] = $resumen['returned_capital']*$resumen['capital_invested']/100;
 		
 		// Conversión de los montos a la divisa del usuario
-		$resumen['capital_payback'] *= $currency_user; 
+		$resumen['capital_payback'] *= $currency_project; 
 		$resumen['capital_payback'] = round($resumen['capital_payback'], $decimals);
 		$resumen['capital_payback'] = $resumen['capital_payback']." ".$symbol;
 		
-		$resumen['capital_invested'] *= $currency_user; 
+		$resumen['capital_invested'] *= $currency_project; 
 		$resumen['capital_invested'] = round($resumen['capital_invested'], $decimals);
 		$resumen['capital_invested'] = $resumen['capital_invested']." ".$symbol;
 		
-		$resumen['returned_capital'] *= $currency_user; 
+		$resumen['returned_capital'] *= $currency_project; 
 		$resumen['returned_capital'] = round($resumen['returned_capital'], $decimals);
 		$resumen['returned_capital'] = $resumen['returned_capital']." ".$symbol;
 		
-		$resumen['retirement_capital_available'] *= $currency_user; 
+		$resumen['retirement_capital_available'] *= $currency_project; 
 		$resumen['retirement_capital_available'] = round($resumen['retirement_capital_available'], $decimals);
 		$resumen['retirement_capital_available'] = $resumen['retirement_capital_available']." ".$symbol;
 		

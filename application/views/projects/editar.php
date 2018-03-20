@@ -49,7 +49,7 @@
 										<label class="col-sm-2 control-label" >Descripción</label>
 										<div class="col-sm-10">
 											<!--<input type="text" class="form-control" name="description" id="description" maxlength="150" value="<?php echo $editar[0]->descripcion; ?>">-->
-											<textarea name="description" id="description" cols="52"><?php echo $editar[0]->description; ?></textarea>
+											<textarea cols="46" name="description" id="description" cols="52"><?php echo $editar[0]->description; ?></textarea>
 										</div>
 									</div>
 									<div class="form-group">
@@ -68,6 +68,17 @@
 										<label class="col-sm-2 control-label" >Monto Máximo</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" name="amount_max" id="amount_max" value="<?php echo $editar[0]->amount_max; ?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" >Moneda *</label>
+										<div class="col-sm-6">
+											<select class="form-control m-b" name="coin_id" id="coin_id">
+												<option value="0" selected="">Seleccione</option>
+												<?php foreach($monedas as $moneda){?>
+												<option value="<?php echo $moneda->id; ?>"><?php echo $moneda->abbreviation." (".$moneda->description.")"; ?></option>
+												<?php }?>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -594,6 +605,7 @@
 							<div class="col-sm-12">
 								<input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
 								<input id="id_tipo" type="hidden" value="<?php echo $editar[0]->type ?>"/>
+								<input id="id_coin" type='hidden' value="<?php echo $editar[0]->coin_id; ?>"/>
 								<button class="btn btn-white" id="volver" type="button">Volver</button>
 								<button class="btn btn-primary" id="edit" type="submit">Guardar</button>
 							</div>
@@ -643,6 +655,7 @@ $(document).ready(function(){
     $("#amount_max").numeric(); //Valida solo permite valores numéricos
     
     $("#type").select2('val', $("#id_tipo").val());
+    $("#coin_id").select2('val', $("#id_coin").val());
 	
 	// Al hacer click en el botón de guardado
     $("#edit").click(function (e) {
@@ -661,7 +674,12 @@ $(document).ready(function(){
 			swal("Disculpe,", "para continuar debe ingresar el valor del proyecto");
 			$('#valor').parent('div').addClass('has-error');
 			
-        } else if ($('#date').val().trim() === "") {
+        } else if ($('#coin_id').val() == '0') {
+			
+		  swal("Disculpe,", "para continuar debe seleccionar la moneda");
+	       $('#coin_id').parent('div').addClass('has-error');
+		   
+		} else if ($('#date').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar la fecha del proyecto");
 			$('#date').parent('div').addClass('has-error');
 			
