@@ -296,10 +296,10 @@ class CProjects extends CI_Controller {
 		
 		// Proceso de búsqueda de transacciones asociados al proyecto para calcular el porcentaje recaudado
 		$transacctions = $this->MProjects->buscar_transacciones($data['id']);
-		if($data['ver'][0]->amount_r != null){
+		if($data['ver'][0]->amount_r != null && $data['ver'][0]->amount_r > 0){
 			$porcentaje = (float)$transacctions[0]->ingresos/(float)$data['ver'][0]->amount_r*100;
 		}else{
-			$porcentaje = "null";
+			$porcentaje = 0;
 		}
 		
 		$data['porcentaje_r'] = $porcentaje;
@@ -747,12 +747,16 @@ class CProjects extends CI_Controller {
 				
 			}
 			
-			//~ $reglas = $this->MProjects->buscar_rules($project_type);  // Listado de reglas
-			
 			if($fondo->status == 'approved'){
+				
 				if($fondo->tipo == 'deposit'){
 					$resumen['capital_invested'] += $trans_usd;
-					$resumen['retirement_capital_available'] += $trans_usd;
+					// Validación de reglas
+					$variable1 = "projects.type"; $condicional = "="; $variable2 = $data_project[0]->type; $segmento = "deposit";
+					$reglas = $this->MProjects->buscar_rules($variable1, $condicional, $variable2, $segmento);  // Listado de reglas
+					if($reglas[0]->result == "true"){
+						$resumen['retirement_capital_available'] += $trans_usd;
+					}
 				}else if($fondo->tipo == 'profit'){
 					$resumen['returned_capital'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
