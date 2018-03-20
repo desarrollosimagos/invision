@@ -49,7 +49,7 @@
 									<div class="form-group"><label class="col-sm-2 control-label" >Descripción</label>
 										<div class="col-sm-10">
 											<!--<input type="text" class="form-control" name="description" maxlength="150" id="description">-->
-											<textarea name="description" id="description" cols="52"></textarea>
+											<textarea cols="46" name="description" id="description" cols="52"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
@@ -68,6 +68,17 @@
 										<label class="col-sm-2 control-label" >Monto Máximo</label>
 										<div class="col-sm-10">
 											<input type="text" class="form-control" name="amount_max" id="amount_max">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label" >Moneda *</label>
+										<div class="col-sm-6">
+											<select class="form-control m-b" name="coin_id" id="coin_id">
+												<option value="0" selected="">Seleccione</option>
+												<?php foreach($monedas as $moneda){?>
+												<option value="<?php echo $moneda->id; ?>"><?php echo $moneda->abbreviation." (".$moneda->description.")"; ?></option>
+												<?php }?>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -361,7 +372,12 @@ $(document).ready(function(){
 			swal("Disculpe,", "para continuar debe ingresar el valor del proyecto");
 			$('#valor').parent('div').addClass('has-error');
 			
-        } else if ($('#date').val().trim() === "") {
+        } else if ($('#coin_id').val() == '0') {
+			
+		  swal("Disculpe,", "para continuar debe seleccionar la moneda");
+	       $('#coin_id').parent('div').addClass('has-error');
+		   
+		} else if ($('#date').val().trim() === "") {
 			swal("Disculpe,", "para continuar debe ingresar la fecha del proyecto");
 			$('#date').parent('div').addClass('has-error');
 			

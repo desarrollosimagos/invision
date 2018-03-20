@@ -63,6 +63,11 @@ class Migration_create_table_projects extends CI_Migration
 					"constraint" => 11,
 					"null" => TRUE
 				),
+				"coin_id" => array(
+					"type" => "INT",
+					"constraint" => 11,
+					"null" => TRUE
+				),
 				"status" => array(
 					"type" => "INT",
 					"constraint" => 11,
@@ -85,6 +90,8 @@ class Migration_create_table_projects extends CI_Migration
 		);
 		
 		$this->dbforge->add_key('id', TRUE);  // Establecemos el id como primary_key
+		
+		$this->dbforge->add_key('coin_id');  // Establecemos el coin_id como key
 		
 		$this->dbforge->create_table('projects', TRUE);
 		
