@@ -169,11 +169,11 @@ class MProjects extends CI_Model {
     public function obtenerProyecto($id) {
 		
 		$select = 'p.id, p.name, p.description, p.valor, p.type, p.amount_r, p.amount_min, p.amount_max, ';
-		$select .= 'p.public, p.status, u.username, p.date, p.date_r, p.date_v, p.d_create, p.d_update';
+		$select .= 'p.public, p.status, p.date, p.date_r, p.date_v, p.d_create, p.d_update';
 		
 		$this->db->select($select);
 		$this->db->from('projects p');
-		$this->db->join('users u', 'u.id = p.user_id');
+		//~ $this->db->join('users u', 'u.id = p.user_id');
 		$this->db->where('p.id', $id);
 		$query = $this->db->get();
         if ($query->num_rows() > 0)

@@ -64,7 +64,7 @@
 						<div class="row">
 							<div class="col-lg-5">
 								<dl class="dl-horizontal">
-									<dt>Created by:</dt> <dd><?php echo $ver[0]->username; ?></dd>
+									<dt>Created by:</dt> <dd><?php //echo $ver[0]->username; ?></dd>
 									<dt>Invest:</dt> <dd>  <?php echo count($investors); ?></dd>
 								</dl>
 							</div>

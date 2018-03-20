@@ -5,8 +5,6 @@ class CProjects extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
-
-
        
 		// Load database
         $this->load->model('MProjects');
