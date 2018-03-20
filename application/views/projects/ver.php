@@ -306,7 +306,7 @@
 								<?php echo $transact->descripcion; ?>
 							</td>
 							<td>
-								<?php echo $transact->monto; ?>
+								<?php echo $transact->monto."  ".$transact->coin_avr; ?>
 							</td>
 							<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 2){ ?>
 							<td>
