@@ -61,7 +61,7 @@
 									<?php
 									foreach ($accounts as $account) {
 										?>
-										<option value="<?php echo $account->id; ?>"><?php echo $account->cuenta." - ".$account->numero; ?></option>
+										<option value="<?php echo $account->id; ?>"><?php echo $account->alias." - ".$account->number; ?></option>
 										<?php
 									}
 									?>
