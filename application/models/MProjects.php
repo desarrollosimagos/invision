@@ -167,8 +167,11 @@ class MProjects extends CI_Model {
     }
     
     // Public method to serach the rules
-    public function buscar_rules($project_type) {
-		//~ $result = $this->db->where('project_id =', $project_type);
+    public function buscar_rules($variable1, $condicional, $variable2, $segmento) {
+		$result = $this->db->where('var1', $variable1);
+		$result = $this->db->where('cond', $condicional);
+		$result = $this->db->where('var2', $variable2);
+		$result = $this->db->where('segment', $segmento);
         $result = $this->db->get('projects_rules');
         return $result->result();
     }

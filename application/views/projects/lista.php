@@ -156,7 +156,7 @@
 							<?php } ?>
 						</td>
 						<td class="project-title">
-							<a href="project_detail.html"><?php echo $proyecto->name; ?></a>
+							<a href="<?php echo base_url() ?>projects/view/<?= $proyecto->id; ?>"><?php echo $proyecto->name; ?></a>
 							<br/>
 							<small>Created <?php echo $proyecto->date; ?></small>
 							<br>
