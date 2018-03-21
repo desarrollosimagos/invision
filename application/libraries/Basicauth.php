@@ -114,8 +114,8 @@ Class Basicauth
 					'time' => $fecha_actual  // Hora del acceso
 				);
 				
-				// Consultamos si hay sesiones registradas para el usuario en 'users_sessions'
-				$query_session = $this->CI->db->query("SELECT * FROM users_sessions WHERE user_id=".$query->row()->id);
+				// Consultamos si hay sesiones registradas para el usuario en 'user_sessions'
+				$query_session = $this->CI->db->query("SELECT * FROM user_sessions WHERE user_id=".$query->row()->id);
 				if(count($query_session->result()) > 0){
 					
 					if($query_session->result()[0]->status == 1){
@@ -126,7 +126,7 @@ Class Basicauth
 					
 						// Creamos la sesión
 						$this->CI->session->set_userdata('logged_in',$session_data);
-						$this->CI->db->simple_query("UPDATE users_sessions SET status = 1, d_update = '".$fecha_actual."' WHERE user_id = ".$query->row()->id);
+						$this->CI->db->simple_query("UPDATE user_sessions SET status = 1, d_update = '".$fecha_actual."' WHERE user_id = ".$query->row()->id);
 					
 					}
 									
@@ -136,7 +136,7 @@ Class Basicauth
 					// Creamos la sesión
 					$this->CI->session->set_userdata('logged_in',$session_data);
 					
-					if(!$this->CI->db->simple_query("INSERT INTO users_sessions (user_id, status, d_create) VALUES ('".$query->row()->id."', 1, '".$fecha_actual."')")){
+					if(!$this->CI->db->simple_query("INSERT INTO user_sessions (user_id, status, d_create) VALUES ('".$query->row()->id."', 1, '".$fecha_actual."')")){
 						echo "Error de registro";
 						exit();
 					}
@@ -160,7 +160,7 @@ Class Basicauth
 		$fecha_actual = date('Y-m-d H:i:s');
 		if(isset($this->CI->session->userdata['logged_in'])){
 			
-			if($this->CI->db->simple_query("UPDATE users_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$this->CI->session->userdata['logged_in']['id'])){
+			if($this->CI->db->simple_query("UPDATE user_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$this->CI->session->userdata['logged_in']['id'])){
 				
 				$this->CI->session->sess_destroy();
 			

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_users_sessions extends CI_Migration
+class Migration_create_table_user_sessions extends CI_Migration
 {
 	public function up(){
 		
@@ -38,14 +38,14 @@ class Migration_create_table_users_sessions extends CI_Migration
 		
 		$this->dbforge->add_key('user_id');  // Establecemos el user_id como key
 		
-		$this->dbforge->create_table('users_sessions', TRUE);
+		$this->dbforge->create_table('user_sessions', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'users_sessions'
-		$this->dbforge->drop_table('users_sessions', TRUE);
+		// Eliminamos la tabla 'user_sessions'
+		$this->dbforge->drop_table('user_sessions', TRUE);
 		
 	}
 	

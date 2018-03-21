@@ -133,7 +133,7 @@ class MUser extends CI_Model {
     // Public method to update a record 
     public function update_session($datos) {
 		$result = $this->db->where('user_id', $datos['user_id']);
-		$result = $this->db->update('users_sessions', $datos);
+		$result = $this->db->update('user_sessions', $datos);
 		return $result;
 	}
 
