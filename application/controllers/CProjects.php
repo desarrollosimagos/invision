@@ -574,6 +574,7 @@ class CProjects extends CI_Controller {
 				'name' => '',
 				'alias' => '',
 				'username' => '',
+				'capital_payback' => 0,
 				'capital_invested' => 0,
 				'returned_capital' => 0,
 				'retirement_capital_available' => 0,
