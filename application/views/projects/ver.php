@@ -419,8 +419,19 @@
 							<td>
 								<?php echo $transact->name; ?>
 							</td>
-							<td>
-								<span class="pie">0.52/1.561</span>
+							<?php
+							$returned_capital = explode(" ", $transact->returned_capital);
+							$returned_capital = $returned_capital[0];
+							$capital_invested = explode(" ", $transact->capital_invested);
+							$capital_invested = $capital_invested[0];
+							if($capital_invested > 0){
+								$payback = $returned_capital*100/$capital_invested;
+							}else{
+								$payback = 100;
+							}
+							?>
+							<td title="<?php echo round($payback, 2); ?>%">
+								<span class="pie"><?php echo (string)$returned_capital."/".(string)$capital_invested; ?></span>
 							</td>
 							<td>
 								<?php echo $transact->capital_invested; ?>
