@@ -12,10 +12,10 @@ class MTiposCuenta extends CI_Model {
         $this->load->database();
     }
 
-    //Public method to obtain the tipos_cuenta
+    //Public method to obtain the account_type
     public function obtener() {
 		
-		$query = $this->db->get('tipos_cuenta');
+		$query = $this->db->get('account_type');
 
 		if ($query->num_rows() > 0)
 			return $query->result();
@@ -27,17 +27,17 @@ class MTiposCuenta extends CI_Model {
     // Public method to insert the data
     public function insert($datos) {
 		
-		$result = $this->db->insert("tipos_cuenta", $datos);
+		$result = $this->db->insert("account_type", $datos);
 		$id = $this->db->insert_id();
 		return $id;
         
     }
 
-    // Public method to obtain the tipos_cuenta by id
+    // Public method to obtain the account_type by id
     public function obtenerTipoCuenta($id) {
 		
         $this->db->where('id', $id);
-        $query = $this->db->get('tipos_cuenta');
+        $query = $this->db->get('account_type');
         if ($query->num_rows() > 0)
             return $query->result();
         else
@@ -49,7 +49,7 @@ class MTiposCuenta extends CI_Model {
     public function update($datos) {
 		
 		$result = $this->db->where('id', $datos['id']);
-		$result = $this->db->update('tipos_cuenta', $datos);
+		$result = $this->db->update('account_type', $datos);
 		return $result;
         
     }
@@ -58,7 +58,7 @@ class MTiposCuenta extends CI_Model {
     // Public method to delete a record
      public function delete($id) {
 		 
-		$result = $this->db->delete('tipos_cuenta', array('id' => $id));
+		$result = $this->db->delete('account_type', array('id' => $id));
 		return $result;
        
     }

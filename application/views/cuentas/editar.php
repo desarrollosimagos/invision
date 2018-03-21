@@ -34,13 +34,13 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Nombre *</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="alias" id="alias" value="<?php echo $editar[0]->cuenta ?>">
+								<input type="text" class="form-control" name="alias" id="alias" value="<?php echo $editar[0]->alias ?>">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Número</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="number" id="number" value="<?php echo $editar[0]->numero ?>">
+								<input type="text" class="form-control" name="number" id="number" value="<?php echo $editar[0]->number ?>">
 							</div>
 						</div>
 						<div class="form-group">
@@ -48,7 +48,7 @@
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="type" id="type">
 									<option value="0" selected="">Seleccione</option>
-									<?php foreach($tipos_cuenta as $tipo){?>
+									<?php foreach($account_type as $tipo){?>
 									<option value="<?php echo $tipo->id; ?>"><?php echo $tipo->name; ?></option>
 									<?php }?>
 								</select>
@@ -57,13 +57,13 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Descripción</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" name="description" maxlength="250" id="description"><?php echo $editar[0]->descripcion; ?></textarea>
+								<textarea class="form-control" name="description" maxlength="250" id="description"><?php echo $editar[0]->description; ?></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Monto *</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="amount" id="amount" value="<?php echo $editar[0]->monto ?>" readonly="readonly">
+								<input type="text" class="form-control" name="amount" id="amount" value="<?php echo $editar[0]->amount ?>" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group">
@@ -88,7 +88,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-2">
-								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->tipo ?>"/>
+								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->type ?>"/>
 								 <input id="id_coin" type="hidden" value="<?php echo $editar[0]->coin_id ?>"/>
 								 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
 								 <input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
@@ -116,9 +116,9 @@ $(document).ready(function(){
         window.location = url;
     });
     
-    $("#numero").numeric(); // Sólo permite valores numéricos
+    $("#number").numeric(); // Sólo permite valores numéricos
 	
-	$("#tipo").select2('val', $("#id_tipo").val());
+	$("#type").select2('val', $("#id_tipo").val());
 	$("#coin_id").select2('val', $("#id_coin").val());
 	$("#status").select2('val', $("#id_status").val());
 
@@ -131,12 +131,12 @@ $(document).ready(function(){
 			swal("Disculpe,", "para continuar debe ingresar el nombre de la persona");
 			$('#owner').parent('div').addClass('has-error');
 			
-        } else if ($('#cuenta').val().trim() === "") {
+        } else if ($('#alias').val().trim() === "") {
 			
 			swal("Disculpe,", "para continuar debe ingresar el nombre de la cuenta");
-			$('#cuenta').parent('div').addClass('has-error');
+			$('#alias').parent('div').addClass('has-error');
 			
-        } else if($('#tipo').val() == "0"){
+        } else if($('#type').val() == "0"){
 			
 			swal("Disculpe,", "para continuar debe seleccionar el tipo de cuenta");
 			$('#tipo').parent('div').addClass('has-error');

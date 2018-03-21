@@ -49,7 +49,7 @@
 							<div class="col-sm-10">
 								<select class="form-control m-b" name="type" id="type">
 									<option value="0" selected="">Seleccione</option>
-									<?php foreach($tipos_cuenta as $tipo){?>
+									<?php foreach($account_type as $tipo){?>
 									<option value="<?php echo $tipo->id; ?>"><?php echo $tipo->name; ?></option>
 									<?php }?>
 								</select>
@@ -112,7 +112,7 @@ $(document).ready(function(){
         window.location = url;
     });
     
-    $("#numero").numeric(); // Sólo permite valores numéricos
+    $("#number").numeric(); // Sólo permite valores numéricos
 
     $("#registrar").click(function (e) {
 
@@ -123,12 +123,12 @@ $(document).ready(function(){
 			swal("Disculpe,", "para continuar debe ingresar el nombre de la persona");
 			$('#owner').parent('div').addClass('has-error');
 			
-        } else if ($('#cuenta').val().trim() === "") {
+        } else if ($('#alias').val().trim() === "") {
 			
 			swal("Disculpe,", "para continuar debe ingresar el nombre de la cuenta");
-			$('#cuenta').parent('div').addClass('has-error');
+			$('#alias').parent('div').addClass('has-error');
 			
-        } else if($('#tipo').val() == "0"){
+        } else if($('#type').val() == "0"){
 			
 			swal("Disculpe,", "para continuar debe seleccionar el tipo de cuenta");
 			$('#tipo').parent('div').addClass('has-error');
