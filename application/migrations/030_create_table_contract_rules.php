@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_contracts_rules extends CI_Migration
+class Migration_create_table_contract_rules extends CI_Migration
 {
 	public function up(){
 		
@@ -49,14 +49,14 @@ class Migration_create_table_contracts_rules extends CI_Migration
 		
 		$this->dbforge->add_key('contracts_id');  // Establecemos la contracts_id como key
 		
-		$this->dbforge->create_table('contracts_rules', TRUE);
+		$this->dbforge->create_table('contract_rules', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'contracts_rules'
-		$this->dbforge->drop_table('contracts_rules', TRUE);
+		// Eliminamos la tabla 'contract_rules'
+		$this->dbforge->drop_table('contract_rules', TRUE);
 		
 	}
 	
