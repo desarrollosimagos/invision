@@ -104,11 +104,26 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label">Documento</label>
+							<div class="col-sm-4">
+								<input type="file" class="form-control" name="document[]" id="document" onChange="valida_tipo($(this))">
+							</div>
+							<div class="col-sm-6">
+								<?php $ext = explode(".", $editar[0]->document); $ext = $ext[1]; ?>
+								<?php if($ext == "pdf"){ ?>
+								<a target="_blank" href="<?php echo base_url(); ?>assets/docs_trans/<?php echo $editar[0]->document; ?>"><?php echo $editar[0]->document; ?></a>
+								<?php }else{ ?>
+								<img id="imgSalida" style="height:150px;width:150px;" class="img-circle" src="<?php echo base_url(); ?>assets/docs_trans/<?php echo $editar[0]->document; ?>">
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-2">
 								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->tipo ?>"/>
 								 <input id="id_user" type="hidden" value="<?php echo $editar[0]->user_id ?>"/>
 								 <input id="id_cuenta" type="hidden" value="<?php echo $editar[0]->cuenta_id ?>"/>
 								 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
+								 <input id="id_document" type="hidden" value="<?php echo $editar[0]->document; ?>"/>
 								 <input id="usuario" type="hidden" value="<?php echo $this->session->userdata('logged_in')['id']; ?>"/>
 								 <input class="form-control"  type='hidden' id="id" name="id" value="<?php echo $id ?>"/>
 								<button class="btn btn-white" id="volver" type="button">Volver</button>
@@ -141,6 +156,30 @@ $(document).ready(function(){
         autoclose: true,
         endDate: 'today'
     })
+    
+    // Función para la pre-visualización de la imagen a cargar
+	$(function() {
+		$('#document').change(function(e) {
+			addImage(e); 
+		});
+
+		function addImage(e){
+			var file = e.target.files[0],
+			imageType = /image.*/;
+
+			if (!file.type.match(imageType))
+			return;
+
+			var reader = new FileReader();
+			reader.onload = fileOnload;
+			reader.readAsDataURL(file);
+		}
+	  
+		function fileOnload(e) {
+			var result=e.target.result;
+			$('#imgSalida').attr("src",result);
+		}
+	});
     
     $("#monto").numeric(); // Sólo permite valores numéricos
     
@@ -255,20 +294,62 @@ $(document).ready(function(){
 					
 				}else{
 					
-					$.post('<?php echo base_url(); ?>CFondoPersonal/update', $('#form_transactions').serialize(), function (response) {
-						if (response['response'] == 'error') {
-							swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
-						}else{
-							swal({ 
-								title: "Registro",
-								 text: "Guardado con exito",
-								  type: "success" 
-								},
-							function(){
-							  window.location.href = '<?php echo base_url(); ?>transactions';
-							});
-						}
-					}, 'json');
+					//~ $.post('<?php echo base_url(); ?>CFondoPersonal/update', $('#form_transactions').serialize(), function (response) {
+						//~ if (response['response'] == 'error') {
+							//~ swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
+						//~ }else{
+							//~ swal({ 
+								//~ title: "Registro",
+								 //~ text: "Guardado con exito",
+								  //~ type: "success" 
+								//~ },
+							//~ function(){
+							  //~ window.location.href = '<?php echo base_url(); ?>transactions';
+							//~ });
+						//~ }
+					//~ }, 'json');
+					
+					var formData = new FormData(document.getElementById("form_transactions"));  // Forma de capturar todos los datos del formulario
+			
+					$.ajax({
+						//~ method: "POST",
+						type: "post",
+						dataType: "json",
+						url: '<?php echo base_url(); ?>CFondoPersonal/update',
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false
+					})
+					.done(function(response) {
+						if(response.error){
+							console.log(response.error);
+						} else {
+							if (response['response'] == 'error') {
+							
+								swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
+								
+							}else if (response['response'] == 'error2') {
+								
+								swal("Disculpe,", "ha ocurrido un error al guardar el documento");
+								
+							}else{
+								
+								swal({ 
+									title: "Registro",
+									 text: "Guardado con exito",
+									  type: "success" 
+									},
+								function(){
+								  window.location.href = '<?php echo base_url(); ?>transactions';
+								});
+								
+							}
+							
+						}				
+					}).fail(function() {
+						console.log("error ajax");
+					});
 					
 				}
 				
@@ -279,5 +360,24 @@ $(document).ready(function(){
     });
     
 });
+
+
+// Validamos que los archivos sean de tipo .jpg, jpeg, png o pdf
+function valida_tipo(input) {
+	
+	var max_size = '';
+	var archivo = input.val();
+	
+	var ext = archivo.split(".");
+	ext = ext[1];
+	
+	if (ext != 'jpg' && ext != 'jpeg' && ext != 'png' && ext != 'pdf'){
+		swal("Disculpe,", "sólo se admiten archivos .jpg, .jpeg, .png y .pdf");
+		input.val('');
+		input.parent('div').addClass('has-error');
+	}else{
+		input.parent('div').removeClass('has-error');
+	}
+}
 
 </script>

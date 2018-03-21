@@ -113,6 +113,15 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label">Documento</label>
+							<div class="col-sm-4">
+								<input type="file" class="form-control" name="document[]" id="document" onChange="valida_tipo($(this))">
+							</div>
+							<div class="col-sm-6">
+								<img id="imgSalida" style="height:150px;width:150px;" class="img-circle" src="<?php echo base_url(); ?>assets/img/users/usuario.jpg">
+							</div>
+						</div>
+						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-2">
 								<input id="usuario" type="hidden" value="<?php echo $this->session->userdata('logged_in')['id']; ?>"/>
 								<button class="btn btn-white" id="volver" type="button">Volver</button>
@@ -145,6 +154,30 @@ $(document).ready(function(){
         autoclose: true,
         endDate: 'today'
     })
+    
+    // Función para la pre-visualización de la imagen a cargar
+	$(function() {
+		$('#document').change(function(e) {
+			addImage(e); 
+		});
+
+		function addImage(e){
+			var file = e.target.files[0],
+			imageType = /image.*/;
+
+			if (!file.type.match(imageType))
+			return;
+
+			var reader = new FileReader();
+			reader.onload = fileOnload;
+			reader.readAsDataURL(file);
+		}
+	  
+		function fileOnload(e) {
+			var result=e.target.result;
+			$('#imgSalida').attr("src",result);
+		}
+	});
     
     $("#monto").numeric(); // Sólo permite valores numéricos
     
@@ -252,20 +285,62 @@ $(document).ready(function(){
 					
 				}else{
 					
-					$.post('<?php echo base_url(); ?>CFondoPersonal/add', $('#form_transactions').serialize(), function (response) {
-						if (response['response'] == 'error') {
-							swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
-						}else{
-							swal({ 
-								title: "Registro",
-								 text: "Guardado con exito",
-								  type: "success" 
-								},
-							function(){
-							  window.location.href = '<?php echo base_url(); ?>transactions';
-							});
-						}
-					}, 'json');
+					//~ $.post('<?php echo base_url(); ?>CFondoPersonal/add', $('#form_transactions').serialize(), function (response) {
+						//~ if (response['response'] == 'error') {
+							//~ swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
+						//~ }else{
+							//~ swal({ 
+								//~ title: "Registro",
+								 //~ text: "Guardado con exito",
+								  //~ type: "success" 
+								//~ },
+							//~ function(){
+							  //~ window.location.href = '<?php echo base_url(); ?>transactions';
+							//~ });
+						//~ }
+					//~ }, 'json');
+					
+					var formData = new FormData(document.getElementById("form_transactions"));  // Forma de capturar todos los datos del formulario
+			
+					$.ajax({
+						//~ method: "POST",
+						type: "post",
+						dataType: "json",
+						url: '<?php echo base_url(); ?>CFondoPersonal/add',
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false
+					})
+					.done(function(response) {
+						if(response.error){
+							console.log(response.error);
+						} else {
+							if (response['response'] == 'error') {
+							
+								swal("Disculpe,", "El registro no pudo ser guardado, por favor consulte a su administrador...");
+								
+							}else if (response['response'] == 'error2') {
+								
+								swal("Disculpe,", "ha ocurrido un error al guardar el documento");
+								
+							}else{
+								
+								swal({ 
+									title: "Registro",
+									 text: "Guardado con exito",
+									  type: "success" 
+									},
+								function(){
+								  window.location.href = '<?php echo base_url(); ?>transactions';
+								});
+								
+							}
+							
+						}				
+					}).fail(function() {
+						console.log("error ajax");
+					});
 					
 				}
 				
@@ -274,5 +349,24 @@ $(document).ready(function(){
         }
     });
 });
+
+
+// Validamos que los archivos sean de tipo .jpg, jpeg, png o pdf
+function valida_tipo(input) {
+	
+	var max_size = '';
+	var archivo = input.val();
+	
+	var ext = archivo.split(".");
+	ext = ext[1];
+	
+	if (ext != 'jpg' && ext != 'jpeg' && ext != 'png' && ext != 'pdf'){
+		swal("Disculpe,", "sólo se admiten archivos .jpg, .jpeg, .png y .pdf");
+		input.val('');
+		input.parent('div').addClass('has-error');
+	}else{
+		input.parent('div').removeClass('has-error');
+	}
+}
 
 </script>

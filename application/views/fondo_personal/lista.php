@@ -47,6 +47,7 @@
                                     <th>Descripción</th>
                                     <th>Referencia</th>
                                     <th>Observaciones</th>
+                                    <th>Documento</th>
                                     <th>Editar</th>
                                     <th>Eliminar</th>
                                     <th>Validar</th>
@@ -98,6 +99,9 @@
                                         </td>
                                         <td>
                                             <?php echo $fondo->observaciones; ?>
+                                        </td>
+                                        <td>
+											<a target="_blank" href="<?php echo base_url(); ?>assets/docs_trans/<?php echo $fondo->document; ?>"><?php echo $fondo->document; ?></a>
                                         </td>
                                         <td style='text-align: center'>
 											<?php if($this->session->userdata('logged_in')['profile_id'] == 1){ ?>
@@ -179,6 +183,7 @@ $(document).ready(function(){
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
             {"sClass": "registro center", "sWidth": "10%"},
+            {"sClass": "none", "sWidth": "30%"},
             {"sClass": "none", "sWidth": "30%"},
             {"sClass": "none", "sWidth": "30%"},
             {"sClass": "none", "sWidth": "30%"},
