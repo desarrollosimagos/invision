@@ -44,14 +44,14 @@ class MProjects extends CI_Model {
 		$without_ext = $without_ext[0];
         $result = $this->db->where('project_id =', $datos['project_id']);
         $result = $this->db->like('photo', $without_ext);
-        $result = $this->db->get('photos');
+        $result = $this->db->get('project_photos');
         if ($result->num_rows() > 0) {
 			$result = $this->db->where('project_id =', $datos['project_id']);
 			$result = $this->db->like('photo', $without_ext);
-			$result = $this->db->update("photos", $datos);
+			$result = $this->db->update("project_photos", $datos);
             return 'existe';
         } else {
-            $result = $this->db->insert("photos", $datos);
+            $result = $this->db->insert("project_photos", $datos);
             $id = $this->db->insert_id();
             return $id;
         }
@@ -100,7 +100,7 @@ class MProjects extends CI_Model {
     // Public method to serach the photos associated
     public function buscar_photos($project_id) {
         $result = $this->db->where('project_id =', $project_id);
-        $result = $this->db->get('photos');
+        $result = $this->db->get('project_photos');
         return $result->result();
     }
 
@@ -211,7 +211,7 @@ class MProjects extends CI_Model {
     // Public method to obtain the photos by project_id
     public function obtenerFotos($project_id) {
         $this->db->where('project_id', $project_id);
-        $query = $this->db->get('photos');
+        $query = $this->db->get('project_photos');
         if ($query->num_rows() > 0)
             return $query->result();
         else
