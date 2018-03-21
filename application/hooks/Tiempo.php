@@ -36,8 +36,8 @@ class Tiempo
 			{
 				
 				// Si el tiempo de la sesión ha alcanzado o excedido el límite configurado
-				//~ if($this->CI->db->simple_query("DELETE FROM users_sessions WHERE user_id=".$user_id)){
-				if($this->CI->db->simple_query("UPDATE users_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$user_id)){
+				//~ if($this->CI->db->simple_query("DELETE FROM user_sessions WHERE user_id=".$user_id)){
+				if($this->CI->db->simple_query("UPDATE user_sessions SET status=0, d_update='".$fecha_actual."' WHERE user_id=".$user_id)){
 					
 					// Destruimos la sesión y devolvemos a la página de inicio
 					$this->CI->session->sess_destroy();

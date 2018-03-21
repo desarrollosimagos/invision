@@ -15,7 +15,7 @@ class MFondoPersonal extends CI_Model {
     //Public method to obtain the transactions
     public function obtener() {
 		
-		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.document, f_p.monto, f_p.status, u.username as usuario, c.alias, c.number, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
+		$this->db->select('f_p.id, f_p.cuenta_id, f_p.type, f_p.description, f_p.reference, f_p.observation, f_p.document, f_p.monto, f_p.status, u.username as usuario, c.alias, c.number, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
@@ -43,9 +43,9 @@ class MFondoPersonal extends CI_Model {
 			if($tipo == 'deposit'){
 				$this->db->select('c.id, c.alias, c.number, cn.abbreviation as coin_avr');
 				$this->db->from('users u');
-				$this->db->join('investor_groups_users i_g_u', 'i_g_u.user_id=u.id');
-				$this->db->join('investor_groups i_g', 'i_g.id=i_g_u.group_id');
-				$this->db->join('investor_groups_accounts i_g_a', 'i_g_a.group_id=i_g.id');
+				$this->db->join('investorgroups_users i_g_u', 'i_g_u.user_id=u.id');
+				$this->db->join('investorgroups i_g', 'i_g.id=i_g_u.group_id');
+				$this->db->join('investorgroups_accounts i_g_a', 'i_g_a.group_id=i_g.id');
 				$this->db->join('accounts c', 'c.id=i_g_a.account_id');
 				$this->db->join('coins cn', 'cn.id = c.coin_id');
 				$this->db->where('u.id =', $this->session->userdata('logged_in')['id']);

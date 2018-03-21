@@ -316,16 +316,16 @@
 					<?php foreach ($project_transactions as $transact) { ?>
 						<tr style="text-align: center">
 							<td>
-								<?php echo $transact->fecha; ?>
+								<?php echo $transact->date; ?>
 							</td>
 							<td>
 								<?php echo $transact->name; ?>
 							</td>
 							<td>
-								<?php echo $transact->tipo; ?>
+								<?php echo $transact->type; ?>
 							</td>
 							<td>
-								<?php echo $transact->descripcion; ?>
+								<?php echo $transact->description; ?>
 							</td>
 							<td>
 								<?php echo $transact->monto."  ".$transact->coin_avr; ?>

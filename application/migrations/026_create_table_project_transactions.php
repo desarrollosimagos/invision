@@ -15,9 +15,8 @@ class Migration_create_table_project_transactions extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
-				"fecha" => array(
-					"type" => "VARCHAR",
-					"constraint" => 20,
+				"date" => array(
+					"type" => "DATE",
 					"null" => TRUE
 				),
 				"project_id" => array(
@@ -35,22 +34,22 @@ class Migration_create_table_project_transactions extends CI_Migration
 					"constraint" => 11,
 					"null" => TRUE
 				),
-				"tipo" => array(
+				"type" => array(
 					"type" => "VARCHAR",
 					"constraint" => 25,
 					"null" => TRUE
 				),
-				"descripcion" => array(
+				"description" => array(
 					"type" => "VARCHAR",
 					"constraint" => 250,
 					"null" => TRUE
 				),
-				"referencia" => array(
+				"reference" => array(
 					"type" => "VARCHAR",
 					"constraint" => 100,
 					"null" => TRUE
 				),
-				"observaciones" => array(
+				"observation" => array(
 					"type" => "TEXT",
 					"null" => TRUE
 				),

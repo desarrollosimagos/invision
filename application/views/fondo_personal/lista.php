@@ -65,9 +65,9 @@
                                         </td>
                                         <td>
                                             <?php
-                                            if($fondo->tipo == 'deposit'){
+                                            if($fondo->type == 'deposit'){
 												echo "<span style='color:#337AB7;'>Ingreso</span>";
-											}else if($fondo->tipo == 'withdraw'){
+											}else if($fondo->type == 'withdraw'){
 												echo "<span style='color:#D33333;'>Egreso</span>";
 											}else{
 												echo "";
@@ -92,13 +92,13 @@
                                             <?php echo $fondo->alias." - ".$fondo->number; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->descripcion; ?>
+                                            <?php echo $fondo->description; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->referencia; ?>
+                                            <?php echo $fondo->reference; ?>
                                         </td>
                                         <td>
-                                            <?php echo $fondo->observaciones; ?>
+                                            <?php echo $fondo->observation; ?>
                                         </td>
                                         <td>
 											<a target="_blank" href="<?php echo base_url(); ?>assets/docs_trans/<?php echo $fondo->document; ?>"><?php echo $fondo->document; ?></a>

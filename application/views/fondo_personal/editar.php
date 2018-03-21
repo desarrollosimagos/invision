@@ -39,7 +39,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Tipo *</label>
 							<div class="col-sm-10">
-								<select class="form-control m-b" name="tipo" id="tipo">
+								<select class="form-control m-b" name="type" id="type">
 									<option value="deposit">Ingreso</option>
 									<option value="withdraw">Egreso</option>
 								</select>
@@ -74,27 +74,27 @@
 						<div class="form-group"><label class="col-sm-2 control-label" >Fecha</label>
 							<div class="col-sm-10">
 								<?php 
-								$fecha = $editar[0]->fecha;
+								$fecha = $editar[0]->date;
 								$fecha = explode("-", $fecha);
 								$fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
 								?>
-								<input type="text" class="form-control" name="fecha" maxlength="10" id="fecha" value="<?php echo $fecha; ?>"/>
+								<input type="text" class="form-control" name="date" maxlength="10" id="date" value="<?php echo $fecha; ?>"/>
 							</div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Descripción</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="descripcion" maxlength="250" id="descripcion" value="<?php echo $editar[0]->descripcion; ?>"/>
+								<input type="text" class="form-control" name="description" maxlength="250" id="description" value="<?php echo $editar[0]->description; ?>"/>
 							</div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Referencia</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="referencia" maxlength="100" id="referencia" value="<?php echo $editar[0]->referencia; ?>"/>
+								<input type="text" class="form-control" name="reference" maxlength="100" id="reference" value="<?php echo $editar[0]->reference; ?>"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >Observaciones</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" name="observaciones" maxlength="250" id="observaciones"><?php echo $editar[0]->observaciones; ?></textarea>
+								<textarea class="form-control" name="observation" maxlength="250" id="observation"><?php echo $editar[0]->observation; ?></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -119,7 +119,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-4 col-sm-offset-2">
-								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->tipo ?>"/>
+								 <input id="id_tipo" type="hidden" value="<?php echo $editar[0]->type ?>"/>
 								 <input id="id_user" type="hidden" value="<?php echo $editar[0]->user_id ?>"/>
 								 <input id="id_cuenta" type="hidden" value="<?php echo $editar[0]->cuenta_id ?>"/>
 								 <input id="id_status" type="hidden" value="<?php echo $editar[0]->status ?>"/>
@@ -150,7 +150,7 @@ $(document).ready(function(){
         window.location = url;
     });
     
-    $('#fecha').datepicker({
+    $('#date').datepicker({
         format: "dd/mm/yyyy",
         language: "es",
         autoclose: true,
@@ -231,7 +231,7 @@ $(document).ready(function(){
 	if($("#user_id").val() !== undefined){
 		$("#user_id").select2('val', $("#id_user").val());
 	}
-	$("#tipo").select2('val', $("#id_tipo").val());
+	$("#type").select2('val', $("#id_tipo").val());
 	
 	
 	// Proceso de validación del registro
@@ -251,11 +251,11 @@ $(document).ready(function(){
 			$('#cuenta_id').focus();
 			$('#cuenta_id').parent('div').addClass('has-error');
 			
-        } else if ($('#fecha').val().trim() === ""){
+        } else if ($('#date').val().trim() === ""){
 			
 			swal("Disculpe,", "para continuar debe ingresar la fecha");
-			$('#fecha').focus();
-			$('#fecha').parent('div').addClass('has-error');
+			$('#date').focus();
+			$('#date').parent('div').addClass('has-error');
 			
 		} else if ($('#monto').val().trim() === ""){
 			
