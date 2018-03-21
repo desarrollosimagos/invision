@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_transactions_relations extends CI_Migration
+class Migration_create_table_transaction_relations extends CI_Migration
 {
 	public function up(){
 		
@@ -42,14 +42,14 @@ class Migration_create_table_transactions_relations extends CI_Migration
 		
 		$this->dbforge->add_key('project_transaction_id');  // Establecemos el user_id como key
 		
-		$this->dbforge->create_table('transaction_reference', TRUE);
+		$this->dbforge->create_table('transaction_relations', TRUE);
 		
 	}
 	
 	public function down(){
 		
 		// Eliminamos la tabla 'transaction_reference'
-		$this->dbforge->drop_table('transaction_reference', TRUE);
+		$this->dbforge->drop_table('transaction_relations', TRUE);
 		
 	}
 	
