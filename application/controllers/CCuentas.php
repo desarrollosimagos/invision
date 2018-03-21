@@ -26,7 +26,7 @@ class CCuentas extends CI_Controller {
 	public function register()
 	{
 		$this->load->view('base');
-		$data['tipos_cuenta'] = $this->MTiposCuenta->obtener();
+		$data['account_type'] = $this->MTiposCuenta->obtener();
 		$data['monedas'] = $this->MCoins->obtener();
 		$this->load->view('cuentas/registrar', $data);
 		$this->load->view('footer');
@@ -67,7 +67,7 @@ class CCuentas extends CI_Controller {
 		$this->load->view('base');
         $data['id'] = $this->uri->segment(3);
         $data['editar'] = $this->MCuentas->obtenerCuenta($data['id']);
-        $data['tipos_cuenta'] = $this->MTiposCuenta->obtener();
+        $data['account_type'] = $this->MTiposCuenta->obtener();
         $data['monedas'] = $this->MCoins->obtener();
         $this->load->view('cuentas/editar', $data);
 		$this->load->view('footer');

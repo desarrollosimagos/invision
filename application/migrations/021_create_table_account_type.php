@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_tipos_cuenta extends CI_Migration
+class Migration_create_table_account_type extends CI_Migration
 {
 	public function up(){
 		
@@ -33,14 +33,14 @@ class Migration_create_table_tipos_cuenta extends CI_Migration
 		
 		$this->dbforge->add_key('id', TRUE);  // Establecemos el id como primary_key
 		
-		$this->dbforge->create_table('tipos_cuenta', TRUE);
+		$this->dbforge->create_table('account_type', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'tipos_cuenta'
-		$this->dbforge->drop_table('tipos_cuenta', TRUE);
+		// Eliminamos la tabla 'account_type'
+		$this->dbforge->drop_table('account_type', TRUE);
 		
 	}
 	
