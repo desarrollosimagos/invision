@@ -75,12 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.9.35.117',
-	'username' => 'root',
-	'password' => 'admin',
+	'hostname' => 'localhost',
+	'username' => 'postgres',
+	'password' => '123456',
 	//~ 'database' => 'imago_m3',
 	'database' => 'invision',
-	'dbdriver' => 'mysqli',
+	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

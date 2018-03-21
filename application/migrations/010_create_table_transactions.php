@@ -53,6 +53,11 @@ class Migration_create_table_transactions extends CI_Migration
 					"type" => "FLOAT",
 					"null" => TRUE
 				),
+				"document" => array(
+					"type" => "VARCHAR",
+					"constraint" => 100,
+					"null" => TRUE
+				),
 				"status" => array(
 					"type" => "VARCHAR",
 					"constraint" => 25,

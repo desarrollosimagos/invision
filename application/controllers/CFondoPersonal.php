@@ -5,8 +5,6 @@ class CFondoPersonal extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
-
-
        
 		// Load database
         $this->load->model('MFondoPersonal');
@@ -69,27 +67,47 @@ class CFondoPersonal extends CI_Controller {
         
         if ($result) {
 			
-			//~ // Obtenemos los datos de la cuenta a actualizar
-			//~ $data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
-			//~ 
-			//~ // Sumamos o restamos el monto de la transacción
-			//~ if($this->input->post('tipo') == 'deposit'){
-				//~ $monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-			//~ }else if($this->input->post('tipo') == 'withdraw'){
-				//~ $monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
-			//~ }
-			//~ 
-			//~ // Armamos los nuevos datos de la cuenta
-			//~ $data_cuenta = array(
-				//~ 'id' => $this->input->post('cuenta_id'),
-				//~ 'amount' => $monto_cuenta,
-				//~ 'd_update' => date('Y-m-d H:i:s')
-			//~ );
-			//~ 
-			//~ // Actualizamos la cuenta
-			//~ $update_cuenta = $this->MCuentas->update($data_cuenta);
-
-			echo '{"response":"ok"}';
+			// Sección para el registro de la foto en la ruta establecida para tal fin (assets/img/userss)
+			$ruta = getcwd();  // Obtiene el directorio actual en donde se esta trabajando
+			
+			//~ // print_r($_FILES);
+			$i = 0;
+			
+			$errors2 = 0;
+				
+			if($_FILES['document']['name'][0] != ""){
+				
+				// Obtenemos la extensión
+				$ext = explode(".", $_FILES['document']['name'][0]);
+				$ext = $ext[1];
+				$document = "docs_trans_".$result.".".$ext;
+				
+				if (!move_uploaded_file($_FILES['document']['tmp_name'][0], $ruta."/assets/docs_trans/docs_trans_".$result.".".$ext)) {
+					
+					$errors2 += 1;
+					
+				}else{
+					//~ echo $result;
+					$data_trans = array(
+						'id' => $result,
+						'document' => $document,
+					);
+					$update_user = $this->MFondoPersonal->update($data_trans);
+				
+				}
+				
+				$i++;
+			}
+			
+			if($errors2 > 0){
+				
+				echo '{"response":"error2"}';
+				
+			}else{
+				
+				echo '{"response":"ok"}';
+				
+			}
        
         }else{
 			
@@ -145,27 +163,47 @@ class CFondoPersonal extends CI_Controller {
         
         if ($result) {
 			
-			//~ // Obtenemos los datos de la cuenta a actualizar
-			//~ $data_cuenta = $this->MCuentas->obtenerCuenta($this->input->post('cuenta_id'));
-			//~ 
-			//~ // Sumamos o restamos el monto de la transacción
-			//~ if($this->input->post('tipo') == 'deposit'){
-				//~ $monto_cuenta = $data_cuenta[0]->monto + $this->input->post('monto');
-			//~ }else if($this->input->post('tipo') == 'withdraw'){
-				//~ $monto_cuenta = $data_cuenta[0]->monto - $this->input->post('monto');
-			//~ }
-			//~ 
-			//~ // Armamos los nuevos datos de la cuenta
-			//~ $data_cuenta = array(
-				//~ 'id' => $this->input->post('cuenta_id'),
-				//~ 'amount' => $monto_cuenta,
-				//~ 'd_update' => date('Y-m-d H:i:s')
-			//~ );
-			//~ 
-			//~ // Actualizamos la cuenta
-			//~ $update_cuenta = $this->MCuentas->update($data_cuenta);
+			// Sección para el registro de la foto en la ruta establecida para tal fin (assets/img/userss)
+			$ruta = getcwd();  // Obtiene el directorio actual en donde se esta trabajando
 			
-			echo '{"response":"ok"}';
+			//~ // print_r($_FILES);
+			$i = 0;
+			
+			$errors2 = 0;
+				
+			if($_FILES['document']['name'][0] != ""){
+				
+				// Obtenemos la extensión
+				$ext = explode(".", $_FILES['document']['name'][0]);
+				$ext = $ext[1];
+				$document = "docs_trans_".$this->input->post('id').".".$ext;
+				
+				if (!move_uploaded_file($_FILES['document']['tmp_name'][0], $ruta."/assets/docs_trans/docs_trans_".$this->input->post('id').".".$ext)) {
+					
+					$errors2 += 1;
+					
+				}else{
+					//~ echo $result;
+					$data_trans = array(
+						'id' => $this->input->post('id'),
+						'document' => $document,
+					);
+					$update_user = $this->MFondoPersonal->update($data_trans);
+				
+				}
+				
+				$i++;
+			}
+			
+			if($errors2 > 0){
+				
+				echo '{"response":"error2"}';
+				
+			}else{
+				
+				echo '{"response":"ok"}';
+				
+			}
 			
         }else{
 			
