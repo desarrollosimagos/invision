@@ -179,8 +179,8 @@ class CInvestorGroups extends CI_Controller {
 				// Verificamos cuales de los proyectos no están en la nueva lista
 				foreach($query_associated as $association){
 					if(!in_array($association->project_id, $ids_projects)){
-						// Eliminamos la asociacion de la tabla investor_groups_projects
-						$this->MInvestorGroups->delete_investor_groups_project($data['id'], $association->project_id);
+						// Eliminamos la asociacion de la tabla investorgroups_projects
+						$this->MInvestorGroups->delete_investorgroups_project($data['id'], $association->project_id);
 					}
 				}
 			}
@@ -212,8 +212,8 @@ class CInvestorGroups extends CI_Controller {
 				// Verificamos cuales de los usuarios no están en la nueva lista
 				foreach($query_associated as $association){
 					if(!in_array($association->user_id, $ids_users)){
-						// Eliminamos la asociacion de la tabla investor_groups_users
-						$this->MInvestorGroups->delete_investor_groups_user($data['id'], $association->user_id);
+						// Eliminamos la asociacion de la tabla investorgroups_users
+						$this->MInvestorGroups->delete_investorgroups_user($data['id'], $association->user_id);
 					}
 				}
 			}
@@ -246,7 +246,7 @@ class CInvestorGroups extends CI_Controller {
 				foreach($query_associated as $association){
 					if(!in_array($association->account_id, $ids_accounts)){
 						// Eliminamos la asociacion de la tabla profile_actions
-						$this->MInvestorGroups->delete_investor_groups_account($data['id'], $association->account_id);
+						$this->MInvestorGroups->delete_investorgroups_account($data['id'], $association->account_id);
 					}
 				}
 			}
