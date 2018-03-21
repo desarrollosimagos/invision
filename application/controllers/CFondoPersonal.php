@@ -35,7 +35,7 @@ class CFondoPersonal extends CI_Controller {
 	// Método para guardar un nuevo registro
     public function add() {
 		
-		$fecha = $this->input->post('fecha');
+		$fecha = $this->input->post('date');
 		$fecha = explode("/", $fecha);
 		$fecha = $fecha[2]."-".$fecha[1]."-".$fecha[0];
 		
@@ -52,12 +52,12 @@ class CFondoPersonal extends CI_Controller {
 		
 		$datos = array(
             'user_id' => $user_id,
-            'tipo' => $this->input->post('tipo'),
+            'type' => $this->input->post('type'),
             'cuenta_id' => $this->input->post('cuenta_id'),
-            'fecha' => $fecha,
-            'descripcion' => $this->input->post('descripcion'),
-            'referencia' => $this->input->post('referencia'),
-            'observaciones' => $this->input->post('observaciones'),
+            'date' => $fecha,
+            'description' => $this->input->post('description'),
+            'reference' => $this->input->post('reference'),
+            'observation' => $this->input->post('observation'),
             'monto' => $monto,
             'status' => 'waiting',
             'd_create' => date('Y-m-d H:i:s')
@@ -149,12 +149,12 @@ class CFondoPersonal extends CI_Controller {
 		$datos = array(
 			'id' => $this->input->post('id'),
 			'user_id' => $user_id,
-            'tipo' => $this->input->post('tipo'),
+            'type' => $this->input->post('type'),
             'cuenta_id' => $this->input->post('cuenta_id'),
-            'fecha' => $fecha,
-            'descripcion' => $this->input->post('descripcion'),
-            'referencia' => $this->input->post('referencia'),
-            'observaciones' => $this->input->post('observaciones'),
+            'date' => $fecha,
+            'description' => $this->input->post('description'),
+            'reference' => $this->input->post('reference'),
+            'observation' => $this->input->post('observation'),
             'monto' => $monto,
             'd_update' => date('Y-m-d H:i:s')
 		);

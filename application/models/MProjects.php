@@ -262,7 +262,7 @@ class MProjects extends CI_Model {
 			}
 		}
 		
-		$select = 'pt.id, pt.user_id, pt.fecha, pt.tipo, pt.descripcion, pt.monto, pt.status, u.username, c.alias, ';
+		$select = 'pt.id, pt.user_id, pt.date, pt.type, pt.description, pt.monto, pt.status, u.username, c.alias, ';
 		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, u.name, u.alias';
 		
 		$this->db->select($select);
@@ -274,7 +274,7 @@ class MProjects extends CI_Model {
 		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where_in('pt.user_id', $ids);
 		}
-		$this->db->order_by("pt.fecha", "desc");
+		$this->db->order_by("pt.date", "desc");
 		$query = $this->db->get();
 		
         return $query->result();

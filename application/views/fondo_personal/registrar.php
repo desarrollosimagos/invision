@@ -58,7 +58,7 @@
 				<div class="ibox-content">
 					<form id="form_transactions" method="post" accept-charset="utf-8" class="form-horizontal">
 						<div class="form-group">
-							<input type="hidden" class="form-control" name="tipo" id="tipo" value="<?php echo $this->uri->segment(3); ?>"/>
+							<input type="hidden" class="form-control" name="type" id="type" value="<?php echo $this->uri->segment(3); ?>"/>
 						</div>
 						<!-- Si el usuario es administrador, entonces puede elegir el usuario -->
 						<?php if($this->session->userdata('logged_in')['id'] == 1){ ?>
@@ -88,22 +88,22 @@
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Fecha</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="fecha" maxlength="10" id="fecha" style="width:30%"/>
+								<input type="text" class="form-control" name="date" maxlength="10" id="date" style="width:30%"/>
 							</div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Descripción</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="descripcion" maxlength="250" id="descripcion"/>
+								<input type="text" class="form-control" name="description" maxlength="250" id="description"/>
 							</div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Referencia</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="referencia" maxlength="100" id="referencia"/>
+								<input type="text" class="form-control" name="reference" maxlength="100" id="reference"/>
 							</div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Observaciones</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" name="observaciones" maxlength="250" id="observaciones"></textarea>
+								<textarea class="form-control" name="observation" maxlength="250" id="observation"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -148,7 +148,7 @@ $(document).ready(function(){
         window.location = url;
     });
 	
-	$('#fecha').datepicker({
+	$('#date').datepicker({
         format: "dd/mm/yyyy",
         language: "es",
         autoclose: true,
@@ -242,11 +242,11 @@ $(document).ready(function(){
 			$('#cuenta_id').focus();
 			$('#cuenta_id').parent('div').addClass('has-error');
 			
-        } else if ($('#fecha').val().trim() === ""){
+        } else if ($('#date').val().trim() === ""){
 			
 			swal("Disculpe,", "para continuar debe ingresar la fecha");
-			$('#fecha').focus();
-			$('#fecha').parent('div').addClass('has-error');
+			$('#date').focus();
+			$('#date').parent('div').addClass('has-error');
 			
 		} else if ($('#monto').val().trim() === ""){
 			

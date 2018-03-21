@@ -25,7 +25,7 @@ class MResumen extends CI_Model {
 			}
 		}
 		
-		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.descripcion, f_p.referencia, f_p.observaciones, f_p.monto, f_p.status, u.username as usuario, c.owner, c.alias, c.number, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
+		$this->db->select('f_p.id, f_p.cuenta_id, f_p.type, f_p.description, f_p.reference, f_p.observation, f_p.monto, f_p.status, u.username as usuario, c.owner, c.alias, c.number, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
@@ -127,7 +127,7 @@ class MResumen extends CI_Model {
 		}
 		
 		// Consulta a la tabla 'transactions'
-		$select = 'u.name, u.alias, u.username, f_p.id, f_p.user_id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, ';
+		$select = 'u.name, u.alias, u.username, f_p.id, f_p.user_id, f_p.cuenta_id, f_p.type, f_p.monto, f_p.status, ';
 		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol';
 		
 		$this->db->select($select);
@@ -141,7 +141,7 @@ class MResumen extends CI_Model {
         $query = $this->db->get();
         
         // Consulta a la tabla 'project_transactions'
-        $select2 = 'u.name, u.alias, u.username, p_t.id, p_t.user_id, p_t.cuenta_id, p_t.tipo, p_t.monto, p_t.status, ';
+        $select2 = 'u.name, u.alias, u.username, p_t.id, p_t.user_id, p_t.cuenta_id, p_t.type, p_t.monto, p_t.status, ';
 		$select2 .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, p.name as name_p, p.description';
 		
 		$this->db->select($select2);
@@ -162,7 +162,7 @@ class MResumen extends CI_Model {
     // Public method to obtain the transactions by project
     public function fondos_json_projects() {
 		
-		$select = 'u.name, u.alias, u.username, f_p.id, f_p.user_id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, ';
+		$select = 'u.name, u.alias, u.username, f_p.id, f_p.user_id, f_p.cuenta_id, f_p.type, f_p.monto, f_p.status, ';
 		$select .= 'cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol, p.name, p.description';
 		
 		$this->db->select($select);

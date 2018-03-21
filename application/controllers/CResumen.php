@@ -139,10 +139,10 @@ class CResumen extends CI_Controller {
 					$resumen_user['alias'] = $fondo->alias;
 					$resumen_user['username'] = $fondo->username;
 					if($fondo->status == 'waiting'){
-						if($fondo->tipo == 'deposit'){
+						if($fondo->type == 'deposit'){
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_entry'] += $trans_usd;
-						}else if($fondo->tipo == 'withdraw'){
+						}else if($fondo->type == 'withdraw'){
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_exit'] += $trans_usd;
 						}
@@ -180,15 +180,15 @@ class CResumen extends CI_Controller {
 					$resumen_user['alias'] = $fondo2->alias;
 					$resumen_user['username'] = $fondo2->username;
 					if($fondo2->status == 'approved'){
-						if($fondo2->tipo == 'deposit'){
+						if($fondo2->type == 'deposit'){
 							$resumen_user['capital_invested'] += $trans_usd;
 							$resumen_user['retirement_capital_available'] += $trans_usd;
-						}else if($fondo2->tipo == 'profit'){
+						}else if($fondo2->type == 'profit'){
 							$resumen_user['returned_capital'] += $trans_usd;
 							$resumen_user['retirement_capital_available'] += $trans_usd;
-						}else if($fondo2->tipo == 'expense'){
+						}else if($fondo2->type == 'expense'){
 							$resumen_user['retirement_capital_available'] += $trans_usd;
-						}else if($fondo2->tipo == 'withdraw'){
+						}else if($fondo2->type == 'withdraw'){
 							$resumen_user['retirement_capital_available'] += $trans_usd;
 						}
 					}
@@ -301,15 +301,15 @@ class CResumen extends CI_Controller {
 			}
 			
 			if($fondo->status == 'approved'){
-				if($fondo->tipo == 'deposit'){
+				if($fondo->type == 'deposit'){
 					$resumen['capital_invested'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
-				}else if($fondo->tipo == 'profit'){
+				}else if($fondo->type == 'profit'){
 					$resumen['returned_capital'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
-				}else if($fondo->tipo == 'expense'){
+				}else if($fondo->type == 'expense'){
 					$resumen['retirement_capital_available'] += $trans_usd;
-				}else if($fondo->tipo == 'withdraw'){
+				}else if($fondo->type == 'withdraw'){
 					$resumen['retirement_capital_available'] += $trans_usd;
 				}
 			}
