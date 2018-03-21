@@ -15,14 +15,18 @@ class Migration_create_table_project_news extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
+				"name" => array(
+					"type" => "VARCHAR",
+					"constraint" => 250,
+					"null" => TRUE
+				),
 				"project_id" => array(
 					"type" => "INT",
 					"constraint" => 11,
 					"null" => TRUE
 				),
 				"description" => array(
-					"type" => "VARCHAR",
-					"constraint" => 250,
+					"type" => "TEXT",
 					"null" => TRUE
 				),
 				"d_create" => array(
