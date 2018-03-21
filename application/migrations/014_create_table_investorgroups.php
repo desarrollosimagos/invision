@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_create_table_investor_groups_accounts extends CI_Migration
+class Migration_create_table_investorgroups extends CI_Migration
 {
 	public function up(){
 		
@@ -15,13 +15,10 @@ class Migration_create_table_investor_groups_accounts extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
-				"group_id" => array(
-					"type" => "INT",
-					"constraint" => 11
-				),
-				"account_id" => array(
-					"type" => "INT",
-					"constraint" => 11
+				"name" => array(
+					"type" => "VARCHAR",
+					"constraint" => 100,
+					"null" => FALSE
 				),
 				"d_create" => array(
 					"type" => "TIMESTAMP",
@@ -36,18 +33,14 @@ class Migration_create_table_investor_groups_accounts extends CI_Migration
 		
 		$this->dbforge->add_key('id', TRUE);  // Establecemos el id como primary_key
 		
-		$this->dbforge->add_key('group_id');  // Establecemos el group_id como key
-		
-		$this->dbforge->add_key('account_id');  // Establecemos el account_id como key
-		
-		$this->dbforge->create_table('investor_groups_accounts', TRUE);
+		$this->dbforge->create_table('investorgroups', TRUE);
 		
 	}
 	
 	public function down(){
 		
-		// Eliminamos la tabla 'investor_groups_accounts'
-		$this->dbforge->drop_table('investor_groups_accounts', TRUE);
+		// Eliminamos la tabla 'investorgroups'
+		$this->dbforge->drop_table('investorgroups', TRUE);
 		
 	}
 	
