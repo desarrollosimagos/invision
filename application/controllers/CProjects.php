@@ -704,18 +704,29 @@ class CProjects extends CI_Controller {
 		
 		if ($data_project[0]->coin_avr == 'BTC') {
 		
-			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
 			$currency_project = 1/(float)$valor1btc;  // Tipo de moneda del proyecto
 			
 		} else if($data_project[0]->coin_avr == 'VEF') {
 		
-			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
 			$currency_project = $valor1vef;  // Tipo de moneda del proyecto
 		
 		} else {
 			
-			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
 			$currency_project = $exchangeRates['rates'][$data_project[0]->coin_avr];  // Tipo de moneda del proyecto
+			
+		}
+		
+		if ($this->session->userdata('logged_in')['coin_iso'] == 'BTC') {
+		
+			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			
+		} else if($this->session->userdata('logged_in')['coin_iso'] == 'VEF') {
+		
+			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+		
+		} else {
+			
+			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
 			
 		}
         
@@ -781,8 +792,12 @@ class CProjects extends CI_Controller {
 		}
 		
 		$decimals = 2;
-		if($this->session->userdata('logged_in')['coin_decimals'] != ""){
+		$decimals_user = 2;
+		if($data_project[0]->coin_decimals != ""){
 			$decimals = $data_project[0]->coin_decimals;
+			$decimals_user = $this->session->userdata('logged_in')['coin_decimals'];
+		}
+		if($this->session->userdata('logged_in')['coin_decimals'] != ""){
 			$decimals_user = $this->session->userdata('logged_in')['coin_decimals'];
 		}
 		$symbol = $data_project[0]->coin_symbol;
