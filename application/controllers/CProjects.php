@@ -789,7 +789,11 @@ class CProjects extends CI_Controller {
 		$symbol_user = $this->session->userdata('logged_in')['coin_symbol'];
 		
 		// Cálculo del capital payback (Porcentaje del capital de retorno con respecto al capital invertido)
-		$resumen['capital_payback'] = $resumen['returned_capital']*100/$resumen['capital_invested'];
+		if($resumen['capital_invested'] > 0){
+			$resumen['capital_payback'] = $resumen['returned_capital']*100/$resumen['capital_invested'];
+		}else{
+			$resumen['capital_payback'] = 100;
+		}
 		
 		// Conversión de los montos a la divisa del proyecto
 		//~ $resumen['capital_payback'] *= $currency_project;
