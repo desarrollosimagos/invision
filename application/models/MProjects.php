@@ -172,7 +172,7 @@ class MProjects extends CI_Model {
 		$result = $this->db->where('cond', $condicional);
 		$result = $this->db->where('var2', $variable2);
 		$result = $this->db->where('segment', $segmento);
-        $result = $this->db->get('projects_rules');
+        $result = $this->db->get('project_rules');
         return $result->result();
     }
 
