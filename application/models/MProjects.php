@@ -135,8 +135,8 @@ class MProjects extends CI_Model {
     // Public method to serach the investors associated
     public function buscar_grupos($project_id) {
         $this->db->select('i_g.name');
-		$this->db->from('investor_groups_projects i_g_p');
-		$this->db->join('investor_groups i_g', 'i_g.id = i_g_p.group_id');
+		$this->db->from('investorgroups_projects i_g_p');
+		$this->db->join('investorgroups i_g', 'i_g.id = i_g_p.group_id');
 		$this->db->where('project_id', $project_id);
 		$query = $this->db->get();
 		
@@ -146,9 +146,9 @@ class MProjects extends CI_Model {
     // Public method to serach the investors associated
     public function buscar_inversores($project_id) {
         $this->db->select('i_g.name, u.username, u.name as name_user, u.alias, u.image');
-		$this->db->from('investor_groups i_g');
-		$this->db->join('investor_groups_projects i_g_p', 'i_g_p.group_id = i_g.id');
-		$this->db->join('investor_groups_users i_g_u', 'i_g_u.group_id = i_g.id');
+		$this->db->from('investorgroups i_g');
+		$this->db->join('investorgroups_projects i_g_p', 'i_g_p.group_id = i_g.id');
+		$this->db->join('investorgroups_users i_g_u', 'i_g_u.group_id = i_g.id');
 		$this->db->join('users u', 'u.id = i_g_u.user_id');
 		$this->db->where('i_g_p.project_id', $project_id);
 		$query = $this->db->get();
@@ -200,7 +200,7 @@ class MProjects extends CI_Model {
     public function obtenerProyectoGrupo($id) {
 		
         $this->db->where('project_id', $id);
-        $query = $this->db->get('investor_groups_projects');
+        $query = $this->db->get('investorgroups_projects');
         if ($query->num_rows() > 0)
             return $query->result();
         else
