@@ -15,6 +15,11 @@ class Migration_create_table_project_readings extends CI_Migration
 					"auto_increment" => TRUE,
 					"null" => FALSE
 				),
+				"name" => array(
+					"type" => "VARCHAR",
+					"constraint" => 100,
+					"null" => TRUE
+				),
 				"project_id" => array(
 					"type" => "INT",
 					"constraint" => 11,
