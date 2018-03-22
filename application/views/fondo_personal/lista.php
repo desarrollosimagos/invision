@@ -249,7 +249,7 @@ $(document).ready(function(){
 		var capital_aprobado = 0;
 		
 		// Proceso de cálculo de capital aprobado y pendiente
-		$.post('<?php echo base_url(); ?>resumen/fondos_json', function (fondos) {
+		$.post('<?php echo base_url(); ?>dashboard/fondos_json', function (fondos) {
 			
 			$.each(fondos, function (i) {
 				
