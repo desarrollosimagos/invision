@@ -35,8 +35,8 @@ class CAcciones extends CI_Controller {
 			'class' => $this->input->post('class'),
 			'route' => $this->input->post('route'),
 			'assigned' => 0,
-			'd_create' => date('Y-m-d')." ".date("H:i:s"),
-			'd_update' => date('Y-m-d')." ".date("H:i:s")
+			'd_create' => date('Y-m-d')." ".date("H:i:s")
+			//~ 'd_update' => date('Y-m-d')." ".date("H:i:s")
 		);
 		
         $result = $this->MAcciones->insert($data);
@@ -58,7 +58,17 @@ class CAcciones extends CI_Controller {
 	//Método para actualizar
     public function update() {
 		
-        $result = $this->MAcciones->update($this->input->post());
+		$data = array(
+			'id' => $this->input->post('id'),
+			'name' => $this->input->post('name'),
+			'class' => $this->input->post('class'),
+			'route' => $this->input->post('route'),
+			'assigned' => 0,
+			//~ 'd_create' => date('Y-m-d')." ".date("H:i:s"),
+			'd_update' => date('Y-m-d')." ".date("H:i:s")
+		);
+		
+        $result = $this->MAcciones->update($data);
         if ($result) {
         /*    $this->libreria->generateActivity('Actualizado Grupo de Usuario', $this->session->userdata['logged_in']['id']);*/
      

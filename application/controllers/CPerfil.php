@@ -35,8 +35,8 @@ class CPerfil extends CI_Controller {
         
         $data = array(
 			'name' => $this->input->post('name'),
-			'd_create' => date('Y-m-d H:i:s'),
-			'd_update' => date('Y-m-d H:i:s')
+			'd_create' => date('Y-m-d H:i:s')
+			//~ 'd_update' => date('Y-m-d H:i:s')
 		);
         
         $result = $this->MPerfil->insert($data);
@@ -51,8 +51,8 @@ class CPerfil extends CI_Controller {
 				'profile_id'=>$result, 
 				'action_id'=>$action_class[0]->id, 
 				'parameter_permit'=>'7777',
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			$this->MPerfil->insert_action($data_action);
 			// Asociamos las acciones seleccionadas del combo select
@@ -61,8 +61,8 @@ class CPerfil extends CI_Controller {
 					'profile_id'=>$result, 
 					'action_id'=>$action_id, 
 					'parameter_permit'=>'7777',
-					'd_create' => date('Y-m-d H:i:s'),
-					'd_update' => date('Y-m-d H:i:s')
+					'd_create' => date('Y-m-d H:i:s')
+					//~ 'd_update' => date('Y-m-d H:i:s')
 				);
 				$this->MPerfil->insert_action($data_action);
 			}
@@ -98,7 +98,7 @@ class CPerfil extends CI_Controller {
 		$data = array(
 			'id'=>$this->input->post('id'),
 			'name'=>$this->input->post('name'),
-			'd_create' => date('Y-m-d H:i:s'),
+			//~ 'd_create' => date('Y-m-d H:i:s'),
 			'd_update' => date('Y-m-d H:i:s')
 		);
 		
@@ -119,8 +119,8 @@ class CPerfil extends CI_Controller {
 						'profile_id'=>$data['id'], 
 						'action_id'=>$action_id, 
 						'parameter_permit'=>'7777',
-						'd_create' => date('Y-m-d H:i:s'),
-						'd_update' => date('Y-m-d H:i:s')
+						'd_create' => date('Y-m-d H:i:s')
+						//~ 'd_update' => date('Y-m-d H:i:s')
 					);
 					$this->MPerfil->insert_action($data_action);
 				}
@@ -157,7 +157,7 @@ class CPerfil extends CI_Controller {
 					'profile_id' => $data['id'],
 					'action_id' => $campo['id'],
 					'parameter_permit' => $parameter,
-					'd_create' => date('Y-m-d H:i:s'),
+					//~ 'd_create' => date('Y-m-d H:i:s'),
 					'd_update' => date('Y-m-d H:i:s')
 				);
 				

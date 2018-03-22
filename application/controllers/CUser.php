@@ -51,7 +51,7 @@ class CUser extends CI_Controller {
 			'password' => 'pbkdf2_sha256$12000$' . hash("sha256", $this->input->post('password')),
 			'status' => $this->input->post('status'),
 			'd_create' => date('Y-m-d H:i:s'),
-			'd_update' => date('Y-m-d H:i:s'),
+			//~ 'd_update' => date('Y-m-d H:i:s'),
 
 		);
 		
