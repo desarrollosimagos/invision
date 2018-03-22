@@ -36,8 +36,15 @@ class CFondoPersonal extends CI_Controller {
     public function add() {
 		
 		$fecha = $this->input->post('date');
-		$fecha = explode("/", $fecha);
+		$fecha = explode(" ", $fecha);
+		$fecha = explode("/", $fecha[0]);
 		$fecha = $fecha[2]."-".$fecha[1]."-".$fecha[0];
+		
+		$hora = $this->input->post('date');
+		$hora = explode(" ", $hora);
+		$hora = $hora[1];
+		
+		$fecha = $fecha." ".$hora;
 		
 		if($this->session->userdata('logged_in')['id'] == 1){
 			$user_id = $this->input->post('user_id');
@@ -131,9 +138,16 @@ class CFondoPersonal extends CI_Controller {
 	// Método para actualizar
     public function update() {
 		
-		$fecha = $this->input->post('fecha');
-		$fecha = explode("/", $fecha);
+		$fecha = $this->input->post('date');
+		$fecha = explode(" ", $fecha);
+		$fecha = explode("/", $fecha[0]);
 		$fecha = $fecha[2]."-".$fecha[1]."-".$fecha[0];
+		
+		$hora = $this->input->post('date');
+		$hora = explode(" ", $hora);
+		$hora = $hora[1];
+		
+		$fecha = $fecha." ".$hora;
 		
 		if($this->session->userdata('logged_in')['id'] == 1){
 			$user_id = $this->input->post('user_id');

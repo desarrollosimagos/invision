@@ -18,10 +18,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link href="<?php echo assets_url('css/plugins/select2/select2.min.css');?>" rel="stylesheet">
 	<link href="<?php echo assets_url('js/datatables.net-bs/css/dataTables.bootstrap.css'); ?>" rel="stylesheet" />
     <link rel="stylesheet" href="<?php echo assets_url('css/dataTables.responsive.css'); ?>">
-    <link href="<?php echo assets_url('js/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'); ?>"
+    <link href="<?php echo assets_url('js/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'); ?>" rel="stylesheet">
 	<link href="<?php echo assets_url('css/animate.css');?>" rel="stylesheet">
     <link href="<?php echo assets_url('css/style.css');?>" rel="stylesheet">
 	<link href="<?php echo assets_url('css/plugins/datapicker/datepicker3.css');?>" rel="stylesheet">
+	<link href="<?php echo assets_url('css/plugins/datetimepicker/jquery.datetimepicker.min.css');?>" rel="stylesheet">
 	 <!-- Sweet Alert -->
     <link href="<?php echo assets_url('css/plugins/sweetalert/sweetalert.css');?>" rel="stylesheet">
 	
@@ -51,7 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<!-- Data picker -->
    <script src="<?php echo assets_url('js/plugins/datapicker/bootstrap-datepicker.js');?>"></script>
    <!-- Date range picker -->
-    <script src="<?php echo assets_url('js/plugins/daterangepicker/daterangepicker.js');?>"></script>
+   <!--<script src="<?php echo assets_url('js/plugins/daterangepicker/daterangepicker.js');?>"></script>-->
+   <!-- Date time picker -->
+   <script src="<?php echo assets_url('js/plugins/datetimepicker/jquery.datetimepicker.full.js');?>"></script>
 		<!-- Typehead -->
     <script src="<?php echo assets_url('js/plugins/typehead/bootstrap3-typeahead.min.js');?>"></script>
     

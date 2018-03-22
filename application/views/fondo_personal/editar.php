@@ -75,10 +75,17 @@
 							<div class="col-sm-10">
 								<?php 
 								$fecha = $editar[0]->date;
-								$fecha = explode("-", $fecha);
+								$fecha = explode(" ", $fecha);
+								$fecha = explode("-", $fecha[0]);
 								$fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+								
+								$hora = $editar[0]->date;
+								$hora = explode(" ", $hora);
+								$hora = $hora[1];
+								
+								$fecha = $fecha." ".$hora;
 								?>
-								<input type="text" class="form-control" name="date" maxlength="10" id="date" value="<?php echo $fecha; ?>"/>
+								<input type="text" class="form-control" name="date" maxlength="19" id="date" value="<?php echo $fecha; ?>"/>
 							</div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label" >Descripción</label>
@@ -150,12 +157,17 @@ $(document).ready(function(){
         window.location = url;
     });
     
-    $('#date').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es",
-        autoclose: true,
-        endDate: 'today'
-    })
+    //~ $('#date').datepicker({
+        //~ format: "dd/mm/yyyy",
+        //~ language: "es",
+        //~ autoclose: true,
+        //~ endDate: 'today'
+    //~ })
+    
+    $.datetimepicker.setLocale('es');
+	$('#date').datetimepicker({
+	  format:'d/m/Y H:i:s'
+	});
     
     // Función para la pre-visualización de la imagen a cargar
 	$(function() {
@@ -191,7 +203,7 @@ $(document).ready(function(){
 		var currency_user = coins['rates'][$("#iso_currency_user").val()];  // Tipo de moneda del usuario logueado
 		
 		// Proceso de cálculo de capital aprobado y pendiente
-		$.post('<?php echo base_url(); ?>resumen/fondos_json', function (fondos) {
+		$.post('<?php echo base_url(); ?>dashboard/fondos_json', function (fondos) {
 			
 			$.each(fondos, function (i) {
 				
