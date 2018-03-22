@@ -100,7 +100,7 @@ class MResumen extends CI_Model {
 		
 		$capitalAprobado = 0;
 		
-		$this->db->select('f_p.id, f_p.cuenta_id, f_p.tipo, f_p.monto, f_p.status, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
+		$this->db->select('f_p.id, f_p.cuenta_id, f_p.type, f_p.monto, f_p.status, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
 		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
 		$this->db->join('coins cn', 'cn.id = c.coin_id');

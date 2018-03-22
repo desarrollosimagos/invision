@@ -110,7 +110,7 @@ $(document).ready(function(){
                              type: "success" 
                            },
                            function(){
-                             window.location.href = base_url+'resumen';
+                             window.location.href = base_url+'dashboard';
                          });
                     }
                 }, 'json');
@@ -137,7 +137,7 @@ $(document).ready(function(){
                              type: "success" 
                            },
                            function(){
-                             window.location.href = base_url+'resumen';
+                             window.location.href = base_url+'dashboard';
                          });
                     }
                     
@@ -210,7 +210,7 @@ $(document).ready(function(){
 		var capital_aprobado = 0;
 		
 		// Proceso de carga de capital aprobado
-		$.post(base_url+'resumen/fondos_json', function (fondos) {
+		$.post(base_url+'dashboard/fondos_json', function (fondos) {
 			
 			$.each(fondos, function (i) {
 				
