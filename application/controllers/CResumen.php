@@ -20,6 +20,7 @@ class CResumen extends CI_Controller {
 		$data['cuentas'] = $this->MCuentas->obtener();
 		$data['capital_pendiente'] = $this->MResumen->capitalPendiente();
 		$data['fondo_usuarios'] = $this->fondos_json_users();
+		$data['fondo_resumen'] = $this->fondos_json_resumen();
 		$data['fondo_proyectos'] = $this->fondos_json_projects();
 		$this->load->view('resumen/resumen', $data);
 		
@@ -36,6 +37,103 @@ class CResumen extends CI_Controller {
     {
         $result = $this->MResumen->fondos_json();
         echo json_encode($result);
+    }	
+    
+	public function fondos_json_resumen()
+    {
+        // Obtenemos el valor en dólares de las disitntas divisas
+		$get = file_get_contents("https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664");
+		// Se decodifica la respuesta JSON
+		$exchangeRates = json_decode($get, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		
+		// Valor de 1 btc en dólares
+		$get2 = file_get_contents("https://api.coinmarketcap.com/v1/ticker/");
+		$exchangeRates2 = json_decode($get2, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		$valor1btc = $exchangeRates2[0]['price_usd'];
+		
+		// Valor de 1 dólar en bolívares
+		$get3 = file_get_contents("https://s3.amazonaws.com/dolartoday/data.json");
+		$exchangeRates3 = json_decode($get3, true);
+		// Con el segundo argumento lo decodificamos como un arreglo multidimensional y no como un arreglo de objetos
+		$valor1vef = $exchangeRates3['USD']['transferencia'];
+		
+		if ($this->session->userdata('logged_in')['coin_iso'] == 'BTC') {
+		
+			$currency_user = 1/(float)$valor1btc;  // Tipo de moneda del usuario logueado
+			
+		} else if($this->session->userdata('logged_in')['coin_iso'] == 'VEF') {
+		
+			$currency_user = $valor1vef;  // Tipo de moneda del usuario logueado
+		
+		} else {
+			
+			$currency_user = $exchangeRates['rates'][$this->session->userdata('logged_in')['coin_iso']];  // Tipo de moneda del usuario logueado
+			
+		}
+        
+        $fondos_details = $this->MResumen->fondos_json();  // Listado de fondos pendientes
+		
+		$resumen = array(
+			'pending_entry' => 0,
+			'pending_exit' => 0,
+			'approved_capital' => 0
+		);
+			
+		foreach($fondos_details as $fondo){
+				
+			// Conversión de cada monto a dólares
+			$currency = $fondo->coin_avr;  // Tipo de moneda de la transacción
+			
+			// Si el tipo de moneda de la transacción es Bitcoin (BTC) o Bolívares (VEF) hacemos la conversión usando una api más acorde
+			if ($currency == 'BTC') {
+				
+				$trans_usd = (float)$fondo->monto*(float)$valor1btc;
+				
+			}else if($currency == 'VEF'){
+				
+				$trans_usd = (float)$fondo->monto/(float)$valor1vef;
+				
+			}else{
+				
+				$trans_usd = (float)$fondo->monto/$exchangeRates['rates'][$currency];
+				
+			}
+			
+			if($fondo->status == 'waiting'){
+				if($fondo->type == 'deposit'){
+					$resumen['pending_entry'] += $trans_usd;
+				}else if($fondo->type == 'withdraw'){
+					$resumen['pending_exit'] += $trans_usd;
+				}
+			}
+			if($fondo->status == 'approved'){
+				$resumen['approved_capital'] += $trans_usd;
+			}
+			
+		}
+		
+		$decimals = 2;
+		if($this->session->userdata('logged_in')['coin_decimals'] != ""){
+			$decimals = $this->session->userdata('logged_in')['coin_decimals'];
+		}
+		$symbol = $this->session->userdata('logged_in')['coin_symbol'];
+		
+		// Conversión de los montos a la divisa del usuario
+		$resumen['pending_entry'] *= $currency_user; 
+		$resumen['pending_entry'] = round($resumen['pending_entry'], $decimals);
+		$resumen['pending_entry'] = $resumen['pending_entry']." ".$symbol;
+		
+		$resumen['pending_exit'] *= $currency_user; 
+		$resumen['pending_exit'] = round($resumen['pending_exit'], $decimals);
+		$resumen['pending_exit'] = $resumen['pending_exit']." ".$symbol;
+		
+		$resumen['approved_capital'] *= $currency_user; 
+		$resumen['approved_capital'] = round($resumen['approved_capital'], $decimals);
+		$resumen['approved_capital'] = $resumen['approved_capital']." ".$symbol;
+		
+        return json_decode(json_encode($resumen), false);  // Esto retorna un arreglo de objetos
     }	
     
 	public function fondos_json_users()
