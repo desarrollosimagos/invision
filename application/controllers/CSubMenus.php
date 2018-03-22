@@ -34,8 +34,17 @@ class CSubMenus extends CI_Controller {
 	
 	  //Método para guardar un nuevo registro
     public function add() {
+		
+		// Armamos los datos del nuevo submenú
+		$data_submenu = array(
+			'name'=>$this->input->post('name'),
+			'route'=>$this->input->post('route'),
+			'menu_id'=>$this->input->post('menu_id'),
+			'action_id'=>$this->input->post('action_id'),
+			'd_create' => date('Y-m-d H:i:s')
+		);
 
-        $result = $this->MSubMenus->insert($this->input->post());
+        $result = $this->MSubMenus->insert($data_submenu);
         
         echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método insert()
         
@@ -92,6 +101,14 @@ class CSubMenus extends CI_Controller {
 		$update_action = $this->MAcciones->update_simple($data_action);
 		
 		// Actualizamos los nuevos datos del submenú
+		$data_submenu = array(
+			'id'=>$id_submenu,
+			'name'=>$this->input->post('name'),
+			'route'=>$this->input->post('route'),
+			'menu_id'=>$this->input->post('menu_id'),
+			'action_id'=>$this->input->post('action_id'),
+			'd_update' => date('Y-m-d H:i:s')
+		);
         $result = $this->MSubMenus->update($this->input->post());
         
         if ($result) {			

@@ -44,8 +44,8 @@ class CInvestorGroups extends CI_Controller {
         
         $data = array(
 			'name' => $this->input->post('name'),
-			'd_create' => date('Y-m-d H:i:s'),
-			'd_update' => date('Y-m-d H:i:s')
+			'd_create' => date('Y-m-d H:i:s')
+			//~ 'd_update' => date('Y-m-d H:i:s')
 		);
         
         $result = $this->MInvestorGroups->insert($data);
@@ -59,8 +59,8 @@ class CInvestorGroups extends CI_Controller {
 				$data_project = array(
 					'group_id'=>$result, 
 					'project_id'=>$project_id,
-					'd_create' => date('Y-m-d H:i:s'),
-					'd_update' => date('Y-m-d H:i:s')
+					'd_create' => date('Y-m-d H:i:s')
+					//~ 'd_update' => date('Y-m-d H:i:s')
 				);
 				$this->MInvestorGroups->insert_project($data_project);
 			}
@@ -70,8 +70,8 @@ class CInvestorGroups extends CI_Controller {
 				$data_user = array(
 					'group_id'=>$result, 
 					'user_id'=>$user_id,
-					'd_create' => date('Y-m-d H:i:s'),
-					'd_update' => date('Y-m-d H:i:s')
+					'd_create' => date('Y-m-d H:i:s')
+					//~ 'd_update' => date('Y-m-d H:i:s')
 				);
 				$this->MInvestorGroups->insert_user($data_user);
 			}
@@ -81,8 +81,8 @@ class CInvestorGroups extends CI_Controller {
 				$data_account = array(
 					'group_id'=>$result, 
 					'account_id'=>$account_id,
-					'd_create' => date('Y-m-d H:i:s'),
-					'd_update' => date('Y-m-d H:i:s')
+					'd_create' => date('Y-m-d H:i:s')
+					//~ 'd_update' => date('Y-m-d H:i:s')
 				);
 				$this->MInvestorGroups->insert_account($data_account);
 			}
@@ -142,7 +142,7 @@ class CInvestorGroups extends CI_Controller {
 		$data = array(
 			'id'=>$this->input->post('id'),
 			'name'=>$this->input->post('name'),
-			'd_create' => date('Y-m-d H:i:s'),
+			//~ 'd_create' => date('Y-m-d H:i:s'),
 			'd_update' => date('Y-m-d H:i:s')
 		);
 		
@@ -163,8 +163,8 @@ class CInvestorGroups extends CI_Controller {
 					$data_project = array(
 						'group_id'=>$data['id'], 
 						'project_id'=>$project_id,
-						'd_create' => date('Y-m-d H:i:s'),
-						'd_update' => date('Y-m-d H:i:s')
+						'd_create' => date('Y-m-d H:i:s')
+						//~ 'd_update' => date('Y-m-d H:i:s')
 					);
 					$this->MInvestorGroups->insert_project($data_project);
 				}
@@ -196,8 +196,8 @@ class CInvestorGroups extends CI_Controller {
 					$data_user = array(
 						'group_id'=>$data['id'], 
 						'user_id'=>$user_id,
-						'd_create' => date('Y-m-d H:i:s'),
-						'd_update' => date('Y-m-d H:i:s')
+						'd_create' => date('Y-m-d H:i:s')
+						//~ 'd_update' => date('Y-m-d H:i:s')
 					);
 					$this->MInvestorGroups->insert_user($data_user);
 				}
@@ -229,8 +229,8 @@ class CInvestorGroups extends CI_Controller {
 					$data_account = array(
 						'group_id'=>$data['id'], 
 						'account_id'=>$account_id,
-						'd_create' => date('Y-m-d H:i:s'),
-						'd_update' => date('Y-m-d H:i:s')
+						'd_create' => date('Y-m-d H:i:s')
+						//~ 'd_update' => date('Y-m-d H:i:s')
 					);
 					$this->MInvestorGroups->insert_account($data_account);
 				}

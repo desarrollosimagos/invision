@@ -26,11 +26,11 @@ class Migration_create_table_contracts extends CI_Migration
 					"null" => TRUE
 				),
 				"created_on" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"finished_on" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"payback" => array(

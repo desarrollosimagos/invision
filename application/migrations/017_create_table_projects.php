@@ -47,15 +47,15 @@ class Migration_create_table_projects extends CI_Migration
 					"null" => TRUE
 				),
 				"date" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"date_r" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"date_v" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"public" => array(
@@ -79,7 +79,7 @@ class Migration_create_table_projects extends CI_Migration
 					//~ "null" => TRUE
 				//~ ),
 				"d_create" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"d_update" => array(

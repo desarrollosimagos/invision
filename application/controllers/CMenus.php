@@ -39,7 +39,16 @@ class CMenus extends CI_Controller {
 	// Método para guardar un nuevo registro
     public function add() {
 		
-        $result = $this->MMenus->insert($this->input->post());
+		// Armamos los datos del nuevo menú
+		$data_menu = array(
+			'name'=>$this->input->post('name'),
+			'route'=>$this->input->post('route'),
+			'action_id'=>$this->input->post('action_id'),
+			'logo'=>$this->input->post('logo')
+			'd_create' => date('Y-m-d H:i:s')
+		);
+		
+        $result = $this->MMenus->insert($data_menu);
         
         echo $result;  // No comentar, esta impresión es necesaria para que se ejecute el método insert()
         
@@ -101,7 +110,15 @@ class CMenus extends CI_Controller {
 		}
 		
 		// Actualizamos los nuevos datos del menú
-        $result = $this->MMenus->update($this->input->post());
+		$data_menu = array(
+			'id'=>$id_menu,
+			'name'=>$this->input->post('name'),
+			'route'=>$this->input->post('route'),
+			'action_id'=>$this->input->post('action_id'),
+			'logo'=>$this->input->post('logo')
+			'd_update' => date('Y-m-d H:i:s')
+		);
+        $result = $this->MMenus->update($data_menu);
         
         if ($result) {
 			// Ahora actualizamos la nueva acción (si tiene) y la asignamos 

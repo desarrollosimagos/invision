@@ -24,7 +24,7 @@ class Migration_create_table_user_sessions extends CI_Migration
 					"constraint" => 11
 				),
 				"d_create" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"d_update" => array(

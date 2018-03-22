@@ -26,7 +26,7 @@ class Migration_create_table_project_transactions_relations extends CI_Migration
 					"null" => TRUE
 				),
 				"d_create" => array(
-					"type" => "DATE",
+					"type" => "TIMESTAMP",
 					"null" => TRUE
 				),
 				"d_update" => array(

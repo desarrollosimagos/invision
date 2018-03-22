@@ -36,7 +36,8 @@ class CChangePasswd extends CI_Controller {
 				// Armamos la data a actualizar
 				$data_usuario = array(
 					'id' => $id_user,
-					'password' => $new_passwd
+					'password' => $new_passwd,
+					'd_update' => date('Y-m-d H:i:s')
 				);
 				
 				// Actualizamos el usuario con los datos armados

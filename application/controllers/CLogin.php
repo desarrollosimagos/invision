@@ -155,8 +155,8 @@ Class CLogin extends CI_Controller {
 						'admin' => 1,
 						'password' => 'pbkdf2_sha256$12000$a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',
 						'status' => 1,
-						'd_create' => date('Y-m-d H:i:s'),
-						'd_update' => date('Y-m-d H:i:s')
+						'd_create' => date('Y-m-d H:i:s')
+						//~ 'd_update' => date('Y-m-d H:i:s')
 					);
 					
 					$insert_admin = $this->MUser->insert($data_admin);
@@ -201,8 +201,8 @@ Class CLogin extends CI_Controller {
 							'profile_id' => $perfil->id,
 							'action_id' => 1,
 							'parameter_permit' => '7777',
-							'd_create' => date('Y-m-d H:i:s'),
-							'd_update' => date('Y-m-d H:i:s')
+							'd_create' => date('Y-m-d H:i:s')
+							//~ 'd_update' => date('Y-m-d H:i:s')
 						);
 						
 						$insert_assoc = $this->MPerfil->insert_action($data_assoc);
@@ -228,8 +228,8 @@ Class CLogin extends CI_Controller {
 										'user_id' => 1,
 										'action_id' => $accion->id,
 										'parameter_permit' => '7777',
-										'd_create' => date('Y-m-d H:i:s'),
-										'd_update' => date('Y-m-d H:i:s')
+										'd_create' => date('Y-m-d H:i:s')
+										//~ 'd_update' => date('Y-m-d H:i:s')
 									);
 							
 									$insert_assoc2 = $this->MUser->insert_action($data_assoc2);
@@ -344,8 +344,8 @@ Class CLogin extends CI_Controller {
 				'class' => $data[2],
 				'route' => $data[3],
 				'assigned' => $data[4],
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			
 			$insert_accion = $this->MAcciones->insert($data_accion2);
@@ -372,8 +372,8 @@ Class CLogin extends CI_Controller {
 				'route' => $data[4],
 				'action_id' => $data[5],
 				'position' => $data[6],
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			
 			$insert_menu = $this->MMenus->insert($data_menu);
@@ -400,8 +400,8 @@ Class CLogin extends CI_Controller {
 				'route' => $data[4],
 				'menu_id' => $data[5],
 				'action_id' => $data[6],
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			
 			$insert_submenu = $this->MSubMenus->insert($data_submenu);
@@ -425,8 +425,8 @@ Class CLogin extends CI_Controller {
 				'class' => $data[1],
 				'name' => $data[2],
 				'category' => $data[3],
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			
 			$insert_icon = $this->MMenus->insert_icons($data_icon);
@@ -448,8 +448,8 @@ Class CLogin extends CI_Controller {
 			
 			$data_perfil = array(
 				'name' => $data[1],
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			
 			$insert_perfil = $this->MPerfil->insert($data_perfil);
@@ -474,8 +474,8 @@ Class CLogin extends CI_Controller {
 				'abbreviation' => $data[2],
 				'symbol' => $data[3],
 				'status' => $data[4],
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			
 			$insert_coin = $this->MCoins->insert($data_coin);
@@ -497,8 +497,8 @@ Class CLogin extends CI_Controller {
 			
 			$data_type = array(
 				'name' => $data[1],
-				'd_create' => date('Y-m-d H:i:s'),
-				'd_update' => date('Y-m-d H:i:s')
+				'd_create' => date('Y-m-d H:i:s')
+				//~ 'd_update' => date('Y-m-d H:i:s')
 			);
 			
 			$insert_type = $this->MTiposCuenta->insert($data_type);
