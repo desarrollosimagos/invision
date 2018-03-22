@@ -63,7 +63,7 @@
 						</div>
 						<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_aprobado">
-								
+								<?php echo $fondo_resumen->approved_capital; ?>
 							</span>
 							<div>
 								<small>Capital aprobado</small>
@@ -71,7 +71,7 @@
 						</div>
 						<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_ingreso_pendiente">
-								
+								<?php echo $fondo_resumen->pending_entry; ?>
 							</span>
 							<div>
 								<small>Depósito Pendiente</small>
@@ -79,7 +79,7 @@
 						</div>
 						<div class="col-md-2 forum-info">
 							<span class="views-number" id="span_egreso_pendiente">
-								
+								<?php echo $fondo_resumen->pending_exit; ?>
 							</span>
 							<div>
 								<small>Capital Diferido</small>

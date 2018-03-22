@@ -150,7 +150,7 @@ $(document).ready(function(){
     });
     
     
-    // Proceso de conversión de moneda (captura del equivalente a 1 dólar en las distintas monedas)
+    /*// Proceso de conversión de moneda (captura del equivalente a 1 dólar en las distintas monedas)
     $.post('https://openexchangerates.org/api/latest.json?app_id=65148900f9c2443ab8918accd8c51664', function (coins) {
 		
 		var valor1btc, valor1vef;
@@ -231,8 +231,8 @@ $(document).ready(function(){
 					var trans_usd = parseFloat(fondos[i]['monto'])/parseFloat(coins['rates'][currency]);
 					
 				}
-				//~ alert(trans_usd);
-				//~ console.log("id: "+fondos[i]['id']+" - "+"tipo: "+fondos[i]['tipo']+" - "+"monto: "+fondos[i]['monto']+" - "+trans_usd+" - "+fondos[i]['coin_avr']+" - "+"status: "+fondos[i]['status']);
+				// alert(trans_usd);
+				// console.log("id: "+fondos[i]['id']+" - "+"tipo: "+fondos[i]['tipo']+" - "+"monto: "+fondos[i]['monto']+" - "+trans_usd+" - "+fondos[i]['coin_avr']+" - "+"status: "+fondos[i]['status']);
 				
 				// Sumamos o restamos dependiendo del tipo de transacción (ingreso/egreso)
 				if(fondos[i]['status'] == 'waiting'){
@@ -267,6 +267,6 @@ $(document).ready(function(){
 			
 		}, 'json');
 		
-	}, 'json');
+	}, 'json');*/
 	
 });
