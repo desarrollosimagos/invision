@@ -622,7 +622,18 @@ class CProjects extends CI_Controller {
 						$resumen_user['approved_capital'] += $trans_usd;
 						if($fondo->type == 'deposit'){
 							$resumen_user['capital_invested'] += $trans_usd;
-							$resumen_user['retirement_capital_available'] += $trans_usd;
+							// Ids de los perfiles a los que no se les aplica la regla
+							$global_profiles = array(1, 2);
+							if(!in_array($this->session->userdata('logged_in')['profile_id'], $global_profiles)){
+								// Validación de reglas
+								$variable1 = "projects.type"; $condicional = "="; $variable2 = $data_project[0]->type; $segmento = "deposit";
+								$reglas = $this->MProjects->buscar_rules($variable1, $condicional, $variable2, $segmento);  // Listado de reglas
+								if($reglas[0]->result == "true"){
+									$resumen_user['retirement_capital_available'] += $trans_usd;
+								}
+							}else{
+								$resumen_user['retirement_capital_available'] += $trans_usd;
+							}
 						}else if($fondo->type == 'profit'){
 							$resumen_user['returned_capital'] += $trans_usd;
 							$resumen_user['retirement_capital_available'] += $trans_usd;
@@ -768,10 +779,17 @@ class CProjects extends CI_Controller {
 				if($fondo->type == 'deposit'){
 					$resumen['capital_invested'] += $trans_usd;
 					$resumen['capital_invested_user'] += $trans_usd;
-					// Validación de reglas
-					$variable1 = "projects.type"; $condicional = "="; $variable2 = $data_project[0]->type; $segmento = "deposit";
-					$reglas = $this->MProjects->buscar_rules($variable1, $condicional, $variable2, $segmento);  // Listado de reglas
-					if($reglas[0]->result == "true"){
+					// Ids de los perfiles a los que no se les aplica la regla
+					$global_profiles = array(1, 2);
+					if(!in_array($this->session->userdata('logged_in')['profile_id'], $global_profiles)){
+						// Validación de reglas
+						$variable1 = "projects.type"; $condicional = "="; $variable2 = $data_project[0]->type; $segmento = "deposit";
+						$reglas = $this->MProjects->buscar_rules($variable1, $condicional, $variable2, $segmento);  // Listado de reglas
+						if($reglas[0]->result == "true"){
+							$resumen['retirement_capital_available'] += $trans_usd;
+							$resumen['retirement_capital_available_user'] += $trans_usd;
+						}
+					}else{
 						$resumen['retirement_capital_available'] += $trans_usd;
 						$resumen['retirement_capital_available_user'] += $trans_usd;
 					}
