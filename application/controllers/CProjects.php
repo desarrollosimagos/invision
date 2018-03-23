@@ -613,6 +613,8 @@ class CProjects extends CI_Controller {
 						if($fondo->type == 'deposit'){
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_entry'] += $trans_usd;
+						}else if($fondo->type == 'transfer'){
+							$resumen_user['pending_capital'] += $trans_usd;
 						}else if($fondo->type == 'withdraw'){
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_exit'] += $trans_usd;
@@ -634,6 +636,8 @@ class CProjects extends CI_Controller {
 							}else{
 								$resumen_user['retirement_capital_available'] += $trans_usd;
 							}
+						}else if($fondo->type == 'transfer'){
+							$resumen_user['retirement_capital_available'] += $trans_usd;
 						}else if($fondo->type == 'profit'){
 							$resumen_user['returned_capital'] += $trans_usd;
 							$resumen_user['retirement_capital_available'] += $trans_usd;
@@ -793,6 +797,9 @@ class CProjects extends CI_Controller {
 						$resumen['retirement_capital_available'] += $trans_usd;
 						$resumen['retirement_capital_available_user'] += $trans_usd;
 					}
+				}else if($fondo->type == 'transfer'){
+					$resumen['capital_invested'] += $trans_usd;
+					$resumen['retirement_capital_available'] += $trans_usd;
 				}else if($fondo->type == 'profit'){
 					$resumen['returned_capital'] += $trans_usd;
 					$resumen['returned_capital_user'] += $trans_usd;
