@@ -16,7 +16,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Project detail </h2>
+        <h2><?php echo $ver[0]->name; ?></h2>
         <ol class="breadcrumb">
             <li>
                 <a href="<?php echo base_url() ?>home">Home</a>
@@ -27,7 +27,7 @@
             </li>
            
             <li class="active">
-                <strong>Project detail</strong>
+                <strong><?php echo $ver[0]->name; ?></strong>
             </li>
         </ol>
     </div>
@@ -46,7 +46,7 @@
 							<div class="col-lg-12">
 								<div class="m-b-md">
 									<a href="<?php echo base_url() ?>projects/edit/<?= $ver[0]->id; ?>" class="btn btn-white btn-xs pull-right">Edit project</a>
-									<h2><?php echo $ver[0]->name; ?></h2>
+									<!--<h2><?php echo $ver[0]->name; ?></h2>-->
 								</div>
 								<dl class="dl-horizontal">
 									<dt>Status:</dt> 
