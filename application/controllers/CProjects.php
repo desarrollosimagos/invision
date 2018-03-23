@@ -614,7 +614,7 @@ class CProjects extends CI_Controller {
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_entry'] += $trans_usd;
 						}else if($fondo->type == 'transfer'){
-							$resumen_user['pending_capital'] += $trans_usd;
+							$resumen_user['pending_exit'] += $trans_usd;
 						}else if($fondo->type == 'withdraw'){
 							$resumen_user['pending_capital'] += $trans_usd;
 							$resumen_user['pending_exit'] += $trans_usd;
@@ -750,6 +750,8 @@ class CProjects extends CI_Controller {
 		$resumen = array(
 			'capital_payback' => 0,
 			'capital_invested' => 0,
+			'capital_invested_deposit' => 0,
+			'capital_invested_transfer' => 0,
 			'returned_capital' => 0,
 			'retirement_capital_available' => 0,
 			'capital_payback_user' => 0,
@@ -782,6 +784,7 @@ class CProjects extends CI_Controller {
 				
 				if($fondo->type == 'deposit'){
 					$resumen['capital_invested'] += $trans_usd;
+					$resumen['capital_invested_deposit'] += $trans_usd;
 					$resumen['capital_invested_user'] += $trans_usd;
 					// Ids de los perfiles a los que no se les aplica la regla
 					$global_profiles = array(1, 2);
@@ -799,6 +802,7 @@ class CProjects extends CI_Controller {
 					}
 				}else if($fondo->type == 'transfer'){
 					$resumen['capital_invested'] += $trans_usd;
+					$resumen['capital_invested_transfer'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
 				}else if($fondo->type == 'profit'){
 					$resumen['returned_capital'] += $trans_usd;
@@ -843,6 +847,14 @@ class CProjects extends CI_Controller {
 		$resumen['capital_invested'] *= $currency_project; 
 		$resumen['capital_invested'] = round($resumen['capital_invested'], $decimals);
 		$resumen['capital_invested'] = $resumen['capital_invested']." ".$symbol;
+		
+		$resumen['capital_invested_deposit'] *= $currency_project; 
+		$resumen['capital_invested_deposit'] = round($resumen['capital_invested_deposit'], $decimals);
+		$resumen['capital_invested_deposit'] = $resumen['capital_invested_deposit']." ".$symbol;
+		
+		$resumen['capital_invested_transfer'] *= $currency_project; 
+		$resumen['capital_invested_transfer'] = round($resumen['capital_invested_transfer'], $decimals);
+		$resumen['capital_invested_transfer'] = $resumen['capital_invested_transfer']." ".$symbol;
 		
 		$resumen['returned_capital'] *= $currency_project; 
 		$resumen['returned_capital'] = round($resumen['returned_capital'], $decimals);

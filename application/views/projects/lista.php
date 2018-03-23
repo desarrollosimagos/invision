@@ -189,13 +189,13 @@
 						<td class="project-title">
 							<?php echo $proyecto->coin; ?>
 						</td>
-						<td class="project-people">
+						<!--<td class="project-people">
 							<a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
 							<a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
 							<a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
 							<a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
 							<a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-						</td>
+						</td>-->
 						<td class="project-actions">
 							<a href="<?php echo base_url() ?>projects/view/<?= $proyecto->id; ?>" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
 							<a href="<?php echo base_url() ?>projects/edit/<?= $proyecto->id; ?>" title="Editar" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>

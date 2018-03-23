@@ -402,6 +402,8 @@ class CResumen extends CI_Controller {
 				if($fondo->type == 'deposit'){
 					$resumen['capital_invested'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
+				}else if($fondo->type == 'transfer'){
+					$resumen['retirement_capital_available'] += $trans_usd;
 				}else if($fondo->type == 'profit'){
 					$resumen['returned_capital'] += $trans_usd;
 					$resumen['retirement_capital_available'] += $trans_usd;
@@ -429,7 +431,11 @@ class CResumen extends CI_Controller {
 		$resumen['returned_capital'] = round($resumen['returned_capital'], $decimals);
 		$resumen['returned_capital'] = $resumen['returned_capital']." ".$symbol;
 		
-		$resumen['retirement_capital_available'] *= $currency_user; 
+		// Ahora al capital de retiro disponible se le sumará el capital disponible de la tabla 'transactions'
+		$capital_disponible = $this->MResumen->capitalDisponible();
+		
+		$resumen['retirement_capital_available'] += $capital_disponible[0]->monto;
+		$resumen['retirement_capital_available'] *= $currency_user;
 		$resumen['retirement_capital_available'] = round($resumen['retirement_capital_available'], $decimals);
 		$resumen['retirement_capital_available'] = $resumen['retirement_capital_available']." ".$symbol;
 		

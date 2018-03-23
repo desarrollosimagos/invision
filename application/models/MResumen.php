@@ -25,7 +25,7 @@ class MResumen extends CI_Model {
 			}
 		}
 		
-		$this->db->select('f_p.id, f_p.cuenta_id, f_p.type, f_p.description, f_p.reference, f_p.observation, f_p.monto, f_p.status, u.username as usuario, c.owner, c.alias, c.number, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
+		$this->db->select('f_p.id, f_p.date, f_p.cuenta_id, f_p.type, f_p.description, f_p.reference, f_p.observation, f_p.monto, f_p.status, u.username as usuario, u.name as user_name, c.owner, c.alias, c.number, cn.description as coin, cn.abbreviation as coin_avr, cn.symbol as coin_symbol');
 		$this->db->from('transactions f_p');
 		$this->db->join('users u', 'u.id = f_p.user_id');
 		$this->db->join('accounts c', 'c.id = f_p.cuenta_id');
@@ -34,7 +34,7 @@ class MResumen extends CI_Model {
         if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
 			$this->db->where_in('f_p.user_id', $ids);
 		}
-		$this->db->order_by("f_p.id", "desc");
+		$this->db->order_by("f_p.date", "desc");
         $query = $this->db->get();
         //~ $query = $this->db->get('transactions');
 
@@ -54,6 +54,24 @@ class MResumen extends CI_Model {
 		}else{
 			$this->db->select_sum('monto');
 			$this->db->where('status', 'waiting');			
+		}
+        $query = $this->db->get('transactions');
+        if ($query->num_rows() > 0)
+            return $query->result();
+        else
+            return $query->result();
+            
+    }
+
+    // Public method to obtain the transactions by id
+    public function capitalDisponible() {
+		if($this->session->userdata('logged_in')['profile_id'] != 1 && $this->session->userdata('logged_in')['profile_id'] != 2){
+			$this->db->select_sum('monto');
+			$this->db->where('status', 'approved');
+			$this->db->where('user_id', $this->session->userdata('logged_in')['id']);
+		}else{
+			$this->db->select_sum('monto');
+			$this->db->where('status', 'approved');			
 		}
         $query = $this->db->get('transactions');
         if ($query->num_rows() > 0)
