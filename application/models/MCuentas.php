@@ -17,7 +17,7 @@ class MCuentas extends CI_Model {
 		
 		$select = 'f_p.id, f_p.owner, f_p.alias, f_p.number, f_p.type, f_p.description, f_p.amount, f_p.status, ';
 		$select .= 'u.username as usuario, c.description as coin, c.abbreviation as coin_avr, c.symbol as coin_symbol, ';
-		$select .= 't_c.name as tipo_cuenta';
+		$select .= 'c.decimals as coin_decimals, t_c.name as tipo_cuenta';
 		
 		$this->db->select($select);
 		$this->db->from('accounts f_p');

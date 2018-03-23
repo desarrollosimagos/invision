@@ -137,7 +137,7 @@
 			</div>
 			<?php } ?>
 
-			<table id="tab_accounts"  data-page-size="8" data-filter=#filter class="footable table table-stripped toggle-arrow-tiny">
+			<table id="tab_accounts"  data-page-size="50" data-filter=#filter class="footable table table-stripped toggle-arrow-tiny">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -145,8 +145,8 @@
 						<th >Número</th>
 						<th data-hide="phone,tablet" >Tipo</th>
 						<th data-hide="phone,tablet" >Monto</th>
-						<th data-hide="phone,tablet" >Estatus</th>
 						<th data-hide="phone,tablet">Descripción</th>
+						<th data-hide="phone,tablet" >Estatus</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -166,7 +166,11 @@
 								<?php echo $cuenta->tipo_cuenta; ?>
 							</td>
 							<td>
-								<?php echo $cuenta->amount."  ".$cuenta->coin_symbol."  (".$cuenta->coin_avr.")"; ?>
+								<?php $monto = number_format($cuenta->amount, $cuenta->coin_decimals, '.', ''); ?>
+								<?php echo $monto ?>
+							</td>
+							<td>
+								<?php echo $cuenta->description; ?>
 							</td>
 							<td>
 								<?php
@@ -178,9 +182,6 @@
 									echo "";
 								}
 								?>
-							</td>
-							<td>
-								<?php echo $cuenta->description; ?>
 							</td>
 						</tr>
 						<?php $i++ ?>
@@ -237,13 +238,13 @@
 
 			<?php //~ print_r($fondo_usuarios);	?>
 			<!--<table id="tab_transactions" data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">-->
-			<table id="tab_transactions_user" data-page-size="8" data-filter=#filter2 class="footable table table-stripped toggle-arrow-tiny">
+			<table id="tab_transactions_user" data-page-size="50" data-filter=#filter2 class="footable table table-stripped toggle-arrow-tiny">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th data-hide="phone,tablet" >Nombre</th>
 						<th data-hide="phone,tablet" >Alias</th>
-						<th >Usuario</th>
+						<!--<th >Usuario</th>-->
 						<!--<th data-breakpoints="phone,tablet" >Capital Pendiente</th>-->
 						<th data-hide="phone,tablet" >Capital Invertido</th>
 						<th data-hide="phone,tablet" >Capital Retornado</th>
@@ -265,10 +266,10 @@
 							<td>
 								<?php echo $fondo->alias; ?>
 							</td>
-							<td>
-								<?php echo $fondo->username; ?>
-							</td>
 							<!--<td>
+								<?php //echo $fondo->username; ?>
+							</td>
+							<td>
 								<?php //echo $fondo->pending_capital; ?>
 							</td>-->
 							<td>
@@ -332,18 +333,21 @@
 			<?php } ?>
 
 			<!--<table id="tab_transactions" <?php if(in_array($this->session->userdata('logged_in')['profile_id'], $filter_profile)){ echo "data-filtering='true'"; } ?> data-paging="true" class="table table-striped table-bordered dt-responsive table-hover footable toggle-arrow-tiny">-->
-			<table id="tab_transactions" data-page-size="8" data-filter=#filter3 class="footable table table-stripped toggle-arrow-tiny">
+			<table id="tab_transactions" data-page-size="50" data-filter=#filter3 class="footable table table-stripped toggle-arrow-tiny">
 				<thead>
 					<tr>
 						<th>#</th>
+						<th data-hide="phone,tablet" >Fecha</th>
 						<th >Usuario</th>
 						<th data-hide="phone,tablet" >Tipo</th>
 						<th data-hide="phone,tablet" >Monto</th>
-						<th data-hide="phone,tablet" >Estatus</th>
+						<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 2){ ?>
 						<th data-hide="phone,tablet" >Cuenta</th>
+						<?php } ?>
 						<th data-hide="phone,tablet" >Descripción</th>
 						<th data-hide="phone,tablet" >Referencia</th>
 						<th data-hide="phone,tablet" >Observaciones</th>
+						<th data-hide="phone,tablet" >Estatus</th>
 						<!--<th>Validar</th>-->
 					</tr>
 				</thead>
@@ -355,7 +359,10 @@
 								<?php echo $i; ?>
 							</td>
 							<td>
-								<?php echo $fondo->usuario; ?>
+								<?php echo $fondo->date; ?>
+							</td>
+							<td>
+								<?php echo $fondo->user_name; ?>
 							</td>
 							<td>
 								<?php
@@ -369,7 +376,21 @@
 								?>
 							</td>
 							<td>
-								<?php echo $fondo->monto."  ".$fondo->coin_symbol."  (".$fondo->coin_avr.")"; ?>
+								<?php echo $fondo->monto."  ".$fondo->coin_symbol; ?>
+							</td>
+							<?php if($this->session->userdata('logged_in')['profile_id'] == 1 || $this->session->userdata('logged_in')['profile_id'] == 2){ ?>
+							<td>
+								<?php echo $fondo->alias." - ".$fondo->number; ?>
+							</td>
+							<?php } ?>
+							<td>
+								<?php echo $fondo->description; ?>
+							</td>
+							<td>
+								<?php echo $fondo->reference; ?>
+							</td>
+							<td>
+								<?php echo $fondo->observation; ?>
 							</td>
 							<td>
 								<?php
@@ -381,18 +402,6 @@
 									echo "<span style='color:#D33333;'>Denegado</span>";
 								}
 								?>
-							</td>
-							<td>
-								<?php echo $fondo->alias." - ".$fondo->number; ?>
-							</td>
-							<td>
-								<?php echo $fondo->description; ?>
-							</td>
-							<td>
-								<?php echo $fondo->reference; ?>
-							</td>
-							<td>
-								<?php echo $fondo->observation; ?>
 							</td>
 							<!--<td style='text-align: center'>
 								<?php

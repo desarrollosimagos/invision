@@ -162,6 +162,16 @@
 											}
 											?>
 											</small>
+											<!--<small>
+											<?php
+											echo "<br>Depósito: ".$project_transactions_gen->capital_invested_deposit;
+											?>
+											</small>
+											<small>
+											<?php
+											echo "Transferencia: ".$project_transactions_gen->capital_invested_transfer;
+											?>
+											</small>-->
 										</div>
 									</div>
 								</div>
