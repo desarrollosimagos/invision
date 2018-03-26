@@ -130,6 +130,10 @@ $route['possibilities'] = 'Welcome/possibilities';
 $route['investments'] = 'Welcome/investments';
 $route['contacts'] = 'Welcome/contacts';
 
+/*   Bitácora */
+$route['bitacora'] = 'CBitacora/index';
+$route['bitacora/fondos_json'] = 'CBitacora/ajax_bitacora';
+
 
 /*   Migraciones */
 $route['migrar'] = 'CMigrations';
