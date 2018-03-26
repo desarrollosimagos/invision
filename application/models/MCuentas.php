@@ -76,7 +76,7 @@ class MCuentas extends CI_Model {
     public function obtenerCuentaGrupos($id) {
 		
         $this->db->where('account_id', $id);
-        $query = $this->db->get('investor_groups_accounts');
+        $query = $this->db->get('investorgroups_accounts');
         if ($query->num_rows() > 0)
             return $query->result();
         else
