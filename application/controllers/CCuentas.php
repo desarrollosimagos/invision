@@ -12,6 +12,7 @@ class CCuentas extends CI_Controller {
         $this->load->model('MCuentas');
         $this->load->model('MCoins');
         $this->load->model('MTiposCuenta');
+        $this->load->model('MBitacora');
 		
     }
 	
@@ -51,6 +52,33 @@ class CCuentas extends CI_Controller {
         $result = $this->MCuentas->insert($datos);
         
         if ($result) {
+			
+			// Guardamos el registro en la bitácora
+			
+			$ipvisitante = $_SERVER["REMOTE_ADDR"];
+			
+			$detail[0] = array(
+				'model' => 'accounts',
+				'controller' => $this->router->class,
+				'method' => $this->router->method,
+				'data' => $datos,
+			);
+			
+			//~ $detail = json_decode( json_encode( $detail ), true );
+			$detail = json_encode( $detail );
+			
+			//~ print_r($detail);
+			
+			$bitacora = array(
+				'date' => date('Y-m-d H:i:s'),
+				'ip' => $ipvisitante,
+				'user_id' => $this->session->userdata('logged_in')['id'],
+				'detail' => $detail
+			);
+			
+			//~ print_r($bitacora);
+			
+			$insert_bitacora = $this->MBitacora->insert($bitacora);
 
 			echo '{"response":"ok"}';
        
@@ -94,6 +122,33 @@ class CCuentas extends CI_Controller {
         
         if ($result) {
 			
+			// Guardamos la actualización en la bitácora
+			
+			$ipvisitante = $_SERVER["REMOTE_ADDR"];
+			
+			$detail[0] = array(
+				'model' => 'accounts',
+				'controller' => $this->router->class,
+				'method' => $this->router->method,
+				'data' => $datos,
+			);
+			
+			//~ $detail = json_decode( json_encode( $detail ), true );
+			$detail = json_encode( $detail );
+			
+			//~ print_r($detail);
+			
+			$bitacora = array(
+				'date' => date('Y-m-d H:i:s'),
+				'ip' => $ipvisitante,
+				'user_id' => $this->session->userdata('logged_in')['id'],
+				'detail' => $detail
+			);
+			
+			//~ print_r($bitacora);
+			
+			$insert_bitacora = $this->MBitacora->insert($bitacora);
+			
 			echo '{"response":"ok"}';
 			
         }else{
@@ -125,6 +180,33 @@ class CCuentas extends CI_Controller {
 			$result = $this->MCuentas->delete($id);
 			
 			if($result){
+				
+				// Guardamos la actualización en la bitácora
+			
+			$ipvisitante = $_SERVER["REMOTE_ADDR"];
+			
+			$detail[0] = array(
+				'model' => 'accounts',
+				'controller' => $this->router->class,
+				'method' => $this->router->method,
+				'data' => array("id" => $id, "user_id" => $this->session->userdata('logged_in')['id']),
+			);
+			
+			//~ $detail = json_decode( json_encode( $detail ), true );
+			$detail = json_encode( $detail );
+			
+			//~ print_r($detail);
+			
+			$bitacora = array(
+				'date' => date('Y-m-d H:i:s'),
+				'ip' => $ipvisitante,
+				'user_id' => $this->session->userdata('logged_in')['id'],
+				'detail' => $detail
+			);
+			
+			//~ print_r($bitacora);
+			
+			$insert_bitacora = $this->MBitacora->insert($bitacora);
 				
 				echo '{"response":"ok"}';
 				
